@@ -1,0 +1,355 @@
+# Singular Value Decomposition
+
+## Singular Vectors
+
+::: {#def-1stSingularVec}
+## First right singular vector
+The first right singular vector $v_1$ of $X \in \mathbb{R}^{n \times d}$ is defined as:
+$v_1 \in \mathbb{R}^d$, and $v_1 = \text{argmax}_{\|v\|_2=1} \|Xv\|_2$ and the first singular value is $\sigma_1 = \|Xv_1\|_2$ 
+:::
+
+:::{#prp-equivSingular}
+@def-1stSingularVec is equivalent as 
+$$
+v_1 = \underset{\|v\|_2=1}{\mathrm{argmin}} \sum_{j=1}^{n} \|x_j - P_{v_1}(x_j)\|_2^2,
+$$
+where $P_{v_1}(x_j)$ is the projected vector of $x_j$ in the subspace spanned by $v_1$. Here, we have
+$$
+X \in \mathbb{R}^{n \times d} = 
+\begin{pmatrix} -x_1^T- \\ -x_2^T- \\ \vdots \\ -x_n^T- \end{pmatrix}
+$$
+:::
+
+::: {.proof}
+$$
+\begin{align}
+\sum_{j} \|x_j - P_{v}(x_j)\|_2^2 &= \sum_{ij}\left(x_{i,j}-\langle\mathbf{v}, \mathbf{x}_j\rangle v_i\right)^2 \\
+&=\sum_{ij}x^2_{i, j} + \langle\mathbf{v}, \mathbf{x}_j\rangle v_i^2 - 2x_{i,j}v_i\langle\mathbf{v}, \mathbf{x}_j \rangle\\
+&=\sum_{ij}x^2_{i,j} + \sum_j\left(\langle\mathbf{v},\mathbf{x}_j\rangle ^2 -2\langle\mathbf{v},\mathbf{x}_j\rangle^2\right)\\
+&=C - \sum_j\langle\mathbf{v},\mathbf{x}_j\rangle^2=C-\|X\mathbf{v}\|^2_2
+\end{align}
+$$ 
+where $C$ is a constant. Thus we have the 
+$$
+\underset{\|v\|_2=1}{\mathrm{argmin}} \sum_{j=1}^{n} \|x_j - P_{v_1}(x_j)\|_2^2 = \underset{\|v\|_2=1}{\mathrm{argmax}} \|Xv\|_2^2
+$$
+:::
+
+::: {.callout-note}
+@prp-equivSingular shows that the first singular vector can be understood as a line that minimizes least square error of projected data, i.e., a best fitting line.
+:::
+
+Next, we continue to define the second singular vector.
+
+
+::: {#def-2ndSingularVec}
+## Second Singular Vector
+The second right singular vector $v_2 \in \mathbb{R}^d$ is defined as
+$$
+v_2 = \underset{{v \perp v_1, \|v\|_2=1}}{\mathrm{argmin}} \|Xv\|_2,
+$$
+and second singular value defined correspondingly as
+$$
+\sigma_2 = \|Xv_2\|_2
+$$
+::: 
+<!---
+Remark: $v_1$ and $v_2$ form the best fitting subspace (2-dimensional) that minimizes projected least square error.
+-->
+
+::: {#prp-best2dSubspace}
+## Best-Fitting 2D Subspace
+
+Let $v_1, v_2$ be the first and second right singular vectors of $X \in \mathbb{R}^{n \times d}$. Let $V = \text{span}(v_1, v_2) \subseteq \mathbb{R}^d$ be the two-dimensional subspace they span.
+
+Then $V$ is the solution to the following minimization:
+$$
+V = \underset{W:\,\dim(W)=2}{\mathrm{argmin}} \sum_{j=1}^{n} \|x_j - P_W(x_j)\|_2^2
+$$
+where $P_W:\mathbb{R}^d\rightarrow\mathbb{R}^2$ is the orthogonal projection onto the subspace $W$.
+:::
+
+::: {.proof}
+Let $w_1, w_2$ be two orthonormal bases for any 2-dimensional subspace $W$. We can always select $w_2$ s.t. $\langle w_2,v_1 \rangle = 0$ (such $w_2$ can be found by the intersection between $W$ and subspace that perpendicular to $v_1$). 
+
+**A figure perhaps showing the constructiong of w1 and w2**
+$$
+\begin{align}
+&\sum_j \|x_j - \langle P_W(x_j)\rangle\|_2^2 = \sum_j \langle x_j-P_W(x_j), x_j-P_W(x_j) \rangle\\ 
+={}&\sum_j\langle x_j - P_w(x_j), x_j\rangle + \sum_j\langle x_j - P_W(x_j), -P_W(x_j)\rangle\\
+={}&\sum_j\|x_j\|^2_2 - 2\sum_j\langle P_W(x_j), x_j\rangle + \|P_W(x_j)\|^2_2\\
+\end{align}.
+$$
+Noticed that
+$$
+\begin{align}
+\langle P_W(x_j), x_j \rangle &= \langle w_1\langle w_1, x_j\rangle + w_2\langle w_2, x_j\rangle, x_j\rangle\\
+& = \langle w_1, x_j\rangle^2 + \langle w_2, x_j\rangle^2=\|P_W(x_j)\|^2_2,
+\end{align}
+$$
+thus 
+$$
+\sum_j\|x_j - P_W(x_j)\|^2_2 = C - (\sum_j \langle w_1, x_j \rangle^2 + \langle w_2, x_j \rangle^2),
+$$
+where 
+$$
+C = \sum_{j=1}^n \| x_j \|_2^2
+$$
+is a constant.
+
+Since $v_1$ maximizes $\|Xv\|_2^2$ among all $\|v\|_2=1$ , and $v_2$ maximizes $\|Xv\|_2^2$ among $v \perp v_1$ and $\|v\|_2=1, thus
+$$
+\sum_j\langle w_1,x_j\rangle\leq sum_j\langle v_1, x_j\rangle, \sum_j\langle w_2, x_j\rangle \leq \langle v_2, x_j\rangle
+$$
+and thus $V$ minimize $\|x_j-P_W(x_j)\|^2_2$ among all 2-dim subspace.
+
+::: {.callout-note}
+@prp-best2dSubspace meaning that the $v_1$ and $v_2$ we constructed form the best fitting subspace (2-dimensional) that minimizes projected least square error.
+:::
+
+**Posible code example for demonstrating the best fitting sub space**
+
+::: {#def-rSingularVec}
+## r-right Singular Vector
+
+The leading $r$ right singular vectors $v_1, \dots, v_r \in \mathbb{R}^d$ are defined as: 
+
+$$
+v_k := \underset{
+  \substack{
+  \|v\|_2=1,\, \\ v \perp \text{span}\{v_1, \dots, v_{k-1}\}
+  }
+  }{\mathrm{argmax}}{} \|Xv\|_2
+$$
+
+with the corresponding singular values as $\sigma_k = \|Xv_k\|_2$.
+:::
+
+::: {#prp-bestRSubspace}
+## Greedy construction for best-fit subspace
+
+Let $v_1, \dots, v_r$ be the leading right singular vectors constructed by @def-rSingularVec, and $V = \mathrm{span}(v_1, \dots, v_r) \subset \mathbb{R}^d$ be the subspace spanned by them. Then 
+$$
+V \in \underset{
+  \substack{W\subseteq \mathbb{R}^d \\ \mathrm{dim}(W) = r \\ \text{linear subspace}}
+}{\mathrm{argmin}}\sum_j \|x_j - P_W(x_j)\|_2^2
+$$
+i.e., $V$ is the best-fit linear subspace in terms of least square error.
+:::
+
+::: {#rem-bestRsubspace}
+* @prp-bestRSubspace can be proved similarly as in the 2 dimensional case (@prp-best2dSubspace).
+* @prp-bestRSubspace shows that the greedy construction of r-right singularvectors formed a best-fit subspace in terms of least square error.
+:::
+
+## Singular Value Decomposition
+
+:::{#thm-SVD}
+## Singular Value Decomposition (SVD)
+For any matrix $X \in \mathbb{R}^{n \times d}$, there exist orthogonal matrices $U \in \mathbb{R}^{n \times n}$ and $V \in \mathbb{R}^{d \times d}$ and a non-negative diagonal matrix $\Sigma \in \mathbb{R}^{n \times d}$ such that
+
+$$
+X_{n \times d} = U_{n \times n}\, \Sigma_{n \times d}\, V_{d \times d}^T
+$$
+:::
+
+:::{#rem-SVD}
+- The diagonals of $\Sigma$, arranged in non-increasing order, are the singular values defined in @prp-bestRSubspace.
+- Columns of $U$ are the left singular vectors of $X$.
+- The left singular vectors $u_i := \frac{1}{\sigma_i} X v_i$, where $\sigma_i$ is the $i$-th diagonal element of $\Sigma$.
+- Columns of $V$ are the right singular vectors of $X$ defined in @prp-bestRSubspace.
+- SVD can be viewed as 'generalized diagonolization' of an arbitrary matrix.
+:::
+
+The existence of SVD can be shown as follow
+
+
+:::{#prf-SVD}
+Let $X \in \mathbb{R}^{n \times d}$ and $C = X^T X \in \mathbb{R}^{d \times d}$, then $C$ is symmetric and positive semidefinite. Let the orthogonal decomposition of $C$ be:
+$$
+C = V \Lambda V^T,
+$$
+where $V^T V = I$ and $\Lambda = \mathrm{diag}(\lambda_1, \lambda_2, \dots, \lambda_d), \lambda_i \geq 0 ,\forall i\in\{1, 2, \cdots, d\}$.
+
+Consider $\Sigma \in \mathbb{R}^{n \times d}$ such that $\Sigma^T \Sigma = \Lambda$. If $\mathrm{rank}(X) = r \leq d$, we can arrange the diagonal element of $\Lambda$ s.t. $\lambda_1\geq\lambda_2\cdots\lambda_r\geq0,\lambda_{r+1} = \cdots=\lambda_d=0$. Then
+$$
+\Sigma = \begin{pmatrix}
+\mathrm{diag}(\sqrt{\lambda_1},\cdots,\sqrt{\lambda_r}) & 0\\
+0 & 0
+\end{pmatrix}
+$$
+
+We define the left singular vector $u_i$ as:
+$$
+u_i := \frac{1}{\sigma_i} X v_i,\quad i = 1, \dots, r.
+$$
+Then $u_i$ are orthonormal:
+$$
+u_i^T u_j = \frac{1}{\sigma_i \sigma_j} v_i^T X^T X v_j = \frac{1}{\sigma_i \sigma_j} v_i^T C v_j = \frac{1}{\sigma_i \sigma_j} \lambda_j \delta_{ij} = \delta_{ij}.
+$$
+We can then extend $u_{r+1}, \dots, u_n$ such that $U = [u_1\,|\,u_2\,|\,\dots\,|\,u_n] \in \mathbb{R}^{n\times n}$ is orthogonal.  
+Thus, we have $\sigma_i u_i = X v_i$ for $i=1,\ldots, r$ and $X v_i = 0$ for $i > r$, which gives $X = U \Sigma V^T$.
+:::::
+
+:::::{.remark #rem-svd-complex}
+This proof can be extended to $X \in \mathbb{C}^{n \times d}$ with unitary matrices $U$ and $V$.
+:::::
+
+## Greedy Construction and SVD
+
+:::::{.proposition #prp-svd-greedy}
+The SVD of $X = U \Sigma V^T$ is the same as the greedy construction; i.e., $V$ and $\Sigma$ are right singular vectors and singular values constructed by the greedy definitions.
+:::::
+
+:::::{.proof #prf-svd-greedy}
+Let $v_1' := \mathrm{argmax}_{\|v\|_2=1} \|Xv\|_2$ be the first right singular vector.  
+Write $X = U \Sigma V^T$ where $V = [v_1, \dots, v_d] \in \mathbb{R}^{d \times d}$ and $v_i^T v_j = \delta_{ij}$.  
+Then:
+$$
+\|Xv\|_2 = \|U \Sigma V^T v\|_2 = \|\Sigma V^T v\|_2
+$$
+Let $z = V^T v$, then $\|z\|_2 = 1$ since $V$ is orthogonal and $\|v\|_2 = 1$.  
+So
+$$
+\|Xv\|_2 = \|\Sigma z\|_2 = \sqrt{\sum_{i} (\sigma_i z_i)^2}
+$$
+Suppose $\sigma_1 \geq \sigma_2 \geq \dots \geq \sigma_r$. Notice
+$$
+\sum \sigma_i^2 z_i^2 \leq \sigma_1^2 \left(\sum z_i^2\right) = \sigma_1^2
+$$
+Equality is attained when $z_1 = 1$ $\Rightarrow v = v_1 \Rightarrow v_1' = v_1$.
+
+Next, $v_2' := \mathrm{argmax}_{\|v\|_2=1,\, v \perp v_1} \|Xv\|_2$. We proceed similarly, but now $z_1 = 0$ (since $v \perp v_1$).  
+Then
+$$
+\|Xv\|_2 = \sqrt{\sum_{i=2} (\sigma_i z_i)^2} \leq \sigma_2
+$$
+Equality when $z_2 = 1 \Rightarrow v_2' = v_2$.  
+Similarly, we find all $v_i$ by the greedy construction.
+:::::
+
+
+## Skinny SVD and Full SVD
+
+**Full SVD:**  
+$$
+X_{n \times d} = U_{n \times n} \Sigma_{n \times d} V_{d \times d}^T
+$$
+where $\mathrm{rank}(X) = r \leq \min(n, d)$.  
+Notice $(\sigma_{r+1}, \dots, \sigma_{\min(d,n)}) = 0$.
+
+**Truncated SVD (Skinny SVD):**  
+Let
+- $U_r := [u_1, \dots, u_r] \in \mathbb{R}^{n \times r}$
+- $V_r := [v_1, \dots, v_r] \in \mathbb{R}^{d \times r}$
+- $\Sigma_r = \mathrm{diag}(\sigma_1, \dots, \sigma_r)$
+
+then
+$$
+X_{n \times d} = U_r \Sigma_r V_r^T = \sum_{i=1}^{r} \sigma_i u_i v_i^T
+$$
+
+## Computing SVD: The Power Method
+
+<!---
+
+PAGE 4
+
+Proof of Existence: Let $X \in \mathbb{R}^{n \times d}$ and $C = X^T X \in \mathbb{R}^{d \times d}$, then $C$ is symmetric, positive semidefinite. Let the orthogonal decomposition of $C$ be:
+$C = V \Lambda V^T$, where $V^T V = I$ and $\Lambda = \text{diag}(\lambda_1, \lambda_2, \dots, \lambda_d)$.
+Consider $\Sigma \in \mathbb{R}^{n \times d}$ s.t. $\Sigma^T \Sigma = \Lambda$. If $\text{rank}(X) = r \le d$, we can arrange $\sigma_1 \ge \sigma_2 \dots \ge \sigma_r > 0$.
+We define the left singular vector $u_i$ as:
+$u_i := \frac{1}{\sigma_i} X v_i; i = 1, \dots, r$. Then $u_i$ are orthonormal:
+$u_i^T u_j = \frac{1}{\sigma_i \sigma_j} v_i^T X^T X v_j = \frac{1}{\sigma_i \sigma_j} v_i^T C v_j = \frac{1}{\sigma_i \sigma_j} \lambda_j \delta_{ij} = \delta_{ij}$.
+We can then extend $u_{r+1}, \dots, u_n$ s.t. $U = [u_1 | u_2 | [cite_start]\dots | u_n] \in \mathbb{R}^{n \times n}$ is orthogonal.
+Thus we have $\sigma_i u_i = X v_i$ for $i = 1, \dots, r$ and $X v_i = 0$ for $i > r$, which gives $X = U \Sigma V^T$.
+
+Remark: This proof can be extended to $X \in \mathbb{C}^{n \times d}$ with unitary matrices $U$ and $V$.
+
+Prop: The SVD of $X = U \Sigma V^T$ is the same as the greedy construction.
+i.e., $V$ and $\Sigma$ are right singular vectors and singular values constructed by greedy definitions.
+
+PAGE 5
+
+Proof: Let $v_1' := \text{argmax}_{\|v\|_2=1} \|Xv\|_2$ be the first right singular vector.
+$X = U \Sigma V^T$ where $V = [v_1, \dots, v_d] \in \mathbb{R}^{d \times d}$ and $v_i^T v_j = \delta_{ij}$.
+$\|Xv\|_2 = \|U \Sigma V^T v\|_2 = \sqrt{v^T V \Sigma^T U^T U \Sigma V^T v} = \|\Sigma V^T v\|_2$.
+Let $z = V^T v$, then $\|z\|_2 = 1$ since $V$ is orthogonal and $\|v\|_2 = 1$.
+$\|Xv\|_2 = \|\Sigma z\|_2 = \sqrt{\sum_{i} (\sigma_i z_i)^2}$.
+Suppose $\sigma_1 \ge \sigma_2 \ge \dots \ge \sigma_r$.
+Notice $\sum \sigma_i^2 z_i^2 \le \sigma_1^2 (\sum z_i^2) = \sigma_1^2$.
+Equality attained when $z_1 = 1 \Rightarrow v = v_1 \Rightarrow v_1' = v_1$.
+Next, $v_2' := \text{argmax}_{\|v\|_2=1, v \perp v_1} \|Xv\|_2$. We have a similar procedure but with $z_1 = 0$ (since $v \perp v_1$).
+$\|Xv\|_2 = \sqrt{\sum_{i=2} (\sigma_i z_i)^2} \le \sqrt{\sigma_2^2}$.
+When $z_2 = 1 \Rightarrow v_2' = v_2$.
+Similarly, we can find all $v_i$ are the same as the greedy construction.
+
+Skinny SVD Full SVD: $X_{n \times d} = U_{n \times n} \Sigma_{n \times d} V_{d \times d}^T$.
+$\text{rank}(X) = r \le \min(d, n)$.
+Notice that $(\sigma_{r+1}, \dots, \sigma_{\min(d,n)}) = 0$.
+Truncated: $U_r := [u_1, \dots, u_r] \in \mathbb{R}^{n \times r}$, $V_r := [v_1, \dots, v_r] \in \mathbb{R}^{d \times r}$, $\Sigma_r = \text{diag}(\sigma_1, \dots, \sigma_r)$.
+$X_{n \times d} = U_r \Sigma_r V_r^T = \sum_{i=1}^{r} \sigma_i u_i v_i^T$.
+
+--->
+PAGE 6
+
+Computing SVD Power Method Idea: let $C = X^T X \in \mathbb{R}^{d \times d}$, $C = V \Lambda V^T = \sum_{i=1}^{r} \sigma_i^2 v_i v_i^T$.
+$C^k = \sum_{i=1}^{r} \sigma_i^{2k} v_i v_i^T$.
+If $\sigma_1 > \sigma_2$, then for $k$ large enough:
+$\sigma_1^{2k} \gg \sigma_i^{2k} \Rightarrow C^k \approx \sigma_1^{2k} v_1 v_1^T$.Linear rate of convergence: To check the convergence rate, we check $\min \{ \|v^{(k)} - v_1\|_2^2, \|v^{(k)} + v_1\|_2^2 \} = 2 - 2|\langle v^{(k)}, v_1 \rangle|$.
+$v^{(k)} = \frac{C^k q}{\|C^k q\|_2}$ where $q = \sum c_i v_i$.
+$\frac{1 - |\langle v^{(k)}, v_1 \rangle|^2}{|\langle v^{(k)}, v_1 \rangle|^2} \le (d-1) \frac{\sigma_2^{4k}}{\sigma_1^{4k} c_1^2} \rightarrow$ linear convergence when $\sigma_2 < \sigma_1$.
+Computing $C^k$ is costly; instead, each step only needs matrix-vector multiplication (efficient when one dim of $X$ is small or $X$ is sparse).
+
+PAGE 7
+
+$v^{(k)} := \frac{C v^{(k-1)}}{\|C v^{(k-1)}\|_2}$.
+Expanding in orthonormal bases $v_1, \dots, v_d$:
+$C^k q = \sum_{j=1}^{d} \sigma_j^{2k} c_j v_j$.
+Assume $\|q\|_2=1$ and $|c_1| = |\langle v_1, q \rangle| > [cite_start]0$.
+Note the above analysis assumes $\sigma_1 > \sigma_2$ strictly. In fact, the power method converges to some vector in the span of singular vectors with "nearly highest" singular values.
+Let $q \in \mathbb{R}^d$ and $c_1 > 0$, let $V_1$ be the linear subspace spanned by $v_i$ s.t. $\sigma_i \ge (1-\epsilon)\sigma_1$.
+Then it can be shown that $\|P_{V_1^\perp}(v^{(k)})\|_2 \le \epsilon$ when $k \ge \frac{\ln(1/\epsilon \delta)}{2\epsilon}$.Remark: $q$ can be chosen as random $q \sim N(0, I_d)$.
+When chosen randomly, $c_1 > 0$ is satisfied with high probability.
+
+PAGE 8
+
+Subspace Power Method Finding right singular values is same as finding eigenvectors for $X^T X$. Can use orthogonal iteration algorithm.
+Let $M \in \mathbb{R}^{d \times d}$ be PSD with eigen-decomposition $M = V \Lambda V^T$.
+1. Initialize $Q_0 \in \mathbb{R}^{d \times k}$ as a random $k$-dimensional subspace.
+2. Repeat till convergence: 
+  * $Z_{t+1} = M \cdot Q_t$ 
+  *  $Q_{t+1} = QR[Z_{t+1}]$, where $QR[Z]$ is the $Q$ from QR decomposition. $Q$ then represents the first $k$ right singular vectors.
+
+Best rank-k Approximation 
+Recap on matrix norm: 
+* Frobenius norm: $\|X\|_F = \sqrt{\sum_{i,j} X_{ij}^2} = \sqrt{\sum \sigma_i^2}$.
+* Schatten p-norm $\|X\|_{S_p} := (\sum_{i=1}^r \sigma_i^p)^{1/p}$.
+* The spectral norm $\|X\|_2 = \sigma_1$.$\|X - X_k\|_p = \min_{\text{rank}(B) \le k} 
+* \|X - B\|_p = (\sum_{i=k+1}^r \sigma_i^p)^{1/p}$.
+
+PAGE 9
+
+Let $\text{rank}(X) = r \le \min(n, d)$. We define $k$-truncated SVD of $X$ as: $X_k = \sum_{i=1}^{k} \sigma_i u_i v_i^T$ where $X = \sum_{i=1}^{r} \sigma_i u_i v_i^T$.
+Then $X_k$ is the "best" rank-$k$ approximation in terms of orthogonally invariant norm $\|\cdot\|$:
+$X_k = \text{argmin}_{\text{rank}(B) \le k} \|X - B\|$.
+$X_k$ is the most close rank-$k$ matrix to $X$.
+Orthogonally invariant: $\|O_1 X O_2\| [cite_start]= \|X\|$ for orthogonal $O_1, O_2$.
+Example: Frobenius norm, Spectral norm.
+
+roof for spectral norm: $\|X - X_k\|_2 = \sigma_{k+1}$.
+We want to show $\|X - B\|_2 \ge \sigma_{k+1}$ for any rank $k$ matrix $B$.
+Consider $w \in \mathbb{R}^d$ with $\|w\|_2=1$. We can choose $w \in \text{Null}(B) \cap \text{span}\{v_1, \dots, v_{k+1}\}$.
+In this case $\|Xw\|_2 \ge \sigma_{k+1}$.
+$\|X - B\|_2 = \max_{\|v\|_2=1} \|(X - B)v\|_2 \ge \|(X - B)w\|_2 = \|Xw\|_2 \ge \sigma_{k+1}$.
+
+PAGE 10
+
+Proof of Frobenius norm: Consider $\|X - B\|_F^2$ where $\text{rank}(B) = k \le r$.
+$\|X - B\|_F^2 = \sum_{i=1}^n \|x_i - b_i\|_2^2$.
+Let $\{v_1, \dots, v_k\}$ be the orthonormal basis for the subspace of $B$.
+The error is minimized when $b_i$ is the projection of $x_i$ to the subspace.
+In previous claims, the greedy construction of singular vectors minimizes the distance between vectors and the orthogonal subspace.
+Thus $\{v_1, \dots, v_k\}$ should be the first $k$ singular vectors.
+The projection of $X$ is $X_k = \sum_{i=1}^{k} \sigma_i u_i v_i^T$.
+

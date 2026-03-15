@@ -1,0 +1,67 @@
+# Quasi Newton Methods
+**Newton Method**: Require calculation of Hessian matrix $H_{ij}=\frac{\partial^2f}{\partial x_i\partial x_j}$
+
+**Steepest Descent**: Find the descent direction using local quadratic approximation with identity matrix as Hessian. 
+$$
+\underset{\mathrm{argmin}}{\mathbf{p}\in\mathbb{R}^n}f(\mathbf{x}_k)+\nabla f^T(\mathbf{x}_k)\mathbf{p}+1/2\mathbf{p}^TI\mathbf{p}
+$$
+
+:::{.callout-tip}
+## Idea of Quasi-Newton Method
+Instead of using precise second-order derivative information to construct quadratic approximation, use a matrix $B_k$ that approximate the Hessian and update at each iteration
+:::
+
+## Generic Approach of Quasi-Newton Methods
+### Quadratic Objective Function
+The descent direction $\mathbf{p}_k$ at each iteration is found by finding the minimizer of the following qudratic approximation of the objective function.
+$$
+\min_{\mathbf{p}}f_k+\nabla f_k^T\mathbf{p} + \frac{1}{2}\mathbf{p}^TB_k\mathbf{p}
+$$
+
+:::{.callout-note}
+## Approximate Hessian $B_k$
+* symmetric (a Hessian matrix would be symmetric)
+* Positive definite (to make sure existence of minimizer)
+:::
+
+:::{#rem-quasiDescent}
+The minimizer can be found as $\mathbf{p}_k=-B^{-1}_k\nabla f_k$, which would be a descent direction if $B_k$ is PD.
+:::
+
+:::{.callout-note}
+@rem-quasiDescent can be verified using @rem-descentDir.
+:::
+
+### Secant Condition
+The idea of *secant* condition in quasi Newton method is to approximate the Hessian matrix with gradient difference. In 1D case, this is simply
+
+$$
+\frac{\mathrm{d}^2f}{\mathrm{d}^2x}\approx\frac{\left.\frac{\mathrm{d}f}{\mathrm{d}x}\right|_{x_{k+1}} - \left.\frac{\mathrm{d}f}{\mathrm{d}x}\right|_{x_k}}{x_{k+1}-x_k}
+$$
+
+Generalized to multi-variable case, using Taylor expansion of $\nabla f(\mathbf{x}_{k+1})$
+$$
+\nabla f(\mathbf{x}_{k+1}) \approx \nabla f(\mathbf{x}_k) + \nabla ^2 f(\mathbf{x}_k)(\mathbf{x}_{k+1} - \mathbf{x}_k)
+$$
+therefor, we can approximate the Hessian with matrix $B_{k+1}\in\mathbb{R}^n$ satisfy the *secant condition*
+$$
+\underbrace{\nabla f(\mathbf{x}_{k+1}) - \nabla f(\mathbf{x}_k)}_{\mathbf{y}_k} = B_{k+1}\underbrace{(\mathbf{x}_{k+1}-\mathbf{x}_k)}_{\mathbf{s}_k} 
+$$
+
+### Positive Definite Condition
+As we mentioned before, $B_{k+1}$ has to be positive definite so that the quadratic objective function has minimizer and $\mathbf{p}_k$ found is a descent direction. If the quasi Newton methods shown later (DFP and BFGS), it can be shown that if previous step $B_{k}$ is PD, then $B_{k+1}$ is PD if 
+$$
+\mathbf{s}^T\mathbf{y}_k>0
+$$
+
+### Additional Condition
+It is obvouse that $B_k$ should be symmeteric, i.e. $B^T_k = B_k$. However, the $B_k$ satisfied the secant condition and symmetric is not unique.
+
+To uniquely detemines $B_k$, additional condition should be imposed and one resonable would be requring the $B_{k+1}$, the Hessian for next interation be a symmetric matrix satisfying secant condition and also closest to previouse Hessian in some sence, i.e.
+$$
+B_{k+1} = \mathrm{argmin}\lVert B - B_k \rVert, 
+$$
+where $\lVert\cdot\rVert$ be some matrix norm. 
+
+### Summary
+The quasi Newton methods search the descent direction for next step by approximate the function locally with quadratic function

@@ -1,0 +1,7 @@
+# Stochastic Integral and Ito Processes
+Start with step process
+:::{#def-stepProcess}
+## Step process
+A step process $G_t$ is defined as
+
+:::

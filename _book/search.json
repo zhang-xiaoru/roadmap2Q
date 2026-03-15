@@ -1,0 +1,473 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Phy2Q Roadmap",
+    "section": "",
+    "text": "Preface\nThis is a Quarto book.\nTo learn more about Quarto books visit https://quarto.org/docs/books.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "1  Introduction",
+    "section": "",
+    "text": "Under construction",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "monte-carlo/monte-carlo.html",
+    "href": "monte-carlo/monte-carlo.html",
+    "title": "13  Monte-Carlo Method",
+    "section": "",
+    "text": "Monte-Carlo method play important role",
+    "crumbs": [
+      "Monte-Carlo Methods",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Monte-Carlo Method</span>"
+    ]
+  },
+  {
+    "objectID": "numerical-optimization/unconstrained.html",
+    "href": "numerical-optimization/unconstrained.html",
+    "title": "5  Theory of Unconstrained Optimization",
+    "section": "",
+    "text": "Line Search Methods\nThe line search methods choose a direction \\(\\mathbf{p}_k\\) and search along this direction for next point hoping the function value decreae. In general, we hope to find the step length s.t. \\[\n\\min_{\\alpha&gt;0}f(\\mathbf{x}_k+\\alpha\\mathbf{p}_k)\n\\]\nFor line search methods, the algorithm generally has two major steps: 1. Pick descent direction 2. Choose appropriate step length \\(\\alpha\\) to update We first discuss generally a descent direction, then in details about step length selection.",
+    "crumbs": [
+      "Numerical Optimization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Theory of Unconstrained Optimization</span>"
+    ]
+  },
+  {
+    "objectID": "numerical-optimization/unconstrained.html#line-search-methods",
+    "href": "numerical-optimization/unconstrained.html#line-search-methods",
+    "title": "5  Theory of Unconstrained Optimization",
+    "section": "",
+    "text": "Remark 5.1. \n\nThrough the minimization problem can be solved exactly, but this is typically not desired as it is expensive to find the exact solution. (methods use \\(\\arg\\min_{\\alpha&gt;0} are called *exact line search*\\))\nIn line search, the step length is approximately solved through limit number of trail steps.\n\n\n\n\nDescent Direction\nIn general, we want the update \\(x_{k+1}=x_k+\\alpha_k\\mathbf{p}_k\\) to always decrease the function value, for small enough step length \\(\\alpha_k\\).\n\nDefinition 5.1 \\(\\mathbf{p}\\in\\mathbb{R}^n\\) is called a descent direction for \\(f:\\mathbb{R}^n\\rightarrow\\mathbb{R}\\) at point \\(\\mathbf{x}\\in\\mathbb{R}^n\\) if \\[\nf(\\mathbf{x} + \\alpha p )&lt;f(x),\\quad\\text{for sufficient small } \\alpha&gt;0ç\n\\]\n\n\nRemark 5.2. \n\nThe Definition 5.1 is equivalent as stating \\(\\mathbf{p}^T\\nabla f(x)&lt;0\\). This can be seen from the Taylor expansion of \\(f(\\mathbf{x+\\alpha \\mathbf{p}})\\) :::ß",
+    "crumbs": [
+      "Numerical Optimization",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Theory of Unconstrained Optimization</span>"
+    ]
+  },
+  {
+    "objectID": "numerical-optimization/lineSearch.html",
+    "href": "numerical-optimization/lineSearch.html",
+    "title": "3  Line Search Methods",
+    "section": "",
+    "text": "3.1 Sufficient Decrease Condition\nThe line search methods choose a direction \\(\\mathbf{p}_k\\) and search along this direction for next point hoping the function value decree, and continue this process until converge. In general, we hope to find the step length s.t. \\[\n\\min_{\\alpha&gt;0}f(\\mathbf{x}_k+\\alpha\\mathbf{p}_k)\n\\]\nFor line search methods, the algorithm generally has two major steps:\nWe first discuss generally a descent direction, then in details about step length selection.\nOnce the descent direction has been selected, we still need to pick up a appropriate step length \\(\\alpha\\).\nIn the inexact line search methods, we need certain condition that stop the iteration of finidng \\(\\alpha\\). The simplest choice would be just require a decrease in function value, i.e. \\(f(\\mathbf{x}_k + \\alpha_k\\mathbf{p_k})&lt; f(\\mathbf{x_k})\\). However, this condition is not sufficient to ensure the convergence to a local minimizer.\nThe Example 3.1 shows that the too small function value drop should be avoid otherwise the algotihem would not be efficient.\nTo avoid this issue, a sufficient decrease condition can be imposed. As the name suggested, the condition imposed the the drop of function value for a specific chosed step length should be suffificently large.\nOne popular measure of sufficient decrease is the Armijo condition, which state as follow\nFigure shows the acceptable region of the Armijo line search\nIn practice, the Armijo condition can be satisified using Backtracing line search algorithm",
+    "crumbs": [
+      "Numerical Optimization",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Line Search Methods</span>"
+    ]
+  },
+  {
+    "objectID": "numerical-optimization/lineSearch.html#descent-direction",
+    "href": "numerical-optimization/lineSearch.html#descent-direction",
+    "title": "6  Line Search Methods",
+    "section": "",
+    "text": "Definition 6.1 \\(\\mathbf{p}\\in\\mathbb{R}^n\\) is called a descent direction for \\(f:\\mathbb{R}^n\\rightarrow\\mathbb{R}\\) at point \\(\\mathbf{x}\\in\\mathbb{R}^n\\) if \\[\nf(\\mathbf{x} + \\alpha p )&lt;f(x),\\quad\\text{for sufficient small } \\alpha&gt;0ç\n\\]\n\n\nRemark 6.2. \n\nThe Definition 6.1 is equivalent as stating \\(\\mathbf{p}^T\\nabla f(x)&lt;0\\). This can be seen from the Taylor expansion of \\(f(\\mathbf{x+\\alpha \\mathbf{p}})\\)",
+    "crumbs": [
+      "Numerical Optimization",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Line Search Methods</span>"
+    ]
+  },
+  {
+    "objectID": "numerical-optimization/quasiNewton.html",
+    "href": "numerical-optimization/quasiNewton.html",
+    "title": "6  Quasi Newton Methods",
+    "section": "",
+    "text": "6.1 Generic Approach of Quasi-Newton Methods\nNewton Method: Require calculation of Hessian matrix \\(H_{ij}=\\frac{\\partial^2f}{\\partial x_i\\partial x_j}\\)\nSteepest Descent: Find the descent direction using local quadratic approximation with identity matrix as Hessian. \\[\n\\underset{\\mathrm{argmin}}{\\mathbf{p}\\in\\mathbb{R}^n}f(\\mathbf{x}_k)+\\nabla f^T(\\mathbf{x}_k)\\mathbf{p}+1/2\\mathbf{p}^TI\\mathbf{p}\n\\]",
+    "crumbs": [
+      "Numerical Optimization",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Quasi Newton Methods</span>"
+    ]
+  },
+  {
+    "objectID": "numerical-optimization/lineSearch.html#sufficient-decrease-condition",
+    "href": "numerical-optimization/lineSearch.html#sufficient-decrease-condition",
+    "title": "3  Line Search Methods",
+    "section": "",
+    "text": "Definition 3.2 (Armijo Condition) For \\(\\mathbf{x}_k\\in\\mathbb{R}^n\\) and descent direction \\(\\mathbf{p}_k\\in\\mathbb{R}^n\\), step length \\(\\alpha_k\\) satisfied Armijo condition if \\[\nf(\\mathbf{x}_k+\\alpha_k\\mathbf{p}_k)\\leq f(\\mathbf{x}_k) + c_1\\alpha_k\\nabla^Tf(\\mathbf{x}_k)\\mathbf{p}_k,\\quad \\text{for some } c_1\\in (0, 1)\n\\]\n\n\n\n\n\n\n\nIdea behind\n\n\n\nWe can denote the LHS of the inequality in Definition 3.2 as a function of \\(\\alpha\\) as \\(\\phi(\\alpha)\\), and the RHS as a linear function \\(l(\\alpha)\\) with a negative slop \\(c_1\\nabla^Tf(\\mathbf{x}_k)\\mathbf{p}_k\\). Note that this slop is between the horizontal line and the tangent line at \\(\\phi(0)\\). The Armijo condition is thus requiring the selected step length drop the function value larger than a predifined linear function, which derease slower than the steepest local function drop.\n\n\n\n\n\nBacktracking Algorithm\nThe idea of the backtracking line search is to start with a relatively large step length and shrink \\(\\alpha\\) every iteration till the Armijo condition is satisfied.\nimport numpy as np\nfrom numpy.typing import NDArray\nfrom typing import Callable\n\ndef backtracking_search(\n    f: Callable,\n    gradf_xk: NDArray,\n    xk: NDArray,\n    pk: NDArray,\n    alpha0: float,\n    c1: float = 1e-4,\n    tau: float = 0.5,\n) -&gt; float:\n    \"\"\"Step length search using Armijo backtracking methods\n\n    Args:\n        f (Callable): objective function\n        gradf (Callable): gradient of objective function\n        xk (NDArray): current position\n        pk (NDArray): descent direction\n        alpha0 (float): initial step length. Default to 1. \n        c1 (float): control variable for Armijo condition. Default to 1e-5\n        tau (float): contraction coefficient for step length. Default to 0,5. \n\n    Returns:\n        float: final step length\n    \"\"\"\n    alpha = alpha0\n    f_xk = f(xk)\n    while f(xk + alpha * pk) &gt; f_xk + c1 * alpha * np.dot(gradf_xk, pk):\n        alpha = tau * alpha\n    return alpha\n\n\n\n\n\n\nNote\n\n\n\n\nThe initial guess of step length typically is 1, but might vary depens on \\(\\mathbf{p}_k\\)\nRequire only function evaluation during the search\nWill terminated in finite steps\nThe backtracking approach avoid too small step length as it star with large step and will usually stop before the step length becomes too small.\n\n\n\nThough the Armijo condition ensure the sufficient decrease of the function value. However, the selected step length could be too small and leading to inefficient progress. The following curvature condition make sure the the step length would not be too short.",
+    "crumbs": [
+      "Numerical Optimization",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Line Search Methods</span>"
+    ]
+  },
+  {
+    "objectID": "numerical-optimization/lineSearch.html#curvature-condition",
+    "href": "numerical-optimization/lineSearch.html#curvature-condition",
+    "title": "3  Line Search Methods",
+    "section": "3.2 Curvature Condition",
+    "text": "3.2 Curvature Condition\n\nDefinition 3.3 (Curvature Condition) For \\(\\mathbf{x}_k\\in\\mathbb{R}^n\\) and descent direction \\(\\mathbf{p}_k\\in\\mathbb{R}^n\\), step length \\(\\alpha_k\\) satisfied curvature condition if \\[\n\\nabla^Tf(\\mathbf{x}_k+\\alpha_k\\mathbf{p}_k)\\mathbf{p_k}\\geq c_2\\nabla f(\\mathbb{x}_k),\\quad c_2\\in(c_1, 1)\n\\] \\(c_1\\) is the constant from Definition 3.2\n\n\n\n\n\n\n\nIdea behind\n\n\n\nAgain if we consider \\(\\phi(\\alpha) = f(\\mathbf{x} + \\alpha\\mathbf{p})\\) as a function if \\(\\alpha\\). Then the LHS of the inequality in Definition 3.3 is \\(\\phi^\\prime(\\alpha_k)\\), which is the slope of the tangent line at the accepted step length. Since the RHS is negative, the curvature condition requires the curvature of \\(\\phi\\) at the accepted step length should be “flat” comparing to that at the starting point, which is measured by the coefficient \\(c_2\\). Thus, the accepted step length can not be too close to the staring point\n\n\nFigure show the accpetable region satified curvature condition\nCombine the two condition together, we get the Wolf conditions",
+    "crumbs": [
+      "Numerical Optimization",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Line Search Methods</span>"
+    ]
+  },
+  {
+    "objectID": "numerical-optimization/lineSearch.html#wolf-condition",
+    "href": "numerical-optimization/lineSearch.html#wolf-condition",
+    "title": "3  Line Search Methods",
+    "section": "3.3 Wolf Condition",
+    "text": "3.3 Wolf Condition\n\nDefinition 3.4 (Wolf Condition) For \\(\\mathbf{x}_k\\in\\mathbb{R}^n\\) and descent direction \\(\\mathbf{p}_k\\in\\mathbb{R}\\), step length \\(\\alpha_k\\) satisfied Wolf condition if \\[\n\\begin{aligned}\nf(\\mathbf{x}_k+\\alpha_k\\mathbf{p}_k)&\\leq f(\\mathbf{x}_k) + c_1\\alpha_k\\nabla^Tf(\\mathbf{x}_k)\\mathbf{p}_k\\\\\n\\nabla^Tf(\\mathbf{x}_k+\\alpha_k\\mathbf{p}_k)\\mathbf{p_k}&\\geq c_2\\nabla f(\\mathbb{x}_k)\n\\end{aligned}\n\\] for some \\(0&lt;c_1&lt;c_2&lt;1\\)\n\n\n\n\n\n\n\nNote\n\n\n\n\nIf \\(c_1\\geq c_2\\), the exsistance of Wolf condition might not be satisfied\nThe Wolf condition requires evaluations of both function and gradient values at each iteration\n\n\n\n\nLine Search Algorithm Satisfying Wolf Condition\ndef wolf_search(\n        f: Callable[[NDArray], float],\n        gradf: Callable[[NDArray], NDArray],\n        xk: NDArray,\n        pk: NDArray,\n        c1: float=1e-4,\n        c2: float=0.9,\n        max_iter: int=1000\n) -&gt; float:\n    \"\"\"wolf line search methods\n\n    Args:\n        f (Callable[[NDArray], float]): objective function\n        gradf (Callable[[NDArray], float]): gradient of objective function\n        xk (NDArray): current position for starting the line search\n        pk (NDArray): current search direction\n        c1 (float, optional): parameter for Amijor contion. Defaults to 1e-4.\n        c2 (float, optional): parameter for curvature condition. Defaults to 0.9.\n        max_iter(float, optional): maximum iteration of line search. Defaults to 1000.\n    Returns:\n        float: return the step length\n    \"\"\"    \n    \n    alpha = 1\n    alpha_l = 0\n    alpha_u = np.inf\n\n    f_xk = f(xk)\n    gradf_xk = gradf(xk)\n    phi_prime_0 = np.dot(gradf_xk, pk)\n\n    # check c1 &lt; c2:\n    if c1 &gt; c2:\n        raise ValueError(\"c1 must smaller than c2\")\n    \n    # if the input search direction is not descent direction, just return\n    if phi_prime_0 &gt;= 0:\n        return 1\n\n    counter = 0\n    while True:\n        # break the line search if the iteration take to much\n        if counter &gt; max_iter:\n            return alpha\n        # if armijo condition not satisfied, shrink the upper bond of allowed step length\n        if f(xk + alpha * pk) &gt; f_xk + c1 * alpha * phi_prime_0:\n            alpha_u = alpha\n\n        else:\n\n            # if armojo satsified but curvature condition is not, increase the lower bond of allowed step length\n            if np.dot(gradf(xk + alpha * pk), pk) &lt; c2 * phi_prime_0:\n                alpha_l = alpha\n            else:\n                return alpha\n        \n        # if the Armijo condition has not been violated once, increase the lower bound\n        if alpha_u &lt; np.inf:\n            alpha = (alpha_l + alpha_u) / 2\n        else:\n            alpha = 2 * alpha\n        counter += 1",
+    "crumbs": [
+      "Numerical Optimization",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Line Search Methods</span>"
+    ]
+  },
+  {
+    "objectID": "numerical-optimization/quasiNewton.html#generic-approach-of-quasi-newton-methods",
+    "href": "numerical-optimization/quasiNewton.html#generic-approach-of-quasi-newton-methods",
+    "title": "6  Quasi Newton Methods",
+    "section": "",
+    "text": "Quadratic Objective Function\nThe descent direction \\(\\mathbf{p}_k\\) at each iteration is found by finding the minimizer of the following qudratic approximation of the objective function. \\[\n\\min_{\\mathbf{p}}f_k+\\nabla f_k^T\\mathbf{p} + \\frac{1}{2}\\mathbf{p}^TB_k\\mathbf{p}\n\\]\n\n\n\n\n\n\nApproximate Hessian \\(B_k\\)\n\n\n\n\nsymmetric (a Hessian matrix would be symmetric)\nPositive definite (to make sure existence of minimizer)\n\n\n\n\nRemark 6.1. The minimizer can be found as \\(\\mathbf{p}_k=-B^{-1}_k\\nabla f_k\\), which would be a descent direction if \\(B_k\\) is PD.\n\n\n\n\n\n\n\nNote\n\n\n\nRemark 6.1 can be verified using Remark 3.2.\n\n\n\n\nSecant Condition\nThe idea of secant condition in quasi Newton method is to approximate the Hessian matrix with gradient difference. In 1D case, this is simply\n\\[\n\\frac{\\mathrm{d}^2f}{\\mathrm{d}^2x}\\approx\\frac{\\left.\\frac{\\mathrm{d}f}{\\mathrm{d}x}\\right|_{x_{k+1}} - \\left.\\frac{\\mathrm{d}f}{\\mathrm{d}x}\\right|_{x_k}}{x_{k+1}-x_k}\n\\]\nGeneralized to multi-variable case, using Taylor expansion of \\(\\nabla f(\\mathbf{x}_{k+1})\\) \\[\n\\nabla f(\\mathbf{x}_{k+1}) \\approx \\nabla f(\\mathbf{x}_k) + \\nabla ^2 f(\\mathbf{x}_k)(\\mathbf{x}_{k+1} - \\mathbf{x}_k)\n\\] therefor, we can approximate the Hessian with matrix \\(B_{k+1}\\in\\mathbb{R}^n\\) satisfy the secant condition \\[\n\\underbrace{\\nabla f(\\mathbf{x}_{k+1}) - \\nabla f(\\mathbf{x}_k)}_{\\mathbf{y}_k} = B_{k+1}\\underbrace{(\\mathbf{x}_{k+1}-\\mathbf{x}_k)}_{\\mathbf{s}_k}\n\\]\n\n\nPositive Definite Condition\nAs we mentioned before, \\(B_{k+1}\\) has to be positive definite so that the quadratic objective function has minimizer and \\(\\mathbf{p}_k\\) found is a descent direction. If the quasi Newton methods shown later (DFP and BFGS), it can be shown that if previous step \\(B_{k}\\) is PD, then \\(B_{k+1}\\) is PD if \\[\n\\mathbf{s}^T\\mathbf{y}_k&gt;0\n\\]\n\n\nAdditional Condition\nIt is obvouse that \\(B_k\\) should be symmeteric, i.e. \\(B^T_k = B_k\\). However, the \\(B_k\\) satisfied the secant condition and symmetric is not unique.\nTo uniquely detemines \\(B_k\\), additional condition should be imposed and one resonable would be requring the \\(B_{k+1}\\), the Hessian for next interation be a symmetric matrix satisfying secant condition and also closest to previouse Hessian in some sence, i.e. \\[\nB_{k+1} = \\mathrm{argmin}\\lVert B - B_k \\rVert,\n\\] where \\(\\lVert\\cdot\\rVert\\) be some matrix norm.\n\n\nSummary\nThe quasi Newton methods search the descent direction for next step by approximate the function locally with quadratic function",
+    "crumbs": [
+      "Numerical Optimization",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Quasi Newton Methods</span>"
+    ]
+  },
+  {
+    "objectID": "numerical-optimization/seqQuadprog.html",
+    "href": "numerical-optimization/seqQuadprog.html",
+    "title": "10  Sequential Quadratic Programming",
+    "section": "",
+    "text": "10.1 Equality COnstrained Case\nSequential Quadratic Programming (SQP) is extended method of quadratic programming to solve general constrained optimization problem using Newton’s method and QP at each iterations",
+    "crumbs": [
+      "Numerical Optimization",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Sequential Quadratic Programming</span>"
+    ]
+  },
+  {
+    "objectID": "numerical-optimization/seqQuadprog.html#inequality-constrained-case",
+    "href": "numerical-optimization/seqQuadprog.html#inequality-constrained-case",
+    "title": "10  Sequential Quadratic Programming",
+    "section": "10.2 Inequality COnstrained Case",
+    "text": "10.2 Inequality COnstrained Case",
+    "crumbs": [
+      "Numerical Optimization",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Sequential Quadratic Programming</span>"
+    ]
+  },
+  {
+    "objectID": "numerical-optimization/quasiNewton.html#secant-condition",
+    "href": "numerical-optimization/quasiNewton.html#secant-condition",
+    "title": "6  Quasi Newton Methods",
+    "section": "Secant Condition",
+    "text": "Secant Condition\nThe idea of secant condition in quasi Newton method is to approximate the Hessian matrix with gradient difference. In 1D case, this is simply \\[\n\\frac{\\mathrm{d}f^2}{\\mathrm{d}^2x}\\approx\\frac{\\frac{\\mathrm{d}f}{\\mathrm{d}x}\\|_x_{k+1}-\\frac{\\mathrm{d}f}{\\mathrm{d}x}\\|_x_k}{x_{k+1} - x_{k}}\n\\]",
+    "crumbs": [
+      "Numerical Optimization",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Quasi Newton Methods</span>"
+    ]
+  },
+  {
+    "objectID": "numerical-optimization/constrained.html",
+    "href": "numerical-optimization/constrained.html",
+    "title": "8  Theory of Constrained Optimization",
+    "section": "",
+    "text": "8.1 COnstrained Optimization Problem\nThe constrained optimization problem can be formulated as follow",
+    "crumbs": [
+      "Numerical Optimization",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Theory of Constrained Optimization</span>"
+    ]
+  },
+  {
+    "objectID": "numerical-optimization/constrained.html#some-terminology",
+    "href": "numerical-optimization/constrained.html#some-terminology",
+    "title": "8  Theory of Constrained Optimization",
+    "section": "8.2 Some Terminology",
+    "text": "8.2 Some Terminology",
+    "crumbs": [
+      "Numerical Optimization",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Theory of Constrained Optimization</span>"
+    ]
+  },
+  {
+    "objectID": "numerical-optimization/constrained.html#optimmality-condition",
+    "href": "numerical-optimization/constrained.html#optimmality-condition",
+    "title": "8  Theory of Constrained Optimization",
+    "section": "8.3 Optimmality COndition",
+    "text": "8.3 Optimmality COndition\n\nFirst Order COnsideration\n\n\nSecond Order Consideration",
+    "crumbs": [
+      "Numerical Optimization",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Theory of Constrained Optimization</span>"
+    ]
+  },
+  {
+    "objectID": "numerical-optimization/quadProg.html",
+    "href": "numerical-optimization/quadProg.html",
+    "title": "9  Quadratic Programming",
+    "section": "",
+    "text": "9.1 Equality Contsrained Quadratic Programming (EQP)\nThe Quadratic Programming solves constrain optimization problem with quadratic objective and linear constrains\nThe first order KKT condition of the",
+    "crumbs": [
+      "Numerical Optimization",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Quadratic Programming</span>"
+    ]
+  },
+  {
+    "objectID": "ml-ds/highDimData.html",
+    "href": "ml-ds/highDimData.html",
+    "title": "14  Properties of High Dimensional Data",
+    "section": "",
+    "text": "14.1 Curse of dimensionality\nTo approximate function using interpolations, need a grid in \\(\\mathbb{R}^n\\), which grows exponentially with respect to \\(n\\).",
+    "crumbs": [
+      "Machine Learning and Data Science Basics",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Properties of High Dimensional Data</span>"
+    ]
+  },
+  {
+    "objectID": "ml-ds/highDimData.html#curse-of-dimensionality",
+    "href": "ml-ds/highDimData.html#curse-of-dimensionality",
+    "title": "14  Properties of High Dimensional Data",
+    "section": "",
+    "text": "Sampling in high dimension\n\n\n\nTo sample grid with resolution \\(\\epsilon\\), requires points of order ~\\((1/\\epsilon)^n\\)",
+    "crumbs": [
+      "Machine Learning and Data Science Basics",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Properties of High Dimensional Data</span>"
+    ]
+  },
+  {
+    "objectID": "ml-ds/highDimData.html#random-sampling-in-high-dimensional-unit-ball",
+    "href": "ml-ds/highDimData.html#random-sampling-in-high-dimensional-unit-ball",
+    "title": "16  Properties of High Dimensional Data",
+    "section": "Random Sampling in high-dimensional unit ball",
+    "text": "Random Sampling in high-dimensional unit ball\n\n\n\n\n\n\nClose Ball in \\(\\mathbb{R}^n\\)\n\n\n\n\\[\n\\mathbb{B^n}\\coloneqq\n\\]",
+    "crumbs": [
+      "Machine Learning and Data Science Basics",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Properties of High Dimensional Data</span>"
+    ]
+  },
+  {
+    "objectID": "ml-ds/highDimData.html#random-sampling-in-unit-ball",
+    "href": "ml-ds/highDimData.html#random-sampling-in-unit-ball",
+    "title": "14  Properties of High Dimensional Data",
+    "section": "14.2 Random Sampling in unit ball",
+    "text": "14.2 Random Sampling in unit ball\nWe star with a useful problem, how to draw a random sample uniformlly from a unit ball in \\(n\\) dimension.\n\n\n\n\n\n\nClose Ball in \\(\\mathbb{R}^n\\)\n\n\n\n\\[\n\\mathbb{B^n}\\coloneqq\\{\\mathbf{x}\\in\\mathbb{R}^n: x_1^2+x_2^2+\\cdots+x_n^2\\leq 1\\}\n\\]\n\n\n\nExample 14.1 Consider a 2D case, we can draw \\(X_1, X_2\\~ \\mathrm{Unif}(-1, 1)\\), and return \\(\\mathbf{X}=(X_1, X_2)^T\\) if \\(X_1^2+X_2^2\\leq 1\\).\n\n\n\n\n\n\n\n\n\n\nIf we generalized the approch in Example 14.1 to \\(n\\) dimension case, that means draw each coordinate \\(X_i\\sim \\mathrm{Unif}(-1, 1)\\) and keep the sample if \\(\\lVert\\mathbf{X}\\rVert_2^2\\leq 1\\). However, this will not work as the volume of the unit ball approaches to zero.\n\n\n\n\n\n\nVolume of \\(\\mathbb{B}^n\\)\n\n\n\n\\[\nV(n)=\\frac{2\\pi^{n/2}}{n\\Gamma(n)}\\xrightarrow{n\\rightarrow\\infty}0\n\\]\n\n\nThis means the acceptance probability of the sample is \\(V(n)/\\mathrm{Vol}[-1, 1]^d=V(n)/2^n\\) approaches zero when the dimensality is high.\n\n\n\n\n\n\nNote\n\n\n\nThis low probability means that we only accept very few point from a large draw of Monte-Carlo samples from uniform \\([-1, 1]^n\\)",
+    "crumbs": [
+      "Machine Learning and Data Science Basics",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Properties of High Dimensional Data</span>"
+    ]
+  },
+  {
+    "objectID": "ml-ds/SVD.html",
+    "href": "ml-ds/SVD.html",
+    "title": "16  Singular Value Decomposition",
+    "section": "",
+    "text": "16.1 Singular Vectors\nNext, we continue to define the second singular vector.",
+    "crumbs": [
+      "Machine Learning and Data Science Basics",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "ml-ds/SVD.html#singular-vectors",
+    "href": "ml-ds/SVD.html#singular-vectors",
+    "title": "16  Singular Value Decomposition",
+    "section": "16.2 Singular Value Decomposition",
+    "text": "Definition 16.1 (First right singular vector) The first right singular vector \\(v_1\\) of \\(X \\in \\mathbb{R}^{n \\times d}\\) is defined as: \\(v_1 \\in \\mathbb{R}^d\\), and \\(v_1 = \\text{argmax}_{\\|v\\|_2=1} \\|Xv\\|_2\\) and the first singular value is \\(\\sigma_1 = \\|Xv_1\\|_2\\)\n\n\nProposition 16.1 Definition 16.1 is equivalent as \\[\nv_1 = \\underset{\\|v\\|_2=1}{\\mathrm{argmin}} \\sum_{j=1}^{n} \\|x_j - P_{v_1}(x_j)\\|_2^2,\n\\] where \\(P_{v_1}(x_j)\\) is the projected vector of \\(x_j\\) in the subspace spanned by \\(v_1\\). Here, we have \\[\nX \\in \\mathbb{R}^{n \\times d} =\n\\begin{pmatrix} -x_1^T- \\\\ -x_2^T- \\\\ \\vdots \\\\ -x_n^T- \\end{pmatrix}\n\\]\n\n\nProof. \\[\n\\begin{align}\n\\sum_{j} \\|x_j - P_{v}(x_j)\\|_2^2 &= \\sum_{ij}\\left(x_{i,j}-\\langle\\mathbf{v}, \\mathbf{x}_j\\rangle v_i\\right)^2 \\\\\n&=\\sum_{ij}x^2_{i, j} + \\langle\\mathbf{v}, \\mathbf{x}_j\\rangle v_i^2 - 2x_{i,j}v_i\\langle\\mathbf{v}, \\mathbf{x}_j \\rangle\\\\\n&=\\sum_{ij}x^2_{i,j} + \\sum_j\\left(\\langle\\mathbf{v},\\mathbf{x}_j\\rangle ^2 -2\\langle\\mathbf{v},\\mathbf{x}_j\\rangle^2\\right)\\\\\n&=C - \\sum_j\\langle\\mathbf{v},\\mathbf{x}_j\\rangle^2=C-\\|X\\mathbf{v}\\|^2_2\n\\end{align}\n\\] where \\(C\\) is a constant. Thus we have the \\[\n\\underset{\\|v\\|_2=1}{\\mathrm{argmin}} \\sum_{j=1}^{n} \\|x_j - P_{v_1}(x_j)\\|_2^2 = \\underset{\\|v\\|_2=1}{\\mathrm{argmax}} \\|Xv\\|_2^2\n\\]\n\n\n\n\n\n\n\nNote\n\n\n\nProposition 16.1 shows that the first singular vector can be understood as a line that minimizes least square error of projected data, i.e., a best fitting line.\n\n\n\n\nDefinition 16.2 (Second Singular Vector) The second right singular vector \\(v_2 \\in \\mathbb{R}^d\\) is defined as \\[\nv_2 = \\underset{{v \\perp v_1, \\|v\\|_2=1}}{\\mathrm{argmin}} \\|Xv\\|_2,\n\\] and second singular value defined correspondingly as \\[\n\\sigma_2 = \\|Xv_2\\|_2\n\\]\n\n\n\nProposition 16.2 (Best-Fitting 2D Subspace) Let \\(v_1, v_2\\) be the first and second right singular vectors of \\(X \\in \\mathbb{R}^{n \\times d}\\). Let \\(V = \\text{span}(v_1, v_2) \\subseteq \\mathbb{R}^d\\) be the two-dimensional subspace they span.\nThen \\(V\\) is the solution to the following minimization: \\[\nV = \\underset{W:\\,\\dim(W)=2}{\\mathrm{argmin}} \\sum_{j=1}^{n} \\|x_j - P_W(x_j)\\|_2^2\n\\] where \\(P_W:\\mathbb{R}^d\\rightarrow\\mathbb{R}^2\\) is the orthogonal projection onto the subspace \\(W\\).\n\n\nProof. Let \\(w_1, w_2\\) be two orthonormal bases for any 2-dimensional subspace \\(W\\). We can always select \\(w_2\\) s.t. \\(\\langle w_2,v_1 \\rangle = 0\\) (such \\(w_2\\) can be found by the intersection between \\(W\\) and subspace that perpendicular to \\(v_1\\)).\nA figure perhaps showing the constructiong of w1 and w2 \\[\n\\begin{align}\n&\\sum_j \\|x_j - \\langle P_W(x_j)\\rangle\\|_2^2 = \\sum_j \\langle x_j-P_W(x_j), x_j-P_W(x_j) \\rangle\\\\\n={}&\\sum_j\\langle x_j - P_w(x_j), x_j\\rangle + \\sum_j\\langle x_j - P_W(x_j), -P_W(x_j)\\rangle\\\\\n={}&\\sum_j\\|x_j\\|^2_2 - 2\\sum_j\\langle P_W(x_j), x_j\\rangle + \\|P_W(x_j)\\|^2_2\\\\\n\\end{align}.\n\\] Noticed that \\[\n\\begin{align}\n\\langle P_W(x_j), x_j \\rangle &= \\langle w_1\\langle w_1, x_j\\rangle + w_2\\langle w_2, x_j\\rangle, x_j\\rangle\\\\\n& = \\langle w_1, x_j\\rangle^2 + \\langle w_2, x_j\\rangle^2=\\|P_W(x_j)\\|^2_2,\n\\end{align}\n\\] thus \\[\n\\sum_j\\|x_j - P_W(x_j)\\|^2_2 = C - (\\sum_j \\langle w_1, x_j \\rangle^2 + \\langle w_2, x_j \\rangle^2),\n\\] where \\[\nC = \\sum_{j=1}^n \\| x_j \\|_2^2\n\\] is a constant.\nSince \\(v_1\\) maximizes \\(\\|Xv\\|_2^2\\) among all \\(\\|v\\|_2=1\\) , and \\(v_2\\) maximizes \\(\\|Xv\\|_2^2\\) among \\(v \\perp v_1\\) and \\(\\|v\\|_2=1, thus\\)$ _jw_1,x_jsum_jv_1, x_j, _jw_2, x_jv_2, x_j $$ and thus \\(V\\) minimize \\(\\|x_j-P_W(x_j)\\|^2_2\\) among all 2-dim subspace.\n\n\n\n\n\n\nNote\n\n\n\nProposition 16.2 meaning that the \\(v_1\\) and \\(v_2\\) we constructed form the best fitting subspace (2-dimensional) that minimizes projected least square error.\n\n\nPosible code example for demonstrating the best fitting sub space\n\nDefinition 16.3 (r-right Singular Vector) The leading \\(r\\) right singular vectors \\(v_1, \\dots, v_r \\in \\mathbb{R}^d\\) are defined as:\n\\[\nv_k := \\underset{\n  \\substack{\n  \\|v\\|_2=1,\\, \\\\ v \\perp \\text{span}\\{v_1, \\dots, v_{k-1}\\}\n  }\n  }{\\mathrm{argmax}}{} \\|Xv\\|_2\n\\]\nwith the corresponding singular values as \\(\\sigma_k = \\|Xv_k\\|_2\\).\n\n\nProposition 16.3 (Greedy construction for best-fit subspace) Let \\(v_1, \\dots, v_r\\) be the leading right singular vectors constructed by Definition 16.3, and \\(V = \\mathrm{span}(v_1, \\dots, v_r) \\subset \\mathbb{R}^d\\) be the subspace spanned by them. Then \\[\nV \\in \\underset{\n  \\substack{W\\subseteq \\mathbb{R}^d \\\\ \\mathrm{dim}(W) = r \\\\ \\text{linear subspace}}\n}{\\mathrm{argmin}}\\sum_j \\|x_j - P_W(x_j)\\|_2^2\n\\] i.e., \\(V\\) is the best-fit linear subspace in terms of least square error.\n\n\nRemark 16.1. \n\nProposition 16.3 can be proved similarly as in the 2 dimensional case (Proposition 16.2).\nProposition 16.3 shows that the greedy construction of r-right singularvectors formed a best-fit subspace in terms of least square error.\n\n\n\n16.2 Singular Value Decomposition\n\nTheorem 16.1 (Singular Value Decomposition (SVD)) For any matrix \\(X \\in \\mathbb{R}^{n \\times d}\\), there exist orthogonal matrices \\(U \\in \\mathbb{R}^{n \\times n}\\) and \\(V \\in \\mathbb{R}^{d \\times d}\\) and a non-negative diagonal matrix \\(\\Sigma \\in \\mathbb{R}^{n \\times d}\\) such that\n\\[\nX_{n \\times d} = U_{n \\times n}\\, \\Sigma_{n \\times d}\\, V_{d \\times d}^T\n\\]\n\n\nRemark 16.2. \n\nThe diagonals of \\(\\Sigma\\), arranged in non-increasing order, are the singular values defined in Proposition 16.3.\nColumns of \\(U\\) are the left singular vectors of \\(X\\).\nThe left singular vectors \\(u_i := \\frac{1}{\\sigma_i} X v_i\\), where \\(\\sigma_i\\) is the \\(i\\)-th diagonal element of \\(\\Sigma\\).\nColumns of \\(V\\) are the right singular vectors of \\(X\\) defined in Proposition 16.3.\nSVD can be viewed as ‘generalized diagonolization’ of an arbitrary matrix.\n\n\nThe existence of SVD can be shown as follow\n\nProof 16.1. Let \\(X \\in \\mathbb{R}^{n \\times d}\\) and \\(C = X^T X \\in \\mathbb{R}^{d \\times d}\\), then \\(C\\) is symmetric and positive semidefinite. Let the orthogonal decomposition of \\(C\\) be: \\[\nC = V \\Lambda V^T,\n\\] where \\(V^T V = I\\) and \\(\\Lambda = \\mathrm{diag}(\\lambda_1, \\lambda_2, \\dots, \\lambda_d), \\lambda_i \\geq 0 ,\\forall i\\in\\{1, 2, \\cdots, d\\}\\).\nConsider \\(\\Sigma \\in \\mathbb{R}^{n \\times d}\\) such that \\(\\Sigma^T \\Sigma = \\Lambda\\). If \\(\\mathrm{rank}(X) = r \\leq d\\), we can arrange the diagonal element of \\(\\Lambda\\) s.t. \\(\\lambda_1\\geq\\lambda_2\\cdots\\lambda_r\\geq0,\\lambda_{r+1} = \\cdots=\\lambda_d=0\\). Then \\[\n\\Sigma = \\begin{pmatrix}\n\\mathrm{diag}(\\sqrt{\\lambda_1},\\cdots,\\sqrt{\\lambda_r}) & 0\\\\\n0 & 0\n\\end{pmatrix}\n\\]\nWe define the left singular vector \\(u_i\\) as: \\[\nu_i := \\frac{1}{\\sigma_i} X v_i,\\quad i = 1, \\dots, r.\n\\] Then \\(u_i\\) are orthonormal: \\[\nu_i^T u_j = \\frac{1}{\\sigma_i \\sigma_j} v_i^T X^T X v_j = \\frac{1}{\\sigma_i \\sigma_j} v_i^T C v_j = \\frac{1}{\\sigma_i \\sigma_j} \\lambda_j \\delta_{ij} = \\delta_{ij}.\n\\] We can then extend \\(u_{r+1}, \\dots, u_n\\) such that \\(U = [u_1\\,|\\,u_2\\,|\\,\\dots\\,|\\,u_n] \\in \\mathbb{R}^{n\\times n}\\) is orthogonal.\nThus, we have \\(\\sigma_i u_i = X v_i\\) for \\(i=1,\\ldots, r\\) and \\(X v_i = 0\\) for \\(i &gt; r\\), which gives \\(X = U \\Sigma V^T\\).\n\n\nRemark 16.3. This proof can be extended to \\(X \\in \\mathbb{C}^{n \\times d}\\) with unitary matrices \\(U\\) and \\(V\\).\n\n\n\n16.3 Greedy Construction and SVD\n\nProposition 16.4 The SVD of \\(X = U \\Sigma V^T\\) is the same as the greedy construction; i.e., \\(V\\) and \\(\\Sigma\\) are right singular vectors and singular values constructed by the greedy definitions.\n\n\nProof 16.2. Let \\(v_1' := \\mathrm{argmax}_{\\|v\\|_2=1} \\|Xv\\|_2\\) be the first right singular vector.\nWrite \\(X = U \\Sigma V^T\\) where \\(V = [v_1, \\dots, v_d] \\in \\mathbb{R}^{d \\times d}\\) and \\(v_i^T v_j = \\delta_{ij}\\).\nThen: \\[\n\\|Xv\\|_2 = \\|U \\Sigma V^T v\\|_2 = \\|\\Sigma V^T v\\|_2\n\\] Let \\(z = V^T v\\), then \\(\\|z\\|_2 = 1\\) since \\(V\\) is orthogonal and \\(\\|v\\|_2 = 1\\).\nSo \\[\n\\|Xv\\|_2 = \\|\\Sigma z\\|_2 = \\sqrt{\\sum_{i} (\\sigma_i z_i)^2}\n\\] Suppose \\(\\sigma_1 \\geq \\sigma_2 \\geq \\dots \\geq \\sigma_r\\). Notice \\[\n\\sum \\sigma_i^2 z_i^2 \\leq \\sigma_1^2 \\left(\\sum z_i^2\\right) = \\sigma_1^2\n\\] Equality is attained when \\(z_1 = 1\\) \\(\\Rightarrow v = v_1 \\Rightarrow v_1' = v_1\\).\nNext, \\(v_2' := \\mathrm{argmax}_{\\|v\\|_2=1,\\, v \\perp v_1} \\|Xv\\|_2\\). We proceed similarly, but now \\(z_1 = 0\\) (since \\(v \\perp v_1\\)).\nThen \\[\n\\|Xv\\|_2 = \\sqrt{\\sum_{i=2} (\\sigma_i z_i)^2} \\leq \\sigma_2\n\\] Equality when \\(z_2 = 1 \\Rightarrow v_2' = v_2\\).\nSimilarly, we find all \\(v_i\\) by the greedy construction.\n\n\n\n16.4 Skinny SVD and Full SVD\nFull SVD:\n\\[\nX_{n \\times d} = U_{n \\times n} \\Sigma_{n \\times d} V_{d \\times d}^T\n\\] where \\(\\mathrm{rank}(X) = r \\leq \\min(n, d)\\).\nNotice \\((\\sigma_{r+1}, \\dots, \\sigma_{\\min(d,n)}) = 0\\).\nTruncated SVD (Skinny SVD):\nLet - \\(U_r := [u_1, \\dots, u_r] \\in \\mathbb{R}^{n \\times r}\\) - \\(V_r := [v_1, \\dots, v_r] \\in \\mathbb{R}^{d \\times r}\\) - \\(\\Sigma_r = \\mathrm{diag}(\\sigma_1, \\dots, \\sigma_r)\\)\nthen \\[\nX_{n \\times d} = U_r \\Sigma_r V_r^T = \\sum_{i=1}^{r} \\sigma_i u_i v_i^T\n\\]\n\n\n16.5 Computing SVD: The Power Method\n\nPAGE 6\nComputing SVD Power Method Idea: let \\(C = X^T X \\in \\mathbb{R}^{d \\times d}\\), \\(C = V \\Lambda V^T = \\sum_{i=1}^{r} \\sigma_i^2 v_i v_i^T\\). \\(C^k = \\sum_{i=1}^{r} \\sigma_i^{2k} v_i v_i^T\\). If \\(\\sigma_1 &gt; \\sigma_2\\), then for \\(k\\) large enough: \\(\\sigma_1^{2k} \\gg \\sigma_i^{2k} \\Rightarrow C^k \\approx \\sigma_1^{2k} v_1 v_1^T\\).Linear rate of convergence: To check the convergence rate, we check \\(\\min \\{ \\|v^{(k)} - v_1\\|_2^2, \\|v^{(k)} + v_1\\|_2^2 \\} = 2 - 2|\\langle v^{(k)}, v_1 \\rangle|\\). \\(v^{(k)} = \\frac{C^k q}{\\|C^k q\\|_2}\\) where \\(q = \\sum c_i v_i\\). \\(\\frac{1 - |\\langle v^{(k)}, v_1 \\rangle|^2}{|\\langle v^{(k)}, v_1 \\rangle|^2} \\le (d-1) \\frac{\\sigma_2^{4k}}{\\sigma_1^{4k} c_1^2} \\rightarrow\\) linear convergence when \\(\\sigma_2 &lt; \\sigma_1\\). Computing \\(C^k\\) is costly; instead, each step only needs matrix-vector multiplication (efficient when one dim of \\(X\\) is small or \\(X\\) is sparse).\nPAGE 7\n\\(v^{(k)} := \\frac{C v^{(k-1)}}{\\|C v^{(k-1)}\\|_2}\\). Expanding in orthonormal bases \\(v_1, \\dots, v_d\\): \\(C^k q = \\sum_{j=1}^{d} \\sigma_j^{2k} c_j v_j\\). Assume \\(\\|q\\|_2=1\\) and \\(|c_1| = |\\langle v_1, q \\rangle| &gt; [cite_start]0\\). Note the above analysis assumes \\(\\sigma_1 &gt; \\sigma_2\\) strictly. In fact, the power method converges to some vector in the span of singular vectors with “nearly highest” singular values. Let \\(q \\in \\mathbb{R}^d\\) and \\(c_1 &gt; 0\\), let \\(V_1\\) be the linear subspace spanned by \\(v_i\\) s.t. \\(\\sigma_i \\ge (1-\\epsilon)\\sigma_1\\). Then it can be shown that \\(\\|P_{V_1^\\perp}(v^{(k)})\\|_2 \\le \\epsilon\\) when \\(k \\ge \\frac{\\ln(1/\\epsilon \\delta)}{2\\epsilon}\\).Remark: \\(q\\) can be chosen as random \\(q \\sim N(0, I_d)\\). When chosen randomly, \\(c_1 &gt; 0\\) is satisfied with high probability.\nPAGE 8\nSubspace Power Method Finding right singular values is same as finding eigenvectors for \\(X^T X\\). Can use orthogonal iteration algorithm. Let \\(M \\in \\mathbb{R}^{d \\times d}\\) be PSD with eigen-decomposition \\(M = V \\Lambda V^T\\). 1. Initialize \\(Q_0 \\in \\mathbb{R}^{d \\times k}\\) as a random \\(k\\)-dimensional subspace. 2. Repeat till convergence: * \\(Z_{t+1} = M \\cdot Q_t\\) * \\(Q_{t+1} = QR[Z_{t+1}]\\), where \\(QR[Z]\\) is the \\(Q\\) from QR decomposition. \\(Q\\) then represents the first \\(k\\) right singular vectors.\nBest rank-k Approximation Recap on matrix norm: * Frobenius norm: \\(\\|X\\|_F = \\sqrt{\\sum_{i,j} X_{ij}^2} = \\sqrt{\\sum \\sigma_i^2}\\). * Schatten p-norm \\(\\|X\\|_{S_p} := (\\sum_{i=1}^r \\sigma_i^p)^{1/p}\\). * The spectral norm \\(\\|X\\|_2 = \\sigma_1\\).\\(\\|X - X_k\\|_p = \\min_{\\text{rank}(B) \\le k}\n* \\|X - B\\|_p = (\\sum_{i=k+1}^r \\sigma_i^p)^{1/p}\\).\nPAGE 9\nLet \\(\\text{rank}(X) = r \\le \\min(n, d)\\). We define \\(k\\)-truncated SVD of \\(X\\) as: \\(X_k = \\sum_{i=1}^{k} \\sigma_i u_i v_i^T\\) where \\(X = \\sum_{i=1}^{r} \\sigma_i u_i v_i^T\\). Then \\(X_k\\) is the “best” rank-\\(k\\) approximation in terms of orthogonally invariant norm \\(\\|\\cdot\\|\\): \\(X_k = \\text{argmin}_{\\text{rank}(B) \\le k} \\|X - B\\|\\). \\(X_k\\) is the most close rank-\\(k\\) matrix to \\(X\\). Orthogonally invariant: \\(\\|O_1 X O_2\\| [cite_start]= \\|X\\|\\) for orthogonal \\(O_1, O_2\\). Example: Frobenius norm, Spectral norm.\nroof for spectral norm: \\(\\|X - X_k\\|_2 = \\sigma_{k+1}\\). We want to show \\(\\|X - B\\|_2 \\ge \\sigma_{k+1}\\) for any rank \\(k\\) matrix \\(B\\). Consider \\(w \\in \\mathbb{R}^d\\) with \\(\\|w\\|_2=1\\). We can choose \\(w \\in \\text{Null}(B) \\cap \\text{span}\\{v_1, \\dots, v_{k+1}\\}\\). In this case \\(\\|Xw\\|_2 \\ge \\sigma_{k+1}\\). \\(\\|X - B\\|_2 = \\max_{\\|v\\|_2=1} \\|(X - B)v\\|_2 \\ge \\|(X - B)w\\|_2 = \\|Xw\\|_2 \\ge \\sigma_{k+1}\\).\nPAGE 10\nProof of Frobenius norm: Consider \\(\\|X - B\\|_F^2\\) where \\(\\text{rank}(B) = k \\le r\\). \\(\\|X - B\\|_F^2 = \\sum_{i=1}^n \\|x_i - b_i\\|_2^2\\). Let \\(\\{v_1, \\dots, v_k\\}\\) be the orthonormal basis for the subspace of \\(B\\). The error is minimized when \\(b_i\\) is the projection of \\(x_i\\) to the subspace. In previous claims, the greedy construction of singular vectors minimizes the distance between vectors and the orthogonal subspace. Thus \\(\\{v_1, \\dots, v_k\\}\\) should be the first \\(k\\) singular vectors. The projection of \\(X\\) is \\(X_k = \\sum_{i=1}^{k} \\sigma_i u_i v_i^T\\).",
+    "crumbs": [
+      "Machine Learning and Data Science Basics",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "sp/bm.html",
+    "href": "sp/bm.html",
+    "title": "18  Brownian Motion",
+    "section": "",
+    "text": "What is a Brownian Motion",
+    "crumbs": [
+      "Stochastic Process and Stochastic Integral",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Brownian Motion</span>"
+    ]
+  },
+  {
+    "objectID": "sp/bm.html#what-is-a-brownian-motion",
+    "href": "sp/bm.html#what-is-a-brownian-motion",
+    "title": "18  Brownian Motion",
+    "section": "",
+    "text": "Definition 18.1 (Brownian Motion) \\((B_t)_{t\\geq 0}\\) is a stochastic process defined on \\((\\Omega, \\mathcal{F}, P)\\), i.e. for \\(\\forall t\\geq 0\\), \\(B_t\\) is a RV. \\((B_t)_{t\\geq 0}\\) is called BM if \\(B_0=0\\) and \\(\\forall 0=t_0&lt;t_1\\cdots&lt;t_i\\), \\(B_{t_1}-B_{t_0}, B_{t_2}-B_{t_1}, \\cdots, B_{t_i} - B_{t_{i-1}}\\) are all independent and \\(\\forall s&lt;t, B_t-B_s \\overset{(d)}{=}N(0, t-s)\\).\n\n\nDefinition 18.2 (Definition Using Filtration) \\((B_t)_{t\\geq 0}\\) is called BM w.r.t filtration \\((\\mathcal{F}_t)\\) if\n\n\\(B_t\\) is continuous path, \\(B_0=0\\)\n\\(\\forall t\\), \\(B_t\\) is measurable w.r.t \\(\\mathcal{F}_t\\) or \\(\\mathcal{F}_t^{B_y}\\subset\\mathcal{F}_t\\), where \\(\\mathcal{F}_t^{B_t}\\) is the \\(\\sigma\\) algebra generate by \\(B_t\\)\n\\(B_t-B_s\\perp F_s\\) and \\(B_t-B_s\\overset{(d)}{=}N(0, t-s)\\)\n\n\n\n\n\n\n\n\nProperties\n\n\n\n\n\\((B_t)_{t\\geq 0}\\) is a martingle w.r.t to \\((\\mathcal{F}_t)_{t\\geq 0}\\). \\[\n\\begin{align}\nE(B_t|\\mathcal{F}_s) &= E(B_s + B_t - B_s|\\mathcal{F}_s) = B_s + E(B_t-B_s|\\mathcal{F}_s) \\\\\n&=B_s + E(B_t-B_s) = B_s\n\\end{align}\n\\]\n\\(B_t^2 - t\\) is a martingle w.r.t. \\(\\mathcal{F}_{t\\geq 0}\\).\n\\[\n\\begin{align}\nE(B^2_t-t|\\mathcal{F}_s) &= E((B_s + (B_t-B_s))^2 - t | \\mathcal{F}_s)\\\\\n&=E(B^2_s + 2B_s(B_t-B_s) + (B_t-B_s)^2|\\mathcal{F}_s) - t\\\\\n&=B_s^2 + 2B_sE(B_t-B_s|\\mathcal{F}_s) + E((B_t-B_s)^2|\\mathcal{F}_s) - t\\\\\n&=B^2_s-s\n\\end{align}\n\\]",
+    "crumbs": [
+      "Stochastic Process and Stochastic Integral",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Brownian Motion</span>"
+    ]
+  },
+  {
+    "objectID": "sp/stocInt.html",
+    "href": "sp/stocInt.html",
+    "title": "19  Stochastic Integral and Ito Processes",
+    "section": "",
+    "text": "Start with step process :::{#def-stepProcess} ## Step process A step process \\(G_t\\) is defined as\n:::",
+    "crumbs": [
+      "Stochastic Process and Stochastic Integral",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Stochastic Integral and Ito Processes</span>"
+    ]
+  },
+  {
+    "objectID": "sp/prob.html",
+    "href": "sp/prob.html",
+    "title": "18  Probability Review",
+    "section": "",
+    "text": "Probability measure\nRemark: Events are subsets of \\(\\Omega\\), but subsets of \\(\\Omega\\) may not be an Event. We can therefore select subsets of \\(\\Omega\\), which are events and form a collection \\(\\mathcal{F}\\) (ie, \\(\\mathcal{F} \\subseteq 2^\\Omega\\) set of all subset of \\(\\Omega\\)) and should have following property: * (a) if \\(A, B \\in \\mathcal{F}\\) then \\(A \\cup B \\in \\mathcal{F}\\) and \\(A \\cap B \\in \\mathcal{F}\\). * (b) if \\(A \\in \\mathcal{F}\\) then \\(A^c \\in \\mathcal{F}\\). * (c) \\(\\emptyset \\in \\mathcal{F}\\).\n\\(\\mathcal{F} \\subseteq 2^\\Omega\\) satisfied above is called a field.\nRemark: * (a) \\(\\bigcup_{i=1}^n A_i \\in \\mathcal{F}\\), \\(\\bigcap_{i=1}^n A_i \\in \\mathcal{F}\\). close under finite Union or intersect. * (b) This properties can be shown via easy coin toss experiment.\nInfinite union and dice: Consider an experiment: A coin is repeatedly tossed until the first head show up, try to find number of toss before this happen. \\(\\Omega = \\{ \\omega_1, \\omega_2, \\dots \\}\\). \\(\\omega_i = \\text{first i-lane toss i are head}\\). Event \\(A := \\text{the first head shows up after even number of tosses}\\). \\(A := \\{ \\omega_2, \\omega_4, \\omega_6, \\dots \\} = \\bigcup_{i=1}^\\infty \\omega_{2i}\\). \\(A\\) should also be in the event space \\(\\mathcal{F}\\).\n\\(\\sigma\\)-algebra / \\(\\sigma\\)-field: Set of Events under infinite Union. Collection of subset of sample space \\(\\mathcal{F} \\subseteq 2^\\Omega\\), called a \\(\\sigma\\)-algebra / \\(\\sigma\\)-field if it satisfies following: 1. \\(\\emptyset \\in \\mathcal{F}\\). 2. if \\(A \\in \\mathcal{F}, A^c \\in \\mathcal{F} (A^c := \\Omega - A) \\rightarrow \\Omega \\in \\mathcal{F}\\). 3. if \\(A_1, A_2, \\dots \\in \\mathcal{F}\\), then \\(\\bigcup A_i \\in \\mathcal{F}, \\bigcap A_i \\in \\mathcal{F}\\).\nSuppose we have sample space \\(\\Omega\\), and \\(\\sigma\\)-algebra \\(\\mathcal{F}\\). A probability measure is a function \\(P: \\mathcal{F} \\rightarrow [0, 1]\\) satisfies: 1. \\(P(\\emptyset) = 0, P(\\Omega) = 1\\). 2. If \\(A_1, A_2, \\dots \\in \\mathcal{F}\\) and are disjoint \\((A_i \\cap A_j = \\emptyset, \\text{for } i \\neq j)\\) then \\(P(\\bigcup_{i=1}^\\infty A_i) = \\sum_{i=1}^\\infty P(A_i)\\).\nThe \\((\\Omega, \\mathcal{F}, P)\\) is called a probability space.\nLemma 1.4: * (a) \\(P(A^c) = 1 - P(A)\\). * (b) if \\(A \\subseteq B, P(A) \\leq P(B)\\). * (c) \\(P(A \\cup B) = P(A) + P(B) - P(A \\cap B)\\). * (d) \\(P(\\bigcup_{i=1}^n A_i) = \\sum P(A_i) - \\sum_{i&lt;j} P(A_i \\cap A_j) + \\dots (-1)^{n+1} P(A_1 \\cap \\dots \\cap A_n)\\).",
+    "crumbs": [
+      "Stochastic Process and Stochastic Integral",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Probability Review</span>"
+    ]
+  },
+  {
+    "objectID": "sp/prob.html#probability-review",
+    "href": "sp/prob.html#probability-review",
+    "title": "18  Probability and Stochastic Processes: Review Notes",
+    "section": "",
+    "text": "Sample space \\Omega: the set of all possible outcome of an experiment.\nEvent: subsets of the sample space \\Omega.\nImpossible event: is \\emptyset.\nCertain event: is \\Omega.\nBertrand’s Paradox: probability of chord intersect with inner circle. An example of different.",
+    "crumbs": [
+      "Stochastic Process and Stochastic Integral",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Probability and Stochastic Processes: Review Notes</span>"
+    ]
+  },
+  {
+    "objectID": "sp/prob.html#probability-measure",
+    "href": "sp/prob.html#probability-measure",
+    "title": "18  Probability and Stochastic Processes: Review Notes",
+    "section": "2. Probability measure",
+    "text": "2. Probability measure\nSuppose we have sample space \\Omega, and \\sigma-algebra \\mathcal{F}. A probability measure is a function P: \\mathcal{F} \\rightarrow [0, 1] satisfies: 1. P(\\emptyset) = 0, P(\\Omega) = 1. 2. If A_1, A_2, \\dots \\in \\mathcal{F} and are disjoint (A_i \\cap A_j = \\emptyset, \\text{for } i \\neq j) then P(\\bigcup_{i=1}^\\infty A_i) = \\sum_{i=1}^\\infty P(A_i).\nThe (\\Omega, \\mathcal{F}, P) is called a probability space.\nLemma 1.4: * (a) P(A^c) = 1 - P(A). * (b) if A \\subseteq B, P(A) \\leq P(B). * (c) P(A \\cup B) = P(A) + P(B) - P(A \\cap B). * (d) P(\\bigcup_{i=1}^n A_i) = \\sum P(A_i) - \\sum_{i&lt;j} P(A_i \\cap A_j) + \\dots (-1)^{n+1} P(A_1 \\cap \\dots \\cap A_n).",
+    "crumbs": [
+      "Stochastic Process and Stochastic Integral",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Probability and Stochastic Processes: Review Notes</span>"
+    ]
+  },
+  {
+    "objectID": "sp/prob.html#generated-sigma-field-for-uncountable-omega",
+    "href": "sp/prob.html#generated-sigma-field-for-uncountable-omega",
+    "title": "18  Probability Review",
+    "section": "Generated \\(\\sigma\\)-field for uncountable \\(\\Omega\\)",
+    "text": "Generated \\(\\sigma\\)-field for uncountable \\(\\Omega\\)\nSuppose a collection of subset \\(A_\\alpha \\subseteq \\Omega\\) where \\(\\alpha \\in T\\) not necessarily countable. The smallest \\(\\sigma\\)-field \\(\\mathcal{F}\\) s.t. \\(A_\\alpha \\in \\mathcal{F}\\) for \\(\\forall \\alpha \\in T\\) is denoted as \\(\\mathcal{F}(\\{A_\\alpha\\})\\). Then \\(A_\\alpha\\) is called generator, and \\(\\mathcal{F}(\\{A_\\alpha\\})\\) is called \\(\\sigma\\)-field generated by \\(A_\\alpha\\). \\(\\sigma(\\{A_\\alpha\\})\\) is a \\(\\sigma\\)-field, \\(A_\\alpha \\in \\sigma\\). Smallest \\(\\sigma\\)-field over \\(A_\\alpha, \\forall \\alpha \\in T\\).\nRemark: if \\(\\mathcal{A}_\\alpha\\) is \\(\\sigma\\)-field for each \\(\\alpha \\in T\\), then \\(\\bigcap_{\\alpha \\in T} \\mathcal{A}_\\alpha\\) is a \\(\\sigma\\)-field.\nBorel \\(\\sigma\\)-field: A Borel \\(\\sigma\\)-field on \\(\\mathbb{R}\\) is a \\(\\sigma\\)-field generated by \\((a, b)\\). \\(\\mathcal{B} = \\sigma(\\{(a, b), a &lt; b \\in \\mathbb{R}\\}) \\iff \\mathcal{F}(\\{O \\subseteq \\mathbb{R} \\text{ is open}\\}) \\iff \\mathcal{F}(\\{(-\\infty, b], b \\in \\mathbb{R}\\})\\).",
+    "crumbs": [
+      "Stochastic Process and Stochastic Integral",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Probability Review</span>"
+    ]
+  },
+  {
+    "objectID": "sp/prob.html#random-variable-r.v.",
+    "href": "sp/prob.html#random-variable-r.v.",
+    "title": "18  Probability Review",
+    "section": "Random Variable (R.V.)",
+    "text": "Random Variable (R.V.)\nObservable of probability space. A R.V. is a function \\(X: \\Omega \\rightarrow \\mathbb{R}\\) s.t. for \\(\\alpha \\in \\mathbb{R}\\) the set \\(\\{\\omega : X(\\omega) \\leq \\alpha\\}\\) is in \\(\\mathcal{F}\\) (such function is also called \\(\\mathcal{F}\\)-measurable (or just measurable)). Equivalently, the measurable means \\(X\\) is measurable in \\(\\mathcal{F}\\) if for \\(B \\in \\mathcal{B}(\\mathbb{R}), X^{-1}(B) \\in \\mathcal{F}\\).\nRemark: The R.V. create a mapping between outcomes and real numbers, in a way s.t. outcomes that captured by any Borel set (could be record as an event of random space) is forming an events in Event space \\(\\mathcal{F}\\).\n\\(\\sigma\\)-field generated by random variable: Suppose \\(X\\) is R.V. on \\((\\Omega, \\mathcal{F})\\). The \\(\\sigma\\)-field generated by \\(X\\), \\(\\sigma(X)\\) is the smallest \\(\\sigma\\)-field \\(\\mathcal{G} \\subseteq \\mathcal{F}\\) s.t. \\(X\\) is still measurable on \\((\\Omega, \\mathcal{G})\\).\nRemark: \\(\\{X^{-1}(B) \\mid B \\in \\mathcal{B}(\\mathbb{R})\\}\\) is such smallest \\(\\sigma\\)-algebra. Every \\(B \\in \\mathcal{B}(\\mathbb{R})\\) is inside \\(\\mathcal{F}\\), the smallest set from \\(X\\) is \\(\\{X^{-1}(B) \\mid B \\in \\mathcal{B}(\\mathbb{R})\\}\\). This contains all the information relevant to \\(X\\). \\(\\sigma(X)\\) is thus the least amount of information relevant to \\(X\\).\nSimple function: \\(X := \\sum_{n=1}^N c_n I_{A_n}\\) is a R.V. for finite \\(N\\) and \\(c_n \\in \\mathbb{R}\\). Have \\(A_n \\in \\mathcal{F}\\) for any \\(n\\) and \\(I_{A_n} := \\begin{cases} 1, \\omega \\in A_n \\\\ 0, \\omega \\notin A_n \\end{cases}\\).\nProp: for every R.V. \\(X\\), there exist a sequence of sample functions \\(X_n\\) s.t. \\(X_n(\\omega) \\rightarrow X(\\omega)\\) as \\(n \\rightarrow \\infty\\) for \\(\\forall \\omega \\in \\Omega\\).\nTwo R.V. same (almost surely): Suppose \\(X\\) and \\(Y\\) are R.V. defined on \\((\\Omega, \\mathcal{F}, P)\\), we says \\(X\\) and \\(Y\\) are almost surely (a.s.) the same if \\(P(\\{\\omega : X(\\omega) \\neq Y(\\omega)\\}) = 0\\).",
+    "crumbs": [
+      "Stochastic Process and Stochastic Integral",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Probability Review</span>"
+    ]
+  },
+  {
+    "objectID": "sp/prob.html#expected-value",
+    "href": "sp/prob.html#expected-value",
+    "title": "18  Probability Review",
+    "section": "Expected Value",
+    "text": "Expected Value\nIntegration w.r.t. measure.\nLebesgue integral: 1. Simple R.V. Def: Suppose \\(X\\) on \\((\\Omega, \\mathcal{F})\\) is simple value R.V.. \\(X = \\sum_{i=1}^k c_i I_{A_i}\\) then define \\(\\int_\\Omega X dP := \\sum_{i=1}^k c_i P(A_i)\\). 2. If \\(X\\) is non-negative R.V. \\(\\int_\\Omega X dP := \\sup_{Y \\leq X, Y \\text{ simple}} \\int_\\Omega Y dP\\). 3. If \\(X\\) is general R.V., then \\(\\int_\\Omega X dP = \\int_\\Omega X^+ dP - \\int_\\Omega X^- dP\\), \\(X^+ = \\max(X, 0)\\), \\(X^- = \\max(-X, 0)\\).",
+    "crumbs": [
+      "Stochastic Process and Stochastic Integral",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Probability Review</span>"
+    ]
+  },
+  {
+    "objectID": "sp/prob.html#conditional-probability",
+    "href": "sp/prob.html#conditional-probability",
+    "title": "18  Probability Review",
+    "section": "Conditional probability",
+    "text": "Conditional probability\nLet \\((\\Omega, \\mathcal{F}, P)\\) be a prob space and \\(A, B \\in \\mathcal{F}\\) and \\(P(B) &gt; 0\\). The conditional probability of \\(A\\), given \\(B\\) is \\(P(A|B) := \\frac{P(A \\cap B)}{P(B)}\\).\nIndependence: This means \\(P(A|B) = P(A) \\Rightarrow P(A \\cap B) = P(A)P(B)\\).\nConditional Expectation: \\(E(X|B) = \\frac{1}{P(B)} \\int_B X dP\\).\n\\(E(X|Y)\\), the expected value of R.V. \\(X\\), given another R.V. \\(Y\\) known. Consider the case where \\(Y = \\sum_{i=1}^m c_i I_{A_i}\\), suppose \\(c_i\\) are distinct. \\(Y(\\omega) = \\begin{cases} c_1, \\omega \\in A_1 \\\\ \\dots \\\\ c_m, \\omega \\in A_m \\end{cases}\\) \\(E(X|Y) = \\begin{cases} \\frac{1}{P(A_1)} \\int_{A_1} X dP, A_1 \\\\ \\dots \\\\ \\frac{1}{P(A_m)} \\int_{A_m} X dP, A_m \\end{cases}\\)\nDef: Let \\(X, Y\\) be R.V. defined on \\(\\Omega\\), the conditional expectation \\(E(X|Y)\\) is random variable \\(Z\\) s.t.: 1. \\(Z\\) is \\(\\sigma(Y)\\) measurable. 2. \\(\\int_A X dP = \\int_A Z dP\\) for \\(\\forall A \\in \\sigma(Y)\\).\nRemark: \\(E(X|\\mathcal{V})\\) can be understand as an estimate of R.V. \\(X\\) constructed from the information in \\(\\sigma\\)-field \\(\\mathcal{V}\\).",
+    "crumbs": [
+      "Stochastic Process and Stochastic Integral",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Probability Review</span>"
+    ]
+  },
+  {
+    "objectID": "ml-ds/SVD.html#best-fitting-2d-subspace",
+    "href": "ml-ds/SVD.html#best-fitting-2d-subspace",
+    "title": "16  Singular Value Decomposition",
+    "section": "Best-Fitting 2D Subspace",
+    "text": "Best-Fitting 2D Subspace\nLet \\(v_1, v_2\\) be the first and second right singular vectors of \\(X \\in \\mathbb{R}^{n \\times d}\\). Let \\(V = \\text{span}(v_1, v_2) \\subseteq \\mathbb{R}^d\\) be the two-dimensional subspace they span.\nThen \\(V\\) is the solution to the following minimization: \\[\nV = \\underset{W:\\,\\dim(W)=2}{\\mathrm{argmin}} \\sum_{j=1}^{n} \\|x_j - P_W(x_j)\\|_2^2\n\\] where \\(P_W:\\mathbb{R}^d\\rightarrow\\mathbb{R}^2\\) is the orthogonal projection onto the subspace \\(W\\).",
+    "crumbs": [
+      "Machine Learning and Data Science Basics",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "ml-ds/SVD.html#def-right-singular-vector",
+    "href": "ml-ds/SVD.html#def-right-singular-vector",
+    "title": "16  Singular Value Decomposition",
+    "section": "",
+    "text": "The leading right singular vectors \\(v_1, \\dots, v_r \\in \\mathbb{R}^d\\) are defined as \\[\nv_k := \\underset{\\|v\\|_2=1,\\, v \\perp \\{v_1, \\dots, v_{k-1}\\}}{\\mathrm{argmax}}\\, \\|Xv\\|_2\n\\] Singular values are defined as \\(\\sigma_k = \\|X v_k\\|_2\\).",
+    "crumbs": [
+      "Machine Learning and Data Science Basics",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "ml-ds/SVD.html#greedy-construction-of-best-fit-subspace",
+    "href": "ml-ds/SVD.html#greedy-construction-of-best-fit-subspace",
+    "title": "16  Singular Value Decomposition",
+    "section": "Greedy Construction of Best-Fit Subspace",
+    "text": "Greedy Construction of Best-Fit Subspace\nLet \\(v_1, \\dots, v_r\\) be the leading right singular vectors, and let \\(V = \\mathrm{span}(v_1, \\dots, v_r) \\subset \\mathbb{R}^d\\). Then \\[\nV \\in \\underset{W: \\dim(W)=r}{\\mathrm{argmin}}\\, \\sum_{j=1}^n \\|x_j - P_W(x_j)\\|_2^2\n\\] That is, \\(V\\) is the best-fit linear subspace of dimension \\(r\\) in terms of least squares error.",
+    "crumbs": [
+      "Machine Learning and Data Science Basics",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "ml-ds/SVD.html#singular-value-decomposition",
+    "href": "ml-ds/SVD.html#singular-value-decomposition",
+    "title": "16  Singular Value Decomposition",
+    "section": "",
+    "text": "Theorem 16.1 (Singular Value Decomposition (SVD)) For any matrix \\(X \\in \\mathbb{R}^{n \\times d}\\), there exist orthogonal matrices \\(U \\in \\mathbb{R}^{n \\times n}\\) and \\(V \\in \\mathbb{R}^{d \\times d}\\) and a non-negative diagonal matrix \\(\\Sigma \\in \\mathbb{R}^{n \\times d}\\) such that\n\\[\nX_{n \\times d} = U_{n \\times n}\\, \\Sigma_{n \\times d}\\, V_{d \\times d}^T\n\\]\n\n\nRemark 16.2. \n\nThe diagonals of \\(\\Sigma\\), arranged in non-increasing order, are the singular values defined in Proposition 16.3.\nColumns of \\(U\\) are the left singular vectors of \\(X\\).\nThe left singular vectors \\(u_i := \\frac{1}{\\sigma_i} X v_i\\), where \\(\\sigma_i\\) is the \\(i\\)-th diagonal element of \\(\\Sigma\\).\nColumns of \\(V\\) are the right singular vectors of \\(X\\) defined in Proposition 16.3.\nSVD can be viewed as ‘generalized diagonolization’ of an arbitrary matrix.\n\n\nThe existence of SVD can be shown as follow\n\nProof 16.1. Let \\(X \\in \\mathbb{R}^{n \\times d}\\) and \\(C = X^T X \\in \\mathbb{R}^{d \\times d}\\), then \\(C\\) is symmetric and positive semidefinite. Let the orthogonal decomposition of \\(C\\) be: \\[\nC = V \\Lambda V^T,\n\\] where \\(V^T V = I\\) and \\(\\Lambda = \\mathrm{diag}(\\lambda_1, \\lambda_2, \\dots, \\lambda_d), \\lambda_i \\geq 0 ,\\forall i\\in\\{1, 2, \\cdots, d\\}\\).\nConsider \\(\\Sigma \\in \\mathbb{R}^{n \\times d}\\) such that \\(\\Sigma^T \\Sigma = \\Lambda\\). If \\(\\mathrm{rank}(X) = r \\leq d\\), we can arrange the diagonal element of \\(\\Lambda\\) s.t. \\(\\lambda_1\\geq\\lambda_2\\cdots\\lambda_r\\geq0,\\lambda_{r+1} = \\cdots=\\lambda_d=0\\). Then \\[\n\\Sigma = \\begin{pmatrix}\n\\mathrm{diag}(\\sqrt{\\lambda_1},\\cdots,\\sqrt{\\lambda_r}) & 0\\\\\n0 & 0\n\\end{pmatrix}\n\\]\nWe define the left singular vector \\(u_i\\) as: \\[\nu_i := \\frac{1}{\\sigma_i} X v_i,\\quad i = 1, \\dots, r.\n\\] Then \\(u_i\\) are orthonormal: \\[\nu_i^T u_j = \\frac{1}{\\sigma_i \\sigma_j} v_i^T X^T X v_j = \\frac{1}{\\sigma_i \\sigma_j} v_i^T C v_j = \\frac{1}{\\sigma_i \\sigma_j} \\lambda_j \\delta_{ij} = \\delta_{ij}.\n\\] We can then extend \\(u_{r+1}, \\dots, u_n\\) such that \\(U = [u_1\\,|\\,u_2\\,|\\,\\dots\\,|\\,u_n] \\in \\mathbb{R}^{n\\times n}\\) is orthogonal.\nThus, we have \\(\\sigma_i u_i = X v_i\\) for \\(i=1,\\ldots, r\\) and \\(X v_i = 0\\) for \\(i &gt; r\\), which gives \\(X = U \\Sigma V^T\\).\n\n\nRemark 16.3. This proof can be extended to \\(X \\in \\mathbb{C}^{n \\times d}\\) with unitary matrices \\(U\\) and \\(V\\).",
+    "crumbs": [
+      "Machine Learning and Data Science Basics",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "ml-ds/SVD.html#greedy-construction-and-svd",
+    "href": "ml-ds/SVD.html#greedy-construction-and-svd",
+    "title": "16  Singular Value Decomposition",
+    "section": "16.3 Greedy Construction and SVD",
+    "text": "16.3 Greedy Construction and SVD\n\nProposition 16.4 The SVD of \\(X = U \\Sigma V^T\\) is the same as the greedy construction; i.e., \\(V\\) and \\(\\Sigma\\) are right singular vectors and singular values constructed by the greedy definitions.\n\n\nProof 16.2. Let \\(v_1' := \\mathrm{argmax}_{\\|v\\|_2=1} \\|Xv\\|_2\\) be the first right singular vector.\nWrite \\(X = U \\Sigma V^T\\) where \\(V = [v_1, \\dots, v_d] \\in \\mathbb{R}^{d \\times d}\\) and \\(v_i^T v_j = \\delta_{ij}\\).\nThen: \\[\n\\|Xv\\|_2 = \\|U \\Sigma V^T v\\|_2 = \\|\\Sigma V^T v\\|_2\n\\] Let \\(z = V^T v\\), then \\(\\|z\\|_2 = 1\\) since \\(V\\) is orthogonal and \\(\\|v\\|_2 = 1\\).\nSo \\[\n\\|Xv\\|_2 = \\|\\Sigma z\\|_2 = \\sqrt{\\sum_{i} (\\sigma_i z_i)^2}\n\\] Suppose \\(\\sigma_1 \\geq \\sigma_2 \\geq \\dots \\geq \\sigma_r\\). Notice \\[\n\\sum \\sigma_i^2 z_i^2 \\leq \\sigma_1^2 \\left(\\sum z_i^2\\right) = \\sigma_1^2\n\\] Equality is attained when \\(z_1 = 1\\) \\(\\Rightarrow v = v_1 \\Rightarrow v_1' = v_1\\).\nNext, \\(v_2' := \\mathrm{argmax}_{\\|v\\|_2=1,\\, v \\perp v_1} \\|Xv\\|_2\\). We proceed similarly, but now \\(z_1 = 0\\) (since \\(v \\perp v_1\\)).\nThen \\[\n\\|Xv\\|_2 = \\sqrt{\\sum_{i=2} (\\sigma_i z_i)^2} \\leq \\sigma_2\n\\] Equality when \\(z_2 = 1 \\Rightarrow v_2' = v_2\\).\nSimilarly, we find all \\(v_i\\) by the greedy construction.",
+    "crumbs": [
+      "Machine Learning and Data Science Basics",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "ml-ds/SVD.html#skinny-svd-and-full-svd",
+    "href": "ml-ds/SVD.html#skinny-svd-and-full-svd",
+    "title": "16  Singular Value Decomposition",
+    "section": "16.4 Skinny SVD and Full SVD",
+    "text": "16.4 Skinny SVD and Full SVD\nFull SVD:\n\\[\nX_{n \\times d} = U_{n \\times n} \\Sigma_{n \\times d} V_{d \\times d}^T\n\\] where \\(\\mathrm{rank}(X) = r \\leq \\min(n, d)\\).\nNotice \\((\\sigma_{r+1}, \\dots, \\sigma_{\\min(d,n)}) = 0\\).\nTruncated SVD (Skinny SVD):\nLet - \\(U_r := [u_1, \\dots, u_r] \\in \\mathbb{R}^{n \\times r}\\) - \\(V_r := [v_1, \\dots, v_r] \\in \\mathbb{R}^{d \\times r}\\) - \\(\\Sigma_r = \\mathrm{diag}(\\sigma_1, \\dots, \\sigma_r)\\)\nthen \\[\nX_{n \\times d} = U_r \\Sigma_r V_r^T = \\sum_{i=1}^{r} \\sigma_i u_i v_i^T\n\\]",
+    "crumbs": [
+      "Machine Learning and Data Science Basics",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "ml-ds/SVD.html#computing-svd-the-power-method",
+    "href": "ml-ds/SVD.html#computing-svd-the-power-method",
+    "title": "16  Singular Value Decomposition",
+    "section": "16.5 Computing SVD: The Power Method",
+    "text": "16.5 Computing SVD: The Power Method\n\nPAGE 6\nComputing SVD Power Method Idea: let \\(C = X^T X \\in \\mathbb{R}^{d \\times d}\\), \\(C = V \\Lambda V^T = \\sum_{i=1}^{r} \\sigma_i^2 v_i v_i^T\\). \\(C^k = \\sum_{i=1}^{r} \\sigma_i^{2k} v_i v_i^T\\). If \\(\\sigma_1 &gt; \\sigma_2\\), then for \\(k\\) large enough: \\(\\sigma_1^{2k} \\gg \\sigma_i^{2k} \\Rightarrow C^k \\approx \\sigma_1^{2k} v_1 v_1^T\\).Linear rate of convergence: To check the convergence rate, we check \\(\\min \\{ \\|v^{(k)} - v_1\\|_2^2, \\|v^{(k)} + v_1\\|_2^2 \\} = 2 - 2|\\langle v^{(k)}, v_1 \\rangle|\\). \\(v^{(k)} = \\frac{C^k q}{\\|C^k q\\|_2}\\) where \\(q = \\sum c_i v_i\\). \\(\\frac{1 - |\\langle v^{(k)}, v_1 \\rangle|^2}{|\\langle v^{(k)}, v_1 \\rangle|^2} \\le (d-1) \\frac{\\sigma_2^{4k}}{\\sigma_1^{4k} c_1^2} \\rightarrow\\) linear convergence when \\(\\sigma_2 &lt; \\sigma_1\\). Computing \\(C^k\\) is costly; instead, each step only needs matrix-vector multiplication (efficient when one dim of \\(X\\) is small or \\(X\\) is sparse).\nPAGE 7\n\\(v^{(k)} := \\frac{C v^{(k-1)}}{\\|C v^{(k-1)}\\|_2}\\). Expanding in orthonormal bases \\(v_1, \\dots, v_d\\): \\(C^k q = \\sum_{j=1}^{d} \\sigma_j^{2k} c_j v_j\\). Assume \\(\\|q\\|_2=1\\) and \\(|c_1| = |\\langle v_1, q \\rangle| &gt; [cite_start]0\\). Note the above analysis assumes \\(\\sigma_1 &gt; \\sigma_2\\) strictly. In fact, the power method converges to some vector in the span of singular vectors with “nearly highest” singular values. Let \\(q \\in \\mathbb{R}^d\\) and \\(c_1 &gt; 0\\), let \\(V_1\\) be the linear subspace spanned by \\(v_i\\) s.t. \\(\\sigma_i \\ge (1-\\epsilon)\\sigma_1\\). Then it can be shown that \\(\\|P_{V_1^\\perp}(v^{(k)})\\|_2 \\le \\epsilon\\) when \\(k \\ge \\frac{\\ln(1/\\epsilon \\delta)}{2\\epsilon}\\).Remark: \\(q\\) can be chosen as random \\(q \\sim N(0, I_d)\\). When chosen randomly, \\(c_1 &gt; 0\\) is satisfied with high probability.\nPAGE 8\nSubspace Power Method Finding right singular values is same as finding eigenvectors for \\(X^T X\\). Can use orthogonal iteration algorithm. Let \\(M \\in \\mathbb{R}^{d \\times d}\\) be PSD with eigen-decomposition \\(M = V \\Lambda V^T\\). 1. Initialize \\(Q_0 \\in \\mathbb{R}^{d \\times k}\\) as a random \\(k\\)-dimensional subspace. 2. Repeat till convergence: * \\(Z_{t+1} = M \\cdot Q_t\\) * \\(Q_{t+1} = QR[Z_{t+1}]\\), where \\(QR[Z]\\) is the \\(Q\\) from QR decomposition. \\(Q\\) then represents the first \\(k\\) right singular vectors.\nBest rank-k Approximation Recap on matrix norm: * Frobenius norm: \\(\\|X\\|_F = \\sqrt{\\sum_{i,j} X_{ij}^2} = \\sqrt{\\sum \\sigma_i^2}\\). * Schatten p-norm \\(\\|X\\|_{S_p} := (\\sum_{i=1}^r \\sigma_i^p)^{1/p}\\). * The spectral norm \\(\\|X\\|_2 = \\sigma_1\\).\\(\\|X - X_k\\|_p = \\min_{\\text{rank}(B) \\le k}\n* \\|X - B\\|_p = (\\sum_{i=k+1}^r \\sigma_i^p)^{1/p}\\).\nPAGE 9\nLet \\(\\text{rank}(X) = r \\le \\min(n, d)\\). We define \\(k\\)-truncated SVD of \\(X\\) as: \\(X_k = \\sum_{i=1}^{k} \\sigma_i u_i v_i^T\\) where \\(X = \\sum_{i=1}^{r} \\sigma_i u_i v_i^T\\). Then \\(X_k\\) is the “best” rank-\\(k\\) approximation in terms of orthogonally invariant norm \\(\\|\\cdot\\|\\): \\(X_k = \\text{argmin}_{\\text{rank}(B) \\le k} \\|X - B\\|\\). \\(X_k\\) is the most close rank-\\(k\\) matrix to \\(X\\). Orthogonally invariant: \\(\\|O_1 X O_2\\| [cite_start]= \\|X\\|\\) for orthogonal \\(O_1, O_2\\). Example: Frobenius norm, Spectral norm.\nroof for spectral norm: \\(\\|X - X_k\\|_2 = \\sigma_{k+1}\\). We want to show \\(\\|X - B\\|_2 \\ge \\sigma_{k+1}\\) for any rank \\(k\\) matrix \\(B\\). Consider \\(w \\in \\mathbb{R}^d\\) with \\(\\|w\\|_2=1\\). We can choose \\(w \\in \\text{Null}(B) \\cap \\text{span}\\{v_1, \\dots, v_{k+1}\\}\\). In this case \\(\\|Xw\\|_2 \\ge \\sigma_{k+1}\\). \\(\\|X - B\\|_2 = \\max_{\\|v\\|_2=1} \\|(X - B)v\\|_2 \\ge \\|(X - B)w\\|_2 = \\|Xw\\|_2 \\ge \\sigma_{k+1}\\).\nPAGE 10\nProof of Frobenius norm: Consider \\(\\|X - B\\|_F^2\\) where \\(\\text{rank}(B) = k \\le r\\). \\(\\|X - B\\|_F^2 = \\sum_{i=1}^n \\|x_i - b_i\\|_2^2\\). Let \\(\\{v_1, \\dots, v_k\\}\\) be the orthonormal basis for the subspace of \\(B\\). The error is minimized when \\(b_i\\) is the projection of \\(x_i\\) to the subspace. In previous claims, the greedy construction of singular vectors minimizes the distance between vectors and the orthogonal subspace. Thus \\(\\{v_1, \\dots, v_k\\}\\) should be the first \\(k\\) singular vectors. The projection of \\(X\\) is \\(X_k = \\sum_{i=1}^{k} \\sigma_i u_i v_i^T\\).",
+    "crumbs": [
+      "Machine Learning and Data Science Basics",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Singular Value Decomposition</span>"
+    ]
+  },
+  {
+    "objectID": "sp-in-finance/plan.html",
+    "href": "sp-in-finance/plan.html",
+    "title": "21  Things need to be done",
+    "section": "",
+    "text": "Black-Scholes formula and risk neutral measure\n\nUse monte-carlo simulation to price the option\nBinomial tree model building the model\nfinding estimation of parameters\ndeviation of BS model from real world using testing methods (normal distribution assumption, etc.)\n\nShapiro-Wilk test; Jarque-Bera test; Kolmogorov-Smirnov test; Anderson-Darling test; Q-Q plot; etc.\n\n\nOption pricing\n\nOption pricing formula from BS model\nnumerical methods for option pricing - monte-carlo simulation, binomial tree model, finite difference method (numerical integration), etc.\nIntroducing other financial derivatives\n\nCharacteristic function and its application\n\ninversion theorem\nuse characteristic function to price the option\nnumerical methods for characteristic function - fast Fourier transform (FFT), etc.\n\nOther stochastic model in finance\n\nHeston model\nLevy processes\nCIR model\nfor each model, include numerical methods for simulation;option pricing; properties and what difference comparing to BS model; parameter estimation; etc.",
+    "crumbs": [
+      "Stochastic Process in Finance",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Things need to be done</span>"
+    ]
+  }
+]

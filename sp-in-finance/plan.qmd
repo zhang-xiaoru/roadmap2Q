@@ -1,0 +1,25 @@
+# Things need to be done
+* Black-Scholes formula and risk neutral measure
+    * Use monte-carlo simulation to price the option
+    * Binomial tree model building the model
+    * finding estimation of parameters
+    * deviation of BS model from real world using testing methods (normal distribution assumption, etc.)
+        * Shapiro-Wilk test; Jarque-Bera test; Kolmogorov-Smirnov test; Anderson-Darling test; Q-Q plot; etc.
+    
+* Option pricing
+    * Option pricing formula from BS model
+    * numerical methods for option pricing - monte-carlo simulation, binomial tree model, finite difference method (numerical integration), etc.
+    * Introducing other financial derivatives
+
+* Characteristic function and its application
+    *  inversion theorem
+    * use characteristic function to price the option
+    * numerical methods for characteristic function - fast Fourier transform (FFT), etc.
+
+* Other stochastic model in finance
+    * Heston model
+    * Levy processes
+    * CIR model
+    * for each model, include numerical methods for simulation;option pricing; properties and what difference comparing to BS model; parameter estimation; etc.
+
+

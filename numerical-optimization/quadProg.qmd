@@ -1,0 +1,5 @@
+# Quadratic Programming
+The Quadratic Programming solves constrain optimization problem with quadratic objective and linear constrains
+
+## Equality Contsrained Quadratic Programming (EQP)
+The first order KKT condition of the 

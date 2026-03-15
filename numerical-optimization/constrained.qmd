@@ -1,0 +1,12 @@
+# Theory of Constrained Optimization
+## COnstrained Optimization Problem
+The constrained optimization problem can be formulated as follow
+
+
+## Some Terminology
+
+## Optimmality COndition
+
+### First Order COnsideration
+
+### Second Order Consideration

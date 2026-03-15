@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>16&nbsp; Singular Value Decomposition – Phy2Q Roadmap</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../reg-anly/slrInference.html" rel="next">
+<link href="../ml-ds/randomProj.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
+<link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+    <style type="text/css">
+    .ps-root .ps-algorithm {
+      border-top: 2px solid;
+      border-bottom: 2px solid;
+    }
+    .pseudocode-container {
+      text-align: left;
+    }
+    </style>
+  
+      <style type="text/css">
+      .ps-algorithm > .ps-line {
+        text-align: left;
+      }
+      </style>
+    
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ml-ds/highDimData.html">Machine Learning and Data Science Basics</a></li><li class="breadcrumb-item"><a href="../ml-ds/SVD.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Phy2Q Roadmap</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Numerical Optimization</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/unconstrained.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory of Unconstrained Optimization</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/lineSearch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Line Search Methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/gradDescent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Gradient Descent Methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/newTon.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Newton’s Methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/quasiNewton.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quasi Newton Methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/conjGrad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Conjugate Gradient Methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/constrained.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Theory of Constrained Optimization</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/quadProg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Quadratic Programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/seqQuadprog.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Sequential Quadratic Programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/penalty.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Penalty Methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/interior.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interior Point Methods</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Monte-Carlo Methods</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../monte-carlo/monte-carlo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Monte-Carlo Method</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Machine Learning and Data Science Basics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/highDimData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Properties of High Dimensional Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/randomProj.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Randomized Projection</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/SVD.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Machine Learning in Finance</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Practice Machine Learning with Kaggle</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Statistical Inference</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Regression Analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reg-anly/slrInference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Statistical Inference of Simple Linear Regression</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Bayesian Modeling</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text">Stochastic Process and Stochastic Integral</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sp/prob.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Probability Review</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sp/bm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Brownian Motion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sp/stocInt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Stochastic Integral and Ito Processes</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Financial Basics</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Stochastic Process in Finance</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#singular-vectors" id="toc-singular-vectors" class="nav-link active" data-scroll-target="#singular-vectors"><span class="header-section-number">16.1</span> Singular Vectors</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ml-ds/highDimData.html">Machine Learning and Data Science Basics</a></li><li class="breadcrumb-item"><a href="../ml-ds/SVD.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="singular-vectors" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="singular-vectors"><span class="header-section-number">16.1</span> Singular Vectors</h2>
+<div id="def-1stSingularVec" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 16.1 (First right singular vector)</strong></span> The first right singular vector <span class="math inline">\(v_1\)</span> of <span class="math inline">\(X \in \mathbb{R}^{n \times d}\)</span> is defined as: <span class="math inline">\(v_1 \in \mathbb{R}^d\)</span>, and <span class="math inline">\(v_1 = \text{argmax}_{\|v\|_2=1} \|Xv\|_2\)</span> and the first singular value is <span class="math inline">\(\sigma_1 = \|Xv_1\|_2\)</span></p>
+</div>
+<div id="prp-equivSingular" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 16.1</strong></span> <a href="#def-1stSingularVec" class="quarto-xref">Definition&nbsp;<span>16.1</span></a> is equivalent as <span class="math display">\[
+v_1 = \underset{\|v\|_2=1}{\mathrm{argmin}} \sum_{j=1}^{n} \|x_j - P_{v_1}(x_j)\|_2^2,
+\]</span> where <span class="math inline">\(P_{v_1}(x_j)\)</span> is the projected vector of <span class="math inline">\(x_j\)</span> in the subspace spanned by <span class="math inline">\(v_1\)</span>. Here, we have <span class="math display">\[
+X \in \mathbb{R}^{n \times d} =
+\begin{pmatrix} -x_1^T- \\ -x_2^T- \\ \vdots \\ -x_n^T- \end{pmatrix}
+\]</span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span><span class="math display">\[
+\begin{align}
+\sum_{j} \|x_j - P_{v}(x_j)\|_2^2 &amp;= \sum_{ij}\left(x_{i,j}-\langle\mathbf{v}, \mathbf{x}_j\rangle v_i\right)^2 \\
+&amp;=\sum_{ij}x^2_{i, j} + \langle\mathbf{v}, \mathbf{x}_j\rangle v_i^2 - 2x_{i,j}v_i\langle\mathbf{v}, \mathbf{x}_j \rangle\\
+&amp;=\sum_{ij}x^2_{i,j} + \sum_j\left(\langle\mathbf{v},\mathbf{x}_j\rangle ^2 -2\langle\mathbf{v},\mathbf{x}_j\rangle^2\right)\\
+&amp;=C - \sum_j\langle\mathbf{v},\mathbf{x}_j\rangle^2=C-\|X\mathbf{v}\|^2_2
+\end{align}
+\]</span> where <span class="math inline">\(C\)</span> is a constant. Thus we have the <span class="math display">\[
+\underset{\|v\|_2=1}{\mathrm{argmin}} \sum_{j=1}^{n} \|x_j - P_{v_1}(x_j)\|_2^2 = \underset{\|v\|_2=1}{\mathrm{argmax}} \|Xv\|_2^2
+\]</span></p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="#prp-equivSingular" class="quarto-xref">Proposition&nbsp;<span>16.1</span></a> shows that the first singular vector can be understood as a line that minimizes least square error of projected data, i.e., a best fitting line.</p>
+</div>
+</div>
+<p>Next, we continue to define the second singular vector.</p>
+<div id="def-2ndSingularVec" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 16.2 (Second Singular Vector)</strong></span> The second right singular vector <span class="math inline">\(v_2 \in \mathbb{R}^d\)</span> is defined as <span class="math display">\[
+v_2 = \underset{{v \perp v_1, \|v\|_2=1}}{\mathrm{argmin}} \|Xv\|_2,
+\]</span> and second singular value defined correspondingly as <span class="math display">\[
+\sigma_2 = \|Xv_2\|_2
+\]</span></p>
+</div>
+<!---
+Remark: $v_1$ and $v_2$ form the best fitting subspace (2-dimensional) that minimizes projected least square error.
+-->
+<div id="prp-best2dSubspace" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 16.2 (Best-Fitting 2D Subspace)</strong></span> Let <span class="math inline">\(v_1, v_2\)</span> be the first and second right singular vectors of <span class="math inline">\(X \in \mathbb{R}^{n \times d}\)</span>. Let <span class="math inline">\(V = \text{span}(v_1, v_2) \subseteq \mathbb{R}^d\)</span> be the two-dimensional subspace they span.</p>
+<p>Then <span class="math inline">\(V\)</span> is the solution to the following minimization: <span class="math display">\[
+V = \underset{W:\,\dim(W)=2}{\mathrm{argmin}} \sum_{j=1}^{n} \|x_j - P_W(x_j)\|_2^2
+\]</span> where <span class="math inline">\(P_W:\mathbb{R}^d\rightarrow\mathbb{R}^2\)</span> is the orthogonal projection onto the subspace <span class="math inline">\(W\)</span>.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Let <span class="math inline">\(w_1, w_2\)</span> be two orthonormal bases for any 2-dimensional subspace <span class="math inline">\(W\)</span>. We can always select <span class="math inline">\(w_2\)</span> s.t. <span class="math inline">\(\langle w_2,v_1 \rangle = 0\)</span> (such <span class="math inline">\(w_2\)</span> can be found by the intersection between <span class="math inline">\(W\)</span> and subspace that perpendicular to <span class="math inline">\(v_1\)</span>).</p>
+<p><strong>A figure perhaps showing the constructiong of w1 and w2</strong> <span class="math display">\[
+\begin{align}
+&amp;\sum_j \|x_j - \langle P_W(x_j)\rangle\|_2^2 = \sum_j \langle x_j-P_W(x_j), x_j-P_W(x_j) \rangle\\
+={}&amp;\sum_j\langle x_j - P_w(x_j), x_j\rangle + \sum_j\langle x_j - P_W(x_j), -P_W(x_j)\rangle\\
+={}&amp;\sum_j\|x_j\|^2_2 - 2\sum_j\langle P_W(x_j), x_j\rangle + \|P_W(x_j)\|^2_2\\
+\end{align}.
+\]</span> Noticed that <span class="math display">\[
+\begin{align}
+\langle P_W(x_j), x_j \rangle &amp;= \langle w_1\langle w_1, x_j\rangle + w_2\langle w_2, x_j\rangle, x_j\rangle\\
+&amp; = \langle w_1, x_j\rangle^2 + \langle w_2, x_j\rangle^2=\|P_W(x_j)\|^2_2,
+\end{align}
+\]</span> thus <span class="math display">\[
+\sum_j\|x_j - P_W(x_j)\|^2_2 = C - (\sum_j \langle w_1, x_j \rangle^2 + \langle w_2, x_j \rangle^2),
+\]</span> where <span class="math display">\[
+C = \sum_{j=1}^n \| x_j \|_2^2
+\]</span> is a constant.</p>
+<p>Since <span class="math inline">\(v_1\)</span> maximizes <span class="math inline">\(\|Xv\|_2^2\)</span> among all <span class="math inline">\(\|v\|_2=1\)</span> , and <span class="math inline">\(v_2\)</span> maximizes <span class="math inline">\(\|Xv\|_2^2\)</span> among <span class="math inline">\(v \perp v_1\)</span> and <span class="math inline">\(\|v\|_2=1, thus\)</span>$ _jw_1,x_jsum_jv_1, x_j, _jw_2, x_jv_2, x_j $$ and thus <span class="math inline">\(V\)</span> minimize <span class="math inline">\(\|x_j-P_W(x_j)\|^2_2\)</span> among all 2-dim subspace.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="#prp-best2dSubspace" class="quarto-xref">Proposition&nbsp;<span>16.2</span></a> meaning that the <span class="math inline">\(v_1\)</span> and <span class="math inline">\(v_2\)</span> we constructed form the best fitting subspace (2-dimensional) that minimizes projected least square error.</p>
+</div>
+</div>
+<p><strong>Posible code example for demonstrating the best fitting sub space</strong></p>
+<div id="def-rSingularVec" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 16.3 (r-right Singular Vector)</strong></span> The leading <span class="math inline">\(r\)</span> right singular vectors <span class="math inline">\(v_1, \dots, v_r \in \mathbb{R}^d\)</span> are defined as:</p>
+<p><span class="math display">\[
+v_k := \underset{
+  \substack{
+  \|v\|_2=1,\, \\ v \perp \text{span}\{v_1, \dots, v_{k-1}\}
+  }
+  }{\mathrm{argmax}}{} \|Xv\|_2
+\]</span></p>
+<p>with the corresponding singular values as <span class="math inline">\(\sigma_k = \|Xv_k\|_2\)</span>.</p>
+</div>
+<div id="prp-bestRSubspace" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 16.3 (Greedy construction for best-fit subspace)</strong></span> Let <span class="math inline">\(v_1, \dots, v_r\)</span> be the leading right singular vectors constructed by <a href="#def-rSingularVec" class="quarto-xref">Definition&nbsp;<span>16.3</span></a>, and <span class="math inline">\(V = \mathrm{span}(v_1, \dots, v_r) \subset \mathbb{R}^d\)</span> be the subspace spanned by them. Then <span class="math display">\[
+V \in \underset{
+  \substack{W\subseteq \mathbb{R}^d \\ \mathrm{dim}(W) = r \\ \text{linear subspace}}
+}{\mathrm{argmin}}\sum_j \|x_j - P_W(x_j)\|_2^2
+\]</span> i.e., <span class="math inline">\(V\)</span> is the best-fit linear subspace in terms of least square error.</p>
+</div>
+<div id="rem-bestRsubspace" class="proof remark">
+<p><span class="proof-title"><em>Remark 16.1</em>. </span></p>
+<ul>
+<li><a href="#prp-bestRSubspace" class="quarto-xref">Proposition&nbsp;<span>16.3</span></a> can be proved similarly as in the 2 dimensional case (<a href="#prp-best2dSubspace" class="quarto-xref">Proposition&nbsp;<span>16.2</span></a>).</li>
+<li><a href="#prp-bestRSubspace" class="quarto-xref">Proposition&nbsp;<span>16.3</span></a> shows that the greedy construction of r-right singularvectors formed a best-fit subspace in terms of least square error.</li>
+</ul>
+</div>
+<section id="singular-value-decomposition" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="singular-value-decomposition"><span class="header-section-number">16.2</span> Singular Value Decomposition</h2>
+<div id="thm-SVD" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 16.1 (Singular Value Decomposition (SVD))</strong></span> For any matrix <span class="math inline">\(X \in \mathbb{R}^{n \times d}\)</span>, there exist orthogonal matrices <span class="math inline">\(U \in \mathbb{R}^{n \times n}\)</span> and <span class="math inline">\(V \in \mathbb{R}^{d \times d}\)</span> and a non-negative diagonal matrix <span class="math inline">\(\Sigma \in \mathbb{R}^{n \times d}\)</span> such that</p>
+<p><span class="math display">\[
+X_{n \times d} = U_{n \times n}\, \Sigma_{n \times d}\, V_{d \times d}^T
+\]</span></p>
+</div>
+<div id="rem-SVD" class="proof remark">
+<p><span class="proof-title"><em>Remark 16.2</em>. </span></p>
+<ul>
+<li>The diagonals of <span class="math inline">\(\Sigma\)</span>, arranged in non-increasing order, are the singular values defined in <a href="#prp-bestRSubspace" class="quarto-xref">Proposition&nbsp;<span>16.3</span></a>.</li>
+<li>Columns of <span class="math inline">\(U\)</span> are the left singular vectors of <span class="math inline">\(X\)</span>.</li>
+<li>The left singular vectors <span class="math inline">\(u_i := \frac{1}{\sigma_i} X v_i\)</span>, where <span class="math inline">\(\sigma_i\)</span> is the <span class="math inline">\(i\)</span>-th diagonal element of <span class="math inline">\(\Sigma\)</span>.</li>
+<li>Columns of <span class="math inline">\(V\)</span> are the right singular vectors of <span class="math inline">\(X\)</span> defined in <a href="#prp-bestRSubspace" class="quarto-xref">Proposition&nbsp;<span>16.3</span></a>.</li>
+<li>SVD can be viewed as ‘generalized diagonolization’ of an arbitrary matrix.</li>
+</ul>
+</div>
+<p>The existence of SVD can be shown as follow</p>
+<div id="prf-SVD" class="proof">
+<p><span class="proof-title"><em>Proof 16.1</em>. </span>Let <span class="math inline">\(X \in \mathbb{R}^{n \times d}\)</span> and <span class="math inline">\(C = X^T X \in \mathbb{R}^{d \times d}\)</span>, then <span class="math inline">\(C\)</span> is symmetric and positive semidefinite. Let the orthogonal decomposition of <span class="math inline">\(C\)</span> be: <span class="math display">\[
+C = V \Lambda V^T,
+\]</span> where <span class="math inline">\(V^T V = I\)</span> and <span class="math inline">\(\Lambda = \mathrm{diag}(\lambda_1, \lambda_2, \dots, \lambda_d), \lambda_i \geq 0 ,\forall i\in\{1, 2, \cdots, d\}\)</span>.</p>
+<p>Consider <span class="math inline">\(\Sigma \in \mathbb{R}^{n \times d}\)</span> such that <span class="math inline">\(\Sigma^T \Sigma = \Lambda\)</span>. If <span class="math inline">\(\mathrm{rank}(X) = r \leq d\)</span>, we can arrange the diagonal element of <span class="math inline">\(\Lambda\)</span> s.t. <span class="math inline">\(\lambda_1\geq\lambda_2\cdots\lambda_r\geq0,\lambda_{r+1} = \cdots=\lambda_d=0\)</span>. Then <span class="math display">\[
+\Sigma = \begin{pmatrix}
+\mathrm{diag}(\sqrt{\lambda_1},\cdots,\sqrt{\lambda_r}) &amp; 0\\
+0 &amp; 0
+\end{pmatrix}
+\]</span></p>
+<p>We define the left singular vector <span class="math inline">\(u_i\)</span> as: <span class="math display">\[
+u_i := \frac{1}{\sigma_i} X v_i,\quad i = 1, \dots, r.
+\]</span> Then <span class="math inline">\(u_i\)</span> are orthonormal: <span class="math display">\[
+u_i^T u_j = \frac{1}{\sigma_i \sigma_j} v_i^T X^T X v_j = \frac{1}{\sigma_i \sigma_j} v_i^T C v_j = \frac{1}{\sigma_i \sigma_j} \lambda_j \delta_{ij} = \delta_{ij}.
+\]</span> We can then extend <span class="math inline">\(u_{r+1}, \dots, u_n\)</span> such that <span class="math inline">\(U = [u_1\,|\,u_2\,|\,\dots\,|\,u_n] \in \mathbb{R}^{n\times n}\)</span> is orthogonal.<br>
+Thus, we have <span class="math inline">\(\sigma_i u_i = X v_i\)</span> for <span class="math inline">\(i=1,\ldots, r\)</span> and <span class="math inline">\(X v_i = 0\)</span> for <span class="math inline">\(i &gt; r\)</span>, which gives <span class="math inline">\(X = U \Sigma V^T\)</span>.</p>
+</div>
+<div id="rem-svd-complex" class="proof remark">
+<p><span class="proof-title"><em>Remark 16.3</em>. </span>This proof can be extended to <span class="math inline">\(X \in \mathbb{C}^{n \times d}\)</span> with unitary matrices <span class="math inline">\(U\)</span> and <span class="math inline">\(V\)</span>.</p>
+</div>
+</section>
+<section id="greedy-construction-and-svd" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="greedy-construction-and-svd"><span class="header-section-number">16.3</span> Greedy Construction and SVD</h2>
+<div id="prp-svd-greedy" class="proposition theorem">
+<p><span class="theorem-title"><strong>Proposition 16.4</strong></span> The SVD of <span class="math inline">\(X = U \Sigma V^T\)</span> is the same as the greedy construction; i.e., <span class="math inline">\(V\)</span> and <span class="math inline">\(\Sigma\)</span> are right singular vectors and singular values constructed by the greedy definitions.</p>
+</div>
+<div id="prf-svd-greedy" class="proof">
+<p><span class="proof-title"><em>Proof 16.2</em>. </span>Let <span class="math inline">\(v_1' := \mathrm{argmax}_{\|v\|_2=1} \|Xv\|_2\)</span> be the first right singular vector.<br>
+Write <span class="math inline">\(X = U \Sigma V^T\)</span> where <span class="math inline">\(V = [v_1, \dots, v_d] \in \mathbb{R}^{d \times d}\)</span> and <span class="math inline">\(v_i^T v_j = \delta_{ij}\)</span>.<br>
+Then: <span class="math display">\[
+\|Xv\|_2 = \|U \Sigma V^T v\|_2 = \|\Sigma V^T v\|_2
+\]</span> Let <span class="math inline">\(z = V^T v\)</span>, then <span class="math inline">\(\|z\|_2 = 1\)</span> since <span class="math inline">\(V\)</span> is orthogonal and <span class="math inline">\(\|v\|_2 = 1\)</span>.<br>
+So <span class="math display">\[
+\|Xv\|_2 = \|\Sigma z\|_2 = \sqrt{\sum_{i} (\sigma_i z_i)^2}
+\]</span> Suppose <span class="math inline">\(\sigma_1 \geq \sigma_2 \geq \dots \geq \sigma_r\)</span>. Notice <span class="math display">\[
+\sum \sigma_i^2 z_i^2 \leq \sigma_1^2 \left(\sum z_i^2\right) = \sigma_1^2
+\]</span> Equality is attained when <span class="math inline">\(z_1 = 1\)</span> <span class="math inline">\(\Rightarrow v = v_1 \Rightarrow v_1' = v_1\)</span>.</p>
+<p>Next, <span class="math inline">\(v_2' := \mathrm{argmax}_{\|v\|_2=1,\, v \perp v_1} \|Xv\|_2\)</span>. We proceed similarly, but now <span class="math inline">\(z_1 = 0\)</span> (since <span class="math inline">\(v \perp v_1\)</span>).<br>
+Then <span class="math display">\[
+\|Xv\|_2 = \sqrt{\sum_{i=2} (\sigma_i z_i)^2} \leq \sigma_2
+\]</span> Equality when <span class="math inline">\(z_2 = 1 \Rightarrow v_2' = v_2\)</span>.<br>
+Similarly, we find all <span class="math inline">\(v_i\)</span> by the greedy construction.</p>
+</div>
+</section>
+<section id="skinny-svd-and-full-svd" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="skinny-svd-and-full-svd"><span class="header-section-number">16.4</span> Skinny SVD and Full SVD</h2>
+<p><strong>Full SVD:</strong><br>
+<span class="math display">\[
+X_{n \times d} = U_{n \times n} \Sigma_{n \times d} V_{d \times d}^T
+\]</span> where <span class="math inline">\(\mathrm{rank}(X) = r \leq \min(n, d)\)</span>.<br>
+Notice <span class="math inline">\((\sigma_{r+1}, \dots, \sigma_{\min(d,n)}) = 0\)</span>.</p>
+<p><strong>Truncated SVD (Skinny SVD):</strong><br>
+Let - <span class="math inline">\(U_r := [u_1, \dots, u_r] \in \mathbb{R}^{n \times r}\)</span> - <span class="math inline">\(V_r := [v_1, \dots, v_r] \in \mathbb{R}^{d \times r}\)</span> - <span class="math inline">\(\Sigma_r = \mathrm{diag}(\sigma_1, \dots, \sigma_r)\)</span></p>
+<p>then <span class="math display">\[
+X_{n \times d} = U_r \Sigma_r V_r^T = \sum_{i=1}^{r} \sigma_i u_i v_i^T
+\]</span></p>
+</section>
+<section id="computing-svd-the-power-method" class="level2" data-number="16.5">
+<h2 data-number="16.5" class="anchored" data-anchor-id="computing-svd-the-power-method"><span class="header-section-number">16.5</span> Computing SVD: The Power Method</h2>
+<!---
+
+PAGE 4
+
+Proof of Existence: Let $X \in \mathbb{R}^{n \times d}$ and $C = X^T X \in \mathbb{R}^{d \times d}$, then $C$ is symmetric, positive semidefinite. Let the orthogonal decomposition of $C$ be:
+$C = V \Lambda V^T$, where $V^T V = I$ and $\Lambda = \text{diag}(\lambda_1, \lambda_2, \dots, \lambda_d)$.
+Consider $\Sigma \in \mathbb{R}^{n \times d}$ s.t. $\Sigma^T \Sigma = \Lambda$. If $\text{rank}(X) = r \le d$, we can arrange $\sigma_1 \ge \sigma_2 \dots \ge \sigma_r > 0$.
+We define the left singular vector $u_i$ as:
+$u_i := \frac{1}{\sigma_i} X v_i; i = 1, \dots, r$. Then $u_i$ are orthonormal:
+$u_i^T u_j = \frac{1}{\sigma_i \sigma_j} v_i^T X^T X v_j = \frac{1}{\sigma_i \sigma_j} v_i^T C v_j = \frac{1}{\sigma_i \sigma_j} \lambda_j \delta_{ij} = \delta_{ij}$.
+We can then extend $u_{r+1}, \dots, u_n$ s.t. $U = [u_1 | u_2 | [cite_start]\dots | u_n] \in \mathbb{R}^{n \times n}$ is orthogonal.
+Thus we have $\sigma_i u_i = X v_i$ for $i = 1, \dots, r$ and $X v_i = 0$ for $i > r$, which gives $X = U \Sigma V^T$.
+
+Remark: This proof can be extended to $X \in \mathbb{C}^{n \times d}$ with unitary matrices $U$ and $V$.
+
+Prop: The SVD of $X = U \Sigma V^T$ is the same as the greedy construction.
+i.e., $V$ and $\Sigma$ are right singular vectors and singular values constructed by greedy definitions.
+
+PAGE 5
+
+Proof: Let $v_1' := \text{argmax}_{\|v\|_2=1} \|Xv\|_2$ be the first right singular vector.
+$X = U \Sigma V^T$ where $V = [v_1, \dots, v_d] \in \mathbb{R}^{d \times d}$ and $v_i^T v_j = \delta_{ij}$.
+$\|Xv\|_2 = \|U \Sigma V^T v\|_2 = \sqrt{v^T V \Sigma^T U^T U \Sigma V^T v} = \|\Sigma V^T v\|_2$.
+Let $z = V^T v$, then $\|z\|_2 = 1$ since $V$ is orthogonal and $\|v\|_2 = 1$.
+$\|Xv\|_2 = \|\Sigma z\|_2 = \sqrt{\sum_{i} (\sigma_i z_i)^2}$.
+Suppose $\sigma_1 \ge \sigma_2 \ge \dots \ge \sigma_r$.
+Notice $\sum \sigma_i^2 z_i^2 \le \sigma_1^2 (\sum z_i^2) = \sigma_1^2$.
+Equality attained when $z_1 = 1 \Rightarrow v = v_1 \Rightarrow v_1' = v_1$.
+Next, $v_2' := \text{argmax}_{\|v\|_2=1, v \perp v_1} \|Xv\|_2$. We have a similar procedure but with $z_1 = 0$ (since $v \perp v_1$).
+$\|Xv\|_2 = \sqrt{\sum_{i=2} (\sigma_i z_i)^2} \le \sqrt{\sigma_2^2}$.
+When $z_2 = 1 \Rightarrow v_2' = v_2$.
+Similarly, we can find all $v_i$ are the same as the greedy construction.
+
+Skinny SVD Full SVD: $X_{n \times d} = U_{n \times n} \Sigma_{n \times d} V_{d \times d}^T$.
+$\text{rank}(X) = r \le \min(d, n)$.
+Notice that $(\sigma_{r+1}, \dots, \sigma_{\min(d,n)}) = 0$.
+Truncated: $U_r := [u_1, \dots, u_r] \in \mathbb{R}^{n \times r}$, $V_r := [v_1, \dots, v_r] \in \mathbb{R}^{d \times r}$, $\Sigma_r = \text{diag}(\sigma_1, \dots, \sigma_r)$.
+$X_{n \times d} = U_r \Sigma_r V_r^T = \sum_{i=1}^{r} \sigma_i u_i v_i^T$.
+
+--->
+<p>PAGE 6</p>
+<p>Computing SVD Power Method Idea: let <span class="math inline">\(C = X^T X \in \mathbb{R}^{d \times d}\)</span>, <span class="math inline">\(C = V \Lambda V^T = \sum_{i=1}^{r} \sigma_i^2 v_i v_i^T\)</span>. <span class="math inline">\(C^k = \sum_{i=1}^{r} \sigma_i^{2k} v_i v_i^T\)</span>. If <span class="math inline">\(\sigma_1 &gt; \sigma_2\)</span>, then for <span class="math inline">\(k\)</span> large enough: <span class="math inline">\(\sigma_1^{2k} \gg \sigma_i^{2k} \Rightarrow C^k \approx \sigma_1^{2k} v_1 v_1^T\)</span>.Linear rate of convergence: To check the convergence rate, we check <span class="math inline">\(\min \{ \|v^{(k)} - v_1\|_2^2, \|v^{(k)} + v_1\|_2^2 \} = 2 - 2|\langle v^{(k)}, v_1 \rangle|\)</span>. <span class="math inline">\(v^{(k)} = \frac{C^k q}{\|C^k q\|_2}\)</span> where <span class="math inline">\(q = \sum c_i v_i\)</span>. <span class="math inline">\(\frac{1 - |\langle v^{(k)}, v_1 \rangle|^2}{|\langle v^{(k)}, v_1 \rangle|^2} \le (d-1) \frac{\sigma_2^{4k}}{\sigma_1^{4k} c_1^2} \rightarrow\)</span> linear convergence when <span class="math inline">\(\sigma_2 &lt; \sigma_1\)</span>. Computing <span class="math inline">\(C^k\)</span> is costly; instead, each step only needs matrix-vector multiplication (efficient when one dim of <span class="math inline">\(X\)</span> is small or <span class="math inline">\(X\)</span> is sparse).</p>
+<p>PAGE 7</p>
+<p><span class="math inline">\(v^{(k)} := \frac{C v^{(k-1)}}{\|C v^{(k-1)}\|_2}\)</span>. Expanding in orthonormal bases <span class="math inline">\(v_1, \dots, v_d\)</span>: <span class="math inline">\(C^k q = \sum_{j=1}^{d} \sigma_j^{2k} c_j v_j\)</span>. Assume <span class="math inline">\(\|q\|_2=1\)</span> and <span class="math inline">\(|c_1| = |\langle v_1, q \rangle| &gt; [cite_start]0\)</span>. Note the above analysis assumes <span class="math inline">\(\sigma_1 &gt; \sigma_2\)</span> strictly. In fact, the power method converges to some vector in the span of singular vectors with “nearly highest” singular values. Let <span class="math inline">\(q \in \mathbb{R}^d\)</span> and <span class="math inline">\(c_1 &gt; 0\)</span>, let <span class="math inline">\(V_1\)</span> be the linear subspace spanned by <span class="math inline">\(v_i\)</span> s.t. <span class="math inline">\(\sigma_i \ge (1-\epsilon)\sigma_1\)</span>. Then it can be shown that <span class="math inline">\(\|P_{V_1^\perp}(v^{(k)})\|_2 \le \epsilon\)</span> when <span class="math inline">\(k \ge \frac{\ln(1/\epsilon \delta)}{2\epsilon}\)</span>.Remark: <span class="math inline">\(q\)</span> can be chosen as random <span class="math inline">\(q \sim N(0, I_d)\)</span>. When chosen randomly, <span class="math inline">\(c_1 &gt; 0\)</span> is satisfied with high probability.</p>
+<p>PAGE 8</p>
+<p>Subspace Power Method Finding right singular values is same as finding eigenvectors for <span class="math inline">\(X^T X\)</span>. Can use orthogonal iteration algorithm. Let <span class="math inline">\(M \in \mathbb{R}^{d \times d}\)</span> be PSD with eigen-decomposition <span class="math inline">\(M = V \Lambda V^T\)</span>. 1. Initialize <span class="math inline">\(Q_0 \in \mathbb{R}^{d \times k}\)</span> as a random <span class="math inline">\(k\)</span>-dimensional subspace. 2. Repeat till convergence: * <span class="math inline">\(Z_{t+1} = M \cdot Q_t\)</span> * <span class="math inline">\(Q_{t+1} = QR[Z_{t+1}]\)</span>, where <span class="math inline">\(QR[Z]\)</span> is the <span class="math inline">\(Q\)</span> from QR decomposition. <span class="math inline">\(Q\)</span> then represents the first <span class="math inline">\(k\)</span> right singular vectors.</p>
+<p>Best rank-k Approximation Recap on matrix norm: * Frobenius norm: <span class="math inline">\(\|X\|_F = \sqrt{\sum_{i,j} X_{ij}^2} = \sqrt{\sum \sigma_i^2}\)</span>. * Schatten p-norm <span class="math inline">\(\|X\|_{S_p} := (\sum_{i=1}^r \sigma_i^p)^{1/p}\)</span>. * The spectral norm <span class="math inline">\(\|X\|_2 = \sigma_1\)</span>.<span class="math inline">\(\|X - X_k\|_p = \min_{\text{rank}(B) \le k}
+* \|X - B\|_p = (\sum_{i=k+1}^r \sigma_i^p)^{1/p}\)</span>.</p>
+<p>PAGE 9</p>
+<p>Let <span class="math inline">\(\text{rank}(X) = r \le \min(n, d)\)</span>. We define <span class="math inline">\(k\)</span>-truncated SVD of <span class="math inline">\(X\)</span> as: <span class="math inline">\(X_k = \sum_{i=1}^{k} \sigma_i u_i v_i^T\)</span> where <span class="math inline">\(X = \sum_{i=1}^{r} \sigma_i u_i v_i^T\)</span>. Then <span class="math inline">\(X_k\)</span> is the “best” rank-<span class="math inline">\(k\)</span> approximation in terms of orthogonally invariant norm <span class="math inline">\(\|\cdot\|\)</span>: <span class="math inline">\(X_k = \text{argmin}_{\text{rank}(B) \le k} \|X - B\|\)</span>. <span class="math inline">\(X_k\)</span> is the most close rank-<span class="math inline">\(k\)</span> matrix to <span class="math inline">\(X\)</span>. Orthogonally invariant: <span class="math inline">\(\|O_1 X O_2\| [cite_start]= \|X\|\)</span> for orthogonal <span class="math inline">\(O_1, O_2\)</span>. Example: Frobenius norm, Spectral norm.</p>
+<p>roof for spectral norm: <span class="math inline">\(\|X - X_k\|_2 = \sigma_{k+1}\)</span>. We want to show <span class="math inline">\(\|X - B\|_2 \ge \sigma_{k+1}\)</span> for any rank <span class="math inline">\(k\)</span> matrix <span class="math inline">\(B\)</span>. Consider <span class="math inline">\(w \in \mathbb{R}^d\)</span> with <span class="math inline">\(\|w\|_2=1\)</span>. We can choose <span class="math inline">\(w \in \text{Null}(B) \cap \text{span}\{v_1, \dots, v_{k+1}\}\)</span>. In this case <span class="math inline">\(\|Xw\|_2 \ge \sigma_{k+1}\)</span>. <span class="math inline">\(\|X - B\|_2 = \max_{\|v\|_2=1} \|(X - B)v\|_2 \ge \|(X - B)w\|_2 = \|Xw\|_2 \ge \sigma_{k+1}\)</span>.</p>
+<p>PAGE 10</p>
+<p>Proof of Frobenius norm: Consider <span class="math inline">\(\|X - B\|_F^2\)</span> where <span class="math inline">\(\text{rank}(B) = k \le r\)</span>. <span class="math inline">\(\|X - B\|_F^2 = \sum_{i=1}^n \|x_i - b_i\|_2^2\)</span>. Let <span class="math inline">\(\{v_1, \dots, v_k\}\)</span> be the orthonormal basis for the subspace of <span class="math inline">\(B\)</span>. The error is minimized when <span class="math inline">\(b_i\)</span> is the projection of <span class="math inline">\(x_i\)</span> to the subspace. In previous claims, the greedy construction of singular vectors minimizes the distance between vectors and the orthogonal subspace. Thus <span class="math inline">\(\{v_1, \dots, v_k\}\)</span> should be the first <span class="math inline">\(k\)</span> singular vectors. The projection of <span class="math inline">\(X\)</span> is <span class="math inline">\(X_k = \sum_{i=1}^{k} \sigma_i u_i v_i^T\)</span>.</p>
+
+
+</section>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../ml-ds/randomProj.html" class="pagination-link" aria-label="Randomized Projection">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Randomized Projection</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../reg-anly/slrInference.html" class="pagination-link" aria-label="Statistical Inference of Simple Linear Regression">
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Statistical Inference of Simple Linear Regression</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+    <script type="text/javascript">
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let pseudocodeOptions = {
+          indentSize: el.dataset.indentSize,
+          commentDelimiter: el.dataset.commentDelimiter,
+          lineNumber: el.dataset.lineNumber.toLowerCase() === "true",
+          lineNumberPunc: el.dataset.lineNumberPunc,
+          noEnd: el.dataset.noEnd.toLowerCase() === "true",
+          titlePrefix: el.dataset.captionPrefix
+        };
+        pseudocode.renderElement(el.querySelector(".pseudocode"), pseudocodeOptions);
+      });
+    })(document);
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let captionSpan = el.querySelector(".ps-root > .ps-algorithm > .ps-line > .ps-keyword")
+        if (captionSpan !== null) {
+          let captionPrefix = el.dataset.captionPrefix + " ";
+          let captionNumber = "";
+          if (el.dataset.pseudocodeNumber) {
+            captionNumber = el.dataset.pseudocodeNumber + " ";
+            if (el.dataset.chapterLevel) {
+              captionNumber = el.dataset.chapterLevel + "." + captionNumber;
+            }
+          }
+          captionSpan.innerHTML = captionPrefix + captionNumber;
+        }
+      });
+    })(document);
+    </script>
+  
+
+
+
+
+</body></html>

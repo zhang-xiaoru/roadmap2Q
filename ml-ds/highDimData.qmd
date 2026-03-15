@@ -1,0 +1,53 @@
+# Properties of High Dimensional Data
+## Curse of dimensionality
+To approximate function using interpolations, need a grid in $\mathbb{R}^n$, which grows exponentially with respect to $n$.
+
+:::{.callout-tip}
+## Sampling in high dimension
+To sample grid with resolution $\epsilon$, requires points of order ~$(1/\epsilon)^n$
+:::
+
+## Random Sampling in unit ball
+We star with a useful problem, how to draw a random sample uniformlly from a unit ball in $n$ dimension.
+
+:::{.callout-tip}
+## Close Ball in $\mathbb{R}^n$
+$$
+\mathbb{B^n}\coloneqq\{\mathbf{x}\in\mathbb{R}^n: x_1^2+x_2^2+\cdots+x_n^2\leq 1\}
+$$
+
+:::
+
+:::{#exm-unitSphere}
+Consider a 2D case, we can draw $X_1, X_2\~ \mathrm{Unif}(-1, 1)$, and return $\mathbf{X}=(X_1, X_2)^T$ if $X_1^2+X_2^2\leq 1$.
+```{python}
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+
+x1 = np.random.uniform(-1, 1, 1000)
+x2 = np.random.uniform(-1, 1, 1000)
+circle = patches.Circle((0, 0), 1, color='r', fill=True, alpha=0.5)
+
+fig, ax = plt.subplots(figsize=(5, 5), layout='constrained')
+ax.scatter(x1, x2, s=3)
+ax.add_patch(circle)
+plt.show()
+```
+:::
+
+If we generalized the approch in @exm-unitSphere to $n$ dimension case, that means draw each coordinate $X_i\sim \mathrm{Unif}(-1, 1)$ and keep the sample if $\lVert\mathbf{X}\rVert_2^2\leq 1$. However, this will not work as the volume of the unit ball approaches to zero.
+
+:::{.callout-tip}
+## Volume of $\mathbb{B}^n$
+$$
+V(n)=\frac{2\pi^{n/2}}{n\Gamma(n)}\xrightarrow{n\rightarrow\infty}0
+$$
+:::
+
+This means the acceptance probability of the sample is $V(n)/\mathrm{Vol}[-1, 1]^d=V(n)/2^n$ approaches zero when the dimensality is high.
+
+:::{.callout-note}
+This low probability means that we only accept very few point from a large draw of Monte-Carlo samples from uniform $[-1, 1]^n$
+:::

@@ -1,0 +1,7 @@
+# Sequential Quadratic Programming
+Sequential Quadratic Programming (SQP) is extended method of quadratic programming to solve general constrained optimization problem using Newton's method and QP at each iterations
+
+## Equality COnstrained Case
+
+## Inequality COnstrained Case
+
