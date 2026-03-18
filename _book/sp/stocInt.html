@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2026-03-17">
 
-<title>19&nbsp; Stochastic Integral and Ito Processes – Phy2Q Roadmap</title>
+<title>20&nbsp; Stochastic Integral – Phy2Q Roadmap</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +31,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../references.html" rel="next">
+<link href="../sp-in-finance/plan.html" rel="next">
 <link href="../sp/bm.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -129,7 +130,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sp/bm.html">Stochastic Process and Stochastic Integral</a></li><li class="breadcrumb-item"><a href="../sp/stocInt.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Stochastic Integral and Ito Processes</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sp/prob.html">Stochastic Process and Stochastic Integral</a></li><li class="breadcrumb-item"><a href="../sp/stocInt.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Stochastic Integral</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -333,14 +334,20 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../sp/prob.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Probability Review</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../sp/bm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Brownian Motion</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Brownian Motion</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sp/stocInt.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Stochastic Integral and Ito Processes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Stochastic Integral</span></span></a>
   </div>
 </li>
       </ul>
@@ -350,8 +357,21 @@ window.Quarto = {
  <span class="menu-text">Financial Basics</span></span>
   </li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Stochastic Process in Finance</span></span>
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+ <span class="menu-text">Stochastic Process in Finance</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sp-in-finance/plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Things need to be done</span></span></a>
+  </div>
+</li>
+      </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -364,15 +384,28 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#itôs-stochastic-integral-for-step-processes" id="toc-itôs-stochastic-integral-for-step-processes" class="nav-link active" data-scroll-target="#itôs-stochastic-integral-for-step-processes"><span class="header-section-number">20.1</span> Itô’s Stochastic Integral for Step Processes</a>
+  <ul class="collapse">
+  <li><a href="#properties-of-step-process-integrals" id="toc-properties-of-step-process-integrals" class="nav-link" data-scroll-target="#properties-of-step-process-integrals">Properties of step process integrals</a></li>
+  </ul></li>
+  <li><a href="#stochastic-integral-for-general-processes" id="toc-stochastic-integral-for-general-processes" class="nav-link" data-scroll-target="#stochastic-integral-for-general-processes"><span class="header-section-number">20.2</span> Stochastic Integral for General Processes</a>
+  <ul class="collapse">
+  <li><a href="#properties" id="toc-properties" class="nav-link" data-scroll-target="#properties">Properties</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sp/bm.html">Stochastic Process and Stochastic Integral</a></li><li class="breadcrumb-item"><a href="../sp/stocInt.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Stochastic Integral and Ito Processes</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sp/prob.html">Stochastic Process and Stochastic Integral</a></li><li class="breadcrumb-item"><a href="../sp/stocInt.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Stochastic Integral</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Stochastic Integral and Ito Processes</span></h1>
+<h1 class="title"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Stochastic Integral</span></h1>
 </div>
 
 
@@ -380,6 +413,12 @@ window.Quarto = {
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 17, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -389,10 +428,189 @@ window.Quarto = {
 </header>
 
 
-<p>Start with step process :::{#def-stepProcess} ## Step process A step process <span class="math inline">\(G_t\)</span> is defined as</p>
-<p>:::</p>
+<p>To define the <strong>stochastic integral</strong> (specifically the Itô integral), we begin with an intuitive definition for simple functions, in a manner analogous to the definition of the Riemann integral.</p>
+<section id="itôs-stochastic-integral-for-step-processes" class="level2" data-number="20.1">
+<h2 data-number="20.1" class="anchored" data-anchor-id="itôs-stochastic-integral-for-step-processes"><span class="header-section-number">20.1</span> Itô’s Stochastic Integral for Step Processes</h2>
+<p>Let <span class="math inline">\(0 = t_0 &lt; t_1 &lt; \dots &lt; t_n = T\)</span> be a partition of <span class="math inline">\([0, T]\)</span>.</p>
+<div id="def-stepProcess" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 20.1 (Step Process)</strong></span> A step process <span class="math inline">\((G_t^n)_{t \in [0, T]}\)</span> defined on a partition <span class="math inline">\(0 = t_0 &lt; t_1 &lt; \dots &lt; t_n = T\)</span> is: <span class="math display">\[
+G_t^n = \sum_{k=0}^n \xi_{k} I_{\{t_{k} \le t &lt; t_{k+1}\}}
+\]</span> where <span class="math inline">\(\xi_k\)</span> is <span class="math inline">\(\mathcal{F}_{t_k}\)</span>-measurable, and indicator function <span class="math inline">\(I_{\{t_{k} \le t &lt; t_{k+1}\}}\)</span> is: <span class="math display">\[
+I_{\{t_{k-1} \le t &lt; t_k\}} =
+\begin{cases}
+1 &amp; t_{k} \le t &lt; t_{k+1} \\
+0 &amp; \text{otherwise}
+\end{cases}
+\]</span></p>
+</div>
+<div id="def-stochIntStep" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 20.2 (Itô’s Stochastic Integral for Step Processes)</strong></span> For a step process <span class="math inline">\((G^n_t)_{t\in[0, T]}\)</span> on partition <span class="math inline">\(0 = t_0 &lt; t_1 &lt; \dots &lt; t_n = T\)</span>, we define the Itô’s stochastic integral <span class="math inline">\(I_t^n\)</span> for <span class="math inline">\(t\in[t_k, t_{k+1}]\)</span> as: <span class="math display">\[
+I_t^n := \int_0^t G_u^n \, dB_u = \sum_{i=0}^{k-1} \xi_i (B_{t_{i+1}} - B_{t_i}) + \xi_k (B_t - B_{t_k})
+\]</span> where <span class="math inline">\(B_t\)</span> is a Brownian motion. We can also denote this as <span class="math inline">\(\mathrm{d}I_t^n = G_u^n \mathrm{d}B_u\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>An intuitive understanding of this deifinition is to think <span class="math inline">\(t_0, \dots, t_n\)</span> as trading days, <span class="math inline">\(B(t_i)\)</span> as the price on day <span class="math inline">\(t_i\)</span>, and <span class="math inline">\(\xi_i\)</span> as the number of shares bought at <span class="math inline">\(t_i\)</span> and held until <span class="math inline">\(t_{i+1}\)</span>. The total gain of the asset (which would stands for an “integral”) would be <span class="math inline">\(\sum_{\text{trading days}} \text{shares} \times \text{price change}\)</span>.</p>
+</div>
+</div>
+<section id="properties-of-step-process-integrals" class="level3">
+<h3 class="anchored" data-anchor-id="properties-of-step-process-integrals">Properties of step process integrals</h3>
+<div id="prp-martingaleStep" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 20.1 (Martingale Property)</strong></span> <br>
+<span class="math inline">\(I_t^n\)</span> is a continuous martingale, with <span class="math inline">\(I_0^n = 0\)</span>.</p>
+</div>
+<div id="prf-martingaleStep" class="proof">
+<p><span class="proof-title"><em>Proof 20.1</em>. </span>Let <span class="math inline">\(0 \le s &lt; t\)</span>. To show <span class="math inline">\(I_s^n = E(I_t^n | \mathcal{F}_s)\)</span>, or equivalently, <span class="math inline">\(E(I_t^n - I_s^n | \mathcal{F}_s) = 0\)</span>:</p>
+<p>Suppose <span class="math inline">\(s \in [t_l, t_{l+1}]\)</span> and <span class="math inline">\(t \in [t_k, t_{k+1}]\)</span>. Then: <span class="math display">\[
+\begin{align*}
+I_t^n - I_s^n &amp;= \xi_k (B_t - B_{t_k}) + \dots + \xi_l (B_{t_{l+1}} - B_{t_l}) - \xi_l (B_s - B_{t_l}) \\
+&amp;= \xi_k (B_t - B_{t_k}) + \dots + \xi_l (B_{t_{l+1}} - B_{t_s})
+\end{align*}
+\]</span> Taking conditional expectations: <span class="math display">\[
+\begin{align*}
+E[\xi_k(B_t - B_{t_k}) | \mathcal{F}_s]
+&amp;= E[E(\xi_k(B_t - B_{t_k}) | \mathcal{F}_{t_k}) | \mathcal{F}_s]
+\\
+&amp;= E[\xi_k E(B_t - B_{t_k}| \mathcal{F}_{t_k}) | \mathcal{F}_s]
+= 0
+\end{align*}
+\]</span> Here we have used the tower property, the fact that <span class="math inline">\(\xi_k\)</span> is <span class="math inline">\(\mathcal{F}_{t_k}\)</span>-measurable and the property of Brownian motion. Similarly argument is applied for all other terms except the last one. For the last term, we have: <span class="math display">\[
+E[\xi_l (B_{t_{l+1}} - B_s) | \mathcal{F}_s] = \xi_l E(B_{t_{l+1}} - B_s | \mathcal{F}_s) = 0
+\]</span> since <span class="math inline">\(\xi_l\)</span> is <span class="math inline">\(\mathcal{F}_{t_l}\)</span>-measurable thus also <span class="math inline">\(\mathcal{F}_{t_s}\)</span>-measurable. Therefore, <span class="math inline">\(I_t^n\)</span> is a continuous martingale.</p>
+</div>
+<div id="prp-itôIsometryStep" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 20.2 (Itô Isometry)</strong></span> <span class="math display">\[
+E[(I_t^n)^2] = E\left[\int_0^t (G_u^n)^2 du\right]
+\]</span></p>
+</div>
+<div id="prf-itôIsometryStep" class="proof">
+<p><span class="proof-title"><em>Proof 20.2</em>. </span>Let’s denote <span class="math inline">\(\Delta B_i = B_{t_{i+1}} - B_{t_i}, i &lt; k\)</span>, and <span class="math inline">\(\Delta B_k = B_t - B_{t_k}\)</span>. Then: <span class="math display">\[
+\begin{align*}
+E[(I_t^n)^2]
+&amp;= E\left[\left( \sum_{i=0}^{k} \xi_i \Delta B_i + \xi_k \Delta B_k \right)^2\right] \\
+&amp;= E\left[\sum_i \xi_i^2 (\Delta B_i)^2 + 2 \sum_{i \ne j} \xi_i \xi_j \Delta B_i \Delta B_j\right]
+\end{align*}
+\]</span> For <span class="math inline">\(i \ne j\)</span> (say <span class="math inline">\(i &lt; j\)</span>), <span class="math inline">\(\xi_i \xi_j \Delta B_i\)</span> is independent of <span class="math inline">\(\Delta B_j\)</span> (they are all <span class="math inline">\(F_{t_j}\)</span> measurable), so <span class="math inline">\(E[\xi_i \xi_j \Delta B_i \Delta B_j] =E[\xi_i \xi_j \Delta B_i]E[\Delta B_j] = 0\)</span>. Thus, <span class="math display">\[
+\begin{align*}
+E[(I_t^n)^2] &amp;= E\left[\sum_i \xi_i^2 (\Delta B_i)^2\right] = \sum_i E(\xi_i^2) E((\Delta B_i)^2) \\
+&amp;= \sum_i E(\xi_i^2)(t_{i+1} - t_i) = E\left[\int_0^t (G_u^n)^2 du \right]
+\end{align*}
+\]</span></p>
+</div>
+<div id="prp-quadVarStep" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 20.3 (Quadratic Variation)</strong></span> We defined the quadratic variation of <span class="math inline">\(I_t^n\)</span> similarly as for Brownian motion: <span class="math display">\[
+[I_t^n, I_t^n] = \sum_i (\xi_i (B_{t_{i+1}} - B_{t_i}))^2,
+\]</span> and <span class="math display">\[
+\langle I^n_t, I^n_t \rangle = E\left[\sum_i (\xi_i(B_{t_{i+1}} - B_{t_i}))^2\middle|\mathcal{F}_{t_i}\right]
+\]</span> then we have: <span class="math display">\[
+\lim_{\|\Delta\| \to 0} [I^n, I^n] = \langle I^n, I^n \rangle = \int_0^t (G_u^n)^2 du
+\]</span></p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><span class="math inline">\(\|\Delta\| = \max_{i} |t_{i+1} - t_i|\)</span></li>
+<li>The convergence here is in <span class="math inline">\(L^2\)</span> sense, which implies the convergence in probability.</li>
+<li>The last interval is <span class="math inline">\(B_t - B_{t_k}\)</span>.</li>
+<li>We can denote this in differential form as <span class="math inline">\((\mathrm{d}I)^2=(G_t^n)^2(\mathrm(d)B_t)^2=(G^n_t)^2\mathrm{d}t\)</span>.</li>
+</ul>
+</div>
+</div>
+<div id="prf-quadVarStep" class="proof">
+<p><span class="proof-title"><em>Proof 20.3</em>. </span><span class="math display">\[
+\begin{align*}
+\langle I^n_t, I^n_t \rangle &amp;= E\left[\sum_i \xi_i^2 (B_{t_{i+1}} - B_{t_i})^2\middle|\mathcal{F}_{t_i}\right]\\
+&amp;= \sum_i \xi_i^2 E((B_{t_{i+1}} - B_{t_i})^2|\mathcal{F}_{t_i})\\
+&amp;= \sum_i \xi_i^2 (t_{i+1} - t_i)\\
+&amp;= \int_0^t (G_u^n)^2 du
+\end{align*}
+\]</span></p>
+<p>The proof of convergence of quadratic variation is similar to the proof of convergence of Brownian motion quadratic variation.</p>
+</div>
+<div id="prp-martingaleStep2" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 20.4 (Martingale Property 2)</strong></span> <span class="math display">\[
+(I_t^n)^2 - \int_0^t (G_u^n)^2 du
+\]</span> is a martingale.</p>
+</div>
+<div id="prf-martingaleStep2" class="proof">
+<p><span class="proof-title"><em>Proof 20.4</em>. </span>Need to show for any <span class="math inline">\(0 \le s &lt; t\)</span>: <span class="math display">\[
+E[M_t | \mathcal{F}_s] = M_s
+\]</span> where <span class="math inline">\(M_t = (I_t^n)^2 - \int_0^t (G_u^n)^2 du\)</span>.</p>
+<p>That is, to show <span class="math inline">\(E[M_t - M_s | \mathcal{F}_s] = 0\)</span>. Compute: <span class="math display">\[
+\begin{align*}
+M_t - M_s
+&amp;= \big((I_t^n)^2 - (I_s^n)^2\big) - \int_s^t (G_u^n)^2 du \\
+(I_t^n)^2 - (I_s^n)^2
+&amp;= \big(I_t^n - I_s^n\big)^2 + 2 I_s^n (I_t^n - I_s^n)
+\end{align*}
+\]</span> So, <span class="math display">\[
+E[M_t - M_s | \mathcal{F}_s]
+= E\left[ (I_t^n - I_s^n)^2 | \mathcal{F}_s \right]
++ 2 I_s^n E[I_t^n - I_s^n | \mathcal{F}_s]
+- E\left[\int_s^t (G_u^n)^2 du | \mathcal{F}_s\right]
+\]</span> Since <span class="math inline">\(I_t^n\)</span> is a martingale, <span class="math inline">\(E[I_t^n - I_s^n | \mathcal{F}_s] = 0\)</span>. Using the similar argument in <a href="#prf-itôIsometryStep" class="quarto-xref">Proof&nbsp;<span>20.2</span></a>, we have: <span class="math display">\[
+\begin{align*}
+E\left[(I_t^n - I_s^n)^2 | \mathcal{F}_s\right] &amp;= \sum_i E[\xi_i^2\Delta B_i^2|\mathcal{F}_s] = \sum_i E[\xi_i^2|\mathcal{F}_s](t_{i+1} - t_i) \\
+&amp;= E\left[\int_s^t (G_u^n)^2 du | \mathcal{F}_s\right]
+\end{align*}
+\]</span> Thus, <span class="math inline">\(E[M_t - M_s | \mathcal{F}_s] = 0\)</span>. Therefore, <span class="math inline">\((I_t^n)^2 - \int_0^t (G_u^n)^2 du\)</span> is a martingale.</p>
+</div>
+</section>
+</section>
+<section id="stochastic-integral-for-general-processes" class="level2" data-number="20.2">
+<h2 data-number="20.2" class="anchored" data-anchor-id="stochastic-integral-for-general-processes"><span class="header-section-number">20.2</span> Stochastic Integral for General Processes</h2>
+<p>To define <span class="math display">\[
+\int_0^T C_u dB_u
+\]</span> for general <span class="math inline">\(C_t\)</span>, approximate <span class="math inline">\(C_t\)</span> by step processes.</p>
+<p>Let <span class="math inline">\(T\)</span> be fixed.</p>
+<p><strong>Define:</strong> <span class="math display">\[
+L^2(0, T) = \left\{ (C_t)_{0 \le t \le T} : C_t \text{ is measurable w.r.t. } \mathcal{F}_t
+,\quad
+E\left[\int_0^T C_t^2 dt \right] &lt; \infty \right\}
+\]</span></p>
+<p>There exists a sequence of bounded step processes <span class="math inline">\((C^n)_t \in L^2(0, T)\)</span> such that <span class="math display">\[
+E\left[\int_0^T |C_u - C_u^n|^2 du \right] \to 0
+\]</span></p>
+<p><strong>Definition:</strong> <span class="math display">\[
+Z_t = \int_0^t C_u dB_u := \lim_{n \to \infty} \int_0^t C_u^n dB_u
+\]</span> where <span class="math inline">\((C^n)_t\)</span> is a sequence of step processes as above. This is equivalent to <span class="math inline">\(dZ_t = C_t dB_t\)</span>.</p>
+<hr>
+<section id="properties" class="level3">
+<h3 class="anchored" data-anchor-id="properties">Properties</h3>
+<ul>
+<li><span class="math inline">\(Z_t\)</span> is a continuous martingale.</li>
+<li><strong>Itô Isometry:</strong> <span class="math inline">\(E(Z_t^2) = E\left[\int_0^t C_u^2 du\right]\)</span>.</li>
+<li><strong>Quadratic Variation:</strong> <span class="math inline">\(\langle Z, Z \rangle_t = \int_0^t C_u^2 du\)</span>.</li>
+<li><span class="math inline">\(Z_t^2 - \int_0^t C_u^2 du\)</span> is a martingale.</li>
+<li><span class="math inline">\(\int_0^t (dZ_u)^2 = \int_0^t C_u^2 du\)</span>. Justification: <span class="math display">\[
+(dZ_t)^2 = C_t^2 dt = d\langle Z, Z \rangle_t
+\]</span></li>
+</ul>
+<p>Observation: <span class="math display">\[
+E[(Z_t - Z_s)^2 | \mathcal{F}_s] = E[Z_t^2 - Z_s^2 | \mathcal{F}_s]
+\]</span> Letting <span class="math inline">\(s = t_{k-1}\)</span> and <span class="math inline">\(t = t_k\)</span>: <span class="math display">\[
+E[Z_{t_k}^2 - Z_{t_{k-1}}^2 | \mathcal{F}_{t_{k-1}}] = E[\langle Z, Z \rangle_{t_k} - \langle Z, Z \rangle_{t_{k-1}} | \mathcal{F}_{t_{k-1}}]
+\]</span></p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -797,12 +1015,12 @@ window.Quarto = {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../sp/bm.html" class="pagination-link" aria-label="Brownian Motion">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Brownian Motion</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Brownian Motion</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../references.html" class="pagination-link" aria-label="References">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../sp-in-finance/plan.html" class="pagination-link" aria-label="Things need to be done">
+        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Things need to be done</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

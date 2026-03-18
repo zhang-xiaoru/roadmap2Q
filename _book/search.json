@@ -275,34 +275,34 @@
   {
     "objectID": "sp/bm.html",
     "href": "sp/bm.html",
-    "title": "18  Brownian Motion",
+    "title": "19  Brownian Motion",
     "section": "",
-    "text": "What is a Brownian Motion",
+    "text": "19.1 What is a Brownian Motion",
     "crumbs": [
       "Stochastic Process and Stochastic Integral",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Brownian Motion</span>"
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Brownian Motion</span>"
     ]
   },
   {
     "objectID": "sp/bm.html#what-is-a-brownian-motion",
     "href": "sp/bm.html#what-is-a-brownian-motion",
-    "title": "18  Brownian Motion",
+    "title": "19  Brownian Motion",
     "section": "",
-    "text": "Definition 18.1 (Brownian Motion) \\((B_t)_{t\\geq 0}\\) is a stochastic process defined on \\((\\Omega, \\mathcal{F}, P)\\), i.e. for \\(\\forall t\\geq 0\\), \\(B_t\\) is a RV. \\((B_t)_{t\\geq 0}\\) is called BM if \\(B_0=0\\) and \\(\\forall 0=t_0&lt;t_1\\cdots&lt;t_i\\), \\(B_{t_1}-B_{t_0}, B_{t_2}-B_{t_1}, \\cdots, B_{t_i} - B_{t_{i-1}}\\) are all independent and \\(\\forall s&lt;t, B_t-B_s \\overset{(d)}{=}N(0, t-s)\\).\n\n\nDefinition 18.2 (Definition Using Filtration) \\((B_t)_{t\\geq 0}\\) is called BM w.r.t filtration \\((\\mathcal{F}_t)\\) if\n\n\\(B_t\\) is continuous path, \\(B_0=0\\)\n\\(\\forall t\\), \\(B_t\\) is measurable w.r.t \\(\\mathcal{F}_t\\) or \\(\\mathcal{F}_t^{B_y}\\subset\\mathcal{F}_t\\), where \\(\\mathcal{F}_t^{B_t}\\) is the \\(\\sigma\\) algebra generate by \\(B_t\\)\n\\(B_t-B_s\\perp F_s\\) and \\(B_t-B_s\\overset{(d)}{=}N(0, t-s)\\)\n\n\n\n\n\n\n\n\nProperties\n\n\n\n\n\\((B_t)_{t\\geq 0}\\) is a martingle w.r.t to \\((\\mathcal{F}_t)_{t\\geq 0}\\). \\[\n\\begin{align}\nE(B_t|\\mathcal{F}_s) &= E(B_s + B_t - B_s|\\mathcal{F}_s) = B_s + E(B_t-B_s|\\mathcal{F}_s) \\\\\n&=B_s + E(B_t-B_s) = B_s\n\\end{align}\n\\]\n\\(B_t^2 - t\\) is a martingle w.r.t. \\(\\mathcal{F}_{t\\geq 0}\\).\n\\[\n\\begin{align}\nE(B^2_t-t|\\mathcal{F}_s) &= E((B_s + (B_t-B_s))^2 - t | \\mathcal{F}_s)\\\\\n&=E(B^2_s + 2B_s(B_t-B_s) + (B_t-B_s)^2|\\mathcal{F}_s) - t\\\\\n&=B_s^2 + 2B_sE(B_t-B_s|\\mathcal{F}_s) + E((B_t-B_s)^2|\\mathcal{F}_s) - t\\\\\n&=B^2_s-s\n\\end{align}\n\\]",
+    "text": "Definition 19.1 (Brownian Motion) \\((B_t)_{t\\geq 0}\\) is a stochastic process defined on \\((\\Omega, \\mathcal{F}, P)\\), i.e. for \\(\\forall t\\geq 0\\), \\(B_t\\) is a RV. \\((B_t)_{t\\geq 0}\\) is called BM if \\(B_0=0\\) and \\(\\forall 0=t_0&lt;t_1\\cdots&lt;t_i\\), \\(B_{t_1}-B_{t_0}, B_{t_2}-B_{t_1}, \\cdots, B_{t_i} - B_{t_{i-1}}\\) are all independent and \\(\\forall s&lt;t, B_t-B_s \\overset{(d)}{=}N(0, t-s)\\).\n\n\nDefinition 19.2 (Definition Using Filtration) \\((B_t)_{t\\geq 0}\\) is called BM w.r.t filtration \\((\\mathcal{F}_t)\\) if\n\n\\(B_t\\) is continuous path, \\(B_0=0\\)\n\\(\\forall t\\), \\(B_t\\) is measurable w.r.t \\(\\mathcal{F}_t\\) or \\(\\mathcal{F}_t^{B_y}\\subset\\mathcal{F}_t\\), where \\(\\mathcal{F}_t^{B_t}\\) is the \\(\\sigma\\) algebra generate by \\(B_t\\)\n\\(B_t-B_s\\perp F_s\\) and \\(B_t-B_s\\overset{(d)}{=}N(0, t-s)\\)\n\n\n\n\n\n\n\n\nProperties\n\n\n\n\n\\((B_t)_{t\\geq 0}\\) is a martingle w.r.t to \\((\\mathcal{F}_t)_{t\\geq 0}\\). \\[\n\\begin{align}\nE(B_t|\\mathcal{F}_s) &= E(B_s + B_t - B_s|\\mathcal{F}_s) = B_s + E(B_t-B_s|\\mathcal{F}_s) \\\\\n&=B_s + E(B_t-B_s) = B_s\n\\end{align}\n\\]\n\\(B_t^2 - t\\) is a martingle w.r.t. \\(\\mathcal{F}_{t\\geq 0}\\).\n\\[\n\\begin{align}\nE(B^2_t-t|\\mathcal{F}_s) &= E((B_s + (B_t-B_s))^2 - t | \\mathcal{F}_s)\\\\\n&=E(B^2_s + 2B_s(B_t-B_s) + (B_t-B_s)^2|\\mathcal{F}_s) - t\\\\\n&=B_s^2 + 2B_sE(B_t-B_s|\\mathcal{F}_s) + E((B_t-B_s)^2|\\mathcal{F}_s) - t\\\\\n&=B^2_s-s\n\\end{align}\n\\]",
     "crumbs": [
       "Stochastic Process and Stochastic Integral",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Brownian Motion</span>"
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Brownian Motion</span>"
     ]
   },
   {
     "objectID": "sp/stocInt.html",
     "href": "sp/stocInt.html",
-    "title": "19  Stochastic Integral and Ito Processes",
+    "title": "20  Stochastic Integral",
     "section": "",
-    "text": "Start with step process :::{#def-stepProcess} ## Step process A step process \\(G_t\\) is defined as\n:::",
+    "text": "20.1 Itô’s Stochastic Integral for Step Processes\nTo define the stochastic integral (specifically the Itô integral), we begin with an intuitive definition for simple functions, in a manner analogous to the definition of the Riemann integral.\nLet \\(0 = t_0 &lt; t_1 &lt; \\dots &lt; t_n = T\\) be a partition of \\([0, T]\\).",
     "crumbs": [
       "Stochastic Process and Stochastic Integral",
-      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Stochastic Integral and Ito Processes</span>"
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Stochastic Integral</span>"
     ]
   },
   {
@@ -468,6 +468,138 @@
     "crumbs": [
       "Stochastic Process in Finance",
       "<span class='chapter-number'>21</span>  <span class='chapter-title'>Things need to be done</span>"
+    ]
+  },
+  {
+    "objectID": "sp/stocInt.html#key-properties",
+    "href": "sp/stocInt.html#key-properties",
+    "title": "20  Stochastic Integral",
+    "section": "20.2 Key Properties",
+    "text": "20.2 Key Properties\n\n\\(I_t^n\\) is a continuous martingale, with \\(I_0^n = 0\\).\nItô Isometry: \\[\nE[(I_t^n)^2] = E\\left[\\int_0^t (C_u^n)^2 du\\right].\n\\]\nQuadratic Variation: \\[\n\\langle I^n, I^n \\rangle_t = \\int_0^t (C_u^n)^2 du, \\qquad\n[I^n, I^n]_t = \\sum_i (I_{t_i} - I_{t_{i-1}})^2,\n\\] and \\[\n\\lim_{\\delta \\to 0} [I^n, I^n]_t = \\langle I^n, I^n \\rangle_t = \\int_0^t (C_s^n)^2 ds,\n\\] or in differential form, \\[\n(dI_t^n)^2 = (C_t^n)^2 dt.\n\\]\n\\((I_t^n)^2 - \\int_0^t (C_u^n)^2 du\\) is a martingale (since it equals \\(d\\langle I, I \\rangle\\)).",
+    "crumbs": [
+      "Stochastic Process and Stochastic Integral",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Stochastic Integral</span>"
+    ]
+  },
+  {
+    "objectID": "sp/stocInt.html#proof-sketches",
+    "href": "sp/stocInt.html#proof-sketches",
+    "title": "20  Stochastic Integral",
+    "section": "20.2 Proof Sketches",
+    "text": "20.2 Proof Sketches\n\n1. Martingale Property\n\n\n\n2. Itô Isometry\n\n\n\n3. Quadratic Variation\nThe quadratic variation is: \\[\n\\langle I^n, I^n \\rangle_t\n= \\sum E(\\xi_i^2 (B_{t_i} - B_{t_{i-1}})^2 | \\mathcal{F}_{t_{i-1}})\n= \\sum \\xi_i^2 (t_i - t_{i-1})\n= \\int_0^t (C_t^n)^2 dt\n\\]\n\n\n4. Further Properties\nProofs of other properties follow similarly as for Brownian motion.\n\n\n\n5. \\((I_t^n)^2 - \\int_0^t (C_u^n)^2 du\\) is a Martingale\nNeed to show for any \\(0 \\le s &lt; t\\): \\[\nE[M_t | \\mathcal{F}_s] = M_s\n\\] where \\(M_t = (I_t^n)^2 - \\int_0^t (C_u^n)^2 du\\).\nThis is, \\(E[M_t - M_s | \\mathcal{F}_s] = 0\\). Compute: [ \\[\\begin{align*}\nM_t - M_s\n&= \\big((I_t^n)^2 - (I_s^n)^2\\big) - \\int_s^t (C_u^n)^2 du \\\\\n(I_t^n)^2 - (I_s^n)^2\n&= \\big(I_t^n - I_s^n\\big)^2 + 2 I_s^n (I_t^n - I_s^n)\n\\end{align*}\\] ] So, [ E[M_t - M_s | _s] = E+ 2 I_s^n E[I_t^n - I_s^n | _s] - E] Since \\(I_t^n\\) is a martingale, \\(E[I_t^n - I_s^n | \\mathcal{F}_s] = 0\\). By conditional Itô isometry: \\[\nE\\left[(I_t^n - I_s^n)^2 | \\mathcal{F}_s\\right] = E\\left[\\int_s^t (C_u^n)^2 du | \\mathcal{F}_s\\right]\n\\] Thus, \\[\nE[M_t - M_s | \\mathcal{F}_s] = 0\n\\] Therefore, \\((I_t^n)^2 - \\int_0^t (C_u^n)^2 du\\) is a martingale.",
+    "crumbs": [
+      "Stochastic Process and Stochastic Integral",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Stochastic Integral</span>"
+    ]
+  },
+  {
+    "objectID": "sp/stocInt.html#extension-to-general-processes",
+    "href": "sp/stocInt.html#extension-to-general-processes",
+    "title": "20  Stochastic Integral",
+    "section": "20.2 Extension to General Processes",
+    "text": "20.2 Extension to General Processes\nTo define \\[\n\\int_0^T C_u dB_u\n\\] for general \\(C_t\\), approximate \\(C_t\\) by step processes.\nLet \\(T\\) be fixed.\nDefine: \\[\nL^2(0, T) = \\left\\{ (C_t)_{0 \\le t \\le T} : C_t \\text{ is measurable w.r.t. } \\mathcal{F}_t\n,\\quad\nE\\left[\\int_0^T C_t^2 dt \\right] &lt; \\infty \\right\\}\n\\]\nThere exists a sequence of bounded step processes \\((C^n)_t \\in L^2(0, T)\\) such that \\[\nE\\left[\\int_0^T |C_u - C_u^n|^2 du \\right] \\to 0\n\\]\nDefinition: \\[\nZ_t = \\int_0^t C_u dB_u := \\lim_{n \\to \\infty} \\int_0^t C_u^n dB_u\n\\] where \\((C^n)_t\\) is a sequence of step processes as above. This is equivalent to \\(dZ_t = C_t dB_t\\).\n\n\nProperties\n\n\\(Z_t\\) is a continuous martingale.\nItô Isometry: \\(E(Z_t^2) = E\\left[\\int_0^t C_u^2 du\\right]\\).\nQuadratic Variation: \\(\\langle Z, Z \\rangle_t = \\int_0^t C_u^2 du\\).\n\\(Z_t^2 - \\int_0^t C_u^2 du\\) is a martingale.\n\\(\\int_0^t (dZ_u)^2 = \\int_0^t C_u^2 du\\). Justification: \\[\n(dZ_t)^2 = C_t^2 dt = d\\langle Z, Z \\rangle_t\n\\]\n\nObservation: \\[\nE[(Z_t - Z_s)^2 | \\mathcal{F}_s] = E[Z_t^2 - Z_s^2 | \\mathcal{F}_s]\n\\] Letting \\(s = t_{k-1}\\) and \\(t = t_k\\): \\[\nE[Z_{t_k}^2 - Z_{t_{k-1}}^2 | \\mathcal{F}_{t_{k-1}}] = E[\\langle Z, Z \\rangle_{t_k} - \\langle Z, Z \\rangle_{t_{k-1}} | \\mathcal{F}_{t_{k-1}}]\n\\]",
+    "crumbs": [
+      "Stochastic Process and Stochastic Integral",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Stochastic Integral</span>"
+    ]
+  },
+  {
+    "objectID": "sp/stocInt.html#itôs-stochastic-integral-for-step-processes",
+    "href": "sp/stocInt.html#itôs-stochastic-integral-for-step-processes",
+    "title": "20  Stochastic Integral",
+    "section": "",
+    "text": "Definition 20.1 (Step Process) A step process \\((G_t^n)_{t \\in [0, T]}\\) defined on a partition \\(0 = t_0 &lt; t_1 &lt; \\dots &lt; t_n = T\\) is: \\[\nG_t^n = \\sum_{k=0}^n \\xi_{k} I_{\\{t_{k} \\le t &lt; t_{k+1}\\}}\n\\] where \\(\\xi_k\\) is \\(\\mathcal{F}_{t_k}\\)-measurable, and indicator function \\(I_{\\{t_{k} \\le t &lt; t_{k+1}\\}}\\) is: \\[\nI_{\\{t_{k-1} \\le t &lt; t_k\\}} =\n\\begin{cases}\n1 & t_{k} \\le t &lt; t_{k+1} \\\\\n0 & \\text{otherwise}\n\\end{cases}\n\\]\n\n\nDefinition 20.2 (Itô’s Stochastic Integral for Step Processes) For a step process \\((G^n_t)_{t\\in[0, T]}\\) on partition \\(0 = t_0 &lt; t_1 &lt; \\dots &lt; t_n = T\\), we define the Itô’s stochastic integral \\(I_t^n\\) for \\(t\\in[t_k, t_{k+1}]\\) as: \\[\nI_t^n := \\int_0^t G_u^n \\, dB_u = \\sum_{i=0}^{k-1} \\xi_i (B_{t_{i+1}} - B_{t_i}) + \\xi_k (B_t - B_{t_k})\n\\] where \\(B_t\\) is a Brownian motion. We can also denote this as \\(\\mathrm{d}I_t^n = G_u^n \\mathrm{d}B_u\\).\n\n\n\n\n\n\n\nNote\n\n\n\nAn intuitive understanding of this deifinition is to think \\(t_0, \\dots, t_n\\) as trading days, \\(B(t_i)\\) as the price on day \\(t_i\\), and \\(\\xi_i\\) as the number of shares bought at \\(t_i\\) and held until \\(t_{i+1}\\). The total gain of the asset (which would stands for an “integral”) would be \\(\\sum_{\\text{trading days}} \\text{shares} \\times \\text{price change}\\).\n\n\n\nProperties of step process integrals\n\nProposition 20.1 (Martingale Property) \n\\(I_t^n\\) is a continuous martingale, with \\(I_0^n = 0\\).\n\n\nProof 20.1. Let \\(0 \\le s &lt; t\\). To show \\(I_s^n = E(I_t^n | \\mathcal{F}_s)\\), or equivalently, \\(E(I_t^n - I_s^n | \\mathcal{F}_s) = 0\\):\nSuppose \\(s \\in [t_l, t_{l+1}]\\) and \\(t \\in [t_k, t_{k+1}]\\). Then: \\[\n\\begin{align*}\nI_t^n - I_s^n &= \\xi_k (B_t - B_{t_k}) + \\dots + \\xi_l (B_{t_{l+1}} - B_{t_l}) - \\xi_l (B_s - B_{t_l}) \\\\\n&= \\xi_k (B_t - B_{t_k}) + \\dots + \\xi_l (B_{t_{l+1}} - B_{t_s})\n\\end{align*}\n\\] Taking conditional expectations: \\[\n\\begin{align*}\nE[\\xi_k(B_t - B_{t_k}) | \\mathcal{F}_s]\n&= E[E(\\xi_k(B_t - B_{t_k}) | \\mathcal{F}_{t_k}) | \\mathcal{F}_s]\n\\\\\n&= E[\\xi_k E(B_t - B_{t_k}| \\mathcal{F}_{t_k}) | \\mathcal{F}_s]\n= 0\n\\end{align*}\n\\] Here we have used the tower property, the fact that \\(\\xi_k\\) is \\(\\mathcal{F}_{t_k}\\)-measurable and the property of Brownian motion. Similarly argument is applied for all other terms except the last one. For the last term, we have: \\[\nE[\\xi_l (B_{t_{l+1}} - B_s) | \\mathcal{F}_s] = \\xi_l E(B_{t_{l+1}} - B_s | \\mathcal{F}_s) = 0\n\\] since \\(\\xi_l\\) is \\(\\mathcal{F}_{t_l}\\)-measurable thus also \\(\\mathcal{F}_{t_s}\\)-measurable. Therefore, \\(I_t^n\\) is a continuous martingale.\n\n\nProposition 20.2 (Itô Isometry) \\[\nE[(I_t^n)^2] = E\\left[\\int_0^t (G_u^n)^2 du\\right]\n\\]\n\n\nProof 20.2. Let’s denote \\(\\Delta B_i = B_{t_{i+1}} - B_{t_i}, i &lt; k\\), and \\(\\Delta B_k = B_t - B_{t_k}\\). Then: \\[\n\\begin{align*}\nE[(I_t^n)^2]\n&= E\\left[\\left( \\sum_{i=0}^{k} \\xi_i \\Delta B_i + \\xi_k \\Delta B_k \\right)^2\\right] \\\\\n&= E\\left[\\sum_i \\xi_i^2 (\\Delta B_i)^2 + 2 \\sum_{i \\ne j} \\xi_i \\xi_j \\Delta B_i \\Delta B_j\\right]\n\\end{align*}\n\\] For \\(i \\ne j\\) (say \\(i &lt; j\\)), \\(\\xi_i \\xi_j \\Delta B_i\\) is independent of \\(\\Delta B_j\\) (they are all \\(F_{t_j}\\) measurable), so \\(E[\\xi_i \\xi_j \\Delta B_i \\Delta B_j] =E[\\xi_i \\xi_j \\Delta B_i]E[\\Delta B_j] = 0\\). Thus, \\[\n\\begin{align*}\nE[(I_t^n)^2] &= E\\left[\\sum_i \\xi_i^2 (\\Delta B_i)^2\\right] = \\sum_i E(\\xi_i^2) E((\\Delta B_i)^2) \\\\\n&= \\sum_i E(\\xi_i^2)(t_{i+1} - t_i) = E\\left[\\int_0^t (G_u^n)^2 du \\right]\n\\end{align*}\n\\]\n\n\nProposition 20.3 (Quadratic Variation) We defined the quadratic variation of \\(I_t^n\\) similarly as for Brownian motion: \\[\n[I_t^n, I_t^n] = \\sum_i (\\xi_i (B_{t_{i+1}} - B_{t_i}))^2,\n\\] and \\[\n\\langle I^n_t, I^n_t \\rangle = E\\left[\\sum_i (\\xi_i(B_{t_{i+1}} - B_{t_i}))^2\\middle|\\mathcal{F}_{t_i}\\right]\n\\] then we have: \\[\n\\lim_{\\|\\Delta\\| \\to 0} [I^n, I^n] = \\langle I^n, I^n \\rangle = \\int_0^t (G_u^n)^2 du\n\\]\n\n\n\n\n\n\n\nNote\n\n\n\n\n\\(\\|\\Delta\\| = \\max_{i} |t_{i+1} - t_i|\\)\nThe convergence here is in \\(L^2\\) sense, which implies the convergence in probability.\nThe last interval is \\(B_t - B_{t_k}\\).\nWe can denote this in differential form as \\((\\mathrm{d}I)^2=(G_t^n)^2(\\mathrm(d)B_t)^2=(G^n_t)^2\\mathrm{d}t\\).\n\n\n\n\nProof 20.3. \\[\n\\begin{align*}\n\\langle I^n_t, I^n_t \\rangle &= E\\left[\\sum_i \\xi_i^2 (B_{t_{i+1}} - B_{t_i})^2\\middle|\\mathcal{F}_{t_i}\\right]\\\\\n&= \\sum_i \\xi_i^2 E((B_{t_{i+1}} - B_{t_i})^2|\\mathcal{F}_{t_i})\\\\\n&= \\sum_i \\xi_i^2 (t_{i+1} - t_i)\\\\\n&= \\int_0^t (G_u^n)^2 du\n\\end{align*}\n\\]\nThe proof of convergence of quadratic variation is similar to the proof of convergence of Brownian motion quadratic variation.\n\n\nProposition 20.4 (Martingale Property 2) \\[\n(I_t^n)^2 - \\int_0^t (G_u^n)^2 du\n\\] is a martingale.\n\n\nProof 20.4. Need to show for any \\(0 \\le s &lt; t\\): \\[\nE[M_t | \\mathcal{F}_s] = M_s\n\\] where \\(M_t = (I_t^n)^2 - \\int_0^t (G_u^n)^2 du\\).\nThat is, to show \\(E[M_t - M_s | \\mathcal{F}_s] = 0\\). Compute: \\[\n\\begin{align*}\nM_t - M_s\n&= \\big((I_t^n)^2 - (I_s^n)^2\\big) - \\int_s^t (G_u^n)^2 du \\\\\n(I_t^n)^2 - (I_s^n)^2\n&= \\big(I_t^n - I_s^n\\big)^2 + 2 I_s^n (I_t^n - I_s^n)\n\\end{align*}\n\\] So, \\[\nE[M_t - M_s | \\mathcal{F}_s]\n= E\\left[ (I_t^n - I_s^n)^2 | \\mathcal{F}_s \\right]\n+ 2 I_s^n E[I_t^n - I_s^n | \\mathcal{F}_s]\n- E\\left[\\int_s^t (G_u^n)^2 du | \\mathcal{F}_s\\right]\n\\] Since \\(I_t^n\\) is a martingale, \\(E[I_t^n - I_s^n | \\mathcal{F}_s] = 0\\). Using the similar argument in Proof 20.2, we have: \\[\n\\begin{align*}\nE\\left[(I_t^n - I_s^n)^2 | \\mathcal{F}_s\\right] &= \\sum_i E[\\xi_i^2\\Delta B_i^2|\\mathcal{F}_s] = \\sum_i E[\\xi_i^2|\\mathcal{F}_s](t_{i+1} - t_i) \\\\\n&= E\\left[\\int_s^t (G_u^n)^2 du | \\mathcal{F}_s\\right]\n\\end{align*}\n\\] Thus, \\(E[M_t - M_s | \\mathcal{F}_s] = 0\\). Therefore, \\((I_t^n)^2 - \\int_0^t (G_u^n)^2 du\\) is a martingale.",
+    "crumbs": [
+      "Stochastic Process and Stochastic Integral",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Stochastic Integral</span>"
+    ]
+  },
+  {
+    "objectID": "sp/stocInt.html#definition-itôs-stochastic-integral-for-step-processes",
+    "href": "sp/stocInt.html#definition-itôs-stochastic-integral-for-step-processes",
+    "title": "20  Stochastic Integral",
+    "section": "20.2 Definition: Itô’s Stochastic Integral (for Step Processes)",
+    "text": "20.2 Definition: Itô’s Stochastic Integral (for Step Processes)\nFor such a process, define (for \\(t \\in [t_k, t_{k+1}]\\)): \\[\nI_t^n = \\int_0^t C_u^n \\, dB_u = \\sum_{i=0}^{k-1} \\xi_i (B_{t_{i+1}} - B_{t_i}) + \\xi_k (B_t - B_{t_k})\n\\]\nRemark. Intuitively, think of \\(t_0, \\dots, t_n\\) as trading days, \\(B(t_i)\\) as the price on day \\(t_i\\), and \\(\\xi_i\\) as the number of shares bought at \\(t_i\\) and held until \\(t_{i+1}\\). The total gain of the asset, represented by the integral above, is: \\[\n\\sum (\\text{shares} \\times \\Delta \\text{price})\n\\]",
+    "crumbs": [
+      "Stochastic Process and Stochastic Integral",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Stochastic Integral</span>"
+    ]
+  },
+  {
+    "objectID": "sp/stocInt.html#martingale-property",
+    "href": "sp/stocInt.html#martingale-property",
+    "title": "20  Stochastic Integral",
+    "section": "20.2 Martingale Property",
+    "text": "20.2 Martingale Property\n\\(I_t^n\\) is a continuous martingale, with \\(I_0^n = 0\\).",
+    "crumbs": [
+      "Stochastic Process and Stochastic Integral",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Stochastic Integral</span>"
+    ]
+  },
+  {
+    "objectID": "sp/stocInt.html#itô-isometry",
+    "href": "sp/stocInt.html#itô-isometry",
+    "title": "20  Stochastic Integral",
+    "section": "20.3 Itô Isometry",
+    "text": "20.3 Itô Isometry\n\\[\nE[(I_t^n)^2] = E\\left[\\int_0^t (G_u^n)^2 du\\right]\n\\]",
+    "crumbs": [
+      "Stochastic Process and Stochastic Integral",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Stochastic Integral</span>"
+    ]
+  },
+  {
+    "objectID": "sp/stocInt.html#quadratic-variation",
+    "href": "sp/stocInt.html#quadratic-variation",
+    "title": "20  Stochastic Integral",
+    "section": "20.4 Quadratic Variation",
+    "text": "20.4 Quadratic Variation\n\\[\n\\langle I^n, I^n \\rangle_t = \\int_0^t (G_u^n)^2 du\n\\]",
+    "crumbs": [
+      "Stochastic Process and Stochastic Integral",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Stochastic Integral</span>"
+    ]
+  },
+  {
+    "objectID": "sp/stocInt.html#martingale-property-1",
+    "href": "sp/stocInt.html#martingale-property-1",
+    "title": "20  Stochastic Integral",
+    "section": "20.5 Martingale Property",
+    "text": "20.5 Martingale Property\n\\[\n  \\langle I^n, I^n \\rangle_t = \\int_0^t (C_u^n)^2 du, \\qquad\n  [I^n, I^n]_t = \\sum_i (I_{t_i} - I_{t_{i-1}})^2,\n  \\] and \\[\n  \\lim_{\\delta \\to 0} [I^n, I^n]_t = \\langle I^n, I^n \\rangle_t = \\int_0^t (C_s^n)^2 ds,\n  \\] or in differential form, \\[\n  (dI_t^n)^2 = (C_t^n)^2 dt.\n  \\]",
+    "crumbs": [
+      "Stochastic Process and Stochastic Integral",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Stochastic Integral</span>"
+    ]
+  },
+  {
+    "objectID": "sp/stocInt.html#martingale-property-2",
+    "href": "sp/stocInt.html#martingale-property-2",
+    "title": "20  Stochastic Integral",
+    "section": "20.6 Martingale Property",
+    "text": "20.6 Martingale Property\n\\[\n(I_t^n)^2 - \\int_0^t (G_u^n)^2 du$ is a martingale.\n\\]",
+    "crumbs": [
+      "Stochastic Process and Stochastic Integral",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Stochastic Integral</span>"
+    ]
+  },
+  {
+    "objectID": "sp/stocInt.html#sec-ext-general-processes",
+    "href": "sp/stocInt.html#sec-ext-general-processes",
+    "title": "20  Stochastic Integral",
+    "section": "20.2 Extension to General Processes",
+    "text": "20.2 Extension to General Processes\nTo define \\[\n\\int_0^T C_u dB_u\n\\] for general \\(C_t\\), approximate \\(C_t\\) by step processes.\nLet \\(T\\) be fixed.\nDefine: \\[\nL^2(0, T) = \\left\\{ (C_t)_{0 \\le t \\le T} : C_t \\text{ is measurable w.r.t. } \\mathcal{F}_t\n,\\quad\nE\\left[\\int_0^T C_t^2 dt \\right] &lt; \\infty \\right\\}\n\\]\nThere exists a sequence of bounded step processes \\((C^n)_t \\in L^2(0, T)\\) such that \\[\nE\\left[\\int_0^T |C_u - C_u^n|^2 du \\right] \\to 0\n\\]\nDefinition: \\[\nZ_t = \\int_0^t C_u dB_u := \\lim_{n \\to \\infty} \\int_0^t C_u^n dB_u\n\\] where \\((C^n)_t\\) is a sequence of step processes as above. This is equivalent to \\(dZ_t = C_t dB_t\\).\n\n\nProperties\n\n\\(Z_t\\) is a continuous martingale.\nItô Isometry: \\(E(Z_t^2) = E\\left[\\int_0^t C_u^2 du\\right]\\).\nQuadratic Variation: \\(\\langle Z, Z \\rangle_t = \\int_0^t C_u^2 du\\).\n\\(Z_t^2 - \\int_0^t C_u^2 du\\) is a martingale.\n\\(\\int_0^t (dZ_u)^2 = \\int_0^t C_u^2 du\\). Justification: \\[\n(dZ_t)^2 = C_t^2 dt = d\\langle Z, Z \\rangle_t\n\\]\n\nObservation: \\[\nE[(Z_t - Z_s)^2 | \\mathcal{F}_s] = E[Z_t^2 - Z_s^2 | \\mathcal{F}_s]\n\\] Letting \\(s = t_{k-1}\\) and \\(t = t_k\\): \\[\nE[Z_{t_k}^2 - Z_{t_{k-1}}^2 | \\mathcal{F}_{t_{k-1}}] = E[\\langle Z, Z \\rangle_{t_k} - \\langle Z, Z \\rangle_{t_{k-1}} | \\mathcal{F}_{t_{k-1}}]\n\\]",
+    "crumbs": [
+      "Stochastic Process and Stochastic Integral",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Stochastic Integral</span>"
+    ]
+  },
+  {
+    "objectID": "sp/stocInt.html#stochastic-integral-for-general-processes",
+    "href": "sp/stocInt.html#stochastic-integral-for-general-processes",
+    "title": "20  Stochastic Integral",
+    "section": "20.2 Stochastic Integral for General Processes",
+    "text": "20.2 Stochastic Integral for General Processes\nTo define \\[\n\\int_0^T C_u dB_u\n\\] for general \\(C_t\\), approximate \\(C_t\\) by step processes.\nLet \\(T\\) be fixed.\nDefine: \\[\nL^2(0, T) = \\left\\{ (C_t)_{0 \\le t \\le T} : C_t \\text{ is measurable w.r.t. } \\mathcal{F}_t\n,\\quad\nE\\left[\\int_0^T C_t^2 dt \\right] &lt; \\infty \\right\\}\n\\]\nThere exists a sequence of bounded step processes \\((C^n)_t \\in L^2(0, T)\\) such that \\[\nE\\left[\\int_0^T |C_u - C_u^n|^2 du \\right] \\to 0\n\\]\nDefinition: \\[\nZ_t = \\int_0^t C_u dB_u := \\lim_{n \\to \\infty} \\int_0^t C_u^n dB_u\n\\] where \\((C^n)_t\\) is a sequence of step processes as above. This is equivalent to \\(dZ_t = C_t dB_t\\).\n\n\nProperties\n\n\\(Z_t\\) is a continuous martingale.\nItô Isometry: \\(E(Z_t^2) = E\\left[\\int_0^t C_u^2 du\\right]\\).\nQuadratic Variation: \\(\\langle Z, Z \\rangle_t = \\int_0^t C_u^2 du\\).\n\\(Z_t^2 - \\int_0^t C_u^2 du\\) is a martingale.\n\\(\\int_0^t (dZ_u)^2 = \\int_0^t C_u^2 du\\). Justification: \\[\n(dZ_t)^2 = C_t^2 dt = d\\langle Z, Z \\rangle_t\n\\]\n\nObservation: \\[\nE[(Z_t - Z_s)^2 | \\mathcal{F}_s] = E[Z_t^2 - Z_s^2 | \\mathcal{F}_s]\n\\] Letting \\(s = t_{k-1}\\) and \\(t = t_k\\): \\[\nE[Z_{t_k}^2 - Z_{t_{k-1}}^2 | \\mathcal{F}_{t_{k-1}}] = E[\\langle Z, Z \\rangle_{t_k} - \\langle Z, Z \\rangle_{t_{k-1}} | \\mathcal{F}_{t_{k-1}}]\n\\]",
+    "crumbs": [
+      "Stochastic Process and Stochastic Integral",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Stochastic Integral</span>"
     ]
   }
 ]
