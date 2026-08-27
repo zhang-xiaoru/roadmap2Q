@@ -1,0 +1,356 @@
+# Clustering
+
+Given $X = \{x_1, x_2, \dots, x_n\} \subseteq \mathbb{R}^d$, find a disjoint partition $X = \bigcup_i X_i$, with $X_i \cap X_j = \emptyset$ for $i \ne j$, such that points within $X_i$ are "similar" to each other and "dissimilar" to points in $X_j$ ($i \ne j$).
+
+::: {.remark}
+- The "similarity" is usually measured by Euclidean distance $\|x_i - x_j\|_2^2$, or by angle.
+  - If $\|x_i\| = 1$ (normalized), then similarity is measured by angle:
+    $$
+    \|x_i - x_j\|_2^2 = \|x_i\|^2 + \|x_j\|^2 - 2\langle x_i, x_j\rangle = 2(1 - \cos\theta)
+    \;\Rightarrow\;
+    \begin{cases} \cos\theta = 1, & \text{similar} \\ \cos\theta = -1, & \text{not similar} \end{cases}
+    $$
+  - If not normalized, just use $\|x_i - x_j\|_2^2$.
+- In practice, the number of partitions $k$ is given.
+:::
+
+## The Easy Case
+
+<!-- [figure: three sketched point clouds illustrating well-separated
+("easy") clusters.] -->
+
+In an "easy" clustering case we have the following observation.
+
+**Observation.** There exists a partition $X = \bigcup_i X_i$ such that
+$$
+\max_{\substack{x_i, x_j \in \text{ same } X_k}} \|x_i - x_j\|_2
+\;\le\;
+\min_{\substack{x_i, x_j \in \text{ different } X_k}} \|x_i - x_j\|_2 .
+$$
+
+In this case, define the distance matrix $D_{ij} = \|x_i - x_j\|_2$, and let $\text{LHS} < R < \text{RHS}$ of the inequality above. Then there exists a permutation $\Pi : \{1, 2, \dots, n\} \to \{1, 2, \dots, n\}$ and a corresponding permutation matrix
+$$
+P_\Pi = \begin{pmatrix} e_{\Pi(1)}^{\mathsf T} \\ e_{\Pi(2)}^{\mathsf T} \\ \vdots \\ e_{\Pi(n)}^{\mathsf T} \end{pmatrix},
+\qquad
+e_i = \begin{pmatrix} 0 \\ \vdots \\ 1 \\ \vdots \\ 0 \end{pmatrix} \leftarrow i,
+$$
+such that
+$$
+D_\Pi = P_\Pi\, D\, P_\Pi^{\mathsf T}
+$$
+is "close" to a block-diagonal matrix: within a diagonal block $D_{ij} < R$, and outside the diagonal blocks $D_{ij} > R$.
+
+<!-- [figure: a matrix sketched with dense diagonal blocks and sparse
+off-diagonal region.] -->
+
+::: {.remark}
+The above simply means we can rearrange the points so that the points that are "close" are grouped together (clustering).
+:::
+
+## $k$-means Clustering
+
+For $X = \{x_1, \dots, x_n\} \subseteq \mathbb{R}^d$ with $k$ partitions $X = X_1 \cup X_2 \cup \dots \cup X_k$, and centers $\mu_1, \dots, \mu_k \in \mathbb{R}^d$, find the optimal $\{X_i\}$ and $\{\mu_i\}$ such that
+$$
+\min_{\{X_j\}} \left( \min_{\{\mu_j\}} \sum_{i=1}^{k} \sum_{x_j \in X_i} \|x_j - \mu_i\|_2^2 \right).
+$$
+
+::: {#lem-kmeans-center}
+## Optimal centers for a fixed partition
+
+For fixed $\{X_j\}$, the minimizing centers are the cluster means:
+$$
+\mu_j^* = \frac{1}{|X_j|} \sum_{x_i \in X_j} x_i,
+\qquad
+\{\mu_j^*\} = \underset{\{\mu_j\}}{\arg\min} \sum_{j} \sum_{x_i \in X_j} \|x_i - \mu_j\|_2^2 .
+$$
+:::
+
+::: {.proof}
+Let
+$$
+L = \sum_{j=1}^{k} \sum_{x_i \in X_j} \|x_i - \mu_j\|_2^2 = \sum_{j=1}^{k} \sum_{x_i \in X_j} \sum_{p} (x_{i,p} - \mu_{j,p})^2,
+$$
+where $x_{i,p}, \mu_{j,p}$ are the $p$-th components of $x_i, \mu_j \in \mathbb{R}^d$. Then
+$$
+\frac{\partial L}{\partial \mu_{\ell, q}}
+= \sum_{j=1}^{k} \sum_{x_i \in X_j} \sum_{p} 2(x_{i,p} - \mu_{j,p})\, \delta_{\ell j}\, \delta_{pq}
+= \sum_{j=1}^{k} \sum_{x_i \in X_j} 2(x_{i,q} - \mu_{j,q})\, \delta_{\ell j}
+= \sum_{x_i \in X_\ell} 2(x_{i,q} - \mu_{\ell,q}^*) = 0,
+$$
+hence
+$$
+\sum_{x_i \in X_\ell} x_{i,q} - |X_\ell|\, \mu_{\ell,q}^* = 0
+\;\Rightarrow\;
+\mu_{\ell,q}^* = \frac{1}{|X_\ell|} \sum_{x_i \in X_\ell} x_{i,q},
+\qquad \text{i.e.} \quad
+\mu_\ell^* = \frac{1}{|X_\ell|} \sum_{x_i \in X_\ell} x_i .
+$$
+:::
+
+::: {#lem-kmeans-partition}
+## Optimal partition for fixed centers
+
+For fixed $\{\mu_j\}$, the minimizing partition assigns each point to its nearest center:
+$$
+X_i^* = \Big\{ x_j \in X : \|x_j - \mu_i\|_2 \le \|x_j - \mu_{i'}\|_2,\ \forall\, i' \ne i \Big\},
+$$
+with ties broken arbitrarily.
+:::
+
+::: {.proof}
+For fixed $\{\mu_i\}$, the objective
+$$
+\min_{\{X_j\}} \sum_{i=1}^{k} \sum_{x_j \in X_i} \|x_j - \mu_i\|_2^2
+= \min_{\{X_j\}} \Bigg[
+\underbrace{\|x_1^1 - \mu_1\|_2^2 + \cdots + \|x_{|X_1|}^1 - \mu_1\|_2^2}_{x_i^1 \in X_1}
++ \underbrace{\|x_1^2 - \mu_2\|_2^2 + \cdots + \|x_{|X_2|}^2 - \mu_2\|_2^2}_{x_i^2 \in X_2}
++ \cdots
++ \underbrace{\|x_1^k - \mu_k\|_2^2 + \cdots + \|x_{|X_k|}^k - \mu_k\|_2^2}_{x_i^k \in X_k}
+\Bigg].
+$$
+Consider a point $x_j \in X_i$ for which there exists $\mu_k$ with $\|x_j - \mu_k\|_2^2 \le \|x_j - \mu_i\|_2^2$. Then a new partition with $X_i \leftarrow X_i - \{x_j\}$ and $X_k \leftarrow X_k + \{x_j\}$ drops the objective value. Repeating this until no such case can be found, the objective is minimized when
+$$
+X_i^* = \Big\{ x_j \in X : \|x_j - \mu_i\|_2 \le \|x_j - \mu_{i'}\|_2,\ \forall\, i' \ne i \Big\}.
+$$
+:::
+
+## Lloyd's Algorithm
+
+These two lemmas suggest an algorithm using **alternating optimization**.
+
+::: {.callout-note appearance="simple"}
+**Lloyd's algorithm**
+
+*Input:* $X = \{x_1, \dots, x_n\} \subseteq \mathbb{R}^d$, and $k$.
+
+*Initialize:* Choose $k$ random initial guesses for the centers $\mu_1^{(0)}, \dots, \mu_k^{(0)}$, and the correspondingly induced initial cluster assignment $\hat{C}_1(0), \dots, \hat{C}_k(0)$ by associating each $x_j$ to the closest center.
+
+*For $t = 1, 2, \dots$ until convergence:*
+
+1. Use the current clusters $\hat{C}_1(t-1), \dots, \hat{C}_k(t-1)$ to update the means:
+$$
+\mu_j(t) = \frac{1}{|\hat{C}_j(t-1)|} \sum_{x_i \in \hat{C}_j(t-1)} x_i .
+$$
+2. Use the updated means to update the cluster assignments (assign $x_i$ to its nearest cluster mean).
+:::
+
+### Convergence
+
+Let $X = X_1 \cup \dots \cup X_k$ and define the cost for a partition with optimal centers
+$$
+L(X_1, \dots, X_k) := \sum_{i=1}^{k} \sum_{x_j \in X_i} \Big\| x_j - \tfrac{1}{|X_i|} \sum_{x_k \in X_i} x_k \Big\|^2 .
+$$
+
+::: {#prp-lloyd-monotone}
+## Monotone decrease
+
+In Lloyd's algorithm,
+$$
+L\big(X_1(t), \dots, X_k(t)\big) \ge L\big(X_1(t+1), \dots, X_k(t+1)\big).
+$$
+:::
+
+::: {.proof}
+The updated (optimal) center is $\hat{\mu}_j(t+1) = \frac{1}{|X_j(t)|} \sum_{x_i \in X_j(t)} x_i$, and the updated partition assigns each $x_i$ to the nearest updated $\mu_j$, so $\forall x_i \in X_j$, $\|x_i - \hat{\mu}_j\| \le \|x_i - \hat{\mu}_{j'}\|$ for $j' \ne j$. By @lem-kmeans-center and @lem-kmeans-partition, $\{X_j\}$ in Lloyd's algorithm is the minimizer of $L$, hence
+$$
+L\big(X_1(t), \dots, X_k(t)\big) \ge L\big(X_1(t+1), \dots, X_k(t+1)\big).
+$$
+:::
+
+::: {#cor-lloyd-terminate}
+## Finite termination
+
+Let $L(X_1(t), \dots, X_k(t))$ be the cost of Lloyd's algorithm. Then $\lim_{t \to \infty} L$ exists and is attained in finite time. Moreover, assuming all partitions have distinct cost (or the tie-breaking rule is chosen properly), the partition itself converges in finite time, i.e. $\exists\, T > 0$ such that
+$$
+\big(X_1(T), \dots, X_k(T)\big) = \big(X_1(T'), \dots, X_k(T')\big), \qquad T' \ge T.
+$$
+:::
+
+::: {.proof}
+The existence of the limit follows because the loss drops monotonically (@prp-lloyd-monotone) and is bounded below by $0$. Finite termination follows because the search space of partitions is always finite.
+:::
+
+### Complexity
+
+At each iteration, Lloyd's algorithm requires:
+
+- $O(knd)$ time to assign $n$ data points in $\mathbb{R}^d$ to $k$ centers (via $\|\mu_i - x_j\|_2^2$);
+- $O(nd)$ time to update the mean centers.
+
+::: {.remark}
+- Lloyd's algorithm is guaranteed to converge; however, it may only reach a **local** minimizer.
+- Random projection can be used to reduce time.
+- Lloyd's is sensitive to initialization and may converge to various bad local minima.
+:::
+
+## Initialization: $k$-means++
+
+Since Lloyd's algorithm is initialization-sensitive, one improvement is to initialize the mean centers as far apart as possible.
+
+::: {.callout-note appearance="simple"}
+**Farthest-point initialization**
+
+Pick $\mu_1 \in \{x_1, \dots, x_N\}$ uniformly at random; set $T = \{\mu_1\}$.
+
+While $|T| \le k$:
+
+- choose $\mu_i \in X \setminus T$ that maximizes $\min_{t \in T} \|x - t\|_2$;
+- $T.\text{append}(\mu_i)$.
+:::
+
+However, this initialization can be sensitive to outliers (an outlier very far from the rest would always be picked). The improvement is to add randomness, choosing farther points with higher probability.
+
+::: {.callout-note appearance="simple"}
+**$k$-means++**
+
+Pick $\mu_1 \in X$ uniformly at random; set $T = \{\mu_1\}$.
+
+While $|T| < k$:
+
+- pick $\mu_{|T|+1} \in X \setminus T$ with probability $\propto \min_{t \in T} \|x - t\|_2$;
+- $T \leftarrow T \cup \{\mu_{|T|+1}\}$.
+:::
+
+::: {.remark}
+- The initialization steps take $O(knd)$, since we need $\|x_j - t\|$ for $x_j \in X$ ($n$ of them) and $t \in T$ ($k$ of them) — same as one iteration of Lloyd's.
+- This initialization does not guarantee anything by itself; however, it can be shown that the initial cost is "close" to the optimal cost by a factor of $\log(k)$ on average.
+:::
+
+::: {#prp-kmeanspp-guarantee}
+## $k$-means++ approximation guarantee
+
+Let $T \subseteq X$ be the initial means from $k$-means++, and $T^* \subseteq X$ the optimal $k$ centers. With the induced partition $X_1 \cup X_2 \cup \dots \cup X_k = X$ chosen accordingly, define
+$$
+L(T) := \min_{X_1 \cup \dots \cup X_k} \sum_{\mu_i \in T} \sum_{x_j \in X_i} \|x_j - \mu_i\|_2^2 .
+$$
+Then
+$$
+\mathbb{E}\big(L(T)\big) \le c \cdot O(\log k)\, L(T^*), \qquad c \text{ some constant.}
+$$
+:::
+
+## Geometric Interpretation
+
+In Lloyd's algorithm the partition for fixed means is updated via
+$$
+X_i = \big\{ x \in X : \|x - \mu_i\| \le \|x - \mu_j\|,\ j \ne i \big\}.
+$$
+Noting that $\|x - \mu_i\|_2^2 \le \|x - \mu_j\|_2^2$ for $i \ne j$,
+$$
+\|x\|^2 + \|\mu_i\|^2 - 2\langle x, \mu_i\rangle \le \|x\|^2 + \|\mu_j\|^2 - 2\langle x, \mu_j\rangle
+\;\Rightarrow\;
+2\langle x, \mu_j - \mu_i\rangle \le \|\mu_j\|^2 + \|\mu_i\|^2 ,
+$$
+<!-- [likely mistake: cancelling $\|x\|^2$ gives
+$2\langle x,\mu_j-\mu_i\rangle \le \|\mu_j\|^2 - \|\mu_i\|^2$ (a minus sign);
+the manuscript wrote $\|\mu_j\|^2 + \|\mu_i\|^2$. Transcribed as written and
+flagged.] -->
+which defines a half-space separated by a hyperplane. Lloyd's algorithm thus clusters into the intersection of $k-1$ half-planes.
+
+<!-- [figure: a Voronoi-like diagram with centers $\mu_1, \mu_2, \mu_3, \mu_4$
+and the boundary lines between cells.] -->
+
+::: {.remark}
+- It can be shown that the partitions in Lloyd's algorithm form a Voronoi diagram, and each cell is convex.
+- This means Lloyd's algorithm essentially works with linearly separable, convex clusters.
+:::
+
+## Kernel Trick and Kernel $k$-means
+
+One way to deal with non-convex, non-linear clusters is to use **dimension increasing**: map the original data so that it becomes more linearly separable and convex in a higher dimension.
+
+::: {#exm-circle-lift}
+## Lifting concentric data
+
+Consider data in $\mathbb{R}^2$ (e.g. two concentric rings). Create the map $\phi : \mathbb{R}^2 \to \mathbb{R}^3$,
+$$
+\phi(x_1, x_2) = \begin{pmatrix} x_1^2 \\ \sqrt{2}\, x_1 x_2 \\ x_2^2 \end{pmatrix},
+$$
+after which the two rings become linearly separable in $\mathbb{R}^3$.
+
+<!-- [figures: (left) two concentric rings in the plane; (right) the lifted
+points separated by a plane in 3D.] -->
+:::
+
+However, boosting the dimension increases computational complexity. The **kernel trick** bypasses this by allowing implicit computation of the inner product of high-dimensional vectors via a low-dimensional function.
+
+Example: let $x, y \in \mathbb{R}^2$ and $\phi(x) = (x_1^2, \sqrt{2}\, x_1 x_2, x_2^2)$, $\phi(y) = (y_1^2, \sqrt{2}\, y_1 y_2, y_2^2)$. Then
+$$
+\langle \phi(x), \phi(y)\rangle = x_1^2 y_1^2 + 2 x_1 x_2 y_1 y_2 + x_2^2 y_2^2 = (x_1 y_1 + x_2 y_2)^2 = \langle x, y\rangle^2 =: K(x, y).
+$$
+
+::: {#def-kernel}
+## Kernel function
+
+A symmetric map $K : \mathbb{R}^d \times \mathbb{R}^d \to \mathbb{R}$ is a **kernel induced by $\phi$** if there exists $\phi : \mathbb{R}^d \to \mathbb{R}^n$ such that
+$$
+K(x, y) = \langle \phi(x), \phi(y)\rangle .
+$$
+:::
+
+::: {.remark}
+Examples:
+
+- $K(x, y) = \langle x, y\rangle^r$;
+- $K(x, y) = (\langle x, y\rangle + c)^r$;
+- $K(x, y) = \exp\!\left(-\dfrac{\|x - y\|^2}{2\sigma^2}\right)$ — the **Gaussian kernel**.
+
+For the Gaussian kernel, the inducing map is $\phi : \mathbb{R}^d \to \mathcal{H}$, where $\mathcal{H}$ is a Hilbert space.
+:::
+
+::: {#thm-mercer}
+## Mercer's theorem
+
+Let $X \subseteq \mathbb{R}^d$ be a compact set and $K : X \times X \to \mathbb{R}$ a continuous kernel. Define the linear integral operator associated with $K$ on $L^2$, $T_K : L^2(X) \to L^2(X)$, as
+$$
+T_K(f) := \int_X K(x, x')\, f(x')\, dx',
+$$
+and suppose $T_K$ is positive semidefinite, i.e.
+$$
+\langle f, T_K f\rangle = \int_{X \times X} f(x)\, K(x, x')\, f(x')\, dx\, dx' \ge 0, \qquad \forall\, f \in L^2(X).
+$$
+Then $T_K$ has eigenfunctions $\{\psi_i\}_{i=1,2,\dots} \in L^2$ with corresponding eigenvalues $\lambda_i \in \mathbb{R}^+$ such that
+$$
+K(x, x') = \sum_{i=1}^{\infty} \lambda_i\, \psi_i(x)\, \psi_i(x').
+$$
+:::
+
+::: {.remark}
+This means we can view $K(x, x')$ as induced by the feature map $\varphi(x) := \big(\sqrt{\lambda_i}\, \psi_i(x)\big)_{i=1}^{\infty}$.
+:::
+
+### Kernel $k$-means
+
+In Lloyd's algorithm, the partition is updated based on the distance to the $i$-th center, $\big\| x_j - \tfrac{1}{|X_i|} \sum_{x_i \in X_i} x_i \big\|_2^2$. We first show this distance can be expressed via inner products:
+$$
+\Big\| x - \tfrac{1}{|X_i|} \sum_{x_j \in X_i} x_j \Big\|_2^2
+= \langle x, x\rangle + \frac{1}{|X_i|^2} \sum_{x_j, x_k \in X_i} \langle x_j, x_k\rangle - \frac{2}{|X_i|} \sum_{x_j \in X_i} \langle x_j, x\rangle .
+$$
+If we use a feature map $\phi(x)$ to boost the dimension, then the distance in the transformed space can be expressed through the kernel:
+$$
+\Big\| \phi(x) - \tfrac{1}{|X_i|} \sum_{x_j \in X_i} \phi(x_j) \Big\|_2^2
+= K(x, x) + \frac{1}{|X_i|^2} \sum_{x_j, x_k \in X_i} K(x_j, x_k) - \frac{2}{|X_i|} \sum_{x_j \in X_i} K(x_j, x) .
+$$
+
+We modify Lloyd's algorithm as follows to include the kernel.
+
+::: {.callout-note appearance="simple"}
+**Kernel $k$-means**
+
+*Initialize:* $X_1^{(0)} \cup X_2^{(0)} \cup \dots \cup X_k^{(0)} = X$.
+
+*For $t = 1, 2, \dots$ until convergence:*
+
+$$
+X_i^{(t+1)} = \Big\{ x_j \in X : \big\| \phi(x_j) - \tfrac{1}{|X_i|} \textstyle\sum \phi(x_k) \big\|_2 \le \big\| \phi(x_j) - \tfrac{1}{|X_{i'}|} \textstyle\sum \phi(x_m) \big\|_2,\ \forall\, i' \ne i \Big\},
+$$
+
+where each distance is computed via the kernel expression above.
+:::
+
+::: {.remark}
+- The distance is calculated using the expression with the kernel.
+- The centers are now not explicitly computed in feature space, but implicitly via kernels.
+- In practice, the kernels are precomputed each iteration.
+- Each iteration of kernel Lloyd's takes $O(N^2)$.
+:::

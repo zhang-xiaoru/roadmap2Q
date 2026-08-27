@@ -1,0 +1,398 @@
+# Markov Chains
+
+A **discrete-time Markov chain** is a sequence of random variables in which each
+step depends only on the previous one (the **Markov property**), which greatly
+simplifies the calculation of long-time transition probabilities. This chapter
+covers the definition and transition matrix, $n$-step transition probabilities,
+communicating classes and irreducibility, stationary (invariant) distributions,
+periodicity, and the convergence theorems — the last of which underpin Markov
+Chain Monte Carlo (MCMC) methods.
+
+## Discrete-Time Markov Chains
+
+::: {#def-markov-chain}
+## Discrete-time Markov chain
+
+A sequence of random variables $(X_n)_{n \ge 0}$, where
+$X_n : \Omega \to S \subseteq \mathbb{Z}$, is called a **Markov chain** with
+**initial distribution** $\lambda$ if
+
+a) $X_0$ has distribution $\lambda$;
+b) it satisfies the **Markov property**
+$$
+P\big(X_{n+1} = i_{n+1} \mid X_n = i_n, \dots, X_0 = i_0\big)
+= P\big(X_{n+1} = i_{n+1} \mid X_n = i_n\big) .
+$$
+:::
+
+::: {.remark}
+- $X_n$ denotes the **state** of the chain at time $n$.
+- $S$ is the **state space** — all possible outcomes of each state.
+- Writing $P(X_{n+1} = i_{n+1} \mid X_n = i_n) = P_{i_n i_{n+1}}$, then for finite
+  $S$ the matrix $P \in \mathbb{R}^{|S| \times |S|}$ is the **transition matrix**,
+  and $P_{i_n i_{n+1}}$ is the transition probability from state $i_n$ to
+  $i_{n+1}$.
+- Being probabilities, the entries satisfy
+  $$
+  P_{ij} \ge 0, \qquad \sum_{j \in S} P_{ij} = 1 .
+  $$
+:::
+
+## $n$-Step Transition Probabilities
+
+The Markov property and the total-probability formula let us compute the
+$n$-step transition probability from the single-step transition matrix. We wish
+to calculate the probability that the chain is at state $j$ after $n$ steps
+starting from $i$, and, more generally, the probability of being at $j$ after
+$n$ steps from any initial state.
+
+::: {#thm-nstep}
+## $n$-step transition probability
+
+Let $(X_n)_{n \ge 0}$ be a Markov chain with initial distribution $\lambda$ and
+transition matrix $P$. Then for all $n, m \ge 0$:
+
+1. $P(X_n = j \mid X_0 = i) = (P^n)_{ij}$;
+2. $P(X_n = j) = (\lambda P^n)_j$.
+:::
+
+::: {.proof}
+The calculation is straightforward using total probability and the Markov
+property. For (2), sum over all intermediate paths and apply the Markov property
+repeatedly:
+$$
+\begin{aligned}
+P(X_n = j)
+&= \sum_{i_0 \in S} \cdots \sum_{i_{n-1} \in S}
+P\big(X_n = j \mid X_{n-1} = i_{n-1}, \dots, X_0 = i_0\big)\, P\big(X_{n-1} = i_{n-1}, \dots, X_0 = i_0\big) \\
+&= \sum_{i_0} \cdots \sum_{i_{n-1}}
+P\big(X_n = j \mid X_{n-1} = i_{n-1}\big)\, P\big(X_{n-1} = i_{n-1} \mid X_{n-2} = i_{n-2}\big) \cdots P\big(X_1 = i_1 \mid X_0 = i_0\big)\, P(X_0 = i_0) \\
+&= \sum_{i_0} \cdots \sum_{i_{n-1}} \lambda_{i_0}\, P_{i_0 i_1} P_{i_1 i_2} \cdots P_{i_{n-1} j}
+= (\lambda P^n)_j .
+\end{aligned}
+$$
+For (1), condition on $X_0 = i$ (so $\lambda$ is replaced by a point mass at $i$):
+$$
+P(X_n = j \mid X_0 = i)
+= \sum_{i_1 \in S} \cdots \sum_{i_{n-1} \in S} P_{i\, i_1} P_{i_1 i_2} \cdots P_{i_{n-1} j}
+= (P^n)_{ij} . \qquad \blacksquare
+$$
+:::
+
+::: {.remark}
+- Using the matrix form assumes a finite state space; the summation identity,
+  however, remains true when the state space is infinite.
+- Statement (1) extends to the **Chapman–Kolmogorov** form
+  $$
+  P(X_{n+m} = j \mid X_n = i) = (P^m)_{ij} .
+  $$
+:::
+
+## Communicating Classes and Irreducibility
+
+We now examine the asymptotic behavior of the state distribution: as
+$n \to \infty$, does the chain tend to an equilibrium? Different states can
+behave very differently. The following example illustrates this.
+
+```{python}
+#| label: fig-markov-classes
+#| fig-cap: 'A 4-state chain. State $1$ is **transient**: it has a self-loop ($0.2$) and leads to state $4$ ($0.5$) and to state $2$ ($0.3$). State $4$ is **absorbing** (self-loop $1$), forming the closed class $\{4\}$. States $\{2,3\}$ form a second **closed** communicating class. Once the chain leaves $1$ it is trapped in $\{4\}$ or $\{2,3\}$ and never returns to $1$.'
+#| out-width: 85%
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.patches import Circle, FancyArrowPatch, Arc, Polygon
+
+NODE_R = 0.42
+BLUE = "#1f77b4"
+
+
+def node(ax, xy, label):
+    c = Circle(xy, NODE_R, facecolor="white", edgecolor="black", lw=1.6, zorder=3)
+    ax.add_patch(c)
+    ax.text(*xy, str(label), ha="center", va="center", fontsize=15, zorder=4)
+    return c
+
+
+def edge(ax, cA, cB, rad=0.0, label=None, lab_side=1.0, lab_pad=0.28):
+    a = FancyArrowPatch(cA.center, cB.center, patchA=cA, patchB=cB,
+                        connectionstyle=f"arc3,rad={rad}", arrowstyle="-|>",
+                        mutation_scale=18, lw=1.6, color="black", zorder=2,
+                        shrinkA=1, shrinkB=1)
+    ax.add_patch(a)
+    if label is not None:
+        pA, pB = np.array(cA.center), np.array(cB.center)
+        mid = (pA + pB) / 2
+        d = pB - pA
+        perp = np.array([-d[1], d[0]])
+        perp = perp / (np.linalg.norm(perp) + 1e-9)
+        pos = mid + perp * (rad * np.linalg.norm(d) * 0.5 + lab_side * lab_pad)
+        ax.text(*pos, label, ha="center", va="center", fontsize=12, color=BLUE, zorder=5)
+
+
+def self_loop(ax, c, angle_deg, label, loop_r=0.30):
+    """Self-loop as a near-full circle tangent to the node, with an arrowhead."""
+    center = np.array(c.center)
+    dirv = np.array([np.cos(np.deg2rad(angle_deg)), np.sin(np.deg2rad(angle_deg))])
+    loop_c = center + dirv * (NODE_R + loop_r * 0.65)
+    gap = 55.0                       # opening (deg) facing the node
+    base = angle_deg + 180.0
+    t1, t2 = base + gap / 2, base + 360 - gap / 2
+    ax.add_patch(Arc(loop_c, 2 * loop_r, 2 * loop_r, angle=0,
+                     theta1=t1, theta2=t2, lw=1.6, color="black", zorder=2))
+    th = np.deg2rad(t1)
+    tip = loop_c + loop_r * np.array([np.cos(th), np.sin(th)])
+    tang = np.array([-np.sin(th), np.cos(th)])
+    perp = np.array([np.cos(th), np.sin(th)])
+    h, w = 0.14, 0.075
+    tri = np.array([tip, tip - h * tang + w * perp, tip - h * tang - w * perp])
+    ax.add_patch(Polygon(tri, closed=True, color="black", zorder=3))
+    lp = center + dirv * (NODE_R + 2 * loop_r + 0.18)
+    ax.text(*lp, label, ha="center", va="center", fontsize=12, color=BLUE, zorder=5)
+
+
+fig, ax = plt.subplots(figsize=(8.4, 3.4))
+pos = {4: (-3.4, 0.0), 1: (0.0, 0.0), 2: (3.0, 0.0), 3: (5.1, 1.35)}
+cs = {k: node(ax, xy, k) for k, xy in pos.items()}
+edge(ax, cs[1], cs[4], rad=0.0, label="0.5", lab_side=1.0)
+edge(ax, cs[1], cs[2], rad=0.0, label="0.3", lab_side=1.0)
+self_loop(ax, cs[1], -90, "0.2")     # state 1 self-loop
+self_loop(ax, cs[4], 180, "1")       # state 4 absorbing self-loop
+edge(ax, cs[2], cs[3], rad=0.30)     # closed class {2,3}: intra-class labels illegible
+edge(ax, cs[3], cs[2], rad=0.30)
+ax.set_xlim(-4.6, 6.4); ax.set_ylim(-1.7, 2.4)
+ax.set_aspect("equal"); ax.axis("off")
+fig.tight_layout()
+plt.show()
+```
+
+<!-- [note: in the source, the transition probabilities *inside* the closed class
+$\{2,3\}$ are crossed out / illegible (a "0.4" is struck through), so those two
+edges are drawn without numeric labels. The remaining probabilities ($0.5, 0.3,
+0.2$ out of state $1$, and $1$ on state $4$) are as written.] -->
+
+For the chain above, note that:
+
+1. State $1$ can access $2, 3, 4$, while $2, 3, 4$ cannot access $1$.
+2. Once the chain enters state $2$, it only transitions within $\{2, 3\}$;
+   similarly $4$ is absorbing.
+3. When $n$ is large enough, the state is "trapped" in $\{4\}$ or $\{2, 3\}$.
+
+The following definitions formalize this observation.
+
+::: {#def-accessible}
+## Leads to / accessible
+
+We say state $i$ **leads to** $j$ (equivalently, $j$ is **accessible** from $i$)
+if there exists a finite sequence $i_1, i_2, \dots, i_{n-1}$ such that
+$$
+P_{i\, i_1} > 0, \ P_{i_1 i_2} > 0, \ \dots, \ P_{i_{n-1} j} > 0
+\quad\Longleftrightarrow\quad
+P(X_n = j \mid X_0 = i) > 0 \ \text{ for some } n \ge 0 .
+$$
+:::
+
+::: {#def-communicate}
+## Communicate
+
+We say $i$ and $j$ **communicate** if $i$ leads to $j$ and $j$ leads to $i$.
+:::
+
+::: {#def-classes}
+## Communicating class and closed class
+
+- A set of states is a **communicating class** (or **recurrent class**) if every
+  pair $i, j$ in it communicate. (Equivalently, a **strongly connected component**
+  when the chain is viewed as a graph.)
+- A communicating class $C$ is **closed** if, for every $i \in C$, whenever $i$
+  leads to $j$ then $j \in C$.
+:::
+
+::: {.remark}
+- Once the chain enters a closed class, it never leaves.
+- An **absorbing state** is simply a singleton $\{i\}$ that is a closed class.
+- If a state $i$ is not in any (closed) communicating class, then there is a
+  state $j$ accessible from $i$ but with $i$ **not** accessible from $j$; for
+  large $n$ the $i \to j$ transition occurs and the chain never returns. Hence we
+  will focus on chains with a **single** communicating class, called
+  **irreducible**.
+:::
+
+## Stationary (Invariant) Distributions
+
+For an irreducible chain, does the probability of being in each state stabilize
+in the long run? By "stable" we mean that the state distribution does not change
+after a transition — hence the following definition.
+
+::: {#def-stationary}
+## Stationary / invariant distribution
+
+Let $\lambda$ denote the probability distribution of state $X$, i.e.
+$\lambda_i = P(X = i)$. We say $\lambda$ is a **stationary** (or **invariant**)
+distribution if
+$$
+\lambda = \lambda P, \qquad \sum_i \lambda_i = 1 .
+$$
+:::
+
+::: {.remark}
+The definition means that a one-step transition of the current distribution,
+$$
+\sum_j \lambda_j P_{ji} = \lambda_i ,
+$$
+leaves it unchanged.
+:::
+
+It can be shown that if the transition probability converges to a number
+independent of the initial state, then the limiting distribution is
+stationary/invariant (for finite state space).
+
+::: {#thm-converge-invariant}
+## A convergent limit is invariant
+
+Let the state space $S$ of a Markov chain $(X_n)_{n \ge 0}$ be finite, and
+suppose that for some $i \in S$,
+$$
+P(X_n = j \mid X_0 = i) = (P^n)_{ij} \to \pi_j \quad\text{as } n \to \infty, \ \ \forall j \in S .
+$$
+Then $\pi$ is an invariant distribution.
+:::
+
+::: {.proof}
+Using $(P^n)_{ij} = \sum_{k \in S} (P^{n-1})_{ik} P_{kj}$ and interchanging limit
+and (finite) sum,
+$$
+\pi_j = \lim_{n \to \infty} (P^n)_{ij}
+= \lim_{n \to \infty} \sum_{k \in S} (P^{n-1})_{ik} P_{kj}
+= \sum_{k \in S} \Big(\lim_{n \to \infty} (P^{n-1})_{ik}\Big) P_{kj}
+= \sum_{k \in S} \pi_k P_{kj} ,
+$$
+so $\pi = \pi P$. Also
+$$
+\sum_{j \in S} \pi_j
+= \sum_{j \in S} \lim_{n \to \infty} (P^n)_{ij}
+= \lim_{n \to \infty} \sum_{j \in S} (P^n)_{ij} = 1 .
+$$
+Thus $\pi$ is a stationary distribution. $\blacksquare$
+:::
+
+::: {.remark}
+- The interchange of limit and summation is permitted for a finite state space.
+- The theorem guarantees that a **convergent** distribution is invariant; the
+  converse need not hold (invariance does not imply convergence — see below).
+- For the probability to converge we must restrict to a **single** communicating
+  class; otherwise $\lim_{n \to \infty}(P^n)_{ij}$ depends on the initial state,
+  as different initial states may lead to different recurrent classes.
+:::
+
+### Periodicity
+
+Even for a single communicating class, existence of an invariant distribution
+does **not** guarantee convergence.
+
+```{python}
+#| label: fig-markov-periodic
+#| fig-cap: 'A 2-state chain with $P_{12} = P_{21} = 1$ (i.e. $P = \left(\begin{smallmatrix} 0 & 1 \\ 1 & 0 \end{smallmatrix}\right)$). The distribution $\pi = (\tfrac12, \tfrac12)$ is invariant, yet the probabilities **oscillate** and never converge, since $P^{2k} = I$ and $P^{2k+1} = P$.'
+#| out-width: 45%
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.patches import Circle, FancyArrowPatch
+
+NODE_R = 0.42
+BLUE = "#1f77b4"
+
+
+def node(ax, xy, label):
+    c = Circle(xy, NODE_R, facecolor="white", edgecolor="black", lw=1.6, zorder=3)
+    ax.add_patch(c)
+    ax.text(*xy, str(label), ha="center", va="center", fontsize=15, zorder=4)
+    return c
+
+
+def edge(ax, cA, cB, rad=0.0, label=None, lab_side=1.0, lab_pad=0.28):
+    a = FancyArrowPatch(cA.center, cB.center, patchA=cA, patchB=cB,
+                        connectionstyle=f"arc3,rad={rad}", arrowstyle="-|>",
+                        mutation_scale=18, lw=1.6, color="black", zorder=2,
+                        shrinkA=1, shrinkB=1)
+    ax.add_patch(a)
+    if label is not None:
+        pA, pB = np.array(cA.center), np.array(cB.center)
+        mid = (pA + pB) / 2
+        d = pB - pA
+        perp = np.array([-d[1], d[0]])
+        perp = perp / (np.linalg.norm(perp) + 1e-9)
+        pos = mid + perp * (rad * np.linalg.norm(d) * 0.5 + lab_side * lab_pad)
+        ax.text(*pos, label, ha="center", va="center", fontsize=12, color=BLUE, zorder=5)
+
+
+fig, ax = plt.subplots(figsize=(4.2, 2.6))
+pos = {1: (0.0, 0.0), 2: (2.6, 0.0)}
+cs = {k: node(ax, xy, k) for k, xy in pos.items()}
+edge(ax, cs[1], cs[2], rad=0.35, label="1", lab_side=1.0)   # top
+edge(ax, cs[2], cs[1], rad=0.35, label="1", lab_side=1.0)   # bottom
+ax.set_xlim(-1.0, 3.6); ax.set_ylim(-1.4, 1.4)
+ax.set_aspect("equal"); ax.axis("off")
+fig.tight_layout()
+plt.show()
+```
+
+<!-- [note: the source writes $P^{2k} = Z$; read as the identity matrix $I$
+(so $P^{2k} = I$, $P^{2k+1} = P$).] -->
+
+To exclude such cases we define the aperiodic property.
+
+::: {#def-aperiodic}
+## Aperiodic
+
+A state $i$ is **aperiodic** if $(P^n)_{ii} > 0$ for all sufficiently large $n$.
+A Markov chain is **aperiodic** if every state $i \in S$ is aperiodic.
+:::
+
+## Convergence to Equilibrium
+
+::: {#thm-irreducible-aperiodic}
+## Irreducible + one aperiodic state $\Rightarrow$ all states aperiodic
+
+Suppose a Markov chain is irreducible and has an aperiodic state $i$. Then for all
+states $j, k \in S$, $(P^n)_{jk} > 0$ for all sufficiently large $n$. In
+particular, all states are aperiodic.
+:::
+
+::: {.proof}
+Since the chain is irreducible, there exist $r, s$ with $(P^r)_{ji} > 0$ and
+$(P^s)_{ik} > 0$. Then for sufficiently large $n$,
+$$
+\begin{aligned}
+(P^{\,n + r + s})_{jk}
+&= \sum_{i_1, \dots, i_n \in S} (P^r)_{j\, i_1}\, P_{i_1 i_2} P_{i_2 i_3} \cdots P_{i_{n-1} i_n}\, (P^s)_{i_n k} \\
+&= \sum_{i_1, i_n \in S} (P^r)_{j\, i_1}\, (P^n)_{i_1 i_n}\, (P^s)_{i_n k} \\
+&\ge (P^r)_{ji}\, (P^n)_{ii}\, (P^s)_{ik} > 0 ,
+\end{aligned}
+$$
+choosing $i_1 = i_n = i$, since $(P^n)_{ii} > 0$ ($i$ aperiodic) and the end
+factors are positive (irreducibility). $\blacksquare$
+:::
+
+For an aperiodic chain, the existence of an invariant distribution guarantees
+convergence to it.
+
+::: {#thm-convergence}
+## Convergence to the invariant distribution
+
+Suppose $(X_n)_{n \ge 0}$ is an irreducible and aperiodic Markov chain with
+transition matrix $P$ and initial distribution $\lambda$. If $P$ has an invariant
+distribution $\pi$, then
+$$
+P(X_n = j) \to \pi_j \quad\text{as } n \to \infty, \ \ \forall j \in S .
+$$
+In particular, $(P^n)_{ij} \to \pi_j$ as $n \to \infty$ for all $i, j \in S$.
+:::
+
+::: {#thm-unique-stationary}
+## Finite irreducible aperiodic chains
+
+Suppose $(X_n)_{n \ge 0}$ is an irreducible and aperiodic Markov chain with a
+**finite** state space. Then there exists a **unique** invariant distribution
+$\pi$, and $P(X_n = i) \to \pi_i$ for **any** initial distribution $\lambda$.
+:::

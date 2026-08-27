@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; Newton’s Methods – Phy2Q Roadmap</title>
+<title>18&nbsp; Clustering – Phy2Q Roadmap</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../numerical-optimization/quasiNewton.html" rel="next">
-<link href="../numerical-optimization/gradDescent.html" rel="prev">
+<link href="../reg-anly/slrInference.html" rel="next">
+<link href="../ml-ds/SVD.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -88,6 +88,35 @@ ul.task-list li input[type="checkbox"] {
       </style>
     
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -100,7 +129,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../numerical-optimization/introduction.html">Numerical Optimization</a></li><li class="breadcrumb-item"><a href="../numerical-optimization/newTon.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Newton’s Methods</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ml-ds/probRecap.html">Machine Learning and Data Science Basics</a></li><li class="breadcrumb-item"><a href="../ml-ds/clustering.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Clustering</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -166,7 +195,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/newTon.html" class="sidebar-item-text sidebar-link active">
+  <a href="../numerical-optimization/newTon.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Newton’s Methods</span></span></a>
   </div>
 </li>
@@ -242,20 +271,32 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../ml-ds/probRecap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Recap on Probability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../ml-ds/highDimData.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Properties of High Dimensional Data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Properties of High Dimensional Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ml-ds/randomProj.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Randomized Projection</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Randomized Projection</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ml-ds/SVD.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/clustering.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Clustering</span></span></a>
   </div>
 </li>
       </ul>
@@ -284,7 +325,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../reg-anly/slrInference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Statistical Inference of Simple Linear Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Statistical Inference of Simple Linear Regression</span></span></a>
   </div>
 </li>
       </ul>
@@ -305,19 +346,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sp/prob.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Probability Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Probability Review</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sp/bm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Brownian Motion</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Brownian Motion</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sp/stocInt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Stochastic Integral</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Stochastic Integral</span></span></a>
   </div>
 </li>
       </ul>
@@ -338,7 +379,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sp-in-finance/plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Things need to be done</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Things need to be done</span></span></a>
   </div>
 </li>
       </ul>
@@ -354,15 +395,33 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#the-easy-case" id="toc-the-easy-case" class="nav-link active" data-scroll-target="#the-easy-case"><span class="header-section-number">18.1</span> The Easy Case</a></li>
+  <li><a href="#k-means-clustering" id="toc-k-means-clustering" class="nav-link" data-scroll-target="#k-means-clustering"><span class="header-section-number">18.2</span> <span class="math inline">\(k\)</span>-means Clustering</a></li>
+  <li><a href="#lloyds-algorithm" id="toc-lloyds-algorithm" class="nav-link" data-scroll-target="#lloyds-algorithm"><span class="header-section-number">18.3</span> Lloyd’s Algorithm</a>
+  <ul class="collapse">
+  <li><a href="#convergence" id="toc-convergence" class="nav-link" data-scroll-target="#convergence">Convergence</a></li>
+  <li><a href="#complexity" id="toc-complexity" class="nav-link" data-scroll-target="#complexity">Complexity</a></li>
+  </ul></li>
+  <li><a href="#initialization-k-means" id="toc-initialization-k-means" class="nav-link" data-scroll-target="#initialization-k-means"><span class="header-section-number">18.4</span> Initialization: <span class="math inline">\(k\)</span>-means++</a></li>
+  <li><a href="#geometric-interpretation" id="toc-geometric-interpretation" class="nav-link" data-scroll-target="#geometric-interpretation"><span class="header-section-number">18.5</span> Geometric Interpretation</a></li>
+  <li><a href="#kernel-trick-and-kernel-k-means" id="toc-kernel-trick-and-kernel-k-means" class="nav-link" data-scroll-target="#kernel-trick-and-kernel-k-means"><span class="header-section-number">18.6</span> Kernel Trick and Kernel <span class="math inline">\(k\)</span>-means</a>
+  <ul class="collapse">
+  <li><a href="#kernel-k-means" id="toc-kernel-k-means" class="nav-link" data-scroll-target="#kernel-k-means">Kernel <span class="math inline">\(k\)</span>-means</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../numerical-optimization/introduction.html">Numerical Optimization</a></li><li class="breadcrumb-item"><a href="../numerical-optimization/newTon.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Newton’s Methods</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ml-ds/probRecap.html">Machine Learning and Data Science Basics</a></li><li class="breadcrumb-item"><a href="../ml-ds/clustering.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Clustering</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Newton’s Methods</span></h1>
+<h1 class="title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Clustering</span></h1>
 </div>
 
 
@@ -379,8 +438,307 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>Given <span class="math inline">\(X = \{x_1, x_2, \dots, x_n\} \subseteq \mathbb{R}^d\)</span>, find a disjoint partition <span class="math inline">\(X = \bigcup_i X_i\)</span>, with <span class="math inline">\(X_i \cap X_j = \emptyset\)</span> for <span class="math inline">\(i \ne j\)</span>, such that points within <span class="math inline">\(X_i\)</span> are “similar” to each other and “dissimilar” to points in <span class="math inline">\(X_j\)</span> (<span class="math inline">\(i \ne j\)</span>).</p>
+<div class="proof remark">
+<p><span class="proof-title"><em>Remark</em>. </span></p>
+<ul>
+<li>The “similarity” is usually measured by Euclidean distance <span class="math inline">\(\|x_i - x_j\|_2^2\)</span>, or by angle.
+<ul>
+<li>If <span class="math inline">\(\|x_i\| = 1\)</span> (normalized), then similarity is measured by angle: <span class="math display">\[
+\|x_i - x_j\|_2^2 = \|x_i\|^2 + \|x_j\|^2 - 2\langle x_i, x_j\rangle = 2(1 - \cos\theta)
+\;\Rightarrow\;
+\begin{cases} \cos\theta = 1, &amp; \text{similar} \\ \cos\theta = -1, &amp; \text{not similar} \end{cases}
+\]</span></li>
+<li>If not normalized, just use <span class="math inline">\(\|x_i - x_j\|_2^2\)</span>.</li>
+</ul></li>
+<li>In practice, the number of partitions <span class="math inline">\(k\)</span> is given.</li>
+</ul>
+</div>
+<section id="the-easy-case" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="the-easy-case"><span class="header-section-number">18.1</span> The Easy Case</h2>
+<!-- [figure: three sketched point clouds illustrating well-separated
+("easy") clusters.] -->
+<p>In an “easy” clustering case we have the following observation.</p>
+<p><strong>Observation.</strong> There exists a partition <span class="math inline">\(X = \bigcup_i X_i\)</span> such that <span class="math display">\[
+\max_{\substack{x_i, x_j \in \text{ same } X_k}} \|x_i - x_j\|_2
+\;\le\;
+\min_{\substack{x_i, x_j \in \text{ different } X_k}} \|x_i - x_j\|_2 .
+\]</span></p>
+<p>In this case, define the distance matrix <span class="math inline">\(D_{ij} = \|x_i - x_j\|_2\)</span>, and let <span class="math inline">\(\text{LHS} &lt; R &lt; \text{RHS}\)</span> of the inequality above. Then there exists a permutation <span class="math inline">\(\Pi : \{1, 2, \dots, n\} \to \{1, 2, \dots, n\}\)</span> and a corresponding permutation matrix <span class="math display">\[
+P_\Pi = \begin{pmatrix} e_{\Pi(1)}^{\mathsf T} \\ e_{\Pi(2)}^{\mathsf T} \\ \vdots \\ e_{\Pi(n)}^{\mathsf T} \end{pmatrix},
+\qquad
+e_i = \begin{pmatrix} 0 \\ \vdots \\ 1 \\ \vdots \\ 0 \end{pmatrix} \leftarrow i,
+\]</span> such that <span class="math display">\[
+D_\Pi = P_\Pi\, D\, P_\Pi^{\mathsf T}
+\]</span> is “close” to a block-diagonal matrix: within a diagonal block <span class="math inline">\(D_{ij} &lt; R\)</span>, and outside the diagonal blocks <span class="math inline">\(D_{ij} &gt; R\)</span>.</p>
+<!-- [figure: a matrix sketched with dense diagonal blocks and sparse
+off-diagonal region.] -->
+<div class="proof remark">
+<p><span class="proof-title"><em>Remark</em>. </span>The above simply means we can rearrange the points so that the points that are “close” are grouped together (clustering).</p>
+</div>
+</section>
+<section id="k-means-clustering" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="k-means-clustering"><span class="header-section-number">18.2</span> <span class="math inline">\(k\)</span>-means Clustering</h2>
+<p>For <span class="math inline">\(X = \{x_1, \dots, x_n\} \subseteq \mathbb{R}^d\)</span> with <span class="math inline">\(k\)</span> partitions <span class="math inline">\(X = X_1 \cup X_2 \cup \dots \cup X_k\)</span>, and centers <span class="math inline">\(\mu_1, \dots, \mu_k \in \mathbb{R}^d\)</span>, find the optimal <span class="math inline">\(\{X_i\}\)</span> and <span class="math inline">\(\{\mu_i\}\)</span> such that <span class="math display">\[
+\min_{\{X_j\}} \left( \min_{\{\mu_j\}} \sum_{i=1}^{k} \sum_{x_j \in X_i} \|x_j - \mu_i\|_2^2 \right).
+\]</span></p>
+<div id="lem-kmeans-center" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 18.1 (Optimal centers for a fixed partition)</strong></span> For fixed <span class="math inline">\(\{X_j\}\)</span>, the minimizing centers are the cluster means: <span class="math display">\[
+\mu_j^* = \frac{1}{|X_j|} \sum_{x_i \in X_j} x_i,
+\qquad
+\{\mu_j^*\} = \underset{\{\mu_j\}}{\arg\min} \sum_{j} \sum_{x_i \in X_j} \|x_i - \mu_j\|_2^2 .
+\]</span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Let <span class="math display">\[
+L = \sum_{j=1}^{k} \sum_{x_i \in X_j} \|x_i - \mu_j\|_2^2 = \sum_{j=1}^{k} \sum_{x_i \in X_j} \sum_{p} (x_{i,p} - \mu_{j,p})^2,
+\]</span> where <span class="math inline">\(x_{i,p}, \mu_{j,p}\)</span> are the <span class="math inline">\(p\)</span>-th components of <span class="math inline">\(x_i, \mu_j \in \mathbb{R}^d\)</span>. Then <span class="math display">\[
+\frac{\partial L}{\partial \mu_{\ell, q}}
+= \sum_{j=1}^{k} \sum_{x_i \in X_j} \sum_{p} 2(x_{i,p} - \mu_{j,p})\, \delta_{\ell j}\, \delta_{pq}
+= \sum_{j=1}^{k} \sum_{x_i \in X_j} 2(x_{i,q} - \mu_{j,q})\, \delta_{\ell j}
+= \sum_{x_i \in X_\ell} 2(x_{i,q} - \mu_{\ell,q}^*) = 0,
+\]</span> hence <span class="math display">\[
+\sum_{x_i \in X_\ell} x_{i,q} - |X_\ell|\, \mu_{\ell,q}^* = 0
+\;\Rightarrow\;
+\mu_{\ell,q}^* = \frac{1}{|X_\ell|} \sum_{x_i \in X_\ell} x_{i,q},
+\qquad \text{i.e.} \quad
+\mu_\ell^* = \frac{1}{|X_\ell|} \sum_{x_i \in X_\ell} x_i .
+\]</span></p>
+</div>
+<div id="lem-kmeans-partition" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 18.2 (Optimal partition for fixed centers)</strong></span> For fixed <span class="math inline">\(\{\mu_j\}\)</span>, the minimizing partition assigns each point to its nearest center: <span class="math display">\[
+X_i^* = \Big\{ x_j \in X : \|x_j - \mu_i\|_2 \le \|x_j - \mu_{i'}\|_2,\ \forall\, i' \ne i \Big\},
+\]</span> with ties broken arbitrarily.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>For fixed <span class="math inline">\(\{\mu_i\}\)</span>, the objective <span class="math display">\[
+\min_{\{X_j\}} \sum_{i=1}^{k} \sum_{x_j \in X_i} \|x_j - \mu_i\|_2^2
+= \min_{\{X_j\}} \Bigg[
+\underbrace{\|x_1^1 - \mu_1\|_2^2 + \cdots + \|x_{|X_1|}^1 - \mu_1\|_2^2}_{x_i^1 \in X_1}
++ \underbrace{\|x_1^2 - \mu_2\|_2^2 + \cdots + \|x_{|X_2|}^2 - \mu_2\|_2^2}_{x_i^2 \in X_2}
++ \cdots
++ \underbrace{\|x_1^k - \mu_k\|_2^2 + \cdots + \|x_{|X_k|}^k - \mu_k\|_2^2}_{x_i^k \in X_k}
+\Bigg].
+\]</span> Consider a point <span class="math inline">\(x_j \in X_i\)</span> for which there exists <span class="math inline">\(\mu_k\)</span> with <span class="math inline">\(\|x_j - \mu_k\|_2^2 \le \|x_j - \mu_i\|_2^2\)</span>. Then a new partition with <span class="math inline">\(X_i \leftarrow X_i - \{x_j\}\)</span> and <span class="math inline">\(X_k \leftarrow X_k + \{x_j\}\)</span> drops the objective value. Repeating this until no such case can be found, the objective is minimized when <span class="math display">\[
+X_i^* = \Big\{ x_j \in X : \|x_j - \mu_i\|_2 \le \|x_j - \mu_{i'}\|_2,\ \forall\, i' \ne i \Big\}.
+\]</span></p>
+</div>
+</section>
+<section id="lloyds-algorithm" class="level2" data-number="18.3">
+<h2 data-number="18.3" class="anchored" data-anchor-id="lloyds-algorithm"><span class="header-section-number">18.3</span> Lloyd’s Algorithm</h2>
+<p>These two lemmas suggest an algorithm using <strong>alternating optimization</strong>.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Lloyd’s algorithm</strong></p>
+<p><em>Input:</em> <span class="math inline">\(X = \{x_1, \dots, x_n\} \subseteq \mathbb{R}^d\)</span>, and <span class="math inline">\(k\)</span>.</p>
+<p><em>Initialize:</em> Choose <span class="math inline">\(k\)</span> random initial guesses for the centers <span class="math inline">\(\mu_1^{(0)}, \dots, \mu_k^{(0)}\)</span>, and the correspondingly induced initial cluster assignment <span class="math inline">\(\hat{C}_1(0), \dots, \hat{C}_k(0)\)</span> by associating each <span class="math inline">\(x_j\)</span> to the closest center.</p>
+<p><em>For <span class="math inline">\(t = 1, 2, \dots\)</span> until convergence:</em></p>
+<ol type="1">
+<li>Use the current clusters <span class="math inline">\(\hat{C}_1(t-1), \dots, \hat{C}_k(t-1)\)</span> to update the means: <span class="math display">\[
+\mu_j(t) = \frac{1}{|\hat{C}_j(t-1)|} \sum_{x_i \in \hat{C}_j(t-1)} x_i .
+\]</span></li>
+<li>Use the updated means to update the cluster assignments (assign <span class="math inline">\(x_i\)</span> to its nearest cluster mean).</li>
+</ol>
+</div>
+</div>
+</div>
+<section id="convergence" class="level3">
+<h3 class="anchored" data-anchor-id="convergence">Convergence</h3>
+<p>Let <span class="math inline">\(X = X_1 \cup \dots \cup X_k\)</span> and define the cost for a partition with optimal centers <span class="math display">\[
+L(X_1, \dots, X_k) := \sum_{i=1}^{k} \sum_{x_j \in X_i} \Big\| x_j - \tfrac{1}{|X_i|} \sum_{x_k \in X_i} x_k \Big\|^2 .
+\]</span></p>
+<div id="prp-lloyd-monotone" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 18.1 (Monotone decrease)</strong></span> In Lloyd’s algorithm, <span class="math display">\[
+L\big(X_1(t), \dots, X_k(t)\big) \ge L\big(X_1(t+1), \dots, X_k(t+1)\big).
+\]</span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>The updated (optimal) center is <span class="math inline">\(\hat{\mu}_j(t+1) = \frac{1}{|X_j(t)|} \sum_{x_i \in X_j(t)} x_i\)</span>, and the updated partition assigns each <span class="math inline">\(x_i\)</span> to the nearest updated <span class="math inline">\(\mu_j\)</span>, so <span class="math inline">\(\forall x_i \in X_j\)</span>, <span class="math inline">\(\|x_i - \hat{\mu}_j\| \le \|x_i - \hat{\mu}_{j'}\|\)</span> for <span class="math inline">\(j' \ne j\)</span>. By <a href="#lem-kmeans-center" class="quarto-xref">Lemma&nbsp;<span>18.1</span></a> and <a href="#lem-kmeans-partition" class="quarto-xref">Lemma&nbsp;<span>18.2</span></a>, <span class="math inline">\(\{X_j\}\)</span> in Lloyd’s algorithm is the minimizer of <span class="math inline">\(L\)</span>, hence <span class="math display">\[
+L\big(X_1(t), \dots, X_k(t)\big) \ge L\big(X_1(t+1), \dots, X_k(t+1)\big).
+\]</span></p>
+</div>
+<div id="cor-lloyd-terminate" class="theorem corollary">
+<p><span class="theorem-title"><strong>Corollary 18.1 (Finite termination)</strong></span> Let <span class="math inline">\(L(X_1(t), \dots, X_k(t))\)</span> be the cost of Lloyd’s algorithm. Then <span class="math inline">\(\lim_{t \to \infty} L\)</span> exists and is attained in finite time. Moreover, assuming all partitions have distinct cost (or the tie-breaking rule is chosen properly), the partition itself converges in finite time, i.e.&nbsp;<span class="math inline">\(\exists\, T &gt; 0\)</span> such that <span class="math display">\[
+\big(X_1(T), \dots, X_k(T)\big) = \big(X_1(T'), \dots, X_k(T')\big), \qquad T' \ge T.
+\]</span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>The existence of the limit follows because the loss drops monotonically (<a href="#prp-lloyd-monotone" class="quarto-xref">Proposition&nbsp;<span>18.1</span></a>) and is bounded below by <span class="math inline">\(0\)</span>. Finite termination follows because the search space of partitions is always finite.</p>
+</div>
+</section>
+<section id="complexity" class="level3">
+<h3 class="anchored" data-anchor-id="complexity">Complexity</h3>
+<p>At each iteration, Lloyd’s algorithm requires:</p>
+<ul>
+<li><span class="math inline">\(O(knd)\)</span> time to assign <span class="math inline">\(n\)</span> data points in <span class="math inline">\(\mathbb{R}^d\)</span> to <span class="math inline">\(k\)</span> centers (via <span class="math inline">\(\|\mu_i - x_j\|_2^2\)</span>);</li>
+<li><span class="math inline">\(O(nd)\)</span> time to update the mean centers.</li>
+</ul>
+<div class="proof remark">
+<p><span class="proof-title"><em>Remark</em>. </span></p>
+<ul>
+<li>Lloyd’s algorithm is guaranteed to converge; however, it may only reach a <strong>local</strong> minimizer.</li>
+<li>Random projection can be used to reduce time.</li>
+<li>Lloyd’s is sensitive to initialization and may converge to various bad local minima.</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="initialization-k-means" class="level2" data-number="18.4">
+<h2 data-number="18.4" class="anchored" data-anchor-id="initialization-k-means"><span class="header-section-number">18.4</span> Initialization: <span class="math inline">\(k\)</span>-means++</h2>
+<p>Since Lloyd’s algorithm is initialization-sensitive, one improvement is to initialize the mean centers as far apart as possible.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Farthest-point initialization</strong></p>
+<p>Pick <span class="math inline">\(\mu_1 \in \{x_1, \dots, x_N\}\)</span> uniformly at random; set <span class="math inline">\(T = \{\mu_1\}\)</span>.</p>
+<p>While <span class="math inline">\(|T| \le k\)</span>:</p>
+<ul>
+<li>choose <span class="math inline">\(\mu_i \in X \setminus T\)</span> that maximizes <span class="math inline">\(\min_{t \in T} \|x - t\|_2\)</span>;</li>
+<li><span class="math inline">\(T.\text{append}(\mu_i)\)</span>.</li>
+</ul>
+</div>
+</div>
+</div>
+<p>However, this initialization can be sensitive to outliers (an outlier very far from the rest would always be picked). The improvement is to add randomness, choosing farther points with higher probability.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><span class="math inline">\(k\)</span>-means++</strong></p>
+<p>Pick <span class="math inline">\(\mu_1 \in X\)</span> uniformly at random; set <span class="math inline">\(T = \{\mu_1\}\)</span>.</p>
+<p>While <span class="math inline">\(|T| &lt; k\)</span>:</p>
+<ul>
+<li>pick <span class="math inline">\(\mu_{|T|+1} \in X \setminus T\)</span> with probability <span class="math inline">\(\propto \min_{t \in T} \|x - t\|_2\)</span>;</li>
+<li><span class="math inline">\(T \leftarrow T \cup \{\mu_{|T|+1}\}\)</span>.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="proof remark">
+<p><span class="proof-title"><em>Remark</em>. </span></p>
+<ul>
+<li>The initialization steps take <span class="math inline">\(O(knd)\)</span>, since we need <span class="math inline">\(\|x_j - t\|\)</span> for <span class="math inline">\(x_j \in X\)</span> (<span class="math inline">\(n\)</span> of them) and <span class="math inline">\(t \in T\)</span> (<span class="math inline">\(k\)</span> of them) — same as one iteration of Lloyd’s.</li>
+<li>This initialization does not guarantee anything by itself; however, it can be shown that the initial cost is “close” to the optimal cost by a factor of <span class="math inline">\(\log(k)\)</span> on average.</li>
+</ul>
+</div>
+<div id="prp-kmeanspp-guarantee" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 18.2 (<span class="math inline">\(k\)</span>-means++ approximation guarantee)</strong></span> Let <span class="math inline">\(T \subseteq X\)</span> be the initial means from <span class="math inline">\(k\)</span>-means++, and <span class="math inline">\(T^* \subseteq X\)</span> the optimal <span class="math inline">\(k\)</span> centers. With the induced partition <span class="math inline">\(X_1 \cup X_2 \cup \dots \cup X_k = X\)</span> chosen accordingly, define <span class="math display">\[
+L(T) := \min_{X_1 \cup \dots \cup X_k} \sum_{\mu_i \in T} \sum_{x_j \in X_i} \|x_j - \mu_i\|_2^2 .
+\]</span> Then <span class="math display">\[
+\mathbb{E}\big(L(T)\big) \le c \cdot O(\log k)\, L(T^*), \qquad c \text{ some constant.}
+\]</span></p>
+</div>
+</section>
+<section id="geometric-interpretation" class="level2" data-number="18.5">
+<h2 data-number="18.5" class="anchored" data-anchor-id="geometric-interpretation"><span class="header-section-number">18.5</span> Geometric Interpretation</h2>
+<p>In Lloyd’s algorithm the partition for fixed means is updated via <span class="math display">\[
+X_i = \big\{ x \in X : \|x - \mu_i\| \le \|x - \mu_j\|,\ j \ne i \big\}.
+\]</span> Noting that <span class="math inline">\(\|x - \mu_i\|_2^2 \le \|x - \mu_j\|_2^2\)</span> for <span class="math inline">\(i \ne j\)</span>, <span class="math display">\[
+\|x\|^2 + \|\mu_i\|^2 - 2\langle x, \mu_i\rangle \le \|x\|^2 + \|\mu_j\|^2 - 2\langle x, \mu_j\rangle
+\;\Rightarrow\;
+2\langle x, \mu_j - \mu_i\rangle \le \|\mu_j\|^2 + \|\mu_i\|^2 ,
+\]</span> <!-- [likely mistake: cancelling $\|x\|^2$ gives
+$2\langle x,\mu_j-\mu_i\rangle \le \|\mu_j\|^2 - \|\mu_i\|^2$ (a minus sign);
+the manuscript wrote $\|\mu_j\|^2 + \|\mu_i\|^2$. Transcribed as written and
+flagged.] --> which defines a half-space separated by a hyperplane. Lloyd’s algorithm thus clusters into the intersection of <span class="math inline">\(k-1\)</span> half-planes.</p>
+<!-- [figure: a Voronoi-like diagram with centers $\mu_1, \mu_2, \mu_3, \mu_4$
+and the boundary lines between cells.] -->
+<div class="proof remark">
+<p><span class="proof-title"><em>Remark</em>. </span></p>
+<ul>
+<li>It can be shown that the partitions in Lloyd’s algorithm form a Voronoi diagram, and each cell is convex.</li>
+<li>This means Lloyd’s algorithm essentially works with linearly separable, convex clusters.</li>
+</ul>
+</div>
+</section>
+<section id="kernel-trick-and-kernel-k-means" class="level2" data-number="18.6">
+<h2 data-number="18.6" class="anchored" data-anchor-id="kernel-trick-and-kernel-k-means"><span class="header-section-number">18.6</span> Kernel Trick and Kernel <span class="math inline">\(k\)</span>-means</h2>
+<p>One way to deal with non-convex, non-linear clusters is to use <strong>dimension increasing</strong>: map the original data so that it becomes more linearly separable and convex in a higher dimension.</p>
+<div id="exm-circle-lift" class="theorem example">
+<p><span class="theorem-title"><strong>Example 18.1 (Lifting concentric data)</strong></span> Consider data in <span class="math inline">\(\mathbb{R}^2\)</span> (e.g.&nbsp;two concentric rings). Create the map <span class="math inline">\(\phi : \mathbb{R}^2 \to \mathbb{R}^3\)</span>, <span class="math display">\[
+\phi(x_1, x_2) = \begin{pmatrix} x_1^2 \\ \sqrt{2}\, x_1 x_2 \\ x_2^2 \end{pmatrix},
+\]</span> after which the two rings become linearly separable in <span class="math inline">\(\mathbb{R}^3\)</span>.</p>
+<!-- [figures: (left) two concentric rings in the plane; (right) the lifted
+points separated by a plane in 3D.] -->
+</div>
+<p>However, boosting the dimension increases computational complexity. The <strong>kernel trick</strong> bypasses this by allowing implicit computation of the inner product of high-dimensional vectors via a low-dimensional function.</p>
+<p>Example: let <span class="math inline">\(x, y \in \mathbb{R}^2\)</span> and <span class="math inline">\(\phi(x) = (x_1^2, \sqrt{2}\, x_1 x_2, x_2^2)\)</span>, <span class="math inline">\(\phi(y) = (y_1^2, \sqrt{2}\, y_1 y_2, y_2^2)\)</span>. Then <span class="math display">\[
+\langle \phi(x), \phi(y)\rangle = x_1^2 y_1^2 + 2 x_1 x_2 y_1 y_2 + x_2^2 y_2^2 = (x_1 y_1 + x_2 y_2)^2 = \langle x, y\rangle^2 =: K(x, y).
+\]</span></p>
+<div id="def-kernel" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 18.1 (Kernel function)</strong></span> A symmetric map <span class="math inline">\(K : \mathbb{R}^d \times \mathbb{R}^d \to \mathbb{R}\)</span> is a <strong>kernel induced by <span class="math inline">\(\phi\)</span></strong> if there exists <span class="math inline">\(\phi : \mathbb{R}^d \to \mathbb{R}^n\)</span> such that <span class="math display">\[
+K(x, y) = \langle \phi(x), \phi(y)\rangle .
+\]</span></p>
+</div>
+<div class="proof remark">
+<p><span class="proof-title"><em>Remark</em>. </span>Examples:</p>
+<ul>
+<li><span class="math inline">\(K(x, y) = \langle x, y\rangle^r\)</span>;</li>
+<li><span class="math inline">\(K(x, y) = (\langle x, y\rangle + c)^r\)</span>;</li>
+<li><span class="math inline">\(K(x, y) = \exp\!\left(-\dfrac{\|x - y\|^2}{2\sigma^2}\right)\)</span> — the <strong>Gaussian kernel</strong>.</li>
+</ul>
+<p>For the Gaussian kernel, the inducing map is <span class="math inline">\(\phi : \mathbb{R}^d \to \mathcal{H}\)</span>, where <span class="math inline">\(\mathcal{H}\)</span> is a Hilbert space.</p>
+</div>
+<div id="thm-mercer" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 18.1 (Mercer’s theorem)</strong></span> Let <span class="math inline">\(X \subseteq \mathbb{R}^d\)</span> be a compact set and <span class="math inline">\(K : X \times X \to \mathbb{R}\)</span> a continuous kernel. Define the linear integral operator associated with <span class="math inline">\(K\)</span> on <span class="math inline">\(L^2\)</span>, <span class="math inline">\(T_K : L^2(X) \to L^2(X)\)</span>, as <span class="math display">\[
+T_K(f) := \int_X K(x, x')\, f(x')\, dx',
+\]</span> and suppose <span class="math inline">\(T_K\)</span> is positive semidefinite, i.e. <span class="math display">\[
+\langle f, T_K f\rangle = \int_{X \times X} f(x)\, K(x, x')\, f(x')\, dx\, dx' \ge 0, \qquad \forall\, f \in L^2(X).
+\]</span> Then <span class="math inline">\(T_K\)</span> has eigenfunctions <span class="math inline">\(\{\psi_i\}_{i=1,2,\dots} \in L^2\)</span> with corresponding eigenvalues <span class="math inline">\(\lambda_i \in \mathbb{R}^+\)</span> such that <span class="math display">\[
+K(x, x') = \sum_{i=1}^{\infty} \lambda_i\, \psi_i(x)\, \psi_i(x').
+\]</span></p>
+</div>
+<div class="proof remark">
+<p><span class="proof-title"><em>Remark</em>. </span>This means we can view <span class="math inline">\(K(x, x')\)</span> as induced by the feature map <span class="math inline">\(\varphi(x) := \big(\sqrt{\lambda_i}\, \psi_i(x)\big)_{i=1}^{\infty}\)</span>.</p>
+</div>
+<section id="kernel-k-means" class="level3">
+<h3 class="anchored" data-anchor-id="kernel-k-means">Kernel <span class="math inline">\(k\)</span>-means</h3>
+<p>In Lloyd’s algorithm, the partition is updated based on the distance to the <span class="math inline">\(i\)</span>-th center, <span class="math inline">\(\big\| x_j - \tfrac{1}{|X_i|} \sum_{x_i \in X_i} x_i \big\|_2^2\)</span>. We first show this distance can be expressed via inner products: <span class="math display">\[
+\Big\| x - \tfrac{1}{|X_i|} \sum_{x_j \in X_i} x_j \Big\|_2^2
+= \langle x, x\rangle + \frac{1}{|X_i|^2} \sum_{x_j, x_k \in X_i} \langle x_j, x_k\rangle - \frac{2}{|X_i|} \sum_{x_j \in X_i} \langle x_j, x\rangle .
+\]</span> If we use a feature map <span class="math inline">\(\phi(x)\)</span> to boost the dimension, then the distance in the transformed space can be expressed through the kernel: <span class="math display">\[
+\Big\| \phi(x) - \tfrac{1}{|X_i|} \sum_{x_j \in X_i} \phi(x_j) \Big\|_2^2
+= K(x, x) + \frac{1}{|X_i|^2} \sum_{x_j, x_k \in X_i} K(x_j, x_k) - \frac{2}{|X_i|} \sum_{x_j \in X_i} K(x_j, x) .
+\]</span></p>
+<p>We modify Lloyd’s algorithm as follows to include the kernel.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Kernel <span class="math inline">\(k\)</span>-means</strong></p>
+<p><em>Initialize:</em> <span class="math inline">\(X_1^{(0)} \cup X_2^{(0)} \cup \dots \cup X_k^{(0)} = X\)</span>.</p>
+<p><em>For <span class="math inline">\(t = 1, 2, \dots\)</span> until convergence:</em></p>
+<p><span class="math display">\[
+X_i^{(t+1)} = \Big\{ x_j \in X : \big\| \phi(x_j) - \tfrac{1}{|X_i|} \textstyle\sum \phi(x_k) \big\|_2 \le \big\| \phi(x_j) - \tfrac{1}{|X_{i'}|} \textstyle\sum \phi(x_m) \big\|_2,\ \forall\, i' \ne i \Big\},
+\]</span></p>
+<p>where each distance is computed via the kernel expression above.</p>
+</div>
+</div>
+</div>
+<div class="proof remark">
+<p><span class="proof-title"><em>Remark</em>. </span></p>
+<ul>
+<li>The distance is calculated using the expression with the kernel.</li>
+<li>The centers are now not explicitly computed in feature space, but implicitly via kernels.</li>
+<li>In practice, the kernels are precomputed each iteration.</li>
+<li>Each iteration of kernel Lloyd’s takes <span class="math inline">\(O(N^2)\)</span>.</li>
+</ul>
+</div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -784,13 +1142,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../numerical-optimization/gradDescent.html" class="pagination-link" aria-label="Gradient Descent Methods">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Gradient Descent Methods</span></span>
+      <a href="../ml-ds/SVD.html" class="pagination-link" aria-label="Singular Value Decomposition">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../numerical-optimization/quasiNewton.html" class="pagination-link" aria-label="Quasi Newton Methods">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quasi Newton Methods</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../reg-anly/slrInference.html" class="pagination-link" aria-label="Statistical Inference of Simple Linear Regression">
+        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Statistical Inference of Simple Linear Regression</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

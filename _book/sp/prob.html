@@ -346,7 +346,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sp/stocInt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Stochastic Integral and Ito Processes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Stochastic Integral</span></span></a>
   </div>
 </li>
       </ul>
@@ -356,8 +356,21 @@ window.Quarto = {
  <span class="menu-text">Financial Basics</span></span>
   </li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Stochastic Process in Finance</span></span>
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+ <span class="menu-text">Stochastic Process in Finance</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sp-in-finance/plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Things need to be done</span></span></a>
+  </div>
+</li>
+      </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -375,11 +388,11 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#probability-measure" id="toc-probability-measure" class="nav-link active" data-scroll-target="#probability-measure">Probability measure</a></li>
-  <li><a href="#generated-sigma-field-for-uncountable-omega" id="toc-generated-sigma-field-for-uncountable-omega" class="nav-link" data-scroll-target="#generated-sigma-field-for-uncountable-omega">Generated <span class="math inline">\(\sigma\)</span>-field for uncountable <span class="math inline">\(\Omega\)</span></a></li>
-  <li><a href="#random-variable-r.v." id="toc-random-variable-r.v." class="nav-link" data-scroll-target="#random-variable-r.v.">Random Variable (R.V.)</a></li>
-  <li><a href="#expected-value" id="toc-expected-value" class="nav-link" data-scroll-target="#expected-value">Expected Value</a></li>
-  <li><a href="#conditional-probability" id="toc-conditional-probability" class="nav-link" data-scroll-target="#conditional-probability">Conditional probability</a></li>
+  <li><a href="#probability-measure" id="toc-probability-measure" class="nav-link active" data-scroll-target="#probability-measure"><span class="header-section-number">18.1</span> Probability measure</a></li>
+  <li><a href="#generated-sigma-field-for-uncountable-omega" id="toc-generated-sigma-field-for-uncountable-omega" class="nav-link" data-scroll-target="#generated-sigma-field-for-uncountable-omega"><span class="header-section-number">18.2</span> Generated <span class="math inline">\(\sigma\)</span>-field for uncountable <span class="math inline">\(\Omega\)</span></a></li>
+  <li><a href="#random-variable-r.v." id="toc-random-variable-r.v." class="nav-link" data-scroll-target="#random-variable-r.v."><span class="header-section-number">18.3</span> Random Variable (R.V.)</a></li>
+  <li><a href="#expected-value" id="toc-expected-value" class="nav-link" data-scroll-target="#expected-value"><span class="header-section-number">18.4</span> Expected Value</a></li>
+  <li><a href="#conditional-probability" id="toc-conditional-probability" class="nav-link" data-scroll-target="#conditional-probability"><span class="header-section-number">18.5</span> Conditional probability</a></li>
   </ul>
 </nav>
     </div>
@@ -418,22 +431,22 @@ window.Quarto = {
 <p><strong>Infinite union and dice:</strong> Consider an experiment: A coin is repeatedly tossed until the first head show up, try to find number of toss before this happen. <span class="math inline">\(\Omega = \{ \omega_1, \omega_2, \dots \}\)</span>. <span class="math inline">\(\omega_i = \text{first i-lane toss i are head}\)</span>. Event <span class="math inline">\(A := \text{the first head shows up after even number of tosses}\)</span>. <span class="math inline">\(A := \{ \omega_2, \omega_4, \omega_6, \dots \} = \bigcup_{i=1}^\infty \omega_{2i}\)</span>. <span class="math inline">\(A\)</span> should also be in the event space <span class="math inline">\(\mathcal{F}\)</span>.</p>
 <p><strong><span class="math inline">\(\sigma\)</span>-algebra / <span class="math inline">\(\sigma\)</span>-field:</strong> Set of Events under infinite Union. Collection of subset of sample space <span class="math inline">\(\mathcal{F} \subseteq 2^\Omega\)</span>, called a <span class="math inline">\(\sigma\)</span>-algebra / <span class="math inline">\(\sigma\)</span>-field if it satisfies following: 1. <span class="math inline">\(\emptyset \in \mathcal{F}\)</span>. 2. if <span class="math inline">\(A \in \mathcal{F}, A^c \in \mathcal{F} (A^c := \Omega - A) \rightarrow \Omega \in \mathcal{F}\)</span>. 3. if <span class="math inline">\(A_1, A_2, \dots \in \mathcal{F}\)</span>, then <span class="math inline">\(\bigcup A_i \in \mathcal{F}, \bigcap A_i \in \mathcal{F}\)</span>.</p>
 <hr>
-<section id="probability-measure" class="level2">
-<h2 class="anchored" data-anchor-id="probability-measure">Probability measure</h2>
+<section id="probability-measure" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="probability-measure"><span class="header-section-number">18.1</span> Probability measure</h2>
 <p>Suppose we have sample space <span class="math inline">\(\Omega\)</span>, and <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}\)</span>. A probability measure is a function <span class="math inline">\(P: \mathcal{F} \rightarrow [0, 1]\)</span> satisfies: 1. <span class="math inline">\(P(\emptyset) = 0, P(\Omega) = 1\)</span>. 2. If <span class="math inline">\(A_1, A_2, \dots \in \mathcal{F}\)</span> and are disjoint <span class="math inline">\((A_i \cap A_j = \emptyset, \text{for } i \neq j)\)</span> then <span class="math inline">\(P(\bigcup_{i=1}^\infty A_i) = \sum_{i=1}^\infty P(A_i)\)</span>.</p>
 <p>The <span class="math inline">\((\Omega, \mathcal{F}, P)\)</span> is called a probability space.</p>
 <p><strong>Lemma 1.4:</strong> * <strong>(a)</strong> <span class="math inline">\(P(A^c) = 1 - P(A)\)</span>. * <strong>(b)</strong> if <span class="math inline">\(A \subseteq B, P(A) \leq P(B)\)</span>. * <strong>(c)</strong> <span class="math inline">\(P(A \cup B) = P(A) + P(B) - P(A \cap B)\)</span>. * <strong>(d)</strong> <span class="math inline">\(P(\bigcup_{i=1}^n A_i) = \sum P(A_i) - \sum_{i&lt;j} P(A_i \cap A_j) + \dots (-1)^{n+1} P(A_1 \cap \dots \cap A_n)\)</span>.</p>
 <hr>
 </section>
-<section id="generated-sigma-field-for-uncountable-omega" class="level2">
-<h2 class="anchored" data-anchor-id="generated-sigma-field-for-uncountable-omega">Generated <span class="math inline">\(\sigma\)</span>-field for uncountable <span class="math inline">\(\Omega\)</span></h2>
+<section id="generated-sigma-field-for-uncountable-omega" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="generated-sigma-field-for-uncountable-omega"><span class="header-section-number">18.2</span> Generated <span class="math inline">\(\sigma\)</span>-field for uncountable <span class="math inline">\(\Omega\)</span></h2>
 <p>Suppose a collection of subset <span class="math inline">\(A_\alpha \subseteq \Omega\)</span> where <span class="math inline">\(\alpha \in T\)</span> not necessarily countable. The smallest <span class="math inline">\(\sigma\)</span>-field <span class="math inline">\(\mathcal{F}\)</span> s.t. <span class="math inline">\(A_\alpha \in \mathcal{F}\)</span> for <span class="math inline">\(\forall \alpha \in T\)</span> is denoted as <span class="math inline">\(\mathcal{F}(\{A_\alpha\})\)</span>. Then <span class="math inline">\(A_\alpha\)</span> is called generator, and <span class="math inline">\(\mathcal{F}(\{A_\alpha\})\)</span> is called <span class="math inline">\(\sigma\)</span>-field generated by <span class="math inline">\(A_\alpha\)</span>. <span class="math inline">\(\sigma(\{A_\alpha\})\)</span> is a <span class="math inline">\(\sigma\)</span>-field, <span class="math inline">\(A_\alpha \in \sigma\)</span>. Smallest <span class="math inline">\(\sigma\)</span>-field over <span class="math inline">\(A_\alpha, \forall \alpha \in T\)</span>.</p>
 <p><strong>Remark:</strong> if <span class="math inline">\(\mathcal{A}_\alpha\)</span> is <span class="math inline">\(\sigma\)</span>-field for each <span class="math inline">\(\alpha \in T\)</span>, then <span class="math inline">\(\bigcap_{\alpha \in T} \mathcal{A}_\alpha\)</span> is a <span class="math inline">\(\sigma\)</span>-field.</p>
 <p><strong>Borel <span class="math inline">\(\sigma\)</span>-field:</strong> A Borel <span class="math inline">\(\sigma\)</span>-field on <span class="math inline">\(\mathbb{R}\)</span> is a <span class="math inline">\(\sigma\)</span>-field generated by <span class="math inline">\((a, b)\)</span>. <span class="math inline">\(\mathcal{B} = \sigma(\{(a, b), a &lt; b \in \mathbb{R}\}) \iff \mathcal{F}(\{O \subseteq \mathbb{R} \text{ is open}\}) \iff \mathcal{F}(\{(-\infty, b], b \in \mathbb{R}\})\)</span>.</p>
 <hr>
 </section>
-<section id="random-variable-r.v." class="level2">
-<h2 class="anchored" data-anchor-id="random-variable-r.v.">Random Variable (R.V.)</h2>
+<section id="random-variable-r.v." class="level2" data-number="18.3">
+<h2 data-number="18.3" class="anchored" data-anchor-id="random-variable-r.v."><span class="header-section-number">18.3</span> Random Variable (R.V.)</h2>
 <p>Observable of probability space. A R.V. is a function <span class="math inline">\(X: \Omega \rightarrow \mathbb{R}\)</span> s.t. for <span class="math inline">\(\alpha \in \mathbb{R}\)</span> the set <span class="math inline">\(\{\omega : X(\omega) \leq \alpha\}\)</span> is in <span class="math inline">\(\mathcal{F}\)</span> (such function is also called <span class="math inline">\(\mathcal{F}\)</span>-measurable (or just measurable)). Equivalently, the measurable means <span class="math inline">\(X\)</span> is measurable in <span class="math inline">\(\mathcal{F}\)</span> if for <span class="math inline">\(B \in \mathcal{B}(\mathbb{R}), X^{-1}(B) \in \mathcal{F}\)</span>.</p>
 <p><strong>Remark:</strong> The R.V. create a mapping between outcomes and real numbers, in a way s.t. outcomes that captured by any Borel set (could be record as an event of random space) is forming an events in Event space <span class="math inline">\(\mathcal{F}\)</span>.</p>
 <p><strong><span class="math inline">\(\sigma\)</span>-field generated by random variable:</strong> Suppose <span class="math inline">\(X\)</span> is R.V. on <span class="math inline">\((\Omega, \mathcal{F})\)</span>. The <span class="math inline">\(\sigma\)</span>-field generated by <span class="math inline">\(X\)</span>, <span class="math inline">\(\sigma(X)\)</span> is the smallest <span class="math inline">\(\sigma\)</span>-field <span class="math inline">\(\mathcal{G} \subseteq \mathcal{F}\)</span> s.t. <span class="math inline">\(X\)</span> is still measurable on <span class="math inline">\((\Omega, \mathcal{G})\)</span>.</p>
@@ -443,14 +456,14 @@ window.Quarto = {
 <p><strong>Two R.V. same (almost surely):</strong> Suppose <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are R.V. defined on <span class="math inline">\((\Omega, \mathcal{F}, P)\)</span>, we says <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are almost surely (a.s.) the same if <span class="math inline">\(P(\{\omega : X(\omega) \neq Y(\omega)\}) = 0\)</span>.</p>
 <hr>
 </section>
-<section id="expected-value" class="level2">
-<h2 class="anchored" data-anchor-id="expected-value">Expected Value</h2>
+<section id="expected-value" class="level2" data-number="18.4">
+<h2 data-number="18.4" class="anchored" data-anchor-id="expected-value"><span class="header-section-number">18.4</span> Expected Value</h2>
 <p>Integration w.r.t. measure.</p>
 <p><strong>Lebesgue integral:</strong> 1. <strong>Simple R.V. Def:</strong> Suppose <span class="math inline">\(X\)</span> on <span class="math inline">\((\Omega, \mathcal{F})\)</span> is simple value R.V.. <span class="math inline">\(X = \sum_{i=1}^k c_i I_{A_i}\)</span> then define <span class="math inline">\(\int_\Omega X dP := \sum_{i=1}^k c_i P(A_i)\)</span>. 2. If <span class="math inline">\(X\)</span> is non-negative R.V. <span class="math inline">\(\int_\Omega X dP := \sup_{Y \leq X, Y \text{ simple}} \int_\Omega Y dP\)</span>. 3. If <span class="math inline">\(X\)</span> is general R.V., then <span class="math inline">\(\int_\Omega X dP = \int_\Omega X^+ dP - \int_\Omega X^- dP\)</span>, <span class="math inline">\(X^+ = \max(X, 0)\)</span>, <span class="math inline">\(X^- = \max(-X, 0)\)</span>.</p>
 <hr>
 </section>
-<section id="conditional-probability" class="level2">
-<h2 class="anchored" data-anchor-id="conditional-probability">Conditional probability</h2>
+<section id="conditional-probability" class="level2" data-number="18.5">
+<h2 data-number="18.5" class="anchored" data-anchor-id="conditional-probability"><span class="header-section-number">18.5</span> Conditional probability</h2>
 <p>Let <span class="math inline">\((\Omega, \mathcal{F}, P)\)</span> be a prob space and <span class="math inline">\(A, B \in \mathcal{F}\)</span> and <span class="math inline">\(P(B) &gt; 0\)</span>. The conditional probability of <span class="math inline">\(A\)</span>, given <span class="math inline">\(B\)</span> is <span class="math inline">\(P(A|B) := \frac{P(A \cap B)}{P(B)}\)</span>.</p>
 <p><strong>Independence:</strong> This means <span class="math inline">\(P(A|B) = P(A) \Rightarrow P(A \cap B) = P(A)P(B)\)</span>.</p>
 <p><strong>Conditional Expectation:</strong> <span class="math inline">\(E(X|B) = \frac{1}{P(B)} \int_B X dP\)</span>.</p>

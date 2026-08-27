@@ -1,1 +1,259 @@
-# Randomized Projection
+---
+title: "Randomized Projection"
+---
+
+
+**Idea:** Compress high dimension data to lower dimension to reduce
+computation / storage.
+
+**Approach:** map the original data $X \in \mathbb{R}^d$ into $\mathbb{R}^r$,
+with $r < d$, while maintaining their pairwise distance unchanged
+(or at least approximately).
+
+## Projection map $\phi : \mathbb{R}^d \to \mathbb{R}^r$
+
+Let the original data lie in $\mathbb{R}^d$, and $S_r$ an $r$-dimensional
+subspace of $\mathbb{R}^d$ with orthonormal basis $(v_1, v_2, \dots, v_r)$
+spanning $S_r$.
+
+::: {#def-projection}
+## Linear projection map
+
+A linear projection map $\phi : \mathbb{R}^d \to \mathbb{R}^r$ is defined as
+
+$$
+Y = \phi(x) = \big(\langle x, v_1\rangle,\ \langle x, v_2\rangle,\ \dots,\ \langle x, v_r\rangle\big)^{\mathsf{T}}
+= \begin{pmatrix} -\,v_1^{\mathsf{T}}\,- \\ -\,v_2^{\mathsf{T}}\,- \\ \vdots \\ -\,v_r^{\mathsf{T}}\,- \end{pmatrix} x
+= \Phi\, x,
+\quad \Phi \in \mathbb{R}^{r \times d},\ x \in \mathbb{R}^d,\ y \in \mathbb{R}^r .
+$$
+:::
+
+A **random projection map** $\phi$ is when $S_r$ is a random $r$-dimensional
+subspace.
+
+## Approx. distance preservation
+
+$y_i = \Phi x_i$, we wish for small $\varepsilon > 0$
+
+$$
+(1-\varepsilon)\,\|x_i - x_j\|_2^2 \ \le\ \|y_i - y_j\|_2^2 \ \le\ (1+\varepsilon)\,\|x_i - x_j\|_2^2,
+\qquad \forall\, i, j \in \{1, \dots, n\}.
+$$
+
+## Gaussian Projectors
+
+Consider random projection
+$\phi = \begin{pmatrix} -\,u_1^{\mathsf{T}}\,- \\ -\,u_2^{\mathsf{T}}\,- \\ \vdots \\ -\,u_r^{\mathsf{T}}\,- \end{pmatrix}$
+where $u_i \in \mathbb{R}^d$ and $u_i \overset{\text{iid}}{\sim} N(0, I_d)$
+spherical Gaussian vectors.
+
+::: {#thm-gaussian-proj}
+## Gaussian projection
+
+For $\forall v \in \mathbb{R}^d$, $\exists\, c > 0$ s.t.
+$\forall \varepsilon \in (0,1)$
+
+$$
+P\Big(\big|\,\|\phi v\|_2 - \sqrt{r}\,\|v\|_2\,\big| \ge \varepsilon \sqrt{r}\,\|v\|_2 \Big) \le 3 e^{-c r \varepsilon^2}.
+$$
+:::
+
+::: {.remark}
+The projected vector $\phi v$ will be close to $\sqrt{r}\,\|v\|$ length,
+with high probability.
+:::
+
+::: {.proof}
+$$
+\phi_{ij} \sim N(0,1) \;\Rightarrow\; \phi_{ij} v_j \sim N(0, v_j^2)
+\;\Rightarrow\; \sum_j \phi_{ij} v_j \sim N(0, \|v\|^2)
+$$
+
+thus
+
+$$
+\frac{1}{\|v\|}\sum_j \phi_{ij} v_j \sim N(0,1)
+\;\Rightarrow\; \frac{1}{\|v\|}(\phi v)_i \sim N(0,1)
+\;\Rightarrow\; \frac{1}{\|v\|}\phi v \sim N(0, I_r)
+$$
+
+using the **Gaussian Annulus Theorem**.
+
+$$
+\begin{align}
+P\Big(\big|\,\|\frac{1}{\|v\|_2}\phi v\|_2 - \sqrt{r}\,\,\big| \ge \varepsilon\sqrt{r}\, \Big) &\le 3 e^{-c r \varepsilon^2} \\
+\Rightarrow P\Big(\big|\,\|\phi v\|_2 - \sqrt{r}\,\|v\|_2\,\big| \ge \varepsilon\sqrt{r}\,\|v\|_2 \Big) &\le 3 e^{-c r \varepsilon^2}.
+\end{align}
+$$
+:::
+
+## Johnson–Lindenstrauss lemma
+
+::: {#lem-jl}
+## Johnson–Lindenstrauss
+
+Let $x_1, \dots, x_n \in \mathbb{R}^d$, and Gaussian random projection
+$\phi = \begin{pmatrix} -\,u_1^{\mathsf{T}}\,- \\ -\,u_2^{\mathsf{T}}\,- \\ -\,u_r^{\mathsf{T}}\,- \end{pmatrix}$.
+then $\exists\, c > 0$ s.t. $\forall \varepsilon \in (0,1)$ and $\delta > 0$, if
+
+$$
+r \ge \frac{c}{\varepsilon^2}\,\log\!\left(\frac{3 n^2}{\delta}\right),
+$$
+
+then
+
+$$
+P\Big(\big|\,\|\phi (x_j -  x_k)\| - \sqrt{r}\,\|x_j - x_k\|\,\big| \le \varepsilon \sqrt{r}\,\|x_j - x_k\| \Big) \ge 1 - \delta,
+\qquad \forall\, j, k .
+$$
+:::
+
+::: {.remark}
+The JL lemma states that the distance between projected points
+
+$$
+(1-\varepsilon)\sqrt{r}\,\|x_i - x_j\| \ \le\ \|\phi(x_i - x_j)\| \ \le\ (1+\varepsilon)\sqrt{r}\,\|x_i - x_j\|
+$$
+
+with high probability.
+:::
+
+::: {.proof}
+Let $v_{ij} = x_i - x_j$, from the Gaussian projection theorem
+(@thm-gaussian-proj), we know
+$\exists\, c_{ij},\ \varepsilon_{ij} \in (0,1)$ s.t.
+
+$$
+P\Big(\big|\,\|\phi v_{ij}\| - \sqrt{r}\,\|v_{ij}\|\,\big| \ge \varepsilon_{ij}\sqrt{r}\,\|v_{ij}\| \Big) \le 5 e^{-c_{ij} r \varepsilon_{ij}^2}.
+$$
+
+to show JL lemma, we need a union bound of event
+
+$$
+E_{ij}:\quad \big|\,\|\phi v_{ij}\| - \sqrt{r}\,\|v_{ij}\|\,\big| \ge \varepsilon_{ij}\sqrt{r}\,\|v_{ij}\|
+$$
+
+so that above is true for $\forall i, j$.
+
+$$
+P\Big(\bigcup_{ij} E_{ij}\Big) \le \sum_{ij} P(E_{ij}) \le \sum_{ij} 3 e^{-c_{ij} r \varepsilon_{ij}^2} \le \binom{n}{2} e^{-c r \varepsilon^2} 3
+$$
+
+where $c = \min\{c_{ij}\}$, $\varepsilon = \min\{\varepsilon_{ij}\}$,
+$\sum_{ij}$ has $\binom{n}{2}$ terms. Therefore
+
+$$
+P\Big(\bigcup_{ij} E_{ij}\Big) \le 3\binom{n}{2} e^{-c r \varepsilon^2} \le 3\tfrac{1}{2} n^2 e^{-c r \varepsilon^2} \le \delta
+$$
+
+$$
+\Rightarrow\ \delta \ge 3 n^2 e^{-c r \varepsilon^2}
+\ \Rightarrow\ r \ge \frac{1}{c \varepsilon^2}\,\log\!\left(\frac{3n^2}{\delta}\right).
+$$
+:::
+
+## Computing Random Projection
+
+**Direct computing** requires $O(nrd)$ time, $n$ is sample size.
+
+**Idea:** if $X = (x_1, \dots, x_d)$ has iid entry, we can randomly select
+$r$ entry and approximate $\|x\|^2_2 \approx \tfrac{d}{r}\sum_{k}^rv_{ik}$, where $i_k$ is randomly selected in $\{1,2,\cdots,d\}$. Thus $\phi = \sqrt{\tfrac{d}{r}}\, P$, where $P$ is a random selection matrix should approximatly satisfy $\|\phi x\|_2 \approx \|x\|_2$.
+
+**Issue:** $X$ is usually not iid entry, but tends to be sparse.
+
+**Fix:** consider if $x$ is sparse ($\delta$-function peaks),
+its Fourier transform would be smooth (sin function). We can find a similar
+transform matrix s.t. the transformed $X$ is flat.
+
+## Hadamard transform
+
+::: {#def-hadamard}
+## Hadamard transform
+
+Hadamard transform matrix $H_m \in 2^m \times 2^m$ is defined recursively as
+
+$$
+\begin{align}
+H_1 &= \frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}, \qquad
+H_2 = \frac{1}{\sqrt{2}}\begin{pmatrix} H_1 & H_1 \\ H_1 & -H_1 \end{pmatrix},
+\quad \dots \quad\\
+H_m &= \frac{1}{\sqrt{2}}\begin{pmatrix} H_{m-1} & H_{m-1} \\ H_{m-1} & -H_{m-1} \end{pmatrix},
+\end{align}
+$$
+
+each entry $\dfrac{1}{\sqrt{2^m}}$.
+:::
+
+::: {.remark}
+- $H_m$ is orthogonal, $H_m H_m^{\mathsf{T}} = H_m^{\mathsf{T}} H_m = I$.
+- $H_m x$ can be computed using a similar algorithm as FFT, with
+  $O(2^m \log(2^m))$ time.
+- $H_m$ maps a sparse vector to a flat vector.
+- flatness can be further improved by randomization.
+:::
+
+$$
+D_{ij} = \begin{cases} \delta_{ij}, & p = \tfrac{1}{2} \\[4pt] \delta_{ij} & p = \tfrac{1}{2} \end{cases}
+$$
+
+$H_m D$ is the **randomized Hadamard transform** (independent
+random sign flip).
+
+::: {#lem-hadamard-flat}
+## Flatness of $H_m D x$
+
+$$
+\forall x \in \mathbb{R}^d, \qquad P\big(\|H D x\|_\infty \ge t\big) \le 2d\, e^{-\frac{d\, t^2}{2\|x\|^2}}.
+$$
+:::
+
+::: {.proof}
+$u_i := (H D x)_i=\sum_{j=1}^da_jx_j$, with
+
+$$
+a_{ij} = \begin{cases} \tfrac{1}{\sqrt{d}}, & p = \tfrac{1}{2} \\ -\tfrac{1}{\sqrt{d}}, & p = \tfrac{1}{2} \end{cases}
+$$
+
+for each entry $i$:
+
+$$
+P(|u_i| \ge t) \le 2 \exp\!\left(-\frac{t^2}{2 \cdot \frac{1}{d}\|x\|^2 \cdot \tfrac{1}{?}}\right)
+\quad \text{(Hoeffding)}
+= 2 \exp\!\left(-\frac{d\, t^2}{2\|x\|^2}\right)
+$$
+
+<!-- [unclear: the exact denominator factor in the Hoeffding step was hard
+to read; the final simplified form below is legible] -->
+
+$$
+P(\|u\|_\infty \ge t) \le d\, P(|u_i| \ge t) \le 2d \exp\!\left(-\frac{d\, t^2}{2\|x\|^2}\right).
+$$
+:::
+
+::: {.remark}
+$\frac{1}{\sqrt{d}}\|H D x\|_2 = \frac{1}{\sqrt{d}}\|x\|_2$; if
+$t = k \frac{\|x\|}{\sqrt{d}}$ then the probability of $\|H D x\|_2$ not flat
+(one component is very large comparing to other
+$\leftrightarrow \|x\|/\sqrt{d}$ with large $k$) would be small.
+:::
+
+## Fast JLT
+
+Since $H D x$ is flat with high probability, then
+$\phi = \sqrt{\tfrac{d}{r}}\, P H D$ would preserve the norm with high prob
+
+$$
+\|\phi x\| = \sqrt{\tfrac{d}{r}}\,\|P H D x\| \approx \|H D x\| \approx \|x\|_2 .
+$$
+
+::: {.remark}
+The computation cost for Fast JLT is
+
+$$
+O\big(n(d \log d + d)\big) \ \longrightarrow\ O(n d \log d).
+$$
+
+- $Hx$ takes $O(d\log d)$
+- $P$ and $D$ tales $O(d)$
+:::

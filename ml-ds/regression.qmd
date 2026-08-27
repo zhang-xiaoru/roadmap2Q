@@ -1,0 +1,260 @@
+# Regression
+
+Given a training set of predictor–response pairs, the goal of a **regression**
+problem is to learn a function $f$ that predicts a (continuous) response from the
+predictors. This chapter develops **linear** and **ridge** regression, their
+solution via the normal equations, the extension to **polynomial** (linear-in-parameters)
+regression, and finally **kernel** regression together with the Woodbury identity
+that makes it computationally tractable.
+
+## Linear (Ridge) Regression
+
+### The general regression task
+
+- Let $y_i \in \mathbb{R}$, $i = 1, 2, \dots, N$ be the **response variables**.
+- Let $x_i \in \mathbb{R}^d$, $i = 1, 2, \dots, N$ be the **predictors**.
+- The pairs $\{(x_i, y_i)\}$ form the **training set**.
+
+The regression task wishes to find a function $f : \mathbb{R}^d \to \mathbb{R}$
+such that $f(x_i) \approx y_i$, and that generalizes to the test set. This
+requires two ingredients:
+
+- a **function form** (parametric methods) — i.e. assume a family for $f$;
+- a **measure / metric** for $f(x_i) \approx y_i$ (the **loss function**).
+
+### Least squares (linear regression)
+
+Take $f$ to be **linear**:
+$$
+y = w^{\mathsf T} x + b, \qquad w \in \mathbb{R}^d,\ b \in \mathbb{R},
+$$
+or simply $y = w^{\mathsf T} x$ if we absorb the bias by extending
+$$
+x \ \longrightarrow\ \begin{pmatrix} x_1 \\ \vdots \\ x_d \\ 1 \end{pmatrix} .
+$$
+<!-- [note: the source writes $b \in \mathbb{R}^d$; the bias is a scalar, so this
+should read $b \in \mathbb{R}$. After the bias-absorbing extension, $x \in
+\mathbb{R}^{d+1}$ and correspondingly $w \in \mathbb{R}^{d+1}$.] -->
+
+For the **metric**, use the **least-square error**
+$$
+\min_{w \in \mathbb{R}^d} \ \sum_i \big(y_i - \langle w, x_i\rangle\big)^2
+\qquad\longrightarrow\qquad \text{error between predicted and actual,}
+$$
+or, in matrix form, $\|Y - Xw\|_2^2$ if we denote
+$$
+Y = \begin{pmatrix} y_1 \\ \vdots \\ y_N \end{pmatrix} \in \mathbb{R}^N,
+\qquad
+X = \begin{pmatrix} x_1^{\mathsf T} \\ x_2^{\mathsf T} \\ \vdots \\ x_N^{\mathsf T} \end{pmatrix} \in \mathbb{R}^{N \times d} .
+$$
+<!-- [note: with the bias-absorbing extension above, each row is $(x_i^{\mathsf T}, 1)$
+and $X \in \mathbb{R}^{N \times (d+1)}$.] -->
+
+### Ridge regression (regularization)
+
+In some cases $f$ could **overfit** (e.g. matching noise). This can be reduced by
+adding a **regularization term** to the loss function, as a penalty for
+too-large coefficients:
+$$
+\min_{w \in \mathbb{R}^d} \ \|Y - Xw\|_2^2 + \lambda \|w\|_2^2, \qquad \lambda \ge 0 .
+$$
+
+From optimization theory, the resulting minimization problem is a **strictly
+convex** function (for $\lambda > 0$), so every local minimum is the global
+minimum.
+
+::: {#prp-ridge-solution}
+## Ridge regression solution (normal equations)
+
+For $\lambda > 0$, the ridge objective has the unique minimizer
+$$
+w^\ast = \arg\min_w \ \|Xw - Y\|_2^2 + \lambda \|w\|_2^2
+= \big(X^{\mathsf T} X + \lambda I\big)^{-1} X^{\mathsf T} y .
+$$
+:::
+
+::: {.proof}
+(Sketch.) Set the gradient to zero, $\dfrac{\partial L}{\partial w_i} = 0$, and
+check the Hessian $\dfrac{\partial^2 L}{\partial w_i \partial w_j}$. This is
+straightforward since $L$ is in **quadratic form** (and the $\lambda I$ term makes
+$X^{\mathsf T} X + \lambda I$ positive definite, hence invertible). $\blacksquare$
+:::
+
+::: {.remark}
+**Choice of regularizer.**
+
+- $\lambda \|w\|_1 = \lambda \sum_i |w_i|$ — promotes a **sparse** weight vector.
+- $\|w\|_\ast = \sum_i \sigma_i(w)$ (the nuclear norm) — promotes a **low-rank**
+  matrix.
+:::
+
+::: {.remark}
+**Multiple-label predictors.** If $y_i \in \mathbb{R}^p$ (multiple labels), we
+simply extend to a matrix of weights $W \in \mathbb{R}^{p \times d}$:
+$$
+y_i = W x_i,
+\qquad
+\begin{pmatrix} y_1^i \\ \vdots \\ y_p^i \end{pmatrix}
+=
+\begin{pmatrix}
+w_{11} & w_{12} & \cdots & w_{1d} \\
+\vdots & & & \vdots \\
+w_{p1} & w_{p2} & \cdots & w_{pd}
+\end{pmatrix}
+\begin{pmatrix} x_1^i \\ \vdots \\ x_d^i \end{pmatrix} ,
+$$
+and with
+$$
+Y = \begin{pmatrix} y_1^{\mathsf T} \\ \vdots \\ y_N^{\mathsf T} \end{pmatrix},
+\qquad
+X = \begin{pmatrix} x_1^{\mathsf T} \\ \vdots \\ x_N^{\mathsf T} \end{pmatrix},
+\qquad
+L = \|X W^{\mathsf T} - Y\|_F^2 + \lambda \|W\|_F^2 .
+$$
+<!-- [note: for matrices the norms are Frobenius; the source writes $\|\cdot\|_2$.] -->
+:::
+
+## Polynomial Regression
+
+$f$ need **not** be linear, as long as it is **linear in its parameters**.
+
+**Example (3rd-order polynomial fit).**
+$$
+y = w_3^{\mathsf T} x^3 + w_2^{\mathsf T} x^2 + w_1^{\mathsf T} x
+= \big(\, w_3^{\mathsf T} \mid w_2^{\mathsf T} \mid w_1^{\mathsf T} \,\big)
+\begin{pmatrix} x^3 \\ x^2 \\ x \end{pmatrix} ,
+$$
+where $x^k$ denotes the monomial (elementwise-power) feature expansion. This
+**shares the same form** as linear regression, so the same solution applies.
+
+## Kernel Regression
+
+The kernel trick can be applied to the features $x$. Suppose
+$\phi : \mathbb{R}^d \to \mathbb{R}^p$ is a **feature map** that transforms the
+original data to
+$$
+\big(\phi(x_1), y_1\big), \big(\phi(x_2), y_2\big), \dots, \big(\phi(x_n), y_n\big)
+\in \mathbb{R}^p \times \mathbb{R} .
+$$
+Then perform linear ridge regression in the transformed feature space:
+$$
+\min_{w \in \mathbb{R}^p} \ \sum_i \big(w^{\mathsf T} \phi(x_i) - y_i\big)^2 + \lambda \|w\|_2^2 .
+$$
+From @prp-ridge-solution, the optimal solution is
+$$
+w^\ast = \big(\Phi^{\mathsf T}\Phi + \lambda I_p\big)^{-1} \Phi^{\mathsf T} y,
+\qquad
+\Phi = \begin{pmatrix} \phi(x_1)^{\mathsf T} \\ \phi(x_2)^{\mathsf T} \\ \vdots \\ \phi(x_N)^{\mathsf T} \end{pmatrix}
+\in \mathbb{R}^{n \times p} .
+$$
+Just as before, directly computing $\phi$ and $w^\ast$ is very costly when $p$ is
+large. We want to apply the kernel trick, which relies on the following identity.
+
+### The Woodbury identity
+
+::: {#lem-woodbury}
+## Woodbury matrix identity
+
+$$
+\big(\Phi^{\mathsf T}\Phi + \lambda I_p\big)^{-1} \Phi^{\mathsf T}
+= \Phi^{\mathsf T} \big(\Phi\Phi^{\mathsf T} + \lambda I_n\big)^{-1} .
+$$
+:::
+
+<!-- [flag: the source writes $\lambda I_p$ on *both* sides. Since $\Phi \in
+\mathbb{R}^{n\times p}$, we have $\Phi^{\mathsf T}\Phi \in \mathbb{R}^{p\times p}$
+(so $\lambda I_p$ is correct on the left) but $\Phi\Phi^{\mathsf T} \in
+\mathbb{R}^{n\times n}$, so the right-hand identity matrix should be $\lambda I_n$.
+Corrected here.] -->
+
+::: {.proof}
+Take the SVD $\Phi = U \Sigma V^{\mathsf T}$
+(so $\Phi^{\mathsf T} = V \Sigma^{\mathsf T} U^{\mathsf T}$,
+$\Phi^{\mathsf T}\Phi = V \Sigma^{\mathsf T}\Sigma V^{\mathsf T}$, and
+$\Phi\Phi^{\mathsf T} = U \Sigma \Sigma^{\mathsf T} U^{\mathsf T}$).
+
+<!-- [flag: the source's SVD line appears written as $\Phi = U\Sigma U^{\mathsf T}$,
+but the derivation below uses $V$ throughout, so the intended SVD is
+$\Phi = U\Sigma V^{\mathsf T}$ (a non-square $\Phi$ cannot have the form
+$U\Sigma U^{\mathsf T}$).] -->
+
+**Left-hand side.** Using $U^{\mathsf T} U = I$ and $I_p = V V^{\mathsf T}$,
+$$
+\begin{aligned}
+\text{LHS}
+&= \big((V\Sigma^{\mathsf T} U^{\mathsf T})(U\Sigma V^{\mathsf T}) + \lambda I_p\big)^{-1} V\Sigma^{\mathsf T} U^{\mathsf T} \\
+&= \big(V\Sigma^{\mathsf T}\Sigma V^{\mathsf T} + \lambda V V^{\mathsf T}\big)^{-1} V\Sigma^{\mathsf T} U^{\mathsf T} \\
+&= \big(V(\Sigma^{\mathsf T}\Sigma + \lambda I_p) V^{\mathsf T}\big)^{-1} V\Sigma^{\mathsf T} U^{\mathsf T} \\
+&= V(\Sigma^{\mathsf T}\Sigma + \lambda I_p)^{-1} V^{\mathsf T} V\Sigma^{\mathsf T} U^{\mathsf T}
+= V(\Sigma^{\mathsf T}\Sigma + \lambda I_p)^{-1}\Sigma^{\mathsf T} U^{\mathsf T} .
+\end{aligned}
+$$
+
+**Right-hand side.** Using $I_n = U U^{\mathsf T}$,
+$$
+\begin{aligned}
+\text{RHS}
+&= V\Sigma^{\mathsf T} U^{\mathsf T}\big((U\Sigma V^{\mathsf T})(V\Sigma^{\mathsf T} U^{\mathsf T}) + \lambda I_n\big)^{-1} \\
+&= V\Sigma^{\mathsf T} U^{\mathsf T}\big(U\Sigma\Sigma^{\mathsf T} U^{\mathsf T} + \lambda U U^{\mathsf T}\big)^{-1} \\
+&= V\Sigma^{\mathsf T} U^{\mathsf T}\big(U(\Sigma\Sigma^{\mathsf T} + \lambda I_n) U^{\mathsf T}\big)^{-1} \\
+&= V\Sigma^{\mathsf T} U^{\mathsf T} U(\Sigma\Sigma^{\mathsf T} + \lambda I_n)^{-1} U^{\mathsf T}
+= V\Sigma^{\mathsf T}(\Sigma\Sigma^{\mathsf T} + \lambda I_n)^{-1} U^{\mathsf T} .
+\end{aligned}
+$$
+
+A detailed calculation on $\Sigma^{\mathsf T}(\Sigma\Sigma^{\mathsf T} + \lambda I_n)^{-1}$
+and $(\Sigma^{\mathsf T}\Sigma + \lambda I_p)^{-1}\Sigma^{\mathsf T}$ shows that both
+equal the same $p \times n$ "pseudo-diagonal" matrix with entries
+$\dfrac{\sigma_i}{\sigma_i^2 + \lambda}$. Thus $\text{LHS} = \text{RHS}$. $\blacksquare$
+:::
+
+### Kernel ridge regression prediction
+
+::: {#thm-kernel-prediction}
+## Kernel ridge regression predictor
+
+Using @lem-woodbury, the prediction at a new point $x$ is
+$$
+y = w^{\ast\mathsf T}\phi(x)
+= \phi(x)^{\mathsf T} \Phi^{\mathsf T}\big(\Phi\Phi^{\mathsf T} + \lambda I_n\big)^{-1} y
+= k_x^{\mathsf T}\big(K + \lambda I_n\big)^{-1} y ,
+$$
+where $K_{ij} = \phi(x_i)^{\mathsf T}\phi(x_j) = K(x_i, x_j)$ is the **kernel (Gram)
+matrix**, and $k_x = \Phi\phi(x)$ has entries $(k_x)_i = \phi(x_i)^{\mathsf T}\phi(x) = K(x_i, x)$.
+:::
+
+::: {.proof}
+Expanding the products directly,
+$$
+\Phi\Phi^{\mathsf T}
+= \begin{pmatrix} \phi(x_1)^{\mathsf T} \\ \vdots \\ \phi(x_n)^{\mathsf T} \end{pmatrix}
+\big(\phi(x_1), \ \dots, \ \phi(x_n)\big)
+= \begin{pmatrix}
+\phi(x_1)^{\mathsf T}\phi(x_1) & \phi(x_1)^{\mathsf T}\phi(x_2) & \cdots \\
+\vdots & \ddots & \\
+\end{pmatrix}
+= \big(K(x_i, x_j)\big) = K ,
+$$
+and
+$$
+\Phi\phi(x)
+= \begin{pmatrix} \phi(x_1)^{\mathsf T} \\ \vdots \\ \phi(x_n)^{\mathsf T} \end{pmatrix} \phi(x)
+= \begin{pmatrix} \phi(x_1)^{\mathsf T}\phi(x) \\ \vdots \\ \phi(x_n)^{\mathsf T}\phi(x) \end{pmatrix}
+= \begin{pmatrix} K(x_1, x) \\ \vdots \\ K(x_n, x) \end{pmatrix} = k_x . \qquad\blacksquare
+$$
+:::
+
+### Computational cost
+
+::: {.callout-note appearance="simple"}
+## Cost of kernel ridge regression
+
+Using the kernel trick, the cost breaks down as:
+
+- **Precompute** $K \in \mathbb{R}^{n \times n}$ — cost $O(n^2)$ kernel evaluations.
+- **Precompute** $(K + \lambda I_n)^{-1} y$ — cost $O(n^3)$ flops and $O(n)$ storage.
+  <!-- [note: the $n\times n$ factorization/inverse itself needs $O(n^2)$ storage;
+  the $O(n)$ figure refers to storing the resulting vector $\alpha = (K+\lambda I_n)^{-1}y \in \mathbb{R}^n$.] -->
+- **Compute** $k_x$ — cost $O(n)$ kernel evaluations.
+- **Compute** $k_x^{\mathsf T}(K + \lambda I_n)^{-1} y$ — cost $O(n)$ flops.
+:::

@@ -102,6 +102,7 @@ $$
 \sum_j\langle w_1,x_j\rangle\leq sum_j\langle v_1, x_j\rangle, \sum_j\langle w_2, x_j\rangle \leq \langle v_2, x_j\rangle
 $$
 and thus $V$ minimize $\|x_j-P_W(x_j)\|^2_2$ among all 2-dim subspace.
+:::
 
 ::: {.callout-note}
 @prp-best2dSubspace meaning that the $v_1$ and $v_2$ we constructed form the best fitting subspace (2-dimensional) that minimizes projected least square error.
@@ -249,107 +250,267 @@ $$
 X_{n \times d} = U_r \Sigma_r V_r^T = \sum_{i=1}^{r} \sigma_i u_i v_i^T
 $$
 
-## Computing SVD: The Power Method
+## Computing SVD
 
-<!---
+### Power Method
 
-PAGE 4
+**Idea:** Let $C = X^T X \in \mathbb{R}^{d \times d}$ and $X = U \Sigma V^T = \sum_{i=1}^{r} \sigma_i u_i v_i^T$. Then
 
-Proof of Existence: Let $X \in \mathbb{R}^{n \times d}$ and $C = X^T X \in \mathbb{R}^{d \times d}$, then $C$ is symmetric, positive semidefinite. Let the orthogonal decomposition of $C$ be:
-$C = V \Lambda V^T$, where $V^T V = I$ and $\Lambda = \text{diag}(\lambda_1, \lambda_2, \dots, \lambda_d)$.
-Consider $\Sigma \in \mathbb{R}^{n \times d}$ s.t. $\Sigma^T \Sigma = \Lambda$. If $\text{rank}(X) = r \le d$, we can arrange $\sigma_1 \ge \sigma_2 \dots \ge \sigma_r > 0$.
-We define the left singular vector $u_i$ as:
-$u_i := \frac{1}{\sigma_i} X v_i; i = 1, \dots, r$. Then $u_i$ are orthonormal:
-$u_i^T u_j = \frac{1}{\sigma_i \sigma_j} v_i^T X^T X v_j = \frac{1}{\sigma_i \sigma_j} v_i^T C v_j = \frac{1}{\sigma_i \sigma_j} \lambda_j \delta_{ij} = \delta_{ij}$.
-We can then extend $u_{r+1}, \dots, u_n$ s.t. $U = [u_1 | u_2 | [cite_start]\dots | u_n] \in \mathbb{R}^{n \times n}$ is orthogonal.
-Thus we have $\sigma_i u_i = X v_i$ for $i = 1, \dots, r$ and $X v_i = 0$ for $i > r$, which gives $X = U \Sigma V^T$.
+$$
+C = \sum_{i=1}^{r} \sigma_i^2 v_i v_i^T
+\quad\xrightarrow{\text{iterate}}\quad
+C^2 = \sum_{i=1}^{r} \sigma_i^4 v_i v_i^T
+\quad\longrightarrow\quad
+C^k = \sum_{i=1}^{r} \sigma_i^{2k} v_i v_i^T .
+$$
 
-Remark: This proof can be extended to $X \in \mathbb{C}^{n \times d}$ with unitary matrices $U$ and $V$.
+If $\sigma_1 > \sigma_2$, then for $k$ large enough $\sigma_1^{2k} \gg \sigma_2^{2k}$, so
 
-Prop: The SVD of $X = U \Sigma V^T$ is the same as the greedy construction.
-i.e., $V$ and $\Sigma$ are right singular vectors and singular values constructed by greedy definitions.
+$$
+C^k \approx \sigma_1^{2k}\, v_1 v_1^T
+\;\Rightarrow\;
+C^k \begin{pmatrix} 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix}
+= C^k e_1 \approx \sigma_1^{2k}\, v_1(1)\, v_1
+\;\Rightarrow\;
+\frac{C^k e_1}{\|C^k e_1\|_2} = \pm\, v_1 .
+$$
 
-PAGE 5
+**Linear rate of convergence.** To check the convergence rate, we look at
 
-Proof: Let $v_1' := \text{argmax}_{\|v\|_2=1} \|Xv\|_2$ be the first right singular vector.
-$X = U \Sigma V^T$ where $V = [v_1, \dots, v_d] \in \mathbb{R}^{d \times d}$ and $v_i^T v_j = \delta_{ij}$.
-$\|Xv\|_2 = \|U \Sigma V^T v\|_2 = \sqrt{v^T V \Sigma^T U^T U \Sigma V^T v} = \|\Sigma V^T v\|_2$.
-Let $z = V^T v$, then $\|z\|_2 = 1$ since $V$ is orthogonal and $\|v\|_2 = 1$.
-$\|Xv\|_2 = \|\Sigma z\|_2 = \sqrt{\sum_{i} (\sigma_i z_i)^2}$.
-Suppose $\sigma_1 \ge \sigma_2 \ge \dots \ge \sigma_r$.
-Notice $\sum \sigma_i^2 z_i^2 \le \sigma_1^2 (\sum z_i^2) = \sigma_1^2$.
-Equality attained when $z_1 = 1 \Rightarrow v = v_1 \Rightarrow v_1' = v_1$.
-Next, $v_2' := \text{argmax}_{\|v\|_2=1, v \perp v_1} \|Xv\|_2$. We have a similar procedure but with $z_1 = 0$ (since $v \perp v_1$).
-$\|Xv\|_2 = \sqrt{\sum_{i=2} (\sigma_i z_i)^2} \le \sqrt{\sigma_2^2}$.
-When $z_2 = 1 \Rightarrow v_2' = v_2$.
-Similarly, we can find all $v_i$ are the same as the greedy construction.
+$$
+\min\Big\{\, \|v^{(k)} - v_1\|_2^2,\ \|v^{(k)} + v_1\|_2^2 \,\Big\} = 2 - 2\,\big|\langle v^{(k)}, v_1\rangle\big|,
+\qquad v^{(k)} := \frac{C^k e_1}{\|C^k e_1\|_2}.
+$$
 
-Skinny SVD Full SVD: $X_{n \times d} = U_{n \times n} \Sigma_{n \times d} V_{d \times d}^T$.
-$\text{rank}(X) = r \le \min(d, n)$.
-Notice that $(\sigma_{r+1}, \dots, \sigma_{\min(d,n)}) = 0$.
-Truncated: $U_r := [u_1, \dots, u_r] \in \mathbb{R}^{n \times r}$, $V_r := [v_1, \dots, v_r] \in \mathbb{R}^{d \times r}$, $\Sigma_r = \text{diag}(\sigma_1, \dots, \sigma_r)$.
-$X_{n \times d} = U_r \Sigma_r V_r^T = \sum_{i=1}^{r} \sigma_i u_i v_i^T$.
+Since the $v_i$ are orthonormal,
 
---->
-PAGE 6
+$$
+1 = \|v^{(k)}\|_2^2 = \sum_{i} \big|\langle v^{(k)}, v_i\rangle\big|^2 = \big|\langle v^{(k)}, v_1\rangle\big|^2 + \sum_{i=2}^{r} \big|\langle v^{(k)}, v_i\rangle\big|^2 .
+$$
 
-Computing SVD Power Method Idea: let $C = X^T X \in \mathbb{R}^{d \times d}$, $C = V \Lambda V^T = \sum_{i=1}^{r} \sigma_i^2 v_i v_i^T$.
-$C^k = \sum_{i=1}^{r} \sigma_i^{2k} v_i v_i^T$.
-If $\sigma_1 > \sigma_2$, then for $k$ large enough:
-$\sigma_1^{2k} \gg \sigma_i^{2k} \Rightarrow C^k \approx \sigma_1^{2k} v_1 v_1^T$.Linear rate of convergence: To check the convergence rate, we check $\min \{ \|v^{(k)} - v_1\|_2^2, \|v^{(k)} + v_1\|_2^2 \} = 2 - 2|\langle v^{(k)}, v_1 \rangle|$.
-$v^{(k)} = \frac{C^k q}{\|C^k q\|_2}$ where $q = \sum c_i v_i$.
-$\frac{1 - |\langle v^{(k)}, v_1 \rangle|^2}{|\langle v^{(k)}, v_1 \rangle|^2} \le (d-1) \frac{\sigma_2^{4k}}{\sigma_1^{4k} c_1^2} \rightarrow$ linear convergence when $\sigma_2 < \sigma_1$.
-Computing $C^k$ is costly; instead, each step only needs matrix-vector multiplication (efficient when one dim of $X$ is small or $X$ is sparse).
+<!-- [note: in the manuscript the first term on the RHS above was written
+without a square, i.e. $|\langle v^{(k)},v_1\rangle|$; transcribed here as the
+squared term, which is what the identity requires.] -->
 
-PAGE 7
+For convergence we wish $|\langle v^{(k)}, v_1\rangle| \approx 1$, i.e. the projection onto the other subspace is small:
 
-$v^{(k)} := \frac{C v^{(k-1)}}{\|C v^{(k-1)}\|_2}$.
-Expanding in orthonormal bases $v_1, \dots, v_d$:
-$C^k q = \sum_{j=1}^{d} \sigma_j^{2k} c_j v_j$.
-Assume $\|q\|_2=1$ and $|c_1| = |\langle v_1, q \rangle| > [cite_start]0$.
-Note the above analysis assumes $\sigma_1 > \sigma_2$ strictly. In fact, the power method converges to some vector in the span of singular vectors with "nearly highest" singular values.
-Let $q \in \mathbb{R}^d$ and $c_1 > 0$, let $V_1$ be the linear subspace spanned by $v_i$ s.t. $\sigma_i \ge (1-\epsilon)\sigma_1$.
-Then it can be shown that $\|P_{V_1^\perp}(v^{(k)})\|_2 \le \epsilon$ when $k \ge \frac{\ln(1/\epsilon \delta)}{2\epsilon}$.Remark: $q$ can be chosen as random $q \sim N(0, I_d)$.
-When chosen randomly, $c_1 > 0$ is satisfied with high probability.
+$$
+\frac{\sum_{i=2}^{r} \big|\langle v^{(k)}, v_i\rangle\big|^2}{\big|\langle v^{(k)}, v_1\rangle\big|^2}
+= \frac{\sum_{i=2}^{r} \sigma_i^{4k}\, v_i^2(1)}{\sigma_1^{4k}\, v_1^2(1)}
+\le \frac{\sum_{i=2}^{r} \sigma_i^{4k}}{\sigma_1^{4k}\, v_1^2(1)}
+\le \frac{(r-1)\, \sigma_2^{4k}}{\sigma_1^{4k}\, \delta^2},
+\qquad \text{if } |v_1(1)| \ge \delta > 0 ,
+$$
 
-PAGE 8
+hence
 
-Subspace Power Method Finding right singular values is same as finding eigenvectors for $X^T X$. Can use orthogonal iteration algorithm.
-Let $M \in \mathbb{R}^{d \times d}$ be PSD with eigen-decomposition $M = V \Lambda V^T$.
-1. Initialize $Q_0 \in \mathbb{R}^{d \times k}$ as a random $k$-dimensional subspace.
-2. Repeat till convergence: 
-  * $Z_{t+1} = M \cdot Q_t$ 
-  *  $Q_{t+1} = QR[Z_{t+1}]$, where $QR[Z]$ is the $Q$ from QR decomposition. $Q$ then represents the first $k$ right singular vectors.
+$$
+\frac{1 - \big|\langle v^{(k)}, v_1\rangle\big|^2}{\big|\langle v^{(k)}, v_1\rangle\big|^2}
+\le (r-1)\, \frac{\sigma_2^{4k}}{\sigma_1^{4k}\, \delta^2}
+\;\longrightarrow\; \text{linear convergence, as } \sigma_2 < \sigma_1 .
+$$
 
-Best rank-k Approximation 
-Recap on matrix norm: 
-* Frobenius norm: $\|X\|_F = \sqrt{\sum_{i,j} X_{ij}^2} = \sqrt{\sum \sigma_i^2}$.
-* Schatten p-norm $\|X\|_{S_p} := (\sum_{i=1}^r \sigma_i^p)^{1/p}$.
-* The spectral norm $\|X\|_2 = \sigma_1$.$\|X - X_k\|_p = \min_{\text{rank}(B) \le k} 
-* \|X - B\|_p = (\sum_{i=k+1}^r \sigma_i^p)^{1/p}$.
+::: {.remark}
+Computing $C^k$ is costly $\to$ compute $C^k q$ instead; each step only needs a matrix–vector product (efficient when one dimension of $X$ is small, or $X$ is sparse).
 
-PAGE 9
+<!-- [unclear: the closing line reads "similar linear convergence when
+$\sigma_2 > \sigma_1$ and $|q^T v_1| > \delta$" — the inequality
+$\sigma_2 > \sigma_1$ appears to be a slip for $\sigma_1 > \sigma_2$, since the
+whole argument requires the top singular value to dominate. Left as-is,
+flagged.] -->
+:::
 
-Let $\text{rank}(X) = r \le \min(n, d)$. We define $k$-truncated SVD of $X$ as: $X_k = \sum_{i=1}^{k} \sigma_i u_i v_i^T$ where $X = \sum_{i=1}^{r} \sigma_i u_i v_i^T$.
-Then $X_k$ is the "best" rank-$k$ approximation in terms of orthogonally invariant norm $\|\cdot\|$:
-$X_k = \text{argmin}_{\text{rank}(B) \le k} \|X - B\|$.
-$X_k$ is the most close rank-$k$ matrix to $X$.
-Orthogonally invariant: $\|O_1 X O_2\| [cite_start]= \|X\|$ for orthogonal $O_1, O_2$.
-Example: Frobenius norm, Spectral norm.
+The same analysis holds for an arbitrary starting vector $q$ (not just $e_1$):
 
-roof for spectral norm: $\|X - X_k\|_2 = \sigma_{k+1}$.
-We want to show $\|X - B\|_2 \ge \sigma_{k+1}$ for any rank $k$ matrix $B$.
-Consider $w \in \mathbb{R}^d$ with $\|w\|_2=1$. We can choose $w \in \text{Null}(B) \cap \text{span}\{v_1, \dots, v_{k+1}\}$.
-In this case $\|Xw\|_2 \ge \sigma_{k+1}$.
-$\|X - B\|_2 = \max_{\|v\|_2=1} \|(X - B)v\|_2 \ge \|(X - B)w\|_2 = \|Xw\|_2 \ge \sigma_{k+1}$.
+::: {#prp-power-general}
+## Convergence to the near-top singular subspace
 
-PAGE 10
+Let $q \in \mathbb{R}^d$ with $|\langle q, v_1\rangle| \ge \delta > 0$, and let $U$ be the linear subspace spanned by the $v_i$ such that $\sigma_i \ge (1-\varepsilon)\sigma_1$. Let $v^{(k)} = \dfrac{C^k q}{\|C^k q\|_2}$ be the $k$-th power iteration. Then it can be shown that
 
-Proof of Frobenius norm: Consider $\|X - B\|_F^2$ where $\text{rank}(B) = k \le r$.
-$\|X - B\|_F^2 = \sum_{i=1}^n \|x_i - b_i\|_2^2$.
-Let $\{v_1, \dots, v_k\}$ be the orthonormal basis for the subspace of $B$.
-The error is minimized when $b_i$ is the projection of $x_i$ to the subspace.
-In previous claims, the greedy construction of singular vectors minimizes the distance between vectors and the orthogonal subspace.
-Thus $\{v_1, \dots, v_k\}$ should be the first $k$ singular vectors.
-The projection of $X$ is $X_k = \sum_{i=1}^{k} \sigma_i u_i v_i^T$.
+$$
+\big\|\operatorname{Proj}_{U^{\perp}}\big(v^{(k)}\big)\big\|_2 \le \varepsilon,
+\qquad \forall\, \varepsilon > 0, \quad \text{when } k \ge \frac{\log(1/\varepsilon\delta)}{2\varepsilon}.
+$$
+:::
+
+::: {.proof}
+Expand $q = \sum_{i} c_i v_i$ in the orthonormal basis $\{v_1, v_2, \dots, v_d\}$ of $\mathbb{R}^d$. Then
+
+$$
+C^k q = \sum_{i=1}^{r} \sigma_i^{2k} v_i v_i^T \sum_{j} c_j v_j = \sum_{i=1}^{r} \sigma_i^{2k}\, c_i\, v_i,
+\qquad
+\|C^k q\|_2^2 = \sum_{i=1}^{r} \sigma_i^{4k}\, c_i^2 .
+$$
+
+For the first (single-vector) case, with $\sigma_1 \ge \sigma_2 \ge \cdots$,
+
+$$
+\frac{\sum_{i=2}^{r} \big|\langle v^{(k)}, v_i\rangle\big|^2}{\big|\langle v^{(k)}, v_1\rangle\big|^2}
+= \frac{\sum_{i=2}^{r} \sigma_i^{4k}\, c_i^2}{c_1^2\, \sigma_1^{4k}}
+\le \frac{\sum_{i=2}^{r} \sigma_i^{4k}}{c_1^2\, \sigma_1^{4k}}
+\le \Big(\tfrac{\sigma_2}{\sigma_1}\Big)^{4k}\, (r-1)\, \frac{1}{\delta^2},
+$$
+
+where we assume $\|q\|_2 = 1$ and $|c_1| = |\langle v_1, q\rangle| \ge \delta > 0$.
+
+For the subspace statement, suppose $\sigma_1, \dots, \sigma_m$ satisfy $\sigma_i \ge (1-\varepsilon)\sigma_1$, so that the component of $v^{(k)}$ orthogonal to $U$ is composed of indices $i = m+1, \dots, r$. Then
+
+$$
+\big\|\operatorname{Proj}_{U^{\perp}}\big(v^{(k)}\big)\big\|_2^2
+= \frac{\sum_{i=m+1}^{r} \sigma_i^{4k}\, c_i^2}{\sum_{i=1}^{r} c_i^2\, \sigma_i^{4k}}
+\le \frac{(1-\varepsilon)^{4k}\, \sigma_1^{4k}}{c_1^2\, \sigma_1^{4k}}
+\le \frac{(1-\varepsilon)^{4k}\, \sigma_1^{4k}}{\delta^2\, \sigma_1^{4k}},
+$$
+
+<!-- [unclear: the exponents on the $\sigma_i$ in the numerator/denominator of
+the first fraction were hard to read in the manuscript (mix of $2k$ and $4k$);
+transcribed as $4k$ to match $\|C^k q\|_2^2 = \sum \sigma_i^{4k} c_i^2$ above.
+The final simplified bounds below are legible.] -->
+
+hence
+
+$$
+\big\|\operatorname{Proj}_{U^{\perp}}\big(v^{(k)}\big)\big\|_2
+\le \frac{(1-\varepsilon)^{2k}}{\delta}
+\le \frac{e^{-2k\varepsilon}}{\delta}
+\le \varepsilon
+\qquad \text{when } k \ge \frac{\ln(1/\varepsilon\delta)}{2\varepsilon}.
+$$
+:::
+
+::: {.remark}
+Note the above convergence analysis assumes $\sigma_1 > \sigma_2$ strictly.
+<!-- [unclear: the note literally reads "assuming $\sigma_2 > \sigma_1$
+strictly"; this appears to be a slip for $\sigma_1 > \sigma_2$.] -->
+In fact, the power method converges to some vector in the span of the singular vectors with "nearly highest" singular value.
+
+$q$ can be chosen at random, e.g. $q \sim N(0, I_d)$. When chosen randomly, $|\langle q, v_1\rangle| \ge \delta > 0$ can be shown to hold with high probability.
+:::
+
+### Subspace (Orthogonal Iteration) Power Method
+
+Finding the right singular vectors is the same as finding the eigenvectors of $X^T X$. One can use the **orthogonal iteration** algorithm for that.
+
+Let $M \in \mathbb{R}^{d \times d}$ be positive semidefinite with eigendecomposition $M = V \Lambda V^T = \sum_{i=1}^{d} \lambda_i v_i v_i^T$.
+
+::: {.callout-note appearance="simple"}
+**Orthogonal iteration**
+
+Initialize $Q_0 \in \mathbb{R}^{d \times \ell}$, a random $\ell$-dimensional subspace of $\mathbb{R}^d$.
+
+Repeat until convergence:
+
+- $t + 1 \leftarrow t$
+- $Z_{t+1} = M \cdot Q_t$
+- $Q_{t+1} = \mathrm{QR}[Z_{t+1}]$, where $\mathrm{QR}[Z] := Q$ when $Z = QR$ is the QR decomposition.
+
+$Q$ then represents the first $\ell$ right singular vectors.
+:::
+
+## Best rank-$k$ Approximation
+
+### Recap on matrix norms
+
+**Frobenius norm** $\|\cdot\|_F$:
+$$
+\|X\|_F = \sqrt{\sum_{i,j} x_{ij}^2} = \sqrt{\sum_{i=1}^{r} \sigma_i^2}
+\quad (\sigma_i \text{ singular values}).
+$$
+
+**Schatten $p$-norm** $\|\cdot\|_{S_p}$: operates on the singular values. For $X \in \mathbb{R}^{n \times d}$ with $r \le \min(n,d)$ equal to $\mathrm{rank}(X)$,
+$$
+\|X\|_{S_p} := \Big(\sum_{i=1}^{r} \sigma_i^p(X)\Big)^{1/p}, \qquad 1 \le p < \infty .
+$$
+
+- The spectral norm $\|\cdot\|_2 = \|\cdot\|_{S_\infty} = \sigma_1$, and $\|\cdot\|_F = \|\cdot\|_{S_2}$.
+- $\displaystyle \|X - X_k\|_{S_p} = \min_{B:\ \mathrm{rank}(B) \le k} \|X - B\|_{S_p} = \Big(\sum_{i=k+1}^{r} \sigma_i^p\Big)^{1/p}$.
+
+### Best rank-$k$ approximation
+
+::: {#def-truncated-svd}
+## $k$-truncated SVD
+
+Let $X \in \mathbb{R}^{n \times d}$ with $\mathrm{rank}(X) = r \le \min\{n, d\}$. The **$k$-truncated SVD** of $X$ is
+$$
+X_k = \sum_{i=1}^{k} \sigma_i u_i v_i^T, \qquad k \in \{1, 2, \dots, r\},
+$$
+where $X = \sum_{i=1}^{r} \sigma_i u_i v_i^T$ is the full SVD.
+:::
+
+::: {#thm-eckart-young}
+## Best rank-$k$ approximation (Eckart–Young–Mirsky)
+
+$X_k$ is the "best" rank-$k$ approximation of $X$ in terms of any orthogonally invariant norm $\|\cdot\|$:
+$$
+X_k = \underset{B \in \mathbb{R}^{n \times d},\ \mathrm{rank}(B) \le k}{\arg\min} \|X - B\| ,
+$$
+i.e. $X_k$ is the closest rank-$k$ matrix to $X$.
+:::
+
+::: {.remark}
+A norm $\|\cdot\|$ is **orthogonally invariant** if $\|O_1 X O_2\| = \|X\|$ for all $X \in \mathbb{R}^{n \times d}$ and all orthogonal $O_1 \in \mathbb{R}^{n \times n}$, $O_2 \in \mathbb{R}^{d \times d}$. Examples: the Frobenius norm $\|\cdot\|_F$ and the spectral norm $\|\cdot\|_2$.
+:::
+
+::: {.proof}
+**Spectral norm.** (In the manuscript $A$ is used for $X$ in this proof.) Let $X \in \mathbb{R}^{n \times d}$ with $\mathrm{rank}(X) = r \le \min\{n,d\}$, $X = \sum_{i=1}^{r} \sigma_i u_i v_i^T$ and $X_k = \sum_{i=1}^{k} \sigma_i u_i v_i^T$. Then
+$$
+\|X - X_k\|_2 = \Big\|\sum_{i=k+1}^{r} \sigma_i u_i v_i^T\Big\|_2 = \sigma_{k+1},
+$$
+so we hope to show $\|X - B\|_2 \ge \sigma_{k+1}$ for any $B$ with $\mathrm{rank}(B) \le k$.
+
+Consider $w \in \mathbb{R}^d$ with unit norm $\|w\|_2 = 1$. We can choose $w \in \mathrm{Null}(B)$, i.e. $Bw = 0$; on the other hand, we can also choose $w \in \mathrm{span}\{v_1, \dots, v_{k+1}\}$. In this case
+$$
+\|X w\|_2 = \sqrt{\sigma_1^2 \cdots \sigma_{k+1}^2} \ge \sigma_{k+1} .
+$$
+<!-- [unclear: the manuscript writes this norm as a terse "$\sqrt{\sigma_1^2
+\cdots \sigma_{k+1}^2}$"; the intended expression is
+$\|Xw\|_2^2 = \sum_{i=1}^{k+1}\sigma_i^2\langle w,v_i\rangle^2 \ge \sigma_{k+1}^2$
+for $w\in\mathrm{span}\{v_1,\dots,v_{k+1}\}$, but this reconstruction is not
+filled in to avoid guessing.] -->
+Thus if $w \in \mathrm{Null}(B) \cap \mathrm{span}\{v_1, \dots, v_{k+1}\}$, then
+$$
+\|X - B\|_2 = \max_{v \in \mathbb{R}^d,\, \|v\|=1} \|(X-B)v\|_2 \ge \|(X-B)w\|_2 = \|X w\|_2 \ge \sigma_{k+1} .
+$$
+:::
+
+::: {.proof}
+**Frobenius norm.** Consider $\|X - B\|_F$, where $\mathrm{rank}(B) = p \le k \le \mathrm{rank}(X) = r$. Denote
+$$
+B = \begin{pmatrix} -\,b_1^T\,- \\ -\,b_2^T\,- \\ \vdots \\ -\,b_n^T\,- \end{pmatrix}, \qquad
+X = \begin{pmatrix} -\,x_1^T\,- \\ -\,x_2^T\,- \\ \vdots \\ -\,x_n^T\,- \end{pmatrix}
+\;\Rightarrow\;
+\|X - B\|_F^2 = \|x_1 - b_1\|_2^2 + \cdots + \|x_n - b_n\|_2^2 .
+$$
+
+Let $\{v_1, \dots, v_p\}$ be an orthonormal basis of the row subspace of $B$, and extend to an orthonormal basis $\{v_1, \dots, v_p, \dots, v_r\}$ for (the row space of) $X$. Then expand
+$$
+b_i = \beta_1^i v_1 + \beta_2^i v_2 + \cdots + \beta_p^i v_p, \qquad
+x_i = \chi_1^i v_1 + \chi_2^i v_2 + \cdots + \chi_r^i v_r ,
+$$
+so
+$$
+\|b_i - x_i\|_2^2 = (\beta_1^i - \chi_1^i)^2 + \cdots + (\beta_p^i - \chi_p^i)^2 + \sum_{l=p+1}^{r} (\chi_l^i)^2 ,
+$$
+which is minimized when $b_i$ is the projection of $x_i$ onto the subspace, i.e. $\beta_1^i = \chi_1^i,\ \beta_2^i = \chi_2^i,\ \dots,\ \beta_p^i = \chi_p^i$. (This can be visualized in the 3D case, where the distance between two vectors is minimized when $b_i$ is the projection of $x_i$ onto the plane.)
+
+Since we are looking over all subspaces $V$ of dimension at most $k$, there could be a specific subspace that is better. As claimed previously, the greedy construction of singular vectors minimizes the distance between the vectors and the orthogonal subspace, so $\{v_1, \dots, v_k\}$ should be the first $k$ singular vectors. The projection of $X$ onto this subspace is
+$$
+\hat{x}_j = (x_j^T v_1)v_1 + (x_j^T v_2)v_2 + \cdots + (x_j^T v_k)v_k , \qquad j = 1, \dots, n,
+$$
+which gives
+$$
+\hat{X} = \begin{pmatrix} -\,\hat{x}_1^T\,- \\ \vdots \\ -\,\hat{x}_n^T\,- \end{pmatrix}
+= X \sum_{i=1}^{k} v_i v_i^T
+= \sum_{i=1}^{k} \sigma_i u_i v_i^T = X_k .
+$$
+<!-- [unclear: the intermediate matrix step here was scribbled in the
+manuscript; the middle expression $X\sum_{i=1}^k v_i v_i^T$ is a reconstruction
+of the projection, with the endpoints $\hat X$ and $\sum_i \sigma_i u_i v_i^T =
+X_k$ being the legible parts.] -->
+Therefore
+$$
+\|X - B\|_F \ge \|X - P_W^{p}(X)\|_F \ge \|X - P_W^{k}(X)\|_F \ge \|X - X_k\|_F .
+$$
+:::
+
 

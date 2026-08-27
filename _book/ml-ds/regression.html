@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; Newton’s Methods – Phy2Q Roadmap</title>
+<title>20&nbsp; Regression – Phy2Q Roadmap</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../numerical-optimization/quasiNewton.html" rel="next">
-<link href="../numerical-optimization/gradDescent.html" rel="prev">
+<link href="../reg-anly/slrInference.html" rel="next">
+<link href="../ml-ds/classification.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -88,6 +88,35 @@ ul.task-list li input[type="checkbox"] {
       </style>
     
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -100,7 +129,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../numerical-optimization/introduction.html">Numerical Optimization</a></li><li class="breadcrumb-item"><a href="../numerical-optimization/newTon.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Newton’s Methods</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ml-ds/probRecap.html">Machine Learning and Data Science Basics</a></li><li class="breadcrumb-item"><a href="../ml-ds/regression.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regression</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -166,7 +195,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/newTon.html" class="sidebar-item-text sidebar-link active">
+  <a href="../numerical-optimization/newTon.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Newton’s Methods</span></span></a>
   </div>
 </li>
@@ -242,20 +271,44 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../ml-ds/probRecap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Recap on Probability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../ml-ds/highDimData.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Properties of High Dimensional Data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Properties of High Dimensional Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ml-ds/randomProj.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Randomized Projection</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Randomized Projection</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ml-ds/SVD.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Clustering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/regression.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
   </div>
 </li>
       </ul>
@@ -284,7 +337,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../reg-anly/slrInference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Statistical Inference of Simple Linear Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Statistical Inference of Simple Linear Regression</span></span></a>
   </div>
 </li>
       </ul>
@@ -305,19 +358,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sp/prob.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Probability Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Probability Review</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sp/bm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Brownian Motion</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Brownian Motion</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sp/stocInt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Stochastic Integral</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Stochastic Integral</span></span></a>
   </div>
 </li>
       </ul>
@@ -338,7 +391,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sp-in-finance/plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Things need to be done</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Things need to be done</span></span></a>
   </div>
 </li>
       </ul>
@@ -354,15 +407,33 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#linear-ridge-regression" id="toc-linear-ridge-regression" class="nav-link active" data-scroll-target="#linear-ridge-regression"><span class="header-section-number">20.1</span> Linear (Ridge) Regression</a>
+  <ul class="collapse">
+  <li><a href="#the-general-regression-task" id="toc-the-general-regression-task" class="nav-link" data-scroll-target="#the-general-regression-task">The general regression task</a></li>
+  <li><a href="#least-squares-linear-regression" id="toc-least-squares-linear-regression" class="nav-link" data-scroll-target="#least-squares-linear-regression">Least squares (linear regression)</a></li>
+  <li><a href="#ridge-regression-regularization" id="toc-ridge-regression-regularization" class="nav-link" data-scroll-target="#ridge-regression-regularization">Ridge regression (regularization)</a></li>
+  </ul></li>
+  <li><a href="#polynomial-regression" id="toc-polynomial-regression" class="nav-link" data-scroll-target="#polynomial-regression"><span class="header-section-number">20.2</span> Polynomial Regression</a></li>
+  <li><a href="#kernel-regression" id="toc-kernel-regression" class="nav-link" data-scroll-target="#kernel-regression"><span class="header-section-number">20.3</span> Kernel Regression</a>
+  <ul class="collapse">
+  <li><a href="#the-woodbury-identity" id="toc-the-woodbury-identity" class="nav-link" data-scroll-target="#the-woodbury-identity">The Woodbury identity</a></li>
+  <li><a href="#kernel-ridge-regression-prediction" id="toc-kernel-ridge-regression-prediction" class="nav-link" data-scroll-target="#kernel-ridge-regression-prediction">Kernel ridge regression prediction</a></li>
+  <li><a href="#computational-cost" id="toc-computational-cost" class="nav-link" data-scroll-target="#computational-cost">Computational cost</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../numerical-optimization/introduction.html">Numerical Optimization</a></li><li class="breadcrumb-item"><a href="../numerical-optimization/newTon.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Newton’s Methods</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ml-ds/probRecap.html">Machine Learning and Data Science Basics</a></li><li class="breadcrumb-item"><a href="../ml-ds/regression.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regression</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Newton’s Methods</span></h1>
+<h1 class="title"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regression</span></h1>
 </div>
 
 
@@ -379,8 +450,202 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>Given a training set of predictor–response pairs, the goal of a <strong>regression</strong> problem is to learn a function <span class="math inline">\(f\)</span> that predicts a (continuous) response from the predictors. This chapter develops <strong>linear</strong> and <strong>ridge</strong> regression, their solution via the normal equations, the extension to <strong>polynomial</strong> (linear-in-parameters) regression, and finally <strong>kernel</strong> regression together with the Woodbury identity that makes it computationally tractable.</p>
+<section id="linear-ridge-regression" class="level2" data-number="20.1">
+<h2 data-number="20.1" class="anchored" data-anchor-id="linear-ridge-regression"><span class="header-section-number">20.1</span> Linear (Ridge) Regression</h2>
+<section id="the-general-regression-task" class="level3">
+<h3 class="anchored" data-anchor-id="the-general-regression-task">The general regression task</h3>
+<ul>
+<li>Let <span class="math inline">\(y_i \in \mathbb{R}\)</span>, <span class="math inline">\(i = 1, 2, \dots, N\)</span> be the <strong>response variables</strong>.</li>
+<li>Let <span class="math inline">\(x_i \in \mathbb{R}^d\)</span>, <span class="math inline">\(i = 1, 2, \dots, N\)</span> be the <strong>predictors</strong>.</li>
+<li>The pairs <span class="math inline">\(\{(x_i, y_i)\}\)</span> form the <strong>training set</strong>.</li>
+</ul>
+<p>The regression task wishes to find a function <span class="math inline">\(f : \mathbb{R}^d \to \mathbb{R}\)</span> such that <span class="math inline">\(f(x_i) \approx y_i\)</span>, and that generalizes to the test set. This requires two ingredients:</p>
+<ul>
+<li>a <strong>function form</strong> (parametric methods) — i.e.&nbsp;assume a family for <span class="math inline">\(f\)</span>;</li>
+<li>a <strong>measure / metric</strong> for <span class="math inline">\(f(x_i) \approx y_i\)</span> (the <strong>loss function</strong>).</li>
+</ul>
+</section>
+<section id="least-squares-linear-regression" class="level3">
+<h3 class="anchored" data-anchor-id="least-squares-linear-regression">Least squares (linear regression)</h3>
+<p>Take <span class="math inline">\(f\)</span> to be <strong>linear</strong>: <span class="math display">\[
+y = w^{\mathsf T} x + b, \qquad w \in \mathbb{R}^d,\ b \in \mathbb{R},
+\]</span> or simply <span class="math inline">\(y = w^{\mathsf T} x\)</span> if we absorb the bias by extending <span class="math display">\[
+x \ \longrightarrow\ \begin{pmatrix} x_1 \\ \vdots \\ x_d \\ 1 \end{pmatrix} .
+\]</span> <!-- [note: the source writes $b \in \mathbb{R}^d$; the bias is a scalar, so this
+should read $b \in \mathbb{R}$. After the bias-absorbing extension, $x \in
+\mathbb{R}^{d+1}$ and correspondingly $w \in \mathbb{R}^{d+1}$.] --></p>
+<p>For the <strong>metric</strong>, use the <strong>least-square error</strong> <span class="math display">\[
+\min_{w \in \mathbb{R}^d} \ \sum_i \big(y_i - \langle w, x_i\rangle\big)^2
+\qquad\longrightarrow\qquad \text{error between predicted and actual,}
+\]</span> or, in matrix form, <span class="math inline">\(\|Y - Xw\|_2^2\)</span> if we denote <span class="math display">\[
+Y = \begin{pmatrix} y_1 \\ \vdots \\ y_N \end{pmatrix} \in \mathbb{R}^N,
+\qquad
+X = \begin{pmatrix} x_1^{\mathsf T} \\ x_2^{\mathsf T} \\ \vdots \\ x_N^{\mathsf T} \end{pmatrix} \in \mathbb{R}^{N \times d} .
+\]</span> <!-- [note: with the bias-absorbing extension above, each row is $(x_i^{\mathsf T}, 1)$
+and $X \in \mathbb{R}^{N \times (d+1)}$.] --></p>
+</section>
+<section id="ridge-regression-regularization" class="level3">
+<h3 class="anchored" data-anchor-id="ridge-regression-regularization">Ridge regression (regularization)</h3>
+<p>In some cases <span class="math inline">\(f\)</span> could <strong>overfit</strong> (e.g.&nbsp;matching noise). This can be reduced by adding a <strong>regularization term</strong> to the loss function, as a penalty for too-large coefficients: <span class="math display">\[
+\min_{w \in \mathbb{R}^d} \ \|Y - Xw\|_2^2 + \lambda \|w\|_2^2, \qquad \lambda \ge 0 .
+\]</span></p>
+<p>From optimization theory, the resulting minimization problem is a <strong>strictly convex</strong> function (for <span class="math inline">\(\lambda &gt; 0\)</span>), so every local minimum is the global minimum.</p>
+<div id="prp-ridge-solution" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 20.1 (Ridge regression solution (normal equations))</strong></span> For <span class="math inline">\(\lambda &gt; 0\)</span>, the ridge objective has the unique minimizer <span class="math display">\[
+w^\ast = \arg\min_w \ \|Xw - Y\|_2^2 + \lambda \|w\|_2^2
+= \big(X^{\mathsf T} X + \lambda I\big)^{-1} X^{\mathsf T} y .
+\]</span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>(Sketch.) Set the gradient to zero, <span class="math inline">\(\dfrac{\partial L}{\partial w_i} = 0\)</span>, and check the Hessian <span class="math inline">\(\dfrac{\partial^2 L}{\partial w_i \partial w_j}\)</span>. This is straightforward since <span class="math inline">\(L\)</span> is in <strong>quadratic form</strong> (and the <span class="math inline">\(\lambda I\)</span> term makes <span class="math inline">\(X^{\mathsf T} X + \lambda I\)</span> positive definite, hence invertible). <span class="math inline">\(\blacksquare\)</span></p>
+</div>
+<div class="proof remark">
+<p><span class="proof-title"><em>Remark</em>. </span><strong>Choice of regularizer.</strong></p>
+<ul>
+<li><span class="math inline">\(\lambda \|w\|_1 = \lambda \sum_i |w_i|\)</span> — promotes a <strong>sparse</strong> weight vector.</li>
+<li><span class="math inline">\(\|w\|_\ast = \sum_i \sigma_i(w)\)</span> (the nuclear norm) — promotes a <strong>low-rank</strong> matrix.</li>
+</ul>
+</div>
+<div class="proof remark">
+<p><span class="proof-title"><em>Remark</em>. </span><strong>Multiple-label predictors.</strong> If <span class="math inline">\(y_i \in \mathbb{R}^p\)</span> (multiple labels), we simply extend to a matrix of weights <span class="math inline">\(W \in \mathbb{R}^{p \times d}\)</span>: <span class="math display">\[
+y_i = W x_i,
+\qquad
+\begin{pmatrix} y_1^i \\ \vdots \\ y_p^i \end{pmatrix}
+=
+\begin{pmatrix}
+w_{11} &amp; w_{12} &amp; \cdots &amp; w_{1d} \\
+\vdots &amp; &amp; &amp; \vdots \\
+w_{p1} &amp; w_{p2} &amp; \cdots &amp; w_{pd}
+\end{pmatrix}
+\begin{pmatrix} x_1^i \\ \vdots \\ x_d^i \end{pmatrix} ,
+\]</span> and with <span class="math display">\[
+Y = \begin{pmatrix} y_1^{\mathsf T} \\ \vdots \\ y_N^{\mathsf T} \end{pmatrix},
+\qquad
+X = \begin{pmatrix} x_1^{\mathsf T} \\ \vdots \\ x_N^{\mathsf T} \end{pmatrix},
+\qquad
+L = \|X W^{\mathsf T} - Y\|_F^2 + \lambda \|W\|_F^2 .
+\]</span> <!-- [note: for matrices the norms are Frobenius; the source writes $\|\cdot\|_2$.] --></p>
+</div>
+</section>
+</section>
+<section id="polynomial-regression" class="level2" data-number="20.2">
+<h2 data-number="20.2" class="anchored" data-anchor-id="polynomial-regression"><span class="header-section-number">20.2</span> Polynomial Regression</h2>
+<p><span class="math inline">\(f\)</span> need <strong>not</strong> be linear, as long as it is <strong>linear in its parameters</strong>.</p>
+<p><strong>Example (3rd-order polynomial fit).</strong> <span class="math display">\[
+y = w_3^{\mathsf T} x^3 + w_2^{\mathsf T} x^2 + w_1^{\mathsf T} x
+= \big(\, w_3^{\mathsf T} \mid w_2^{\mathsf T} \mid w_1^{\mathsf T} \,\big)
+\begin{pmatrix} x^3 \\ x^2 \\ x \end{pmatrix} ,
+\]</span> where <span class="math inline">\(x^k\)</span> denotes the monomial (elementwise-power) feature expansion. This <strong>shares the same form</strong> as linear regression, so the same solution applies.</p>
+</section>
+<section id="kernel-regression" class="level2" data-number="20.3">
+<h2 data-number="20.3" class="anchored" data-anchor-id="kernel-regression"><span class="header-section-number">20.3</span> Kernel Regression</h2>
+<p>The kernel trick can be applied to the features <span class="math inline">\(x\)</span>. Suppose <span class="math inline">\(\phi : \mathbb{R}^d \to \mathbb{R}^p\)</span> is a <strong>feature map</strong> that transforms the original data to <span class="math display">\[
+\big(\phi(x_1), y_1\big), \big(\phi(x_2), y_2\big), \dots, \big(\phi(x_n), y_n\big)
+\in \mathbb{R}^p \times \mathbb{R} .
+\]</span> Then perform linear ridge regression in the transformed feature space: <span class="math display">\[
+\min_{w \in \mathbb{R}^p} \ \sum_i \big(w^{\mathsf T} \phi(x_i) - y_i\big)^2 + \lambda \|w\|_2^2 .
+\]</span> From <a href="#prp-ridge-solution" class="quarto-xref">Proposition&nbsp;<span>20.1</span></a>, the optimal solution is <span class="math display">\[
+w^\ast = \big(\Phi^{\mathsf T}\Phi + \lambda I_p\big)^{-1} \Phi^{\mathsf T} y,
+\qquad
+\Phi = \begin{pmatrix} \phi(x_1)^{\mathsf T} \\ \phi(x_2)^{\mathsf T} \\ \vdots \\ \phi(x_N)^{\mathsf T} \end{pmatrix}
+\in \mathbb{R}^{n \times p} .
+\]</span> Just as before, directly computing <span class="math inline">\(\phi\)</span> and <span class="math inline">\(w^\ast\)</span> is very costly when <span class="math inline">\(p\)</span> is large. We want to apply the kernel trick, which relies on the following identity.</p>
+<section id="the-woodbury-identity" class="level3">
+<h3 class="anchored" data-anchor-id="the-woodbury-identity">The Woodbury identity</h3>
+<div id="lem-woodbury" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 20.1 (Woodbury matrix identity)</strong></span> <span class="math display">\[
+\big(\Phi^{\mathsf T}\Phi + \lambda I_p\big)^{-1} \Phi^{\mathsf T}
+= \Phi^{\mathsf T} \big(\Phi\Phi^{\mathsf T} + \lambda I_n\big)^{-1} .
+\]</span></p>
+</div>
+<!-- [flag: the source writes $\lambda I_p$ on *both* sides. Since $\Phi \in
+\mathbb{R}^{n\times p}$, we have $\Phi^{\mathsf T}\Phi \in \mathbb{R}^{p\times p}$
+(so $\lambda I_p$ is correct on the left) but $\Phi\Phi^{\mathsf T} \in
+\mathbb{R}^{n\times n}$, so the right-hand identity matrix should be $\lambda I_n$.
+Corrected here.] -->
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Take the SVD <span class="math inline">\(\Phi = U \Sigma V^{\mathsf T}\)</span> (so <span class="math inline">\(\Phi^{\mathsf T} = V \Sigma^{\mathsf T} U^{\mathsf T}\)</span>, <span class="math inline">\(\Phi^{\mathsf T}\Phi = V \Sigma^{\mathsf T}\Sigma V^{\mathsf T}\)</span>, and <span class="math inline">\(\Phi\Phi^{\mathsf T} = U \Sigma \Sigma^{\mathsf T} U^{\mathsf T}\)</span>).</p>
+<!-- [flag: the source's SVD line appears written as $\Phi = U\Sigma U^{\mathsf T}$,
+but the derivation below uses $V$ throughout, so the intended SVD is
+$\Phi = U\Sigma V^{\mathsf T}$ (a non-square $\Phi$ cannot have the form
+$U\Sigma U^{\mathsf T}$).] -->
+<p><strong>Left-hand side.</strong> Using <span class="math inline">\(U^{\mathsf T} U = I\)</span> and <span class="math inline">\(I_p = V V^{\mathsf T}\)</span>, <span class="math display">\[
+\begin{aligned}
+\text{LHS}
+&amp;= \big((V\Sigma^{\mathsf T} U^{\mathsf T})(U\Sigma V^{\mathsf T}) + \lambda I_p\big)^{-1} V\Sigma^{\mathsf T} U^{\mathsf T} \\
+&amp;= \big(V\Sigma^{\mathsf T}\Sigma V^{\mathsf T} + \lambda V V^{\mathsf T}\big)^{-1} V\Sigma^{\mathsf T} U^{\mathsf T} \\
+&amp;= \big(V(\Sigma^{\mathsf T}\Sigma + \lambda I_p) V^{\mathsf T}\big)^{-1} V\Sigma^{\mathsf T} U^{\mathsf T} \\
+&amp;= V(\Sigma^{\mathsf T}\Sigma + \lambda I_p)^{-1} V^{\mathsf T} V\Sigma^{\mathsf T} U^{\mathsf T}
+= V(\Sigma^{\mathsf T}\Sigma + \lambda I_p)^{-1}\Sigma^{\mathsf T} U^{\mathsf T} .
+\end{aligned}
+\]</span></p>
+<p><strong>Right-hand side.</strong> Using <span class="math inline">\(I_n = U U^{\mathsf T}\)</span>, <span class="math display">\[
+\begin{aligned}
+\text{RHS}
+&amp;= V\Sigma^{\mathsf T} U^{\mathsf T}\big((U\Sigma V^{\mathsf T})(V\Sigma^{\mathsf T} U^{\mathsf T}) + \lambda I_n\big)^{-1} \\
+&amp;= V\Sigma^{\mathsf T} U^{\mathsf T}\big(U\Sigma\Sigma^{\mathsf T} U^{\mathsf T} + \lambda U U^{\mathsf T}\big)^{-1} \\
+&amp;= V\Sigma^{\mathsf T} U^{\mathsf T}\big(U(\Sigma\Sigma^{\mathsf T} + \lambda I_n) U^{\mathsf T}\big)^{-1} \\
+&amp;= V\Sigma^{\mathsf T} U^{\mathsf T} U(\Sigma\Sigma^{\mathsf T} + \lambda I_n)^{-1} U^{\mathsf T}
+= V\Sigma^{\mathsf T}(\Sigma\Sigma^{\mathsf T} + \lambda I_n)^{-1} U^{\mathsf T} .
+\end{aligned}
+\]</span></p>
+<p>A detailed calculation on <span class="math inline">\(\Sigma^{\mathsf T}(\Sigma\Sigma^{\mathsf T} + \lambda I_n)^{-1}\)</span> and <span class="math inline">\((\Sigma^{\mathsf T}\Sigma + \lambda I_p)^{-1}\Sigma^{\mathsf T}\)</span> shows that both equal the same <span class="math inline">\(p \times n\)</span> “pseudo-diagonal” matrix with entries <span class="math inline">\(\dfrac{\sigma_i}{\sigma_i^2 + \lambda}\)</span>. Thus <span class="math inline">\(\text{LHS} = \text{RHS}\)</span>. <span class="math inline">\(\blacksquare\)</span></p>
+</div>
+</section>
+<section id="kernel-ridge-regression-prediction" class="level3">
+<h3 class="anchored" data-anchor-id="kernel-ridge-regression-prediction">Kernel ridge regression prediction</h3>
+<div id="thm-kernel-prediction" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 20.1 (Kernel ridge regression predictor)</strong></span> Using <a href="#lem-woodbury" class="quarto-xref">Lemma&nbsp;<span>20.1</span></a>, the prediction at a new point <span class="math inline">\(x\)</span> is <span class="math display">\[
+y = w^{\ast\mathsf T}\phi(x)
+= \phi(x)^{\mathsf T} \Phi^{\mathsf T}\big(\Phi\Phi^{\mathsf T} + \lambda I_n\big)^{-1} y
+= k_x^{\mathsf T}\big(K + \lambda I_n\big)^{-1} y ,
+\]</span> where <span class="math inline">\(K_{ij} = \phi(x_i)^{\mathsf T}\phi(x_j) = K(x_i, x_j)\)</span> is the <strong>kernel (Gram) matrix</strong>, and <span class="math inline">\(k_x = \Phi\phi(x)\)</span> has entries <span class="math inline">\((k_x)_i = \phi(x_i)^{\mathsf T}\phi(x) = K(x_i, x)\)</span>.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Expanding the products directly, <span class="math display">\[
+\Phi\Phi^{\mathsf T}
+= \begin{pmatrix} \phi(x_1)^{\mathsf T} \\ \vdots \\ \phi(x_n)^{\mathsf T} \end{pmatrix}
+\big(\phi(x_1), \ \dots, \ \phi(x_n)\big)
+= \begin{pmatrix}
+\phi(x_1)^{\mathsf T}\phi(x_1) &amp; \phi(x_1)^{\mathsf T}\phi(x_2) &amp; \cdots \\
+\vdots &amp; \ddots &amp; \\
+\end{pmatrix}
+= \big(K(x_i, x_j)\big) = K ,
+\]</span> and <span class="math display">\[
+\Phi\phi(x)
+= \begin{pmatrix} \phi(x_1)^{\mathsf T} \\ \vdots \\ \phi(x_n)^{\mathsf T} \end{pmatrix} \phi(x)
+= \begin{pmatrix} \phi(x_1)^{\mathsf T}\phi(x) \\ \vdots \\ \phi(x_n)^{\mathsf T}\phi(x) \end{pmatrix}
+= \begin{pmatrix} K(x_1, x) \\ \vdots \\ K(x_n, x) \end{pmatrix} = k_x . \qquad\blacksquare
+\]</span></p>
+</div>
+</section>
+<section id="computational-cost" class="level3">
+<h3 class="anchored" data-anchor-id="computational-cost">Computational cost</h3>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Cost of kernel ridge regression
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Using the kernel trick, the cost breaks down as:</p>
+<ul>
+<li><strong>Precompute</strong> <span class="math inline">\(K \in \mathbb{R}^{n \times n}\)</span> — cost <span class="math inline">\(O(n^2)\)</span> kernel evaluations.</li>
+<li><strong>Precompute</strong> <span class="math inline">\((K + \lambda I_n)^{-1} y\)</span> — cost <span class="math inline">\(O(n^3)\)</span> flops and <span class="math inline">\(O(n)\)</span> storage. <!-- [note: the $n\times n$ factorization/inverse itself needs $O(n^2)$ storage;
+  the $O(n)$ figure refers to storing the resulting vector $\alpha = (K+\lambda I_n)^{-1}y \in \mathbb{R}^n$.] --></li>
+<li><strong>Compute</strong> <span class="math inline">\(k_x\)</span> — cost <span class="math inline">\(O(n)\)</span> kernel evaluations.</li>
+<li><strong>Compute</strong> <span class="math inline">\(k_x^{\mathsf T}(K + \lambda I_n)^{-1} y\)</span> — cost <span class="math inline">\(O(n)\)</span> flops.</li>
+</ul>
+</div>
+</div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -784,13 +1049,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../numerical-optimization/gradDescent.html" class="pagination-link" aria-label="Gradient Descent Methods">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Gradient Descent Methods</span></span>
+      <a href="../ml-ds/classification.html" class="pagination-link" aria-label="Classification">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Classification</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../numerical-optimization/quasiNewton.html" class="pagination-link" aria-label="Quasi Newton Methods">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quasi Newton Methods</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../reg-anly/slrInference.html" class="pagination-link" aria-label="Statistical Inference of Simple Linear Regression">
+        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Statistical Inference of Simple Linear Regression</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

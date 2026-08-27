@@ -1,0 +1,275 @@
+# Recap on Probability
+
+## Concentration Inequalities
+
+The guiding theme: a sample average concentrates around its expectation, i.e.
+
+$$
+\Big|\,\tfrac{1}{n}\sum_{i} X_i - \mathbb{E}\big[\tfrac{1}{n}\sum_{i=1}^{n} X_i\big]\,\Big|
+\quad \text{is small, guaranteed with high probability.}
+$$
+
+## Markov's Inequality
+
+::: {#thm-markov}
+## Markov's inequality
+
+Let $X$ be a non-negative random variable. Then for all $a > 0$,
+$$
+P(X \ge a) \le \frac{\mathbb{E}[X]}{a}.
+$$
+:::
+
+::: {.remark}
+The probability of $X$ being "too large", $P(X \ge a)$, is bounded.
+<!-- [the manuscript has a sketch here of a density with its mean $\mathbb{E}(X)$
+marked and the upper tail $P(X \ge a)$ shaded; figure not reproduced.] -->
+:::
+
+::: {.proof}
+If $X$ is a continuous R.V. with pdf $f_X(x)$, then
+$$
+\mathbb{E}(X) = \int_0^{+\infty} x\, f_X(x)\,dx
+= \int_0^{a} x\, f_X(x)\,dx + \int_a^{\infty} x\, f_X(x)\,dx
+\ge \int_a^{\infty} x\, f_X(x)\,dx
+\ge a \int_a^{\infty} f_X(x)\,dx
+= a\, P(X \ge a).
+$$
+:::
+
+::: {.remark}
+- $+$ : almost always works ($X$ non-negative).
+- $-$ : the bound is weak (not precise).
+
+**Power trick $\to$ sharper bound:**
+$$
+P(X^r \ge a^r) \le \frac{\mathbb{E}(X^r)}{a^r}
+\qquad (\text{assuming the } r\text{-th moment } \mathbb{E}(X^r) \text{ exists}).
+$$
+:::
+
+## Chebyshev's Inequality
+
+::: {#thm-chebyshev}
+## Chebyshev's inequality
+
+Let $X$ be a random variable. Then for all $c > 0$,
+$$
+P\big(|X - \mathbb{E}(X)| \ge c\big) \le \frac{\operatorname{Var}(X)}{c^2}.
+$$
+:::
+
+::: {.proof}
+Apply the power trick of Markov's inequality:
+$$
+P\big(|X - \mathbb{E}(X)| \ge c\big)
+= P\big(|X - \mathbb{E}(X)|^2 \ge c^2\big)
+\le \frac{\mathbb{E}\big[(X - \mathbb{E}(X))^2\big]}{c^2}
+= \frac{\operatorname{Var}(X)}{c^2}.
+$$
+:::
+
+## Master Tail Bound
+
+::: {#thm-master-tail}
+## Master tail bound
+
+Let $X = X_1 + X_2 + \cdots + X_n$, where $X_1, \dots, X_n$ are i.i.d. and
+
+- $\mathbb{E}(X_i) = 0$,
+- $\mathbb{E}(X_i^2) \le \sigma^2$,
+- $\big|\mathbb{E}(X_i^s)\big| \le \sigma^2\, s!$ for $s = 3, 4, \dots, \big\lfloor \tfrac{a^2}{4n\sigma^2}\big\rfloor$.
+
+Then, for $0 \le a \le \sqrt{2}\, n\sigma^2$,
+$$
+P(|X| \ge a) \le 3\, e^{-\frac{a^2}{12 n \sigma^2}}.
+$$
+:::
+
+<!-- [unclear: on this page the moment bound was written with an ambiguous
+exponent on $\sigma$ (looked like $\sigma^s s!$); transcribed as $\sigma^2 s!$
+to match step (3) of the proof sketch below, where $\mathbb{E}(X_i^{r_i}) \le
+r_i!\,\sigma^2$, and the standard statement of this bound.] -->
+
+::: {.proof}
+**(Sketch — the full proof is deferred to an appendix.)**
+
+**(1)** Choose $r$ an even integer such that $0 < r \le s$. Then
+$$
+P(|X| \ge a) = P(X^r \ge a^r) \le \frac{\mathbb{E}(X^r)}{a^r}.
+$$
+
+**(2)** By the multinomial theorem and independence,
+$$
+\mathbb{E}(X^r) = \mathbb{E}\Big[(X_1 + \cdots + X_n)^r\Big]
+= \sum_{\substack{r_1 + \cdots + r_n = r \\ r_i \ge 0}} \frac{r!}{r_1!\, r_2! \cdots r_n!}\, \mathbb{E}\big(X_1^{r_1} \cdots X_n^{r_n}\big)
+= \sum_{\substack{r_1 + \cdots + r_n = r \\ r_i \ge 0}} \frac{r!}{r_1! \cdots r_n!}\, \prod_i \mathbb{E}\big(X_i^{r_i}\big).
+$$
+
+**(3)** Since $\mathbb{E}(X_i) = 0$, $\mathbb{E}(X_i^2) \le \sigma^2 \le 2\sigma^2$, and $\mathbb{E}(X_i^{r_i}) \le r_i!\, \sigma^2$, any term with some $r_i = 1$ vanishes, so the sum is restricted to indices with $r_i = 0$ or $r_i \ge 2$. Let $t = \#\{i : r_i \neq 0\}$; then
+$$
+1 \le t \le \tfrac{r}{2} \qquad (\text{each non-zero } r_i \text{ is at least } 2).
+$$
+
+**(4)** Enumerate the multi-indices by $t$: for a fixed $t$ there are $\binom{n}{t}$ ways to choose which $r_i$ are non-zero, and (after that choice) $\binom{r-t-1}{t-1}$ ways to distribute the remaining mass.
+<!-- [unclear: the second binomial coefficient's indices were hard to read;
+transcribed as $\binom{r-t-1}{t-1}$ from "$C^{t-1}_{r-2t+t-1}$". The
+accompanying "balls into bins" argument — give each of the $t$ non-zero
+$r_i$ two units first, then distribute the remaining $r-2t$ arbitrarily via an
+insertion/stars-and-bars count — is legible; the exact index bookkeeping is
+not fully.] -->
+
+**(5)** Hence, with $\sigma^{2t}$ from the moment bounds,
+$$
+\mathbb{E}(X^r) \le r! \sum_{t=1}^{r/2} \binom{n}{t}\binom{r-t-1}{t-1} \sigma^{2t},
+\qquad \text{using } \binom{n}{t} \le \frac{n^t}{t!}, \quad \binom{r-t-1}{t-1} \le 2^{\,r-t-1}.
+$$
+
+**(6)** This leads to
+$$
+\mathbb{E}(X^r) \le \Big(\frac{2\, r\, n\, \sigma^2}{a^2}\Big)^{r/2} =: g(r),
+$$
+<!-- [unclear: the intermediate bounding of $r!\sum_t h(t)$ (a term-ratio
+argument $h(t)/h(t+1) \ge 2$, and the range constraints $r \le s \le \lfloor
+a^2/(4n\sigma^2)\rfloor$, $a \le \sqrt{2}n\sigma^2$) was written densely and
+is only partially legible; the resulting bound $g(r)$ is legible.] -->
+and $g(r)$ decreases while $r - 1 \le \tfrac{a^2}{4n\sigma^2}$. Choosing $r$ to be the largest even integer with $r \le \tfrac{a^2}{6 n \sigma^2}$ gives
+$$
+P(|X| \ge a) \le \big(\tfrac{1}{3}\big)^{r/2} \le e^{-r/2} \le e \cdot e^{-\frac{a^2}{12 n \sigma^2}} \le 3\, e^{-\frac{a^2}{12 n \sigma^2}}.
+$$
+:::
+
+::: {.remark}
+The master tail bound is a general probability tail bound for a sum of i.i.d. random variables that gives tighter concentration than the CLT. Tail bounds for various distributions can be derived from it.
+:::
+
+## Chernoff Bound
+
+::: {#exm-chernoff}
+## Chernoff bound (i.i.d. Bernoulli)
+
+Let $Y_1, \dots, Y_n \overset{\text{iid}}{\sim} \mathrm{Bernoulli}(p)$, i.e. $Y_i = \begin{cases} 1, & p \\ 0, & 1-p \end{cases}$, and let $Y = Y_1 + \cdots + Y_n$. Then for all $c \in [0,1]$,
+$$
+P\Big[\,\big|\tfrac{Y}{n} - p\big| \ge \sqrt{2}\, c\, p(1-p)\,\Big] \le 3\, e^{-\frac{n\, c^2\, p(1-p)}{6}}.
+$$
+:::
+
+::: {.proof}
+Apply the master tail bound to $X_i = Y_i - p$, so $\mathbb{E}(X_i) = 0$ and
+$$
+\mathbb{E}(X_i^2) = \mathbb{E}\big((Y_i - p)^2\big) = \mathbb{E}(Y_i^2) + p^2 - 2p\,\mathbb{E}(Y_i) = \mathbb{E}(Y_i^2) - \mathbb{E}(Y_i)^2 = \operatorname{Var}(Y_i),
+$$
+$$
+\big|\mathbb{E}(X_i^s)\big| = \big|\, p(1-p)^s + (1-p)(-p)^s \,\big| \le p(1-p) = \operatorname{Var}(Y_i).
+$$
+<!-- [unclear: the manuscript writes the last line with "=" rather than
+"$\le$" ($|\mathbb{E}(X_i^s)| = p(1-p)$); as a bound on the $s$-th moment this
+should read $\le$. Left flagged.] -->
+The Chernoff bound is then obtained directly from the master tail bound with $a = n\sqrt{2}\, c\, p(1-p)$.
+<!-- [the exponent numerator $n c^2 p(1-p)$ was hard to read, but is consistent
+with substituting $a = n\sqrt{2}\,c\,p(1-p)$ and $\sigma^2 = p(1-p)$ into
+$a^2/(12 n \sigma^2)$.] -->
+:::
+
+## Concentration via the Moment Generating Function
+
+Instead of applying Markov's inequality to $|X|^r$, apply it to $e^{\lambda X}$:
+$$
+P(X \ge t) = P\big(e^{\lambda X} \ge e^{\lambda t}\big) \le \frac{\mathbb{E}[e^{\lambda X}]}{e^{\lambda t}}, \qquad \forall\, \lambda > 0
+\;\;\Longrightarrow\;\;
+P(X \ge t) \le \inf_{\lambda > 0} e^{-\lambda t}\, \mathbb{E}[e^{\lambda X}],
+$$
+noting that $\mathbb{E}[e^{\lambda X}]$ is the moment generating function (MGF).
+
+::: {#thm-gaussian-tail}
+## Tail bound for a Gaussian
+
+For $X \sim N(0, \sigma^2)$, $\mathbb{E}(e^{\lambda X}) = e^{\frac{1}{2}\sigma^2 \lambda^2}$, hence
+$$
+P(X \ge t) \le \inf_{\lambda > 0} e^{-\lambda t}\, e^{\frac{1}{2}\sigma^2 \lambda^2} = e^{-\frac{t^2}{2\sigma^2}}.
+$$
+:::
+
+## Hoeffding's Inequality
+
+::: {#thm-hoeffding}
+## Hoeffding's theorem
+
+Let $X_i$ be independent random variables with $X_i \in [a_i, b_i]$ almost surely, and let $Y = \sum_i X_i$. Then for all $t \ge 0$,
+$$
+P\big(|Y - \mathbb{E}(Y)| \ge t\big) \le 2\, e^{-\frac{2 t^2}{\sum_i (b_i - a_i)^2}}.
+$$
+:::
+
+::: {#lem-hoeffding}
+## Hoeffding's lemma
+
+If $X$ is a bounded random variable with $X \in [a, b]$ almost surely, then
+$$
+\mathbb{E}\big(e^{\lambda(X - \mathbb{E}(X))}\big) \le e^{\frac{1}{2}\left(\frac{b-a}{2}\right)^2 \lambda^2} = e^{\frac{\lambda^2 (b-a)^2}{8}}.
+$$
+:::
+
+::: {.proof}
+**Hoeffding's theorem.** Use the Markov tail bound for the exponential:
+$$
+P\Big(\sum_i X_i - \mathbb{E}(X_i) \ge t\Big) \le e^{-\lambda t}\, \mathbb{E}\Big(e^{\lambda\left(\sum_i X_i - \mathbb{E}(X_i)\right)}\Big)
+= e^{-\lambda t} \prod_i \mathbb{E}\big(e^{\lambda(X_i - \mathbb{E}(X_i))}\big).
+$$
+By Hoeffding's lemma (@lem-hoeffding), $\mathbb{E}\big(e^{\lambda(X_i - \mathbb{E}(X_i))}\big) \le e^{\frac{1}{2}\frac{(b_i - a_i)^2}{4}\lambda^2}$, and minimizing the resulting exponent over $\lambda$ gives
+$$
+P\Big(\sum_i X_i - \mathbb{E}(X_i) \ge t\Big) \le e^{-\frac{2 t^2}{\sum_i (b_i - a_i)^2}}.
+$$
+The same argument applied to $-X_i$ shows $P\big(\sum_i X_i - \mathbb{E}(X_i) \le -t\big)$ obeys the same bound, so
+$$
+P\Big(\big|\textstyle\sum_i X_i - \mathbb{E}(X_i)\big| \ge t\Big) \le 2\, e^{-\frac{2 t^2}{\sum_i (b_i - a_i)^2}}.
+$$
+:::
+
+## $\chi^2$ Tail Bound
+
+::: {#thm-chi2-tail}
+## $\chi^2$ tail bound
+
+Let $Z_i \overset{\text{iid}}{\sim} N(0,1)$ and $X = \sum_i Z_i^2 \sim \chi^2(n)$, so $\mathbb{E}(X) = n$. Then for all $t \ge 0$,
+$$
+P\big(|X - \mathbb{E}(X)| \ge t\big) \le 2\exp\!\Big[-c \min\big(t, \tfrac{t^2}{n}\big)\Big].
+$$
+:::
+
+::: {.proof}
+Upper tail: with $\lambda \in (0, \tfrac12)$,
+$$
+P\big(X - \mathbb{E}(X) \ge t\big) \le e^{-\lambda t}\, e^{-n\lambda}\, \mathbb{E}\big(e^{\lambda \sum_i Z_i^2}\big)
+= e^{-\lambda t}\, e^{-n\lambda} \prod_i \mathbb{E}\big(e^{\lambda Z_i^2}\big),
+$$
+where $\mathbb{E}(e^{\lambda Z_i^2})$ is the MGF of $\chi^2(1)$, equal to $(1 - 2\lambda)^{-1/2}$. Thus
+$$
+P\big(X - \mathbb{E}(X) \ge t\big) \le e^{-\lambda t}\big(1 - 2\lambda\big)^{-n/2} e^{-n\lambda}
+= e^{-\lambda t}\Big(\underbrace{e^{-\lambda}(1 - 2\lambda)^{-1/2}}\Big)^{n}
+\le e^{-\lambda t + 2 n \lambda^2}, \qquad \forall\, \lambda \in (0, \tfrac14),
+$$
+<!-- [unclear: the justification for $e^{-\lambda}(1-2\lambda)^{-1/2} \le
+e^{2\lambda^2}$ on $\lambda\in(0,1/4)$ was written in the margin and is only
+partially legible.] -->
+so that
+$$
+\min_{\lambda \in (0, 1/4)} e^{-\lambda t + 2 n \lambda^2} = \exp\!\Big(-c \min\big(t, \tfrac{t^2}{n}\big)\Big)
+\;\Longrightarrow\;
+P\big(X - \mathbb{E}(X) \ge t\big) \le \exp\!\Big(-c \min\big(t, \tfrac{t^2}{n}\big)\Big).
+$$
+Lower tail: similarly,
+$$
+P\big(X - n \le -t\big) = P\big(-(X - n) \ge t\big) \le e^{-\lambda t}\, e^{n\lambda}\, \mathbb{E}\big(e^{-\lambda X}\big)
+= e^{-\lambda t}\, e^{n\lambda}(1 + 2\lambda)^{-n/2}
+\le e^{-\lambda t}\, e^{n \lambda^2}, \quad \forall\, \lambda > 0,
+$$
+which gives $P(X - n \le -t) \le e^{-\frac{t^2}{4n}}$.
+<!-- [unclear: the lower-tail algebra (the step to $e^{-\lambda t + n\lambda^2}$
+and the final exponent $\tfrac{t^2}{4n}$) was compressed and partly illegible;
+transcribed as read.] -->
+Combining the two tails,
+$$
+P\big(|X - \mathbb{E}(X)| \ge t\big) \le 2\exp\!\Big(-c \min\big(t, \tfrac{t^2}{n}\big)\Big).
+$$
+:::

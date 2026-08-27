@@ -1,0 +1,598 @@
+# Classification
+
+Given labelled training data, the goal of a **classification** problem is to
+predict a discrete label for each new (test) data point. This chapter develops
+the **support vector machine (SVM)** for binary classification, the Lagrangian
+**duality** theory behind its kernelized (dual) form, the **soft-margin**
+extension for non-separable data, and finally the reduction of **multi-class**
+classification to a collection of binary problems.
+
+## Support Vector Machine for Binary Classification
+
+### The binary classification problem
+
+- **Train data:** $(\vec{x}_1, y_1), (\vec{x}_2, y_2), \dots, (\vec{x}_n, y_n)$
+  where $\vec{x}_i \in \mathbb{R}^d$ and $y_i \in \{1, -1\}$.
+- **Test data:** $\vec{x}_1, \vec{x}_2, \dots \in \mathbb{R}^d$.
+- **Goal:** predict a label $1$ or $-1$ for each $\vec{x}_i$.
+
+### Linearly separable data
+
+A binary problem is **linearly separable** if there exists an affine hyperplane
+$\langle w, x\rangle - b$ that separates the data, i.e.
+$$
+\exists\, w \in \mathbb{R}^d,\ b \in \mathbb{R}, \quad\text{s.t.}\quad
+\operatorname{sign}\!\big(\langle w, x_i\rangle - b\big) = y_i,
+\qquad \forall\, i = 1, 2, \dots, n .
+$$
+
+For a linearly separable problem there could be **multiple** choices of $w$ and
+$b$. A good choice for better generalization is to choose a plane that
+**maximizes the margin**.
+
+### Maximizing the margin
+
+For linearly separable data, a separating plane $\langle w, x\rangle - b = 0$
+satisfies
+$$
+\begin{cases}
+\langle w, x_i\rangle - b \ge 0, & y_i = 1, \\
+\langle w, x_i\rangle - b \le 0, & y_i = -1 .
+\end{cases}
+$$
+We may push the plane out on both sides until it touches the boundary of each
+class, giving the two **supporting hyperplanes**
+$$
+\langle w, x\rangle - b = 1
+\qquad\text{and}\qquad
+\langle w, x\rangle - b = -1,
+\qquad\text{s.t.}\qquad
+\begin{cases}
+\langle w, x_i\rangle - b \ge 1, & y_i = 1, \\
+\langle w, x_i\rangle - b \le -1, & y_i = -1 .
+\end{cases}
+$$
+The perpendicular distance between these two hyperplanes — the **margin** — is
+$$
+\frac{2}{\|w\|_2} .
+$$
+
+<!-- [note: the notes derive this distance by minimizing $\|y-x\|_2^2$ over
+$x$ on a hyperplane $\langle w,x\rangle - b = c$ via a Lagrange penalty, giving
+the signed point-to-plane distance $d = \dfrac{|\langle w,x\rangle - b|}{\|w\|_2}$;
+summing the two sides gives $d = d_1 + d_2 = \tfrac{2}{\|w\|_2}$. The intermediate
+algebra in the source is partly illegible and is not reproduced here.] -->
+
+```{python}
+#| label: fig-svm-margin
+#| fig-cap: 'Maximum-margin separating hyperplane. The solid line is the decision boundary $\langle w,x\rangle - b = 0$; the two dashed lines are the supporting hyperplanes $\langle w,x\rangle - b = \pm 1$; the circled points are the support vectors that lie on them. The margin (green) has width $2/\|w\|_2$.'
+#| out-width: 70%
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
+
+BLUE, RED, GREEN = "#1f77b4", "#d62728", "#2ca02c"
+fig, ax = plt.subplots(figsize=(6, 6))
+
+# decision boundary (solid) and the two supporting hyperplanes (dashed)
+xs = np.array([-2.0, 12.0])
+ax.plot(xs, 10.0 - xs, color="black", lw=2.2)
+ax.plot(xs, 13.2 - xs, color="black", lw=1.4, ls="--")
+ax.plot(xs, 6.8 - xs, color="black", lw=1.4, ls="--")
+
+blue_pts = np.array([[6.6, 6.6], [6.9, 8.0], [8.2, 8.4],
+                     [8.6, 7.0], [7.5, 7.2], [9.0, 7.6]])
+red_pts = np.array([[3.4, 3.4], [1.8, 3.6], [1.4, 2.6],
+                    [2.9, 1.9], [3.7, 1.4], [1.1, 4.0]])
+ax.scatter(blue_pts[:, 0], blue_pts[:, 1], marker="o", s=90,
+           facecolor=BLUE, edgecolor="black", zorder=3)
+ax.scatter(red_pts[:, 0], red_pts[:, 1], marker="s", s=90,
+           facecolor=RED, edgecolor="black", zorder=3)
+
+# circled support vectors (one per class), lying on the dashed margins
+sv_blue, sv_red = np.array([6.6, 6.6]), np.array([3.4, 3.4])
+ax.scatter(*sv_blue, s=320, facecolor="none", edgecolor=BLUE, lw=2.2, zorder=4)
+ax.scatter(*sv_red, s=320, facecolor="none", edgecolor=RED, lw=2.2, zorder=4)
+
+# margin arrow (width 2/||w||) between the two support vectors
+ax.annotate("", xy=sv_blue, xytext=sv_red,
+            arrowprops=dict(arrowstyle="<|-|>", color=GREEN, lw=2.2))
+ax.text(5.9, 4.9, r"$\dfrac{2}{\|w\|_2}$", color=GREEN, fontsize=17)
+
+handles = [
+    Line2D([0], [0], color="black", lw=2.2, label=r"$\langle w,x\rangle-b=0$"),
+    Line2D([0], [0], color="black", lw=1.4, ls="--", label=r"$\langle w,x\rangle-b=\pm1$"),
+    Line2D([0], [0], marker="o", color="none", markerfacecolor=BLUE,
+           markeredgecolor="black", markersize=10, label=r"$y_i=+1$"),
+    Line2D([0], [0], marker="s", color="none", markerfacecolor=RED,
+           markeredgecolor="black", markersize=10, label=r"$y_i=-1$"),
+]
+ax.legend(handles=handles, loc="lower right", fontsize=11, framealpha=0.95)
+
+ax.set_xlim(0, 10); ax.set_ylim(0, 10)
+ax.set_xticks([]); ax.set_yticks([])
+ax.set_aspect("equal")
+fig.tight_layout()
+plt.show()
+```
+
+We wish to **maximize** this distance, so the classification objective is
+$$
+\max_{w \in \mathbb{R}^d,\; b \in \mathbb{R}} \ \frac{2}{\|w\|_2}
+\qquad\text{s.t.}\qquad
+\begin{cases}
+w^{\mathsf T} x_i - b \ge 1, & \text{if } y_i = 1, \\
+w^{\mathsf T} x_i - b \le -1, & \text{if } y_i = -1 .
+\end{cases}
+$$
+
+Maximizing $2/\|w\|_2$ is the same as minimizing $\tfrac12\|w\|_2^2$, and the two
+constraints combine into the single condition $y_i(\langle w, x_i\rangle - b)\ge 1$.
+
+::: {#def-svm-primal}
+## Primal form of SVM
+
+$$
+\min_{w,\,b} \ \tfrac12 \|w\|_2^2
+\qquad\text{s.t.}\qquad
+y_i\big(w^{\mathsf T} x_i - b\big) \ge 1,
+\qquad \forall\, i = 1, \dots, n .
+$$
+:::
+
+<!-- [note: the source writes the constraint once as $y_i(w^{\mathsf T}x_i + b)\ge 1$
+and elsewhere as $\langle w,x_i\rangle - b$; the sign of the offset $b$ is a
+convention and is transcribed here with $-b$ to match the rest of the notes.] -->
+
+::: {.remark}
+- The constraint condition is equivalent to the two-sided condition above.
+- This problem can be solved by constrained optimization methods.
+:::
+
+## Duality of Constrained Optimization
+
+To introduce non-linearity into the SVM one uses the **kernel trick**. This
+requires the **dual** form of the SVM, so we first review the duality of a
+general constrained optimization problem.
+
+### The Lagrangian and the dual function
+
+Consider the constrained optimization problem
+$$
+\min_x \ f(x)
+\qquad\text{s.t.}\qquad
+\begin{cases}
+f_i(x) \le 0, & i = 1, \dots, m, \\
+h_i(x) = 0, & i = 1, \dots, p .
+\end{cases}
+$$
+As in Lagrangian penalty methods, construct the **Lagrangian**
+$L : D \times \mathbb{R}^m \times \mathbb{R}^p \to \mathbb{R}$, where $D$ is the
+joint domain of the constraints:
+$$
+L(x, \lambda, v) = f(x) + \sum_{i} \lambda_i f_i(x) + \sum_i v_i h_i(x) .
+$$
+
+::: {#def-dual-function}
+## Lagrange dual function
+
+The function $g : \mathbb{R}^m \times \mathbb{R}^p \to \mathbb{R}$ defined by
+$$
+g(\lambda, v) := \min_{x \in D} L(x, \lambda, v)
+$$
+is called the **Lagrange dual function**. When $L$ is unbounded below,
+$g \to -\infty$.
+:::
+
+### The primal value as a min–max
+
+::: {.remark}
+- The optimal value $p^\ast$ of the original problem is an **upper bound** of the
+  dual function: $g(\lambda, v) \le p^\ast$ for all $\lambda \ge 0, v$.
+- The optimal value can be expressed as
+  $$
+  p^\ast = \min_x \ \max_{\lambda \ge 0,\, v} \ L(x, \lambda, v).
+  $$
+:::
+
+The second point is valid through the following argument. Observe that
+$$
+\sup_{\lambda \ge 0,\, v} L(x, \lambda, v) =
+\begin{cases}
+f_0(x), & x \in D, \\
+\infty, & \text{otherwise}.
+\end{cases}
+$$
+Indeed, if $x \notin D$ then there exists $i$ with $f_i(x) > 0$ or $i$ with
+$h_i(x) \ne 0$; either case lets us choose a proper $\lambda_i$ or $v_i$ so that
+$L \to \infty$. Thus
+$$
+\min_x \ \max_{\lambda,\, v} L = \min_{x \in D} f_0(x) = p^\ast .
+$$
+
+### The min–max inequality
+
+::: {#thm-minmax}
+## Min–max inequality
+
+Let $f : W \times Z \to \mathbb{R}$ with $W \subseteq \mathbb{R}^n$ and
+$Z \subseteq \mathbb{R}^m$. Then
+$$
+\min_{w \in W} \ \max_{z \in Z} f(w, z) \ \ge\ \max_{z \in Z} \ \min_{w \in W} f(w, z) .
+$$
+:::
+
+::: {.proof}
+Let $w^0 \in W$. Then
+$$
+\max_{z \in Z} f(w^0, z) \ge f(w^0, z), \qquad \forall\, z \in Z .
+$$
+Next let $z^0 \in Z$. Then
+$$
+\min_{w \in W} f(w, z^0) \le f(w', z^0), \qquad \forall\, w' \in W .
+$$
+Combining,
+$$
+\min_{w \in W} f(w, z^0) \le f(w^0, z^0) \le \max_{z \in Z} f(w^0, z) .
+$$
+Let $h(z) = \min_{w \in W} f(w, z)$ and $g(w) = \max_{z \in Z} f(w, z)$. Then
+$$
+g(w) \ge h(z), \qquad \forall\, w \in W,\ z \in Z ,
+$$
+so $g(w) \ge \max_{z \in Z} h(z)$ for all $w \in W$, and therefore
+$$
+\min_{w \in W} g(w) \ge \max_{z \in Z} h(z)
+\quad\Longrightarrow\quad
+\min_{w \in W} \max_{z \in Z} f(w, z) \ge \max_{z \in Z} \min_{w \in W} f(w, z) . \qquad\blacksquare
+$$
+:::
+
+Applying this inequality to the primal problem yields the Lagrange dual problem.
+
+### The Lagrange dual problem
+
+::: {#def-dual-problem}
+## Dual problem
+
+Let $L$ be the Lagrangian of the primal problem. The corresponding **dual
+problem** is
+$$
+\max_{\lambda \ge 0,\, v} \ g(\lambda, v) .
+$$
+:::
+
+::: {.remark}
+From @thm-minmax, the primal and dual are related by
+$$
+p^\ast = \min_x \ \max_{\lambda \ge 0,\, v} L(x, \lambda, v)
+\ \ge\
+\max_{\lambda \ge 0,\, v} \ \min_x L(x, \lambda, v) = d^\ast ,
+$$
+so the dual optimum $d^\ast$ bounds the primal optimum $p^\ast$ from below.
+:::
+
+<!-- [flag: the source states "the optimal of the dual problem is the upper bound
+of primal problem." Since $d^\ast \le p^\ast$, the dual optimum $d^\ast$ is a
+*lower* bound of the primal optimum $p^\ast$ (equivalently, $p^\ast$ is the upper
+bound of $d^\ast$). Transcribed above in the corrected direction; the original
+wording appears reversed.] -->
+
+**Weak duality and duality gap.** When $d^\ast < p^\ast$, we have **weak
+duality**, and $p^\ast - d^\ast$ is called the **duality gap**.
+
+**Strong duality and Slater's condition.** When $d^\ast = p^\ast$ holds, we have
+**strong duality**. A specific condition that must hold for strong duality is
+called a **constraint qualification**; one simple example is Slater's condition.
+
+::: {#prp-slater}
+## Slater's condition
+
+For the primal problem
+$$
+\min_x \ f_0(x)
+\qquad\text{s.t.}\qquad
+\begin{cases}
+f_i(x) \le 0, & i = 1, \dots, m, \\
+A x = b,
+\end{cases}
+$$
+Slater's condition holds if
+
+- $f_0, f_1, \dots, f_m$ are convex, and
+- there exists $x \in D$ such that $f_i(x) < 0$ for $i = 1, \dots, m$ and $Ax = b$.
+:::
+
+## Kernel SVM: The Dual Form
+
+Back to the SVM objective: it is not hard to see that the primal SVM satisfies
+Slater's condition. Thus we can find the dual form of the SVM using the
+Lagrangian
+$$
+L = \tfrac12 \|w\|_2^2 + \sum_i \lambda_i\Big(-\big(\langle w, x_i\rangle - b\big) y_i + 1\Big) .
+$$
+
+We first find $\min_{w \in \mathbb{R}^d,\, b \in \mathbb{R}} L$ for the Lagrange
+dual function. Setting the derivatives to zero,
+$$
+\begin{cases}
+\dfrac{\partial L}{\partial w_i} = w_i - \displaystyle\sum_j \lambda_j x_j^{\,i} y_j = 0, \\[2mm]
+\dfrac{\partial L}{\partial b} = \displaystyle\sum_i y_i \lambda_i = 0,
+\end{cases}
+\qquad\Longrightarrow\qquad
+\begin{cases}
+w^\ast = \tfrac12 \displaystyle\sum_i y_i \lambda_i x_i, \\[2mm]
+\displaystyle\sum_i y_i \lambda_i = 0 .
+\end{cases}
+$$
+
+<!-- [flag: the standard SVM stationarity condition is
+$\partial L/\partial w = w - \sum_i \lambda_i y_i x_i = 0$, giving
+$w^\ast = \sum_i \lambda_i y_i x_i$ (no factor $\tfrac12$). The source carries an
+extra $\tfrac12$ here, which then propagates into the $\tfrac18$ and $-\tfrac14$
+coefficients below. With the standard $w^\ast = \sum_i \lambda_i y_i x_i$ the dual
+quadratic coefficient would be $-\tfrac12$ instead of $-\tfrac14$. Transcribed as
+written in the source.] -->
+
+Substituting back,
+$$
+\min_{w,\,b} L =
+\begin{cases}
+\tfrac12 \|w^\ast\|_2^2 + \displaystyle\sum_i \lambda_i\Big(-\big(\langle w^\ast, x_i\rangle - b\big) y_i + 1\Big), & \sum_i y_i \lambda_i = 0, \\
+-\infty, & \sum_i y_i \lambda_i \ne 0 .
+\end{cases}
+$$
+(If $\sum_i y_i \lambda_i \ne 0$, the term $-b \sum_i \lambda_i y_i$ can be driven
+to $\to -\infty$.) The two pieces evaluate to
+$$
+\tfrac12 \|w^\ast\|_2^2 = \tfrac12 \langle w^\ast, w^\ast\rangle
+= \tfrac18 \sum_{i,j} y_i y_j \lambda_i \lambda_j \langle x_i, x_j\rangle,
+$$
+$$
+\sum_i \lambda_i\Big(-\big(\langle w^\ast, x_i\rangle - b\big) y_i + 1\Big)
+= -\sum_i \lambda_i \langle w^\ast, x_i\rangle y_i + \sum_i \lambda_i
+= -\tfrac12 \sum_{i,j} \lambda_i \lambda_j y_i y_j \langle x_i, x_j\rangle + \sum_i \lambda_i .
+$$
+Therefore
+$$
+\min_{w,\,b} L =
+\begin{cases}
+-\tfrac14 \displaystyle\sum_{i,j} \lambda_i \lambda_j y_i y_j \langle x_i, x_j\rangle + \sum_i \lambda_i, & \sum_i y_i \lambda_i = 0, \\
+-\infty, & \sum_i y_i \lambda_i \ne 0 .
+\end{cases}
+$$
+
+::: {#def-svm-dual}
+## Dual form of SVM
+
+$$
+\max_{\lambda \ge 0} \ -\tfrac14 \sum_{i,j} \lambda_i \lambda_j y_i y_j \langle x_i, x_j\rangle + \sum_i \lambda_i
+\qquad\text{s.t.}\qquad
+\sum_i y_i \lambda_i = 0 .
+$$
+:::
+
+::: {.remark}
+In the dual form, $x_i$ appears only as an **inner product** $\langle x_i, x_j\rangle$,
+and can be replaced with a **kernel function** — this is the kernel trick.
+:::
+
+## Soft Margin for Non-separable Data
+
+In many cases the data are not (strictly) linearly separable. The solution is to
+introduce a **"soft" margin** that allows misclassification. The constraints are
+modified to
+$$
+y_i\big(\langle w, x_i\rangle - b\big) \ge 1 - \xi_i .
+$$
+
+::: {.remark}
+- Instead of the **hard** constraint that all data of a class lie on one side of
+  the hyperplane, soft margins allow a set of hyperplanes that permit some
+  violations.
+- We would hope the slack variables $\xi_i$ are not too large.
+:::
+
+### Primal problem with soft margin
+
+$$
+\min_{w,\,b,\,\xi} \ \tfrac12 \|w\|_2^2 + C \sum_i \xi_i
+\qquad\text{s.t.}\qquad
+y_i\big(\langle w, x_i\rangle - b\big) \ge 1 - \xi_i, \quad \xi_i \ge 0 .
+$$
+
+<!-- [note: the source writes an equivalent reparametrized form
+$\min_{w,b,\xi}\ \tfrac12\|w\|_2^2 + \tfrac{1}{?}\sum_j \xi_j$ with the same
+constraints; the leading constant on the slack term is illegible (appears related
+to $\tfrac{1}{2n\lambda}$ below). Only the clearly-written form with $C$ is
+reproduced here.] -->
+
+Here $C$ (written $\lambda$ in one place in the source) is the **regularization
+parameter**.
+
+<!-- [flag: the source names the regularization constant both $C$ (in the
+objective) and $\lambda$ (in the accompanying text and the box constraint below).
+The symbol $\lambda$ also denotes the dual variables $\lambda_i$, so the notation
+collides; treat the objective's $C$ and the box-constraint denominator's $\lambda$
+as the regularization parameter, with $C = \tfrac{1}{2n\lambda}$.] -->
+
+### Dual problem with soft margin
+
+Following a similar procedure to the hard-constraint problem, the dual form of
+the soft margin is
+$$
+\max_{\lambda \ge 0} \ \sum_i \lambda_i - \tfrac14 \sum_{i=1}^{n} \sum_j y_i y_j \lambda_i \lambda_j \langle x_i, x_j\rangle
+\qquad\text{s.t.}\qquad
+\sum_i \lambda_i y_i = 0 \ \ \&\ \ \lambda_i \le \frac{1}{2n\lambda} .
+$$
+
+<!-- [unclear: in the source the quadratic coefficient of the soft-margin dual is
+hard to read (transcribed as $-\tfrac14$, matching the hard-margin dual above) and
+the inner product $\langle x_i,x_j\rangle$ is abbreviated / not clearly written.
+The box constraint is read as $\lambda_i \le \tfrac{1}{2n\lambda}$ — the standard
+soft-margin dual has $0 \le \lambda_i \le C$.] -->
+
+## Multi-class Classification
+
+The multi-class classification problem can be reduced to the binary case using
+the **"one-vs-all"** scheme.
+
+For a multi-class problem the data set is $(\vec{x}_1, y_1), \dots, (\vec{x}_n, y_n)$
+as before, but now $y_i \in \{0, 1, \dots, C-1\}$, for a total of $C$ distinct
+classes.
+
+### One-vs-all scheme
+
+The goal of a multi-class classifier is: given a data point, decide that it is in
+the $i$-th class and not in any other class. Therefore, for each class we can
+construct a **binary** classification problem — *is the data point in this class
+or not?* — which gives a decision boundary between points in this class and those
+not in it. Doing this for all classes yields a classification region based on
+these boundaries.
+
+**Example (3 classes).** We build three binary classifiers, one for each of
+classes $1, 2, 3$. For each binary classifier we create the one-vs-all label
+$$
+\hat{y}_i =
+\begin{cases}
+1, & \text{if } y_i \text{ is in class } c, \\
+-1, & \text{if not},
+\end{cases}
+\qquad c = 1, 2, 3 .
+$$
+This creates $3$ decision boundaries, one per class.
+
+<!-- [figure: the source sketches the three one-vs-all boundaries as separate
+2D scatter plots (class 1, 2, 3 each vs. the rest). A clean reconstruction of the
+resulting decision regions is given below in @fig-multiclass.] -->
+
+Each line separates the space into a region "$\in C$" and the other side
+"$\notin C$". As before, if the weight for the classifier of class $c$ is
+$\vec{w}_c$, then
+$$
+\begin{cases}
+x_i^{\mathsf T} w_c - b > 0 \ \Rightarrow\ x_i \in C, \\
+x_i^{\mathsf T} w_c - b < 0 \ \Rightarrow\ x_i \notin C .
+\end{cases}
+$$
+This separates the space into subdomains.
+
+### Decision regions
+
+Combining the binary boundaries, a test point falls into one of three cases.
+
+**(1) Positive side of exactly one boundary.** The straightforward case: the
+point is on the positive side of exactly one boundary and on the negative side of
+all others. Then the predicted class is the one on whose positive side it lies:
+$$
+\hat{y}_i = \arg\max_c \big(x_i^{\mathsf T} w_c - b\big) .
+$$
+
+**(2) Positive side of more than one boundary.** The point could plausibly belong
+to two classes; we should choose the one that is more "plausible". Note that for a
+binary classifier, a point **further** from the boundary is considered **more
+confident**, whereas a point **closer** to the boundary is more likely to be
+mistakenly labelled. Thus we use the **distance to the decision boundary** as a
+decision indicator: the class is the boundary that is **furthest**. The distance
+from $x_i$ to the boundary for class $c$ is
+$$
+\frac{x_i^{\mathsf T} w_c - b_c}{\|w_c\|_2},
+$$
+so
+$$
+\hat{y}_i = \arg\max_{c = 0, \dots, C-1} \ \frac{x_i^{\mathsf T} w_c - b_c}{\|w_c\|_2} .
+$$
+
+**(3) Negative side of all boundaries.** We decide the class as the *opposite* of
+case (2): when a point is further from a boundary, it is more confident of **not**
+being in that class, so we assign the class whose boundary has the **smallest**
+distance. Since $\dfrac{x_i^{\mathsf T} w_c - b_c}{\|w_c\|_2}$ is the **signed**
+distance,
+$$
+\hat{y}_i
+= \arg\min_c \ -\frac{x_i^{\mathsf T} w_c - b_c}{\|w_c\|_2}
+= \arg\max_c \ \frac{x_i^{\mathsf T} w_c - b_c}{\|w_c\|_2} .
+$$
+
+All three cases therefore reduce to the same rule: predict the class with the
+largest signed distance.
+
+```{python}
+#| label: fig-multiclass
+#| fig-cap: 'Multi-class one-vs-all decision regions for $3$ classes. Each pair of regions is separated by a linear boundary; a test point is assigned to the class with the largest normalized signed distance $\dfrac{x^{\mathsf T} w_c - b_c}{\|w_c\|_2}$.'
+#| out-width: 70%
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+
+BLUE, RED, GREEN = "#1f77b4", "#d62728", "#2ca02c"
+fig, ax = plt.subplots(figsize=(6, 6))
+
+# three rays meet at the origin: down (splits 1|2), up-left and up-right (top wedge)
+O = np.array([0.0, 0.0])
+UL, UR, DN = np.array([-5.0, 2.2]), np.array([5.0, 2.2]), np.array([0.0, -5.0])
+
+ax.fill([0, -5, -5, 5, 5], [0, 2.2, 5, 5, 2.2], color=BLUE, alpha=0.13)   # top
+ax.fill([0, -5, -5, 0], [0, 2.2, -5, -5], color=RED, alpha=0.13)          # lower-left
+ax.fill([0, 0, 5, 5], [0, -5, -5, 2.2], color=GREEN, alpha=0.13)          # lower-right
+for p in (UL, UR, DN):
+    ax.plot([O[0], p[0]], [O[1], p[1]], color="black", lw=1.6, zorder=2)
+
+rng = np.random.default_rng(1)
+for center, col, lab, lab_xy in [
+    ((0.0, 3.0), BLUE, "0", (0.0, 4.3)),
+    ((-3.0, -2.6), RED, "2", (-4.2, -3.0)),
+    ((3.0, -2.6), GREEN, "1", (4.2, -3.0)),
+]:
+    pts = rng.normal(center, 0.75, size=(13, 2))
+    ax.scatter(pts[:, 0], pts[:, 1], s=45, facecolor=col,
+               edgecolor="black", lw=0.5, zorder=3)
+    ax.text(*lab_xy, lab, color=col, fontsize=18, fontweight="bold",
+            ha="center", va="center")
+
+ax.set_title(r"$\hat{y} = \arg\max_c \dfrac{x^\top w_c - b_c}{\|w_c\|_2}$", fontsize=15)
+ax.set_xlim(-5, 5); ax.set_ylim(-5, 5)
+ax.set_xticks([]); ax.set_yticks([])
+ax.set_aspect("equal")
+fig.tight_layout()
+plt.show()
+```
+
+### General procedure
+
+The 3-class example extends to the general multi-class case, summarized as follows.
+
+::: {.callout-note appearance="simple"}
+## One-vs-all multi-class classification
+
+**Input:** $\{(\vec{x}_i, y_i)\}$ with $y_i \in \{0, 1, \dots, C-1\}$.
+
+For $c = 0, \dots, C-1$:
+
+1. Relabel each sample $p$ by
+   $$
+   \hat{y}_p =
+   \begin{cases}
+   +1, & \text{if } y_p = c, \\
+   -1, & \text{else}.
+   \end{cases}
+   $$
+2. Solve the binary subproblem $\{(\vec{x}_p, \hat{y}_p)\} \to (w_c, b_c)$.
+3. Normalize the weights: $\displaystyle w_c \leftarrow \frac{w_c}{\|w_c\|_2}, \quad b_c \leftarrow \frac{b_c}{\|w_c\|_2}$.
+
+**Predict** the label by $\hat{y} = \arg\max_c \ x^{\mathsf T} w_c$.
+:::
+
+<!-- [note: the source indexes the outer loop and the relabeled targets with the
+same symbol; here the loop variable is written $c$ (the class) and $p$ indexes the
+samples, to avoid the collision in the original. Content otherwise unchanged.] -->
+
+::: {.remark}
+- The normalization does not change the decision in case (1).
+- In practice one can use **one-hot encoding**, e.g. a class-$1$ target
+  $$
+  \begin{pmatrix} -1 \\ 1 \\ -1 \\ \vdots \end{pmatrix}
+  $$
+  <!-- [unclear: the exact entries / ordering of the one-hot vector in the source
+  are only partially legible; shown schematically.] -->
+:::

@@ -26,10 +26,15 @@ book:
       chapters: 
         - monte-carlo/monte-carlo.qmd
     - part: "Machine Learning and Data Science Basics"
-      chapters: 
+      chapters:
+        - ml-ds/probRecap.qmd
         - ml-ds/highDimData.qmd
         - ml-ds/randomProj.qmd
         - ml-ds/SVD.qmd
+        - ml-ds/clustering.qmd
+        - ml-ds/classification.qmd
+        - ml-ds/regression.qmd
+        - ml-ds/markovChain.qmd
     - part: "Machine Learning in Finance"
     - part: "Practice Machine Learning with Kaggle"
     - part: "Statistical Inference"

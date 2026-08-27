@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; Newton’s Methods – Phy2Q Roadmap</title>
+<title>21&nbsp; Markov Chains – Phy2Q Roadmap</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../numerical-optimization/quasiNewton.html" rel="next">
-<link href="../numerical-optimization/gradDescent.html" rel="prev">
+<link href="../reg-anly/slrInference.html" rel="next">
+<link href="../ml-ds/regression.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -88,6 +88,35 @@ ul.task-list li input[type="checkbox"] {
       </style>
     
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -100,7 +129,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../numerical-optimization/introduction.html">Numerical Optimization</a></li><li class="breadcrumb-item"><a href="../numerical-optimization/newTon.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Newton’s Methods</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ml-ds/probRecap.html">Machine Learning and Data Science Basics</a></li><li class="breadcrumb-item"><a href="../ml-ds/markovChain.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Markov Chains</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -166,7 +195,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/newTon.html" class="sidebar-item-text sidebar-link active">
+  <a href="../numerical-optimization/newTon.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Newton’s Methods</span></span></a>
   </div>
 </li>
@@ -242,20 +271,50 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../ml-ds/probRecap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Recap on Probability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../ml-ds/highDimData.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Properties of High Dimensional Data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Properties of High Dimensional Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ml-ds/randomProj.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Randomized Projection</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Randomized Projection</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ml-ds/SVD.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Clustering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/markovChain.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Markov Chains</span></span></a>
   </div>
 </li>
       </ul>
@@ -284,7 +343,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../reg-anly/slrInference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Statistical Inference of Simple Linear Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Statistical Inference of Simple Linear Regression</span></span></a>
   </div>
 </li>
       </ul>
@@ -305,19 +364,19 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sp/prob.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Probability Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Probability Review</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sp/bm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Brownian Motion</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Brownian Motion</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sp/stocInt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Stochastic Integral</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Stochastic Integral</span></span></a>
   </div>
 </li>
       </ul>
@@ -338,7 +397,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../sp-in-finance/plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Things need to be done</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Things need to be done</span></span></a>
   </div>
 </li>
       </ul>
@@ -354,15 +413,28 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#discrete-time-markov-chains" id="toc-discrete-time-markov-chains" class="nav-link active" data-scroll-target="#discrete-time-markov-chains"><span class="header-section-number">21.1</span> Discrete-Time Markov Chains</a></li>
+  <li><a href="#n-step-transition-probabilities" id="toc-n-step-transition-probabilities" class="nav-link" data-scroll-target="#n-step-transition-probabilities"><span class="header-section-number">21.2</span> <span class="math inline">\(n\)</span>-Step Transition Probabilities</a></li>
+  <li><a href="#communicating-classes-and-irreducibility" id="toc-communicating-classes-and-irreducibility" class="nav-link" data-scroll-target="#communicating-classes-and-irreducibility"><span class="header-section-number">21.3</span> Communicating Classes and Irreducibility</a></li>
+  <li><a href="#stationary-invariant-distributions" id="toc-stationary-invariant-distributions" class="nav-link" data-scroll-target="#stationary-invariant-distributions"><span class="header-section-number">21.4</span> Stationary (Invariant) Distributions</a>
+  <ul class="collapse">
+  <li><a href="#periodicity" id="toc-periodicity" class="nav-link" data-scroll-target="#periodicity">Periodicity</a></li>
+  </ul></li>
+  <li><a href="#convergence-to-equilibrium" id="toc-convergence-to-equilibrium" class="nav-link" data-scroll-target="#convergence-to-equilibrium"><span class="header-section-number">21.5</span> Convergence to Equilibrium</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../numerical-optimization/introduction.html">Numerical Optimization</a></li><li class="breadcrumb-item"><a href="../numerical-optimization/newTon.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Newton’s Methods</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ml-ds/probRecap.html">Machine Learning and Data Science Basics</a></li><li class="breadcrumb-item"><a href="../ml-ds/markovChain.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Markov Chains</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Newton’s Methods</span></h1>
+<h1 class="title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Markov Chains</span></h1>
 </div>
 
 
@@ -379,8 +451,213 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>A <strong>discrete-time Markov chain</strong> is a sequence of random variables in which each step depends only on the previous one (the <strong>Markov property</strong>), which greatly simplifies the calculation of long-time transition probabilities. This chapter covers the definition and transition matrix, <span class="math inline">\(n\)</span>-step transition probabilities, communicating classes and irreducibility, stationary (invariant) distributions, periodicity, and the convergence theorems — the last of which underpin Markov Chain Monte Carlo (MCMC) methods.</p>
+<section id="discrete-time-markov-chains" class="level2" data-number="21.1">
+<h2 data-number="21.1" class="anchored" data-anchor-id="discrete-time-markov-chains"><span class="header-section-number">21.1</span> Discrete-Time Markov Chains</h2>
+<div id="def-markov-chain" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 21.1 (Discrete-time Markov chain)</strong></span> A sequence of random variables <span class="math inline">\((X_n)_{n \ge 0}\)</span>, where <span class="math inline">\(X_n : \Omega \to S \subseteq \mathbb{Z}\)</span>, is called a <strong>Markov chain</strong> with <strong>initial distribution</strong> <span class="math inline">\(\lambda\)</span> if</p>
+<ol type="a">
+<li><span class="math inline">\(X_0\)</span> has distribution <span class="math inline">\(\lambda\)</span>;</li>
+<li>it satisfies the <strong>Markov property</strong> <span class="math display">\[
+P\big(X_{n+1} = i_{n+1} \mid X_n = i_n, \dots, X_0 = i_0\big)
+= P\big(X_{n+1} = i_{n+1} \mid X_n = i_n\big) .
+\]</span></li>
+</ol>
+</div>
+<div class="proof remark">
+<p><span class="proof-title"><em>Remark</em>. </span></p>
+<ul>
+<li><span class="math inline">\(X_n\)</span> denotes the <strong>state</strong> of the chain at time <span class="math inline">\(n\)</span>.</li>
+<li><span class="math inline">\(S\)</span> is the <strong>state space</strong> — all possible outcomes of each state.</li>
+<li>Writing <span class="math inline">\(P(X_{n+1} = i_{n+1} \mid X_n = i_n) = P_{i_n i_{n+1}}\)</span>, then for finite <span class="math inline">\(S\)</span> the matrix <span class="math inline">\(P \in \mathbb{R}^{|S| \times |S|}\)</span> is the <strong>transition matrix</strong>, and <span class="math inline">\(P_{i_n i_{n+1}}\)</span> is the transition probability from state <span class="math inline">\(i_n\)</span> to <span class="math inline">\(i_{n+1}\)</span>.</li>
+<li>Being probabilities, the entries satisfy <span class="math display">\[
+P_{ij} \ge 0, \qquad \sum_{j \in S} P_{ij} = 1 .
+\]</span></li>
+</ul>
+</div>
+</section>
+<section id="n-step-transition-probabilities" class="level2" data-number="21.2">
+<h2 data-number="21.2" class="anchored" data-anchor-id="n-step-transition-probabilities"><span class="header-section-number">21.2</span> <span class="math inline">\(n\)</span>-Step Transition Probabilities</h2>
+<p>The Markov property and the total-probability formula let us compute the <span class="math inline">\(n\)</span>-step transition probability from the single-step transition matrix. We wish to calculate the probability that the chain is at state <span class="math inline">\(j\)</span> after <span class="math inline">\(n\)</span> steps starting from <span class="math inline">\(i\)</span>, and, more generally, the probability of being at <span class="math inline">\(j\)</span> after <span class="math inline">\(n\)</span> steps from any initial state.</p>
+<div id="thm-nstep" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 21.1 (<span class="math inline">\(n\)</span>-step transition probability)</strong></span> Let <span class="math inline">\((X_n)_{n \ge 0}\)</span> be a Markov chain with initial distribution <span class="math inline">\(\lambda\)</span> and transition matrix <span class="math inline">\(P\)</span>. Then for all <span class="math inline">\(n, m \ge 0\)</span>:</p>
+<ol type="1">
+<li><span class="math inline">\(P(X_n = j \mid X_0 = i) = (P^n)_{ij}\)</span>;</li>
+<li><span class="math inline">\(P(X_n = j) = (\lambda P^n)_j\)</span>.</li>
+</ol>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>The calculation is straightforward using total probability and the Markov property. For (2), sum over all intermediate paths and apply the Markov property repeatedly: <span class="math display">\[
+\begin{aligned}
+P(X_n = j)
+&amp;= \sum_{i_0 \in S} \cdots \sum_{i_{n-1} \in S}
+P\big(X_n = j \mid X_{n-1} = i_{n-1}, \dots, X_0 = i_0\big)\, P\big(X_{n-1} = i_{n-1}, \dots, X_0 = i_0\big) \\
+&amp;= \sum_{i_0} \cdots \sum_{i_{n-1}}
+P\big(X_n = j \mid X_{n-1} = i_{n-1}\big)\, P\big(X_{n-1} = i_{n-1} \mid X_{n-2} = i_{n-2}\big) \cdots P\big(X_1 = i_1 \mid X_0 = i_0\big)\, P(X_0 = i_0) \\
+&amp;= \sum_{i_0} \cdots \sum_{i_{n-1}} \lambda_{i_0}\, P_{i_0 i_1} P_{i_1 i_2} \cdots P_{i_{n-1} j}
+= (\lambda P^n)_j .
+\end{aligned}
+\]</span> For (1), condition on <span class="math inline">\(X_0 = i\)</span> (so <span class="math inline">\(\lambda\)</span> is replaced by a point mass at <span class="math inline">\(i\)</span>): <span class="math display">\[
+P(X_n = j \mid X_0 = i)
+= \sum_{i_1 \in S} \cdots \sum_{i_{n-1} \in S} P_{i\, i_1} P_{i_1 i_2} \cdots P_{i_{n-1} j}
+= (P^n)_{ij} . \qquad \blacksquare
+\]</span></p>
+</div>
+<div class="proof remark">
+<p><span class="proof-title"><em>Remark</em>. </span></p>
+<ul>
+<li>Using the matrix form assumes a finite state space; the summation identity, however, remains true when the state space is infinite.</li>
+<li>Statement (1) extends to the <strong>Chapman–Kolmogorov</strong> form <span class="math display">\[
+P(X_{n+m} = j \mid X_n = i) = (P^m)_{ij} .
+\]</span></li>
+</ul>
+</div>
+</section>
+<section id="communicating-classes-and-irreducibility" class="level2" data-number="21.3">
+<h2 data-number="21.3" class="anchored" data-anchor-id="communicating-classes-and-irreducibility"><span class="header-section-number">21.3</span> Communicating Classes and Irreducibility</h2>
+<p>We now examine the asymptotic behavior of the state distribution: as <span class="math inline">\(n \to \infty\)</span>, does the chain tend to an equilibrium? Different states can behave very differently. The following example illustrates this.</p>
+<div id="cell-fig-markov-classes" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div id="fig-markov-classes" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-markov-classes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="markovChain_files/figure-html/fig-markov-classes-output-1.png" width="797" height="307" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-markov-classes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;21.1: A 4-state chain. State <span class="math inline">\(1\)</span> is <strong>transient</strong>: it has a self-loop (<span class="math inline">\(0.2\)</span>) and leads to state <span class="math inline">\(4\)</span> (<span class="math inline">\(0.5\)</span>) and to state <span class="math inline">\(2\)</span> (<span class="math inline">\(0.3\)</span>). State <span class="math inline">\(4\)</span> is <strong>absorbing</strong> (self-loop <span class="math inline">\(1\)</span>), forming the closed class <span class="math inline">\(\{4\}\)</span>. States <span class="math inline">\(\{2,3\}\)</span> form a second <strong>closed</strong> communicating class. Once the chain leaves <span class="math inline">\(1\)</span> it is trapped in <span class="math inline">\(\{4\}\)</span> or <span class="math inline">\(\{2,3\}\)</span> and never returns to <span class="math inline">\(1\)</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<!-- [note: in the source, the transition probabilities *inside* the closed class
+$\{2,3\}$ are crossed out / illegible (a "0.4" is struck through), so those two
+edges are drawn without numeric labels. The remaining probabilities ($0.5, 0.3,
+0.2$ out of state $1$, and $1$ on state $4$) are as written.] -->
+<p>For the chain above, note that:</p>
+<ol type="1">
+<li>State <span class="math inline">\(1\)</span> can access <span class="math inline">\(2, 3, 4\)</span>, while <span class="math inline">\(2, 3, 4\)</span> cannot access <span class="math inline">\(1\)</span>.</li>
+<li>Once the chain enters state <span class="math inline">\(2\)</span>, it only transitions within <span class="math inline">\(\{2, 3\}\)</span>; similarly <span class="math inline">\(4\)</span> is absorbing.</li>
+<li>When <span class="math inline">\(n\)</span> is large enough, the state is “trapped” in <span class="math inline">\(\{4\}\)</span> or <span class="math inline">\(\{2, 3\}\)</span>.</li>
+</ol>
+<p>The following definitions formalize this observation.</p>
+<div id="def-accessible" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 21.2 (Leads to / accessible)</strong></span> We say state <span class="math inline">\(i\)</span> <strong>leads to</strong> <span class="math inline">\(j\)</span> (equivalently, <span class="math inline">\(j\)</span> is <strong>accessible</strong> from <span class="math inline">\(i\)</span>) if there exists a finite sequence <span class="math inline">\(i_1, i_2, \dots, i_{n-1}\)</span> such that <span class="math display">\[
+P_{i\, i_1} &gt; 0, \ P_{i_1 i_2} &gt; 0, \ \dots, \ P_{i_{n-1} j} &gt; 0
+\quad\Longleftrightarrow\quad
+P(X_n = j \mid X_0 = i) &gt; 0 \ \text{ for some } n \ge 0 .
+\]</span></p>
+</div>
+<div id="def-communicate" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 21.3 (Communicate)</strong></span> We say <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> <strong>communicate</strong> if <span class="math inline">\(i\)</span> leads to <span class="math inline">\(j\)</span> and <span class="math inline">\(j\)</span> leads to <span class="math inline">\(i\)</span>.</p>
+</div>
+<div id="def-classes" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 21.4 (Communicating class and closed class)</strong></span> &nbsp;</p>
+<ul>
+<li>A set of states is a <strong>communicating class</strong> (or <strong>recurrent class</strong>) if every pair <span class="math inline">\(i, j\)</span> in it communicate. (Equivalently, a <strong>strongly connected component</strong> when the chain is viewed as a graph.)</li>
+<li>A communicating class <span class="math inline">\(C\)</span> is <strong>closed</strong> if, for every <span class="math inline">\(i \in C\)</span>, whenever <span class="math inline">\(i\)</span> leads to <span class="math inline">\(j\)</span> then <span class="math inline">\(j \in C\)</span>.</li>
+</ul>
+</div>
+<div class="proof remark">
+<p><span class="proof-title"><em>Remark</em>. </span></p>
+<ul>
+<li>Once the chain enters a closed class, it never leaves.</li>
+<li>An <strong>absorbing state</strong> is simply a singleton <span class="math inline">\(\{i\}\)</span> that is a closed class.</li>
+<li>If a state <span class="math inline">\(i\)</span> is not in any (closed) communicating class, then there is a state <span class="math inline">\(j\)</span> accessible from <span class="math inline">\(i\)</span> but with <span class="math inline">\(i\)</span> <strong>not</strong> accessible from <span class="math inline">\(j\)</span>; for large <span class="math inline">\(n\)</span> the <span class="math inline">\(i \to j\)</span> transition occurs and the chain never returns. Hence we will focus on chains with a <strong>single</strong> communicating class, called <strong>irreducible</strong>.</li>
+</ul>
+</div>
+</section>
+<section id="stationary-invariant-distributions" class="level2" data-number="21.4">
+<h2 data-number="21.4" class="anchored" data-anchor-id="stationary-invariant-distributions"><span class="header-section-number">21.4</span> Stationary (Invariant) Distributions</h2>
+<p>For an irreducible chain, does the probability of being in each state stabilize in the long run? By “stable” we mean that the state distribution does not change after a transition — hence the following definition.</p>
+<div id="def-stationary" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 21.5 (Stationary / invariant distribution)</strong></span> Let <span class="math inline">\(\lambda\)</span> denote the probability distribution of state <span class="math inline">\(X\)</span>, i.e. <span class="math inline">\(\lambda_i = P(X = i)\)</span>. We say <span class="math inline">\(\lambda\)</span> is a <strong>stationary</strong> (or <strong>invariant</strong>) distribution if <span class="math display">\[
+\lambda = \lambda P, \qquad \sum_i \lambda_i = 1 .
+\]</span></p>
+</div>
+<div class="proof remark">
+<p><span class="proof-title"><em>Remark</em>. </span>The definition means that a one-step transition of the current distribution, <span class="math display">\[
+\sum_j \lambda_j P_{ji} = \lambda_i ,
+\]</span> leaves it unchanged.</p>
+</div>
+<p>It can be shown that if the transition probability converges to a number independent of the initial state, then the limiting distribution is stationary/invariant (for finite state space).</p>
+<div id="thm-converge-invariant" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 21.2 (A convergent limit is invariant)</strong></span> Let the state space <span class="math inline">\(S\)</span> of a Markov chain <span class="math inline">\((X_n)_{n \ge 0}\)</span> be finite, and suppose that for some <span class="math inline">\(i \in S\)</span>, <span class="math display">\[
+P(X_n = j \mid X_0 = i) = (P^n)_{ij} \to \pi_j \quad\text{as } n \to \infty, \ \ \forall j \in S .
+\]</span> Then <span class="math inline">\(\pi\)</span> is an invariant distribution.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Using <span class="math inline">\((P^n)_{ij} = \sum_{k \in S} (P^{n-1})_{ik} P_{kj}\)</span> and interchanging limit and (finite) sum, <span class="math display">\[
+\pi_j = \lim_{n \to \infty} (P^n)_{ij}
+= \lim_{n \to \infty} \sum_{k \in S} (P^{n-1})_{ik} P_{kj}
+= \sum_{k \in S} \Big(\lim_{n \to \infty} (P^{n-1})_{ik}\Big) P_{kj}
+= \sum_{k \in S} \pi_k P_{kj} ,
+\]</span> so <span class="math inline">\(\pi = \pi P\)</span>. Also <span class="math display">\[
+\sum_{j \in S} \pi_j
+= \sum_{j \in S} \lim_{n \to \infty} (P^n)_{ij}
+= \lim_{n \to \infty} \sum_{j \in S} (P^n)_{ij} = 1 .
+\]</span> Thus <span class="math inline">\(\pi\)</span> is a stationary distribution. <span class="math inline">\(\blacksquare\)</span></p>
+</div>
+<div class="proof remark">
+<p><span class="proof-title"><em>Remark</em>. </span></p>
+<ul>
+<li>The interchange of limit and summation is permitted for a finite state space.</li>
+<li>The theorem guarantees that a <strong>convergent</strong> distribution is invariant; the converse need not hold (invariance does not imply convergence — see below).</li>
+<li>For the probability to converge we must restrict to a <strong>single</strong> communicating class; otherwise <span class="math inline">\(\lim_{n \to \infty}(P^n)_{ij}\)</span> depends on the initial state, as different initial states may lead to different recurrent classes.</li>
+</ul>
+</div>
+<section id="periodicity" class="level3">
+<h3 class="anchored" data-anchor-id="periodicity">Periodicity</h3>
+<p>Even for a single communicating class, existence of an invariant distribution does <strong>not</strong> guarantee convergence.</p>
+<div id="cell-fig-markov-periodic" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div id="fig-markov-periodic" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-markov-periodic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="markovChain_files/figure-html/fig-markov-periodic-output-1.png" width="382" height="240" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-markov-periodic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;21.2: A 2-state chain with <span class="math inline">\(P_{12} = P_{21} = 1\)</span> (i.e.&nbsp;<span class="math inline">\(P = \left(\begin{smallmatrix} 0 &amp; 1 \\ 1 &amp; 0 \end{smallmatrix}\right)\)</span>). The distribution <span class="math inline">\(\pi = (\tfrac12, \tfrac12)\)</span> is invariant, yet the probabilities <strong>oscillate</strong> and never converge, since <span class="math inline">\(P^{2k} = I\)</span> and <span class="math inline">\(P^{2k+1} = P\)</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<!-- [note: the source writes $P^{2k} = Z$; read as the identity matrix $I$
+(so $P^{2k} = I$, $P^{2k+1} = P$).] -->
+<p>To exclude such cases we define the aperiodic property.</p>
+<div id="def-aperiodic" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 21.6 (Aperiodic)</strong></span> A state <span class="math inline">\(i\)</span> is <strong>aperiodic</strong> if <span class="math inline">\((P^n)_{ii} &gt; 0\)</span> for all sufficiently large <span class="math inline">\(n\)</span>. A Markov chain is <strong>aperiodic</strong> if every state <span class="math inline">\(i \in S\)</span> is aperiodic.</p>
+</div>
+</section>
+</section>
+<section id="convergence-to-equilibrium" class="level2" data-number="21.5">
+<h2 data-number="21.5" class="anchored" data-anchor-id="convergence-to-equilibrium"><span class="header-section-number">21.5</span> Convergence to Equilibrium</h2>
+<div id="thm-irreducible-aperiodic" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 21.3 (Irreducible + one aperiodic state <span class="math inline">\(\Rightarrow\)</span> all states aperiodic)</strong></span> Suppose a Markov chain is irreducible and has an aperiodic state <span class="math inline">\(i\)</span>. Then for all states <span class="math inline">\(j, k \in S\)</span>, <span class="math inline">\((P^n)_{jk} &gt; 0\)</span> for all sufficiently large <span class="math inline">\(n\)</span>. In particular, all states are aperiodic.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Since the chain is irreducible, there exist <span class="math inline">\(r, s\)</span> with <span class="math inline">\((P^r)_{ji} &gt; 0\)</span> and <span class="math inline">\((P^s)_{ik} &gt; 0\)</span>. Then for sufficiently large <span class="math inline">\(n\)</span>, <span class="math display">\[
+\begin{aligned}
+(P^{\,n + r + s})_{jk}
+&amp;= \sum_{i_1, \dots, i_n \in S} (P^r)_{j\, i_1}\, P_{i_1 i_2} P_{i_2 i_3} \cdots P_{i_{n-1} i_n}\, (P^s)_{i_n k} \\
+&amp;= \sum_{i_1, i_n \in S} (P^r)_{j\, i_1}\, (P^n)_{i_1 i_n}\, (P^s)_{i_n k} \\
+&amp;\ge (P^r)_{ji}\, (P^n)_{ii}\, (P^s)_{ik} &gt; 0 ,
+\end{aligned}
+\]</span> choosing <span class="math inline">\(i_1 = i_n = i\)</span>, since <span class="math inline">\((P^n)_{ii} &gt; 0\)</span> (<span class="math inline">\(i\)</span> aperiodic) and the end factors are positive (irreducibility). <span class="math inline">\(\blacksquare\)</span></p>
+</div>
+<p>For an aperiodic chain, the existence of an invariant distribution guarantees convergence to it.</p>
+<div id="thm-convergence" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 21.4 (Convergence to the invariant distribution)</strong></span> Suppose <span class="math inline">\((X_n)_{n \ge 0}\)</span> is an irreducible and aperiodic Markov chain with transition matrix <span class="math inline">\(P\)</span> and initial distribution <span class="math inline">\(\lambda\)</span>. If <span class="math inline">\(P\)</span> has an invariant distribution <span class="math inline">\(\pi\)</span>, then <span class="math display">\[
+P(X_n = j) \to \pi_j \quad\text{as } n \to \infty, \ \ \forall j \in S .
+\]</span> In particular, <span class="math inline">\((P^n)_{ij} \to \pi_j\)</span> as <span class="math inline">\(n \to \infty\)</span> for all <span class="math inline">\(i, j \in S\)</span>.</p>
+</div>
+<div id="thm-unique-stationary" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 21.5 (Finite irreducible aperiodic chains)</strong></span> Suppose <span class="math inline">\((X_n)_{n \ge 0}\)</span> is an irreducible and aperiodic Markov chain with a <strong>finite</strong> state space. Then there exists a <strong>unique</strong> invariant distribution <span class="math inline">\(\pi\)</span>, and <span class="math inline">\(P(X_n = i) \to \pi_i\)</span> for <strong>any</strong> initial distribution <span class="math inline">\(\lambda\)</span>.</p>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -784,13 +1061,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../numerical-optimization/gradDescent.html" class="pagination-link" aria-label="Gradient Descent Methods">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Gradient Descent Methods</span></span>
+      <a href="../ml-ds/regression.html" class="pagination-link" aria-label="Regression">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regression</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../numerical-optimization/quasiNewton.html" class="pagination-link" aria-label="Quasi Newton Methods">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quasi Newton Methods</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../reg-anly/slrInference.html" class="pagination-link" aria-label="Statistical Inference of Simple Linear Regression">
+        <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Statistical Inference of Simple Linear Regression</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
