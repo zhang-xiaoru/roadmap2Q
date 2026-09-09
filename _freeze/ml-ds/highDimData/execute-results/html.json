@@ -1,0 +1,12 @@
+{
+  "hash": "7b9002d7f470b9ffc14bf30c1a8dac6d",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "# Properties of High Dimensional Data\n## Curse of dimensionality\nTo approximate function using interpolations, need a grid in $\\mathbb{R}^n$, which grows exponentially with respect to $n$.\n\n:::{.callout-tip}\n## Sampling in high dimension\nTo sample grid with resolution $\\epsilon$, requires points of order ~$(1/\\epsilon)^n$\n:::\n\n## Random Sampling in unit ball\nWe star with a useful problem, how to draw a random sample uniformlly from a unit ball in $n$ dimension.\n\n:::{.callout-tip}\n## Close Ball in $\\mathbb{R}^n$\n$$\n\\mathbb{B^n}\\coloneqq\\{\\mathbf{x}\\in\\mathbb{R}^n: x_1^2+x_2^2+\\cdots+x_n^2\\leq 1\\}\n$$\n\n:::\n\n:::{#exm-unitSphere}\nConsider a 2D case, we can draw $X_1, X_2\\~ \\mathrm{Unif}(-1, 1)$, and return $\\mathbf{X}=(X_1, X_2)^T$ if $X_1^2+X_2^2\\leq 1$.\n\n::: {#f4634229 .cell execution_count=1}\n\n::: {.cell-output .cell-output-display}\n![](highDimData_files/figure-html/cell-2-output-1.png){width=491 height=491}\n:::\n:::\n\n\n:::\n\nIf we generalized the approch in @exm-unitSphere to $n$ dimension case, that means draw each coordinate $X_i\\sim \\mathrm{Unif}(-1, 1)$ and keep the sample if $\\lVert\\mathbf{X}\\rVert_2^2\\leq 1$. However, this will not work as the volume of the unit ball approaches to zero.\n\n:::{.callout-tip}\n## Volume of $\\mathbb{B}^n$\n$$\nV(n)=\\frac{2\\pi^{n/2}}{n\\Gamma(n)}\\xrightarrow{n\\rightarrow\\infty}0\n$$\n:::\n\nThis means the acceptance probability of the sample is $V(n)/\\mathrm{Vol}[-1, 1]^d=V(n)/2^n$ approaches zero when the dimensality is high.\n\n:::{.callout-note}\nThis low probability means that we only accept very few point from a large draw of Monte-Carlo samples from uniform $[-1, 1]^n$\n:::\n\n",
+    "supporting": [
+      "highDimData_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

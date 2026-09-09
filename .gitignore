@@ -1,5 +1,21 @@
+# macOS
+.DS_Store
+
+# Quarto build output & generated assets
 /.quarto/
+/_book/
+*_files/
+# NOTE: /_freeze/ is intentionally NOT ignored — it is committed so the GitHub
+# Actions runner can render without a Python environment.
+
+# LaTeX / PDF build artifacts
 /pdf/
-/.claude/
+*.tex
+*.log
+*.aux
+*.toc
+*.synctex.gz
+
+# Editor / local config
 /.vscode/
-/.DS_store
+/.claude/

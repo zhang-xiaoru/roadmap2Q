@@ -11,6 +11,7 @@ book:
   description: >
     Open study notes on statistics, stochastic calculus, numerical
     optimization, and machine learning behind quantitative finance.
+  site-url: https://zhang-xiaoru.github.io/roadmap2Q
   repo-url: https://github.com/zhang-xiaoru/roadmap2Q
   repo-actions: [source, issue]
   chapters:
@@ -67,6 +68,12 @@ book:
       
 
 bibliography: references.bib
+
+# Freeze computational (Python) output so CI can render without a Python
+# environment. Re-render locally after changing a `{python}` chapter to refresh
+# its cache, then commit the updated _freeze/ alongside your changes.
+execute:
+  freeze: auto
 
 format:
   html:
