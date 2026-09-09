@@ -1,1 +1,115 @@
 # Conjugate Gradient Methods
+
+## Linear Conjugate-Gradient Methods
+
+Linear CG solve the linear system of equation
+$$
+Ax = b \qquad (\text{goal}), \qquad A \text{ symmetric and PD}.
+$$
+which is equivalent to the following quadratic minimization
+$$
+\min \phi(x) \overset{\text{def}}{=} \frac{1}{2}x^{\mathsf T}Ax - b^{\mathsf T}x.
+$$
+
+::: {.callout-note}
+$$
+Ax - b = 0 \iff \lVert Ax - b\rVert_2^2 = 0 \iff \min \lVert Ax - b\rVert_2^2
+$$
+:::
+
+## Iteration idea
+
+**If $A$ is diagonal**, do minimization along each basis (diagonal quadratic):
+$$
+\alpha_j = \arg\min_{\alpha\in\mathbb{R}} \phi(x_j + \alpha\hat{e}_{j+1}) \;\to\; \text{update} \quad x_{j+1} = x_j + \alpha_j\hat{e}_{j+1}
+$$
+
+* $\hat{e}_j$ is the along the basis with $\lVert e_j\rVert_2 = 1$.
+
+**issue:** not work if $A$ is not diagonal — the minimum along the principal axis no longer match the orthogonal directions.
+
+```{python}
+#| label: fig-cg-contours
+#| fig-cap: 'Coordinate-wise minimization of the quadratic $\phi(x)=\tfrac12 x^{\mathsf T}Ax-b^{\mathsf T}x$. Left: when $A$ is diagonal the contours are axis-aligned, so minimizing along each coordinate basis reaches the minimum ($+$). Right: when $A$ is not diagonal the contours are tilted, so the coordinate directions no longer match the principal axes and the same procedure zig-zags.'
+#| out-width: 92%
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+
+def grid(A):
+    x = np.linspace(-3, 3, 400); y = np.linspace(-2.4, 2.4, 400)
+    X, Y = np.meshgrid(x, y)
+    Z = 0.5*(A[0, 0]*X**2 + 2*A[0, 1]*X*Y + A[1, 1]*Y**2)
+    return X, Y, Z
+
+def coord_descent(A, start, nsteps):
+    pts = [np.array(start, float)]
+    p = pts[0].copy()
+    for _ in range(nsteps):
+        p = p.copy(); p[0] = -A[0, 1]*p[1]/A[0, 0]; pts.append(p.copy())
+        p = p.copy(); p[1] = -A[1, 0]*p[0]/A[1, 1]; pts.append(p.copy())
+    return np.array(pts)
+
+th = np.deg2rad(35)
+R = np.array([[np.cos(th), -np.sin(th)], [np.sin(th), np.cos(th)]])
+D = np.diag([1.0, 4.0])
+A_diag, A_rot = D, R @ D @ R.T
+
+fig, axes = plt.subplots(1, 2, figsize=(9, 3.7))
+for ax, A, title, start, ns in [
+    (axes[0], A_diag, r"$A$ diagonal", (2.5, 1.5), 1),
+    (axes[1], A_rot, r"$A$ not diagonal", (2.6, 1.7), 5),
+]:
+    X, Y, Z = grid(A)
+    ax.contour(X, Y, Z, levels=np.linspace(0.4, 12, 8), colors="#1f77b4", linewidths=0.9)
+    path = coord_descent(A, start, ns)
+    ax.plot(path[:, 0], path[:, 1], "-o", color="#d62728", ms=3.5, lw=1.4)
+    ax.plot(0, 0, "k+", ms=11, mew=2)
+    ax.set_title(title, fontsize=12)
+    ax.set_aspect("equal"); ax.set_xticks([]); ax.set_yticks([])
+    ax.set_xlabel(r"$x_1$"); ax.set_ylabel(r"$x_2$")
+fig.tight_layout()
+plt.show()
+```
+
+**Solution:** "rotate" $\to$ transform $A$ s.t. it is diagonal in the new axis.
+
+## Conjugacy
+
+::: {#def-conjugacy}
+## Conjugacy
+A set of $\{p_0, p_1, \dots p_l\}$ with $\forall\, p_i \neq 0$ is the conjugate with respect to the positive definite symmetric matrix $A$ if
+$$
+p_i^{\mathsf T}A p_j = 0, \qquad \forall\, i \neq j.
+$$
+:::
+
+::: {.callout-note}
+## Relation with the eigenvalue problem
+Since $A$ is real-symmetric, it is possible to find an orthogonal matrix $p$
+$$
+p = (v_1\ v_2\ \cdots\ v_n)
+$$
+composed of eigenvectors, $Av_i = \lambda_i v_i$, s.t.
+$$
+v_j^{\mathsf T}A v_i = \lambda_i v_j^{\mathsf T}v_i = \lambda_i\delta_{ij} \;\Rightarrow\; v_i, v_j \text{ form conjugate.}
+$$
+
+* Conjugate can be viewed as orthonormal eigenvectors.
+:::
+
+## Transforming to diagonal coordinates
+
+thus $p^{-1} = (p_0\ p_1\ \cdots\ p_{n-1})$ transform $x$ as $\hat{x} = p^{-1}x$.
+
+<!-- [flag: the source writes the column matrix of conjugate directions as
+$p^{-1} = (p_0\ p_1\ \cdots\ p_{n-1})$, but then uses $p$ (not $p^{-1}$) below in
+$\phi(p\hat{x})$ and $p^{\mathsf T}Ap$ — consistent with the eigenvalue remark
+where the column matrix is $p=(v_1\cdots v_n)$. The "$p^{-1}$" label here appears
+to be a slip for $p$. Transcribed as written.] -->
+
+and
+$$
+\hat{\phi}(\hat{x}) = \phi(p\hat{x}) = \frac{1}{2}\hat{x}^{\mathsf T}\underbrace{(p^{\mathsf T}A p)}_{\text{diagonal}}\hat{x} - (p^{\mathsf T}b)^{\mathsf T}\hat{x}
+$$
+and can use the search method before.

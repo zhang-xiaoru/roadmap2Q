@@ -1,0 +1,85 @@
+# Stochastic Analysis and Lévy Process
+
+<!-- [note: exact transcription of jump_process.pdf ("Stochastic Analysis &
+Levy Process"). Source spellings preserved in the body ("chara", "intensity",
+"arrival", ...); only the chapter title is set in standard spelling. Per the
+exact-conversion protocol, the one hand-drawn figure is flagged, not redrawn.] -->
+
+## Characteristic function
+
+**Def - characteristic function** $\hat{\mu}(z)$ of probability measure $\mu$ on
+$\mathbb{R}^d$ is
+$$
+\hat{\mu}(z) = \int_{\mathbb{R}^d} e^{i\langle z, x\rangle} \, \mu(dx)
+$$
+
+**Prop:** the characteristic function of the distribution $P_X$ of a R.V. $X$ on
+$\mathbb{R}^d$ is
+$$
+\hat{P}_X(z) = \int_{\mathbb{R}^d} e^{i\langle z, x\rangle} \, P_X(dx) = E[e^{i\langle z, X\rangle}]
+$$
+
+**Properties of $\hat{\mu}(z)$**
+
+- If $\mu = \mu_1 \otimes \mu_2$, then $\hat{\mu}(z) = \hat{\mu}_1(z)\hat{\mu}_2(z)$. If $X_1$ and $X_2$ are independent R.V. on $\mathbb{R}^d$, then $\hat{P}_{X_1 + X_2}(z) = \hat{P}_{X_1}(z)\hat{P}_{X_2}(z)$
+- If $X = (X_j)_{j=1,\cdots n}$ be an $\mathbb{R}^{n \times d}$ valued R.V. where $X_1, \cdots X_n$ are $\mathbb{R}^d$-valued R.V. Then $X_1, \cdots X_n$ are independent iff
+$$
+\hat{P}_X(z) = \hat{P}_{X_1}(z_1)\hat{P}_{X_2}(z_2) \cdots \hat{P}_{X_n}(z_n), \quad z = (z_j)_{j=1,\cdots n}, \ z_j \in \mathbb{R}^d.
+$$
+- If $\mu_n \to \mu$, then $\hat{\mu}_n(z) \to \hat{\mu}(z)$ uniformly on compact.
+
+## Poisson process
+
+**Poisson dist:** $\lambda > 0$,
+$$
+1 = \sum_{n=0}^{\infty} e^{-\lambda} \frac{\lambda^n}{n!} \implies P(N = n) = e^{-\lambda} \frac{\lambda^n}{n!}, \quad n = 0, \cdots, \quad \lambda \text{ is called intensity}
+$$
+
+**Poisson process** $\lambda > 0$, Consider $\xi_1, \xi_2, \cdots$ iid $\sim \operatorname{Exp}(\lambda)$,
+i.e. $P(\xi \leq t) = e^{-\lambda t}$, $t \geq 0$, $E(\xi) = \tfrac1\lambda$.
+
+<!-- [flag: for $\operatorname{Exp}(\lambda)$ this should be the survival function
+$P(\xi > t) = e^{-\lambda t}$ (equivalently CDF $P(\xi \leq t) = 1 - e^{-\lambda t}$);
+the source writes "$P(\xi \leq t) = e^{-\lambda t}$". Transcribed as written.] -->
+
+<!-- [figure: a hand-drawn step/staircase plot of the counting process against a
+number line marking the interarrival times $\xi_1, \xi_2, \xi_3, \xi_4$. Not
+reproduced.] -->
+
+consider R.V. $N_t := \#$ of "arrival" at/before $t$.
+$$
+N_t := \sum_{n=1}^{\infty} n \, \mathbf{1}_{\{\xi_1 + \cdots \xi_{n-1} \leq t, \; \xi_1 + \cdots \xi_n > t\}}
+$$
+
+<!-- [flag: as written this assigns $N_t = n$ on the event that exactly $n-1$
+arrivals have occurred by $t$ (i.e. $S_{n-1} \leq t < S_n$ with
+$S_k = \xi_1 + \cdots + \xi_k$), which looks off by one — a counting process
+would give $n-1$ there. Transcribed as written.] -->
+
+**prob:**
+$$
+\begin{cases}
+N_t - N_s \overset{(d)}{=} \operatorname{Poisson}(\lambda(t-s)), & 0 \leq s \leq t. \\
+\text{independent increment.}
+\end{cases}
+$$
+$(N_t)_{t \geq 0}$ is then called poisson process with intensity $\lambda$
+
+## Compound Poisson process
+
+**Compound Poisson R.V.** $\to$ each arrival associated with R.V.
+
+let $N \overset{(d)}{=} \operatorname{Poisson}(\lambda)$, and $Y_1, \cdots Y_n$ be
+iid. with dist $f(dx)$
+$$
+X := \sum_{n=0}^{N} Y_n \quad \text{is called compound poisson R.V.}
+$$
+
+**chara fun of $X$**
+$$
+\begin{aligned}
+E[e^{i\langle z, X\rangle}] &= E\big[e^{i\langle z, \sum_n Y_n\rangle}\big] = \sum_{k=0}^{\infty} e^{-\lambda} \frac{\lambda^k}{k!} E\big[e^{i\langle z, \sum_k Y_k\rangle}\big] \\
+&= \sum_{k=0}^{\infty} e^{-\lambda} \frac{\lambda^k}{k!} \big(\underbrace{E[e^{i\langle z, Y\rangle}]}_{\hat{G}(z)}\big)^k = \sum_{k=0}^{\infty} e^{-\lambda} \frac{\lambda^k}{k!} \hat{G}(z)^k = \exp\big(-\lambda + \lambda \hat{G}(z)\big) \\
+&= \exp\Big(\lambda\big(\int_{\mathbb{R}^d} e^{i\langle z, x\rangle} f(dx) - 1\big)\Big) = \exp\Big(\int_{\mathbb{R}^d}(e^{i\langle z, x\rangle} - 1) \lambda f(dx)\Big).
+\end{aligned}
+$$

@@ -1,0 +1,232 @@
+# Brownian Motion
+
+<!-- [note: exact transcription. Source spellings are preserved in the body
+("Continous", "mothion", "stochasti", "martingle", "devide", "irelavent",
+"Convinient", "infinitesmal", ...); only headings are set in standard spelling.] -->
+
+<!-- [note: `sp/bm.qmd` is a pre-existing, looser transcription of this same
+Brownian-motion note (the two BM definitions and the martingale properties).
+This file is the full, exact version.] -->
+
+The stock market can be model as simple as predicting price go up or down every
+day, and extend to Continous diffusion path in BS model. Brownian mothion is
+fundeful of stochasti Calculons (Ito Integral), and can be view
+
+<!-- [incomplete: the intro sentence trails off at "and can be view" in the source.] -->
+
+## Simple Random Walk
+
+Idea of Simple random walk is 'Simple'. You go left with prob $p$, other wise you
+go right. with prob $1-P$. In the following we will be interested in the symmetric
+case where. $p = \tfrac12$.
+
+If each step is denote as $\xi_i$, then $P(\xi_i = 1) = \tfrac12 = P(\xi_i = -1) = 1$.
+
+<!-- [flag: the trailing "$= 1$" appears extraneous; each step has probability
+$\tfrac12$. Transcribed as written.] -->
+
+and $X_m = \sum_{k=1}^{m} \xi_k$, with $X_0 = 0$
+
+**property of symmetric Random Walk**
+
+1. Independent Increment.
+
+2. $E(M_{k_{i+1}} - M_{k_i}) = 0$, $\operatorname{Var}(M_{k_m} - M_{k_i}) = k_m - k_i$
+$$
+0 = k_0 \leq k_1 \leq \cdots \leq k_m.
+$$
+<!-- [unclear: the first increment's subscript is written ambiguously (reads like
+"$M_{k+i}$"); rendered $M_{k_{i+1}} - M_{k_i}$ to match the Var term.] -->
+
+3. Sym Random Walk is a martingle.
+
+4. $[M, M]_k = \sum_{j=1}^{k} (M_j - M_{j-1})^2 = k$ (Quadratic Variation)
+
+**Remark:** The QV is irelavent to prob of step, thus is general to more symmetric
+path.
+
+In practice, QV of a path is easy to evaluate is tick-by-tick price data.
+
+## Scaled Random Walk
+
+The random walk defined above has time step of $1$, that means the. time can only
+be $1, 2, 3, \cdots$. we can make the time to be $\prec \tfrac12$ by rescale it as
+$$
+W^n_t = \frac{1}{\sqrt{n}} M_{nt}, \qquad \text{where } n \in \mathbb{N}^+ \text{ and } nt \text{ is integer}.
+$$
+
+<!-- [unclear: the phrase "make the time to be $\prec \tfrac12$" is partly
+illegible; only the reading of the glyph is uncertain, the meaning is a finer
+time grid.] -->
+
+essentially we devide the time $[0, 1]$ to $n$ interval of size $\tfrac1n$.
+
+<!-- [figure: two aligned number lines illustrating the rescaling — a top line
+labelled $W$ over $[0,1]$ with ticks at $\tfrac1n, \tfrac2n, \dots$, and a bottom
+line labelled $M$ with integer ticks $1, 2, \dots$. Not reproduced.] -->
+
+when $nt$ is not integer, the $W^n_t = $ interpolated value, between closest
+integer value.
+
+the $W^n_t$ share the. similar properties as random walk.
+
+- independed increment
+- $E(W^n(t) - W^n(t_0)) = 0$ $\qquad \operatorname{Var}(W^n_t - W^n_s) = t - s$
+- martingle $E(W^n_t \mid \mathcal{F}_s) = W^n_s$, $\quad s \leq t$ & $ns, nt \in \mathbb{N}^+$
+- Quadratic Variation $[W^n, W^n](t) = t$
+
+**limiting dist of scaled random walk.**
+
+if we chose large $n$ and draw histogram of $W^n_t$, we notice that the histogram
+will approximate normal dist. In fact, the $W^n_t$ will converge to normal. as
+$n \to \infty$
+
+**Th.** fix $t \geq 0$, As $n \to \infty$, $W^n(t)$ evaluated at time $t$ Converge
+to $N(0, t)$.
+
+**proof:** the proof can be show the characteristic / moment generating function
+Converge.
+
+we thus has the first definition of BM.
+
+## Brownian Motion (definition)
+
+**Def** $(\Omega, \mathcal{F}, P)$, $(B_t)_{t \geq 0}$ is a stochastic process,
+i.e. for $\forall t \geq 0$, $B_t$ is a. R.V.
+
+$(B_t)_{t \geq 0}$ is called BM if $B_0 = 0$ and $\forall\, 0 = t_0 < t_1, \cdots < t_i$
+$$
+B_{t_1} - B_{t_0}, \ B_{t_2} - B_{t_1}, \ \cdots B_{t_i} - B_{t_{i-1}} \quad \text{all independent}, \quad \forall s < t, \ B_t - B_s \overset{(d)}{=} N(0, t-s)
+$$
+
+**Def2** (using filtration), $(B_t)_{t \geq 0}$ is called BM w.r.t. $(\mathcal{F}_t)$ if
+
+- $B_t$ is continous path, $B_0 = 0$
+- $\forall t$, $B_t$ is measurable w.r.t. $\mathcal{F}_t$ $\rightsquigarrow \mathcal{F}_t^B \subseteq \mathcal{F}_t$
+- $B_t - B_s \perp \mathcal{F}_s$ and $B_t - B_s \overset{(d)}{=} N(0, t-s)$
+
+from the definition we can show that the $\operatorname{Cov}(B_t, B_s) = E(B_t B_s) = s \wedge t$.
+
+$$
+\begin{aligned}
+\operatorname{Cov}(B_t, B_s) &= E(B_t B_s) - E(B_t)E(B_s) = E(B_t B_s) \\
+&= E(B_s(B_t - B_s) + B_s^2) \qquad \text{if } t \geq s \geq 0 \\
+&= E(B_s(B_t - B_s)) + E(B_s^2) = s = s \wedge t.
+\end{aligned}
+$$
+
+Thus the BM can also be defined from Gaussian process.
+
+## Gaussian process
+
+**Def Gaussian process**
+
+$(X_t)_{t \geq 0}$ SP on $(\Omega, \mathcal{F}, P)$ is called a Gaussian process if
+$(X_{t_1}, X_{t_2}, \cdots X_{t_d})$ form a multi dimensional Gaussian, $\forall t_1 \leq t_2 \leq \cdots \leq t_d$.
+
+Then the BM motion is a Gaussian process with $B_0 = 0$, $E[B_t] = 0$ and
+$\operatorname{Cov}(B_s, B_t) = s \wedge t$ $\ \forall s, t$.
+
+**Def** $(X_1, \cdots X_n) \in \mathbb{R}^d$ is a multi-dimensional Gaussian with
+mean $\mu \in \mathbb{R}^d$, and cov matrix $\Sigma \in \mathbb{R}^{d \times d}$,
+symmetric, semi def if
+$$
+P(x_1, \cdots x_n) = P(\vec{x}) = \frac{1}{\sqrt{(2\pi)^d \det(\Sigma)}} \, e^{-\frac12 \langle \Sigma^{-1}(\vec{x} - m), (\vec{x} - m)\rangle}
+$$
+or can write further
+$$
+E[e^{i \langle \vec{a}, x\rangle}] = e^{\, i \langle \vec{a}, \mu\rangle - \frac12 \langle \Sigma \vec{a}, \vec{a}\rangle}.
+$$
+
+<!-- [unclear: the leading symbol in the exponents reads like "$i$" (imaginary
+unit), consistent with the $-\tfrac12$ sign making this a characteristic function;
+transcribed as $i$.] -->
+
+## Properties
+
+**(1)** $(B_t)_{t \geq 0}$ is a martingle w.r.t. to $\mathcal{F}_t$,
+$$
+E(B_t \mid \mathcal{F}_s) = E(B_s + B_t - B_s \mid \mathcal{F}_s) = B_s + E(B_t - B_s \mid \mathcal{F}_s) = B_s + E(B_t - B_s) = B_s
+$$
+
+**(2)** $B_t^2 - t$ is a martingle w.r.t. $(\mathcal{F}_t)_{t \geq 0}$
+$$
+\begin{aligned}
+E(B_t^2 - t \mid \mathcal{F}_s) &= E\big((B_s + (B_t - B_s))^2 - t \mid \mathcal{F}_s\big) \\
+&= E\big(B_s^2 + 2B_s(B_t - B_s) + (B_t - B_s)^2 \mid \mathcal{F}_s\big) - t \\
+&= B_s^2 + 2B_s E(B_t - B_s \mid \mathcal{F}_s) + E\big((B_t - B_s)^2 \mid \mathcal{F}_s\big) - t \\
+&= B_s^2 - s
+\end{aligned}
+$$
+
+## Quadratic variation of BM
+
+we denote the QV of BM $(B_t)_t$ as on a partition $0 = t_0 < t_1 < t_2 \cdots < t_n = T$ as
+$$
+[B, B]_{t_n} := (B_{t_1} - B_{t_0})^2 + (B_{t_2} - B_{t_1})^2 + \cdots + (B_{t_n} - B_{t_{n-1}})^2
+$$
+
+**obs:** denote
+$$
+\langle B, B\rangle_{t_n} := E[(B_{t_1} - B_{t_0})^2 \mid \mathcal{F}_{t_0}] + E[(B_{t_2} - B_{t_1})^2 \mid \mathcal{F}_{t_1}] + \cdots + E[(B_{t_n} - B_{t_{n-1}})^2 \mid \mathcal{F}_{t_n}]
+$$
+
+<!-- [flag: the last conditioning is written $\mathcal{F}_{t_n}$; by the pattern
+$E[(B_{t_i}-B_{t_{i-1}})^2 \mid \mathcal{F}_{t_{i-1}}]$ it should be
+$\mathcal{F}_{t_{n-1}}$. Transcribed as written.] -->
+<!-- [note: the source writes a small superscript (a circle / partition mark) on
+the QV brackets $[B,B]$ and $\langle B,B\rangle$; omitted here for legibility.] -->
+
+Since $B_{t_n} - B_{t_{n-1}} \sim N(0, t_n - t_{n-1})$ and are independent from previous
+$$
+\langle B, B\rangle_{t_n} = (t_1 - t_0) + (t_2 - t_1) + \cdots + (t_n - t_{n-1}) = t_n - t_0 = t_n.
+$$
+
+One important property for the QV of BM is that $[B, B]_{t_n} \to t_n$ when the
+partition is tend to infinitesmal small.
+
+**Th:** let $\|\sigma\| := \max_{i=1 \cdots n} |t_i - t_{i-1}|$, then we have.
+$$
+\lim_{\|\sigma\| \to 0} [B, B]_{t_n} = \langle B, B\rangle_{t_n} = t_n. \qquad \text{or more precisely.}
+$$
+$$
+P\big(\{\omega \mid [B, B]_{t_n}(\omega) = t_n\}\big) = 1.
+$$
+
+**proof:** we first consider
+$$
+E\big([B,B]_{t_n} - t_n\big) = E\Big(\textstyle\sum_i (B_i - B_{i-1})^2 - \sum_i (t_i - t_{i-1})\Big) = \sum_i E\big((B_i - B_{i-1})^2 - (t_i - t_{i-1})\big) = 0.
+$$
+
+next consider the variation
+$$
+\begin{aligned}
+E\big(([B,B]_{t_n} - t_n)^2\big) &= E\Big(\big[\textstyle\sum_i ((B_i - B_{i-1})^2 - (t_i - t_{i-1}))\big]^2\Big) \\
+&= E\Big[\textstyle\sum_i ((B_i - B_{i-1})^2 - (t_i - t_{i-1}))^2 + 2\sum_{i \neq j} ((B_i - B_{i-1})^2 - (t_i - t_{i-1}))((B_j - B_{j-1})^2 - (t_j - t_{j-1}))\Big] \\
+&= \textstyle\sum_i E\big[((B_i - B_{i-1})^2 - (t_i - t_{i-1}))^2\big] + 2\sum_{i \neq j} E\big[((B_i - B_{i-1})^2 - (t_i - t_{i-1}))((B_j - B_{j-1})^2 - (t_j - t_{j-1}))\big]
+\end{aligned}
+$$
+
+from independent intervals, we have. $B_i - B_{i-1} \perp B_j - B_{j-1}$, $i \neq j$
+$$
+\Rightarrow E\big[((B_i - B_{i-1})^2 - (t_i - t_{i-1}))((B_j - B_{j-1})^2 - (t_j - t_{j-1}))\big] = E[\cdots]\,E[\cdots] = 0.
+$$
+
+denote $B_i - B_{i-1} = N_i$, $\operatorname{Var}(N_i) = t_i - t_{i-1}$
+$$
+\begin{aligned}
+\Rightarrow E[\ ] &= \textstyle\sum_i E\big((N_i^2 - \operatorname{Var}(N_i))^2\big) = \sum_i E\big((N_i^2 - E(N_i^2))^2\big) \\
+&= \textstyle\sum_i E\big(N_i^4 - 2N_i^2 E(N_i^2) + E^2(N_i^2)\big) \\
+&= \textstyle\sum_i 3(t_i - t_{i-1})^2 - 2(t_i - t_{i-1})^2 + (t_i - t_{i-1})^2 \\
+&= 2\textstyle\sum_i (t_i - t_{i-1})^2 \leq 2\|\sigma\| \sum_i |t_i - t_{i-1}| \leq 2|\sigma| \, t_n.
+\end{aligned}
+$$
+
+thus $\lim_{\sigma \to 0} E\big[([B, B] - \langle B, B\rangle)^2\big] = 0$
+
+**Remark:** It is Convinient to memorize the $[B, B]_t = t$ in "differential" form
+as
+$$
+(dB)^2 = dt
+$$
+The simply means BM cumulate QV at rate one per unit time.

@@ -1,7 +1,89 @@
 # Sequential Quadratic Programming
-Sequential Quadratic Programming (SQP) is extended method of quadratic programming to solve general constrained optimization problem using Newton's method and QP at each iterations
 
-## Equality COnstrained Case
+Sequential Quadratic Programming (SQP) is extended method of quadratic programming to solve general constrained optimization problem using Newton's method and QP at each iterations. It solves a nonlinear constrained optimization with Newton's method.
 
-## Inequality COnstrained Case
+## Equality Constrained Case
 
+$$
+\min f(x), \quad f:\mathbb{R}^n\to\mathbb{R}, \qquad \text{s.t.}\quad C(x)=0, \quad C:\mathbb{R}^n\to\mathbb{R}^m.
+$$
+
+The KKT condition is
+$$
+\nabla f(x^\ast) - \sum_{i\in\mathcal{E}}\lambda_i^\ast\,\nabla C_i(x^\ast) = 0, \qquad C(x^\ast)=0
+$$
+$$
+\iff F(x,\lambda) = \begin{bmatrix} \nabla f(x) - A^{\mathsf T}(x)\lambda \\ C(x) \end{bmatrix} = 0, \qquad A = \big[\,\nabla C_1,\ \nabla C_2,\ \cdots\big].
+$$
+
+Then use Newton to find an approx solution.
+
+### Newton's method
+
+$$
+\begin{bmatrix} x_{k+1} \\ \lambda_{k+1} \end{bmatrix} = \begin{bmatrix} x_k \\ \lambda_k \end{bmatrix} + \begin{bmatrix} P_x \\ P_\lambda \end{bmatrix} \quad (\text{Newton step}), \qquad \nabla_z F(z_k)\,\delta z_k = -F(z_k),\ \ z=(x,\lambda).
+$$
+
+$$
+\Rightarrow
+\begin{bmatrix} \nabla^2\mathcal{L}(x_k,\lambda_k) & -A(x_k)^{\mathsf T} \\ A(x_k) & 0 \end{bmatrix}
+\begin{bmatrix} P_x \\ P_\lambda \end{bmatrix}
+= -\begin{bmatrix} \nabla f(x_k) - A(x_k)^{\mathsf T}\lambda_k \\ C(x_k) \end{bmatrix}
+$$
+
+$$
+\iff
+\begin{bmatrix} \nabla^2\mathcal{L} & A^{\mathsf T} \\ A & 0 \end{bmatrix}
+\begin{bmatrix} P_x \\ -(P_\lambda+\lambda_k) \end{bmatrix}
+= -\begin{bmatrix} \nabla f(x_k) \\ C(x_k) \end{bmatrix}
+$$
+
+**Remarks:** The step is well defined if
+$$
+\begin{cases}
+A \text{ has full row rank} \\
+d^{\mathsf T}\nabla^2\mathcal{L}\,d > 0,\ \forall d\neq 0 \text{ s.t. } Ad=0.
+\end{cases}
+$$
+
+**Note:** The Newton step equation is equivalent to the QP
+$$
+\min_{p\in\mathbb{R}^n} \nabla f(x_k)^{\mathsf T}p + \tfrac{1}{2}p^{\mathsf T}\nabla^2\mathcal{L}(x_k,\lambda_k)p, \qquad \text{s.t.}\quad C(x_k) + A(x_k)p = 0.
+$$
+$$
+\Rightarrow P_x = P^\ast, \qquad \lambda^\ast = \lambda_k + P_\lambda \to \text{next } \lambda.
+$$
+
+Thus SQP solve QP in sequence, where at each step solve
+
+* Quadratic approx of objective
+* Linear approx of constraints.
+
+## Inequality Constrained Case
+
+$$
+\min_{x\in\mathbb{R}^n} f(x), \qquad \text{s.t.}\quad G_i(x)=0,\ i\in\mathcal{E};\quad G_i(x)\geq 0,\ i\in\mathcal{I}.
+$$
+
+$$
+\Rightarrow \min_{p} \nabla f(x_k)^{\mathsf T}p + \tfrac{1}{2}p^{\mathsf T}\nabla^2\mathcal{L}(x_k,\lambda_k)p, \qquad
+\text{s.t.}
+\begin{cases}
+G_i(x_k) + \nabla G_i(x_k)^{\mathsf T}p = 0, & i\in\mathcal{E} \\
+G_i(x_k) + \nabla G_i(x_k)^{\mathsf T}p \geq 0, & i\in\mathcal{I}
+\end{cases}
+$$
+
+which is solved with an inequality QP.
+
+## Remarks on Convergence
+
+It can be shown that if $(x^\ast,\lambda^\ast)$ is a KKT point and $x^\ast$ is a local solution of the NLP, and LICQ and strict complementary holds. Then there exists $(x_k^\ast,\lambda_k^\ast)$, a local solution of $\mathrm{QP}_k$ s.t. $A_k = A(x^\ast)$, when $(x_k^\ast,\lambda_k^\ast)$ is sufficiently close to $(x^\ast,\lambda^\ast)$. Then, the IQP reduced to an EQP on the optimal $A(x^\ast)$ (and not change $A_k$ in subsequence). SQP can be applied, and will converge quadratically.
+
+## Quasi-Newton Approximation
+
+Similarly like the unconstrained case, we can use a PD matrix $B_k$ to approximate $\nabla^2\mathcal{L}$, and update like BFGS.
+
+## Line-Search
+
+<!-- [note: the handwritten note ends with a "Line-Search" heading only; no content follows in this PDF.] -->

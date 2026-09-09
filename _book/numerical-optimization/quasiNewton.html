@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Open study notes on the mathematics, stochastic calculus, numerical optimization, and machine learning behind quantitative finance.">
 
-<title>6&nbsp; Quasi Newton Methods – Phy2Q Roadmap</title>
+<title>2&nbsp; Quasi Newton Methods – Phy2Q Roadmap</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +32,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../numerical-optimization/conjGrad.html" rel="next">
-<link href="../numerical-optimization/newTon.html" rel="prev">
+<link href="../numerical-optimization/lineSearch.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -41,7 +42,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-af78437ed5bf07251aacc1da5128115f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
 <link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -129,7 +130,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../numerical-optimization/introduction.html">Numerical Optimization</a></li><li class="breadcrumb-item"><a href="../numerical-optimization/quasiNewton.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quasi Newton Methods</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../numerical-optimization/lineSearch.html">Numerical Optimization</a></li><li class="breadcrumb-item"><a href="../numerical-optimization/quasiNewton.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Quasi Newton Methods</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -145,6 +146,9 @@ window.Quarto = {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Phy2Q Roadmap</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/zhang-xiaoru/roadmap2Q" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -157,7 +161,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preface</span></a>
+ <span class="menu-text">A Physicist’s Roadmap into Quantitative Finance</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -171,74 +175,44 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/unconstrained.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory of Unconstrained Optimization</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/lineSearch.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Line Search Methods</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/gradDescent.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Gradient Descent Methods</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/newTon.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Newton’s Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Line Search Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/quasiNewton.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quasi Newton Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Quasi Newton Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/conjGrad.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Conjugate Gradient Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conjugate Gradient Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/constrained.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Theory of Constrained Optimization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Theory of Constrained Optimization</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/quadProg.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Quadratic Programming</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Quadratic Programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/seqQuadprog.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Sequential Quadratic Programming</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Sequential Quadratic Programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/penalty.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Penalty Methods</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/interior.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interior Point Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Penalty Methods</span></span></a>
   </div>
 </li>
       </ul>
@@ -246,7 +220,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Monte-Carlo Methods</span></a>
+ <span class="menu-text">Machine Learning and Data Science Basics</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -254,8 +228,50 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../monte-carlo/monte-carlo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Monte-Carlo Method</span></span></a>
+  <a href="../ml-ds/probRecap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Recap on Probability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/highDimData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Properties of High Dimensional Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/randomProj.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Randomized Projection</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/SVD.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Clustering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/markovChain.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Markov Chains</span></span></a>
   </div>
 </li>
       </ul>
@@ -263,7 +279,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Machine Learning and Data Science Basics</span></a>
+ <span class="menu-text">Stochastic Process and Stochastic Integral</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -271,103 +287,55 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ml-ds/highDimData.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Properties of High Dimensional Data</span></span></a>
+  <a href="../sp-and-stochCal/probReview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Probability in Measure Theory Language</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ml-ds/randomProj.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Randomized Projection</span></span></a>
+  <a href="../sp-and-stochCal/martingales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Martingales</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ml-ds/SVD.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Machine Learning in Finance</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Practice Machine Learning with Kaggle</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Statistical Inference</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
- <span class="menu-text">Regression Analysis</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reg-anly/slrInference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Statistical Inference of Simple Linear Regression</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Bayesian Modeling</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
- <span class="menu-text">Stochastic Process and Stochastic Integral</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sp/prob.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Probability Review</span></span></a>
+  <a href="../sp-and-stochCal/stoppingTime.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Stopping Time</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sp/bm.html" class="sidebar-item-text sidebar-link">
+  <a href="../sp-and-stochCal/brownianMotion.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Brownian Motion</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sp/stocInt.html" class="sidebar-item-text sidebar-link">
+  <a href="../sp-and-stochCal/stochasticIntegral.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Stochastic Integral</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sp-and-stochCal/jumpProcess.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Stochastic Analysis and Lévy Process</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Financial Basics</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Stochastic Process in Finance</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sp-in-finance/plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Things need to be done</span></span></a>
+  <a href="../sp-in-finance/riskNeutralPricing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Risk-Neutral Pricing</span></span></a>
   </div>
 </li>
       </ul>
@@ -388,7 +356,7 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#generic-approach-of-quasi-newton-methods" id="toc-generic-approach-of-quasi-newton-methods" class="nav-link active" data-scroll-target="#generic-approach-of-quasi-newton-methods"><span class="header-section-number">6.1</span> Generic Approach of Quasi-Newton Methods</a>
+  <li><a href="#generic-approach-of-quasi-newton-methods" id="toc-generic-approach-of-quasi-newton-methods" class="nav-link active" data-scroll-target="#generic-approach-of-quasi-newton-methods"><span class="header-section-number">2.1</span> Generic Approach of Quasi-Newton Methods</a>
   <ul class="collapse">
   <li><a href="#quadratic-objective-function" id="toc-quadratic-objective-function" class="nav-link" data-scroll-target="#quadratic-objective-function">Quadratic Objective Function</a></li>
   <li><a href="#secant-condition" id="toc-secant-condition" class="nav-link" data-scroll-target="#secant-condition">Secant Condition</a></li>
@@ -396,15 +364,16 @@ window.Quarto = {
   <li><a href="#additional-condition" id="toc-additional-condition" class="nav-link" data-scroll-target="#additional-condition">Additional Condition</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul></li>
+  <li><a href="#dfp-update" id="toc-dfp-update" class="nav-link" data-scroll-target="#dfp-update"><span class="header-section-number">2.2</span> DFP Update</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/blob/main/numerical-optimization/quasiNewton.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../numerical-optimization/introduction.html">Numerical Optimization</a></li><li class="breadcrumb-item"><a href="../numerical-optimization/quasiNewton.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quasi Newton Methods</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../numerical-optimization/lineSearch.html">Numerical Optimization</a></li><li class="breadcrumb-item"><a href="../numerical-optimization/quasiNewton.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Quasi Newton Methods</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quasi Newton Methods</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Quasi Newton Methods</span></h1>
 </div>
 
 
@@ -423,7 +392,7 @@ window.Quarto = {
 
 <p><strong>Newton Method</strong>: Require calculation of Hessian matrix <span class="math inline">\(H_{ij}=\frac{\partial^2f}{\partial x_i\partial x_j}\)</span></p>
 <p><strong>Steepest Descent</strong>: Find the descent direction using local quadratic approximation with identity matrix as Hessian. <span class="math display">\[
-\underset{\mathrm{argmin}}{\mathbf{p}\in\mathbb{R}^n}f(\mathbf{x}_k)+\nabla f^T(\mathbf{x}_k)\mathbf{p}+1/2\mathbf{p}^TI\mathbf{p}
+\min_{\mathbf{p}\in\mathbb{R}^n}f(\mathbf{x}_k)+\nabla f^T(\mathbf{x}_k)\mathbf{p}+\frac{1}{2}\mathbf{p}^TI\mathbf{p}
 \]</span></p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -438,8 +407,8 @@ Idea of Quasi-Newton Method
 <p>Instead of using precise second-order derivative information to construct quadratic approximation, use a matrix <span class="math inline">\(B_k\)</span> that approximate the Hessian and update at each iteration</p>
 </div>
 </div>
-<section id="generic-approach-of-quasi-newton-methods" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="generic-approach-of-quasi-newton-methods"><span class="header-section-number">6.1</span> Generic Approach of Quasi-Newton Methods</h2>
+<section id="generic-approach-of-quasi-newton-methods" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="generic-approach-of-quasi-newton-methods"><span class="header-section-number">2.1</span> Generic Approach of Quasi-Newton Methods</h2>
 <section id="quadratic-objective-function" class="level3">
 <h3 class="anchored" data-anchor-id="quadratic-objective-function">Quadratic Objective Function</h3>
 <p>The descent direction <span class="math inline">\(\mathbf{p}_k\)</span> at each iteration is found by finding the minimizer of the following qudratic approximation of the objective function. <span class="math display">\[
@@ -462,7 +431,7 @@ Approximate Hessian <span class="math inline">\(B_k\)</span>
 </div>
 </div>
 <div id="rem-quasiDescent" class="proof remark">
-<p><span class="proof-title"><em>Remark 6.1</em>. </span>The minimizer can be found as <span class="math inline">\(\mathbf{p}_k=-B^{-1}_k\nabla f_k\)</span>, which would be a descent direction if <span class="math inline">\(B_k\)</span> is PD.</p>
+<p><span class="proof-title"><em>Remark 2.1</em>. </span>The minimizer can be found as <span class="math inline">\(\mathbf{p}_k=-B^{-1}_k\nabla f_k\)</span>, which would be a descent direction if <span class="math inline">\(B_k\)</span> is PD.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -474,7 +443,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><a href="#rem-quasiDescent" class="quarto-xref">Remark&nbsp;<span>6.1</span></a> can be verified using <a href="lineSearch.html#rem-descentDir" class="quarto-xref">Remark&nbsp;<span>3.2</span></a>.</p>
+<p><a href="#rem-quasiDescent" class="quarto-xref">Remark&nbsp;<span>2.1</span></a> can be verified using <a href="lineSearch.html#rem-descentDir" class="quarto-xref">Remark&nbsp;<span>1.2</span></a>.</p>
 </div>
 </div>
 </section>
@@ -486,29 +455,75 @@ Note
 \]</span></p>
 <p>Generalized to multi-variable case, using Taylor expansion of <span class="math inline">\(\nabla f(\mathbf{x}_{k+1})\)</span> <span class="math display">\[
 \nabla f(\mathbf{x}_{k+1}) \approx \nabla f(\mathbf{x}_k) + \nabla ^2 f(\mathbf{x}_k)(\mathbf{x}_{k+1} - \mathbf{x}_k)
-\]</span> therefor, we can approximate the Hessian with matrix <span class="math inline">\(B_{k+1}\in\mathbb{R}^n\)</span> satisfy the <em>secant condition</em> <span class="math display">\[
+\]</span> therefor, we can approximate the Hessian with matrix <span class="math inline">\(B_{k+1}\in\mathbb{R}^{n\times n}\)</span> satisfy the <em>secant condition</em> <span class="math display">\[
 \underbrace{\nabla f(\mathbf{x}_{k+1}) - \nabla f(\mathbf{x}_k)}_{\mathbf{y}_k} = B_{k+1}\underbrace{(\mathbf{x}_{k+1}-\mathbf{x}_k)}_{\mathbf{s}_k}
 \]</span></p>
+<p>The same <em>secant condition</em> can also be derived by matching the next-step model <span class="math inline">\(m_{k+1}(\mathbf{p}) = f(\mathbf{x}_{k+1}) + \nabla f_{k+1}^{\mathsf T}\mathbf{p} + \frac{1}{2}\mathbf{p}^{\mathsf T}B_{k+1}\mathbf{p}\)</span> to the true gradient at the last two iterates: <span class="math display">\[
+\nabla m_{k+1}(0) = \nabla f(\mathbf{x}_{k+1}), \qquad \nabla m_{k+1}(-\alpha_k\mathbf{p}_k) = \nabla f(\mathbf{x}_k)
+\]</span> <span class="math display">\[
+\Rightarrow \nabla f(\mathbf{x}_{k+1}) + B_{k+1}(-\alpha_k\mathbf{p}_k) = \nabla f(\mathbf{x}_k) \Rightarrow B_{k+1}(\mathbf{x}_{k+1}-\mathbf{x}_k) = \nabla f(\mathbf{x}_{k+1})-\nabla f(\mathbf{x}_k)
+\]</span> From the Taylor expansion perspective, <span class="math inline">\(\nabla f(\mathbf{x}_{k+1})-\nabla f(\mathbf{x}_k) = \nabla^2 f|_{\mathbf{x}^\ast}(\mathbf{x}_{k+1}-\mathbf{x}_k)\)</span>, so <span class="math inline">\(B_{k+1}\)</span> is the multi-direction slope of the linear approximation of the gradient.</p>
 </section>
 <section id="positive-definite-condition" class="level3">
 <h3 class="anchored" data-anchor-id="positive-definite-condition">Positive Definite Condition</h3>
 <p>As we mentioned before, <span class="math inline">\(B_{k+1}\)</span> has to be positive definite so that the quadratic objective function has minimizer and <span class="math inline">\(\mathbf{p}_k\)</span> found is a descent direction. If the quasi Newton methods shown later (DFP and BFGS), it can be shown that if previous step <span class="math inline">\(B_{k}\)</span> is PD, then <span class="math inline">\(B_{k+1}\)</span> is PD if <span class="math display">\[
-\mathbf{s}^T\mathbf{y}_k&gt;0
+\mathbf{s}_k^T\mathbf{y}_k&gt;0
 \]</span></p>
+<p>This follows from the secant condition by left-multiplying <span class="math inline">\(B_{k+1}\mathbf{s}_k=\mathbf{y}_k\)</span> with <span class="math inline">\(\mathbf{s}_k^{\mathsf T}\)</span>: <span class="math display">\[
+B_{k+1}\mathbf{s}_k=\mathbf{y}_k \Rightarrow \mathbf{s}_k^{\mathsf T}B_{k+1}\mathbf{s}_k = \mathbf{s}_k^{\mathsf T}\mathbf{y}_k&gt;0
+\]</span></p>
+<ul>
+<li>if <span class="math inline">\(f\)</span> is strongly convex, then <span class="math inline">\(\mathbf{s}_k^{\mathsf T}\mathbf{y}_k&gt;0\)</span> holds for <span class="math inline">\(\forall\,\mathbf{s}_k,\mathbf{y}_k\)</span></li>
+<li><span class="math inline">\(\mathbf{s}_k^{\mathsf T}\mathbf{y}_k&gt;0\)</span> not always true for general <span class="math inline">\(f\)</span></li>
+<li>in use Wolf or strong Wolf line search, <span class="math inline">\(\mathbf{s}_k^{\mathsf T}\mathbf{y}_k&gt;0\)</span> holds</li>
+</ul>
 </section>
 <section id="additional-condition" class="level3">
 <h3 class="anchored" data-anchor-id="additional-condition">Additional Condition</h3>
-<p>It is obvouse that <span class="math inline">\(B_k\)</span> should be symmeteric, i.e.&nbsp;<span class="math inline">\(B^T_k = B_k\)</span>. However, the <span class="math inline">\(B_k\)</span> satisfied the secant condition and symmetric is not unique.</p>
-<p>To uniquely detemines <span class="math inline">\(B_k\)</span>, additional condition should be imposed and one resonable would be requring the <span class="math inline">\(B_{k+1}\)</span>, the Hessian for next interation be a symmetric matrix satisfying secant condition and also closest to previouse Hessian in some sence, i.e. <span class="math display">\[
-B_{k+1} = \mathrm{argmin}\lVert B - B_k \rVert,
+<p>It is obvouse that <span class="math inline">\(B_k\)</span> should be symmeteric, i.e.&nbsp;<span class="math inline">\(B^T_k = B_k\)</span>. However, the <span class="math inline">\(B_k\)</span> satisfied the secant condition and symmetric is not unique. Counting the degrees of freedom:</p>
+<ul>
+<li><span class="math inline">\(B_k\)</span> is symmetric <span class="math inline">\(\rightarrow n(n+1)/2\)</span> unique element</li>
+<li>secant condition <span class="math inline">\(\rightarrow n\)</span> equations</li>
+</ul>
+<p>so <span class="math inline">\(B_k\)</span> is not uniquely determined.</p>
+<p>To uniquely detemines <span class="math inline">\(B_k\)</span>, additional condition should be imposed and one resonable would be requring the <span class="math inline">\(B_{k+1}\)</span>, the Hessian for next interation be a symmetric matrix satisfying secant condition and also closest to previouse Hessian in some sence, i.e.&nbsp;require <span class="math inline">\(B_{k+1}\)</span> be the one that closest to <span class="math inline">\(B_k\)</span>: <span class="math display">\[
+B_{k+1} = \arg\min_{B}\left(\lVert B - B_k \rVert \;\middle|\; B = B^{\mathsf T},\ B\mathbf{s}_k = \mathbf{y}_k\right),
 \]</span> where <span class="math inline">\(\lVert\cdot\rVert\)</span> be some matrix norm.</p>
 </section>
 <section id="summary" class="level3">
 <h3 class="anchored" data-anchor-id="summary">Summary</h3>
-<p>The quasi Newton methods search the descent direction for next step by approximate the function locally with quadratic function</p>
-
-
+<p>The quasi Newton methods search the descent direction for next step by approximate the function locally with quadratic function <span class="math display">\[
+m_k(\mathbf{p}) = f(\mathbf{x}_k) + \nabla f(\mathbf{x}_k)^{\mathsf T}\mathbf{p} + \frac{1}{2}\mathbf{p}^{\mathsf T}B_k\mathbf{p} \quad\Rightarrow\quad \mathbf{p}_k = \arg\min_{\mathbf{p}} m_k(\mathbf{p}) = -B_k^{-1}\nabla f(\mathbf{x}_k)
+\]</span> The approximate Hessian <span class="math inline">\(B_k\)</span> is required to satisfy the <em>secant</em> condition, be <em>symmetric</em> and <em>positive definite</em> (<span class="math inline">\(\mathbf{s}_k^{\mathsf T}\mathbf{y}_k&gt;0\)</span>), and a further <em>additional</em> closeness condition (in some matrix norm) to be uniquely determined: <span class="math display">\[
+B_{k+1} = \arg\min_B\left(\lVert B - B_k\rVert \;\middle|\; B = B^{\mathsf T},\ B\mathbf{s}_k = \mathbf{y}_k\right)
+\]</span></p>
+<p><a href="#fig-quasi-summary" class="quarto-xref">Figure&nbsp;<span>2.1</span></a> collects the requirements imposed on <span class="math inline">\(B_k\)</span>.</p>
+<div id="cell-fig-quasi-summary" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div id="fig-quasi-summary" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-quasi-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="quasiNewton_files/figure-html/fig-quasi-summary-output-1.png" width="624" height="298" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-quasi-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.1: The requirements imposed on the approximate Hessian <span class="math inline">\(B_k\)</span> in a quasi-Newton method.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 </section>
+</section>
+<section id="dfp-update" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="dfp-update"><span class="header-section-number">2.2</span> DFP Update</h2>
+<p>The <em>DFP update</em> measures the closeness of <span class="math inline">\(B\)</span> to <span class="math inline">\(B_k\)</span> (the additional condition above) with a <em>weighted Frobenius norm</em>: <span class="math display">\[
+\lVert\cdot\rVert_W := \lVert W^{1/2}AW^{1/2}\rVert_F, \qquad \lVert\cdot\rVert_F^2 := \sum_{ij} a_{ij}^2
+\]</span> where <span class="math inline">\(W\)</span> should satisfy <span class="math inline">\(W\mathbf{y}_k = \mathbf{s}_k\)</span>. One example is <span class="math inline">\(W = \bar{G}_k^{-1}\)</span>, where <span class="math display">\[
+\bar{G}_k = \int_0^1 \nabla^2 f(\mathbf{x}_k + \tau\alpha_k\mathbf{p}_k)\,\mathrm{d}\tau
+\]</span> is the <em>average Hessian</em>.</p>
+<!-- [note: the handwritten note ends here — it sets up the weighted Frobenius norm for the DFP update, but the explicit DFP update formula for $B_{k+1}$ is not given in this PDF.] -->
+
+
 </section>
 
 </main> <!-- /main -->
@@ -913,18 +928,18 @@ B_{k+1} = \mathrm{argmin}\lVert B - B_k \rVert,
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../numerical-optimization/newTon.html" class="pagination-link" aria-label="Newton's Methods">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Newton’s Methods</span></span>
+      <a href="../numerical-optimization/lineSearch.html" class="pagination-link" aria-label="Line Search Methods">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Line Search Methods</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../numerical-optimization/conjGrad.html" class="pagination-link" aria-label="Conjugate Gradient Methods">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Conjugate Gradient Methods</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conjugate Gradient Methods</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-    <script type="text/javascript">
+    <footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/blob/main/numerical-optimization/quasiNewton.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script type="text/javascript">
     (function(d) {
       d.querySelectorAll(".pseudocode-container").forEach(function(el) {
         let pseudocodeOptions = {

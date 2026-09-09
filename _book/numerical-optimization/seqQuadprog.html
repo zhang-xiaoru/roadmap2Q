@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Open study notes on the mathematics, stochastic calculus, numerical optimization, and machine learning behind quantitative finance.">
 
-<title>10&nbsp; Sequential Quadratic Programming – Phy2Q Roadmap</title>
+<title>6&nbsp; Sequential Quadratic Programming – Phy2Q Roadmap</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -41,7 +42,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-af78437ed5bf07251aacc1da5128115f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
 <link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -88,6 +89,35 @@ ul.task-list li input[type="checkbox"] {
       </style>
     
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -100,7 +130,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../numerical-optimization/introduction.html">Numerical Optimization</a></li><li class="breadcrumb-item"><a href="../numerical-optimization/seqQuadprog.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Sequential Quadratic Programming</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../numerical-optimization/lineSearch.html">Numerical Optimization</a></li><li class="breadcrumb-item"><a href="../numerical-optimization/seqQuadprog.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Sequential Quadratic Programming</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -116,6 +146,9 @@ ul.task-list li input[type="checkbox"] {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Phy2Q Roadmap</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/zhang-xiaoru/roadmap2Q" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -128,7 +161,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preface</span></a>
+ <span class="menu-text">A Physicist’s Roadmap into Quantitative Finance</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -142,74 +175,44 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/unconstrained.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory of Unconstrained Optimization</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/lineSearch.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Line Search Methods</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/gradDescent.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Gradient Descent Methods</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/newTon.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Newton’s Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Line Search Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/quasiNewton.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quasi Newton Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Quasi Newton Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/conjGrad.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Conjugate Gradient Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conjugate Gradient Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/constrained.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Theory of Constrained Optimization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Theory of Constrained Optimization</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/quadProg.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Quadratic Programming</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Quadratic Programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/seqQuadprog.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Sequential Quadratic Programming</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Sequential Quadratic Programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/penalty.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Penalty Methods</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/interior.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interior Point Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Penalty Methods</span></span></a>
   </div>
 </li>
       </ul>
@@ -217,7 +220,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Monte-Carlo Methods</span></a>
+ <span class="menu-text">Machine Learning and Data Science Basics</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -225,8 +228,50 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../monte-carlo/monte-carlo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Monte-Carlo Method</span></span></a>
+  <a href="../ml-ds/probRecap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Recap on Probability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/highDimData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Properties of High Dimensional Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/randomProj.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Randomized Projection</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/SVD.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Clustering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/markovChain.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Markov Chains</span></span></a>
   </div>
 </li>
       </ul>
@@ -234,7 +279,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Machine Learning and Data Science Basics</span></a>
+ <span class="menu-text">Stochastic Process and Stochastic Integral</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -242,103 +287,55 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ml-ds/highDimData.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Properties of High Dimensional Data</span></span></a>
+  <a href="../sp-and-stochCal/probReview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Probability in Measure Theory Language</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ml-ds/randomProj.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Randomized Projection</span></span></a>
+  <a href="../sp-and-stochCal/martingales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Martingales</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ml-ds/SVD.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Machine Learning in Finance</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Practice Machine Learning with Kaggle</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Statistical Inference</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
- <span class="menu-text">Regression Analysis</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reg-anly/slrInference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Statistical Inference of Simple Linear Regression</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Bayesian Modeling</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
- <span class="menu-text">Stochastic Process and Stochastic Integral</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sp/prob.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Probability Review</span></span></a>
+  <a href="../sp-and-stochCal/stoppingTime.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Stopping Time</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sp/bm.html" class="sidebar-item-text sidebar-link">
+  <a href="../sp-and-stochCal/brownianMotion.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Brownian Motion</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sp/stocInt.html" class="sidebar-item-text sidebar-link">
+  <a href="../sp-and-stochCal/stochasticIntegral.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Stochastic Integral</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sp-and-stochCal/jumpProcess.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Stochastic Analysis and Lévy Process</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Financial Basics</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Stochastic Process in Finance</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sp-in-finance/plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Things need to be done</span></span></a>
+  <a href="../sp-in-finance/riskNeutralPricing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Risk-Neutral Pricing</span></span></a>
   </div>
 </li>
       </ul>
@@ -359,17 +356,23 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#equality-constrained-case" id="toc-equality-constrained-case" class="nav-link active" data-scroll-target="#equality-constrained-case"><span class="header-section-number">10.1</span> Equality COnstrained Case</a></li>
-  <li><a href="#inequality-constrained-case" id="toc-inequality-constrained-case" class="nav-link" data-scroll-target="#inequality-constrained-case"><span class="header-section-number">10.2</span> Inequality COnstrained Case</a></li>
+  <li><a href="#equality-constrained-case" id="toc-equality-constrained-case" class="nav-link active" data-scroll-target="#equality-constrained-case"><span class="header-section-number">6.1</span> Equality Constrained Case</a>
+  <ul class="collapse">
+  <li><a href="#newtons-method" id="toc-newtons-method" class="nav-link" data-scroll-target="#newtons-method">Newton’s method</a></li>
+  </ul></li>
+  <li><a href="#inequality-constrained-case" id="toc-inequality-constrained-case" class="nav-link" data-scroll-target="#inequality-constrained-case"><span class="header-section-number">6.2</span> Inequality Constrained Case</a></li>
+  <li><a href="#remarks-on-convergence" id="toc-remarks-on-convergence" class="nav-link" data-scroll-target="#remarks-on-convergence"><span class="header-section-number">6.3</span> Remarks on Convergence</a></li>
+  <li><a href="#quasi-newton-approximation" id="toc-quasi-newton-approximation" class="nav-link" data-scroll-target="#quasi-newton-approximation"><span class="header-section-number">6.4</span> Quasi-Newton Approximation</a></li>
+  <li><a href="#line-search" id="toc-line-search" class="nav-link" data-scroll-target="#line-search"><span class="header-section-number">6.5</span> Line-Search</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/blob/main/numerical-optimization/seqQuadprog.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../numerical-optimization/introduction.html">Numerical Optimization</a></li><li class="breadcrumb-item"><a href="../numerical-optimization/seqQuadprog.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Sequential Quadratic Programming</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../numerical-optimization/lineSearch.html">Numerical Optimization</a></li><li class="breadcrumb-item"><a href="../numerical-optimization/seqQuadprog.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Sequential Quadratic Programming</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Sequential Quadratic Programming</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Sequential Quadratic Programming</span></h1>
 </div>
 
 
@@ -386,12 +389,79 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Sequential Quadratic Programming (SQP) is extended method of quadratic programming to solve general constrained optimization problem using Newton’s method and QP at each iterations</p>
-<section id="equality-constrained-case" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="equality-constrained-case"><span class="header-section-number">10.1</span> Equality COnstrained Case</h2>
+<p>Sequential Quadratic Programming (SQP) is extended method of quadratic programming to solve general constrained optimization problem using Newton’s method and QP at each iterations. It solves a nonlinear constrained optimization with Newton’s method.</p>
+<section id="equality-constrained-case" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="equality-constrained-case"><span class="header-section-number">6.1</span> Equality Constrained Case</h2>
+<p><span class="math display">\[
+\min f(x), \quad f:\mathbb{R}^n\to\mathbb{R}, \qquad \text{s.t.}\quad C(x)=0, \quad C:\mathbb{R}^n\to\mathbb{R}^m.
+\]</span></p>
+<p>The KKT condition is <span class="math display">\[
+\nabla f(x^\ast) - \sum_{i\in\mathcal{E}}\lambda_i^\ast\,\nabla C_i(x^\ast) = 0, \qquad C(x^\ast)=0
+\]</span> <span class="math display">\[
+\iff F(x,\lambda) = \begin{bmatrix} \nabla f(x) - A^{\mathsf T}(x)\lambda \\ C(x) \end{bmatrix} = 0, \qquad A = \big[\,\nabla C_1,\ \nabla C_2,\ \cdots\big].
+\]</span></p>
+<p>Then use Newton to find an approx solution.</p>
+<section id="newtons-method" class="level3">
+<h3 class="anchored" data-anchor-id="newtons-method">Newton’s method</h3>
+<p><span class="math display">\[
+\begin{bmatrix} x_{k+1} \\ \lambda_{k+1} \end{bmatrix} = \begin{bmatrix} x_k \\ \lambda_k \end{bmatrix} + \begin{bmatrix} P_x \\ P_\lambda \end{bmatrix} \quad (\text{Newton step}), \qquad \nabla_z F(z_k)\,\delta z_k = -F(z_k),\ \ z=(x,\lambda).
+\]</span></p>
+<p><span class="math display">\[
+\Rightarrow
+\begin{bmatrix} \nabla^2\mathcal{L}(x_k,\lambda_k) &amp; -A(x_k)^{\mathsf T} \\ A(x_k) &amp; 0 \end{bmatrix}
+\begin{bmatrix} P_x \\ P_\lambda \end{bmatrix}
+= -\begin{bmatrix} \nabla f(x_k) - A(x_k)^{\mathsf T}\lambda_k \\ C(x_k) \end{bmatrix}
+\]</span></p>
+<p><span class="math display">\[
+\iff
+\begin{bmatrix} \nabla^2\mathcal{L} &amp; A^{\mathsf T} \\ A &amp; 0 \end{bmatrix}
+\begin{bmatrix} P_x \\ -(P_\lambda+\lambda_k) \end{bmatrix}
+= -\begin{bmatrix} \nabla f(x_k) \\ C(x_k) \end{bmatrix}
+\]</span></p>
+<p><strong>Remarks:</strong> The step is well defined if <span class="math display">\[
+\begin{cases}
+A \text{ has full row rank} \\
+d^{\mathsf T}\nabla^2\mathcal{L}\,d &gt; 0,\ \forall d\neq 0 \text{ s.t. } Ad=0.
+\end{cases}
+\]</span></p>
+<p><strong>Note:</strong> The Newton step equation is equivalent to the QP <span class="math display">\[
+\min_{p\in\mathbb{R}^n} \nabla f(x_k)^{\mathsf T}p + \tfrac{1}{2}p^{\mathsf T}\nabla^2\mathcal{L}(x_k,\lambda_k)p, \qquad \text{s.t.}\quad C(x_k) + A(x_k)p = 0.
+\]</span> <span class="math display">\[
+\Rightarrow P_x = P^\ast, \qquad \lambda^\ast = \lambda_k + P_\lambda \to \text{next } \lambda.
+\]</span></p>
+<p>Thus SQP solve QP in sequence, where at each step solve</p>
+<ul>
+<li>Quadratic approx of objective</li>
+<li>Linear approx of constraints.</li>
+</ul>
 </section>
-<section id="inequality-constrained-case" class="level2" data-number="10.2">
-<h2 data-number="10.2" class="anchored" data-anchor-id="inequality-constrained-case"><span class="header-section-number">10.2</span> Inequality COnstrained Case</h2>
+</section>
+<section id="inequality-constrained-case" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="inequality-constrained-case"><span class="header-section-number">6.2</span> Inequality Constrained Case</h2>
+<p><span class="math display">\[
+\min_{x\in\mathbb{R}^n} f(x), \qquad \text{s.t.}\quad G_i(x)=0,\ i\in\mathcal{E};\quad G_i(x)\geq 0,\ i\in\mathcal{I}.
+\]</span></p>
+<p><span class="math display">\[
+\Rightarrow \min_{p} \nabla f(x_k)^{\mathsf T}p + \tfrac{1}{2}p^{\mathsf T}\nabla^2\mathcal{L}(x_k,\lambda_k)p, \qquad
+\text{s.t.}
+\begin{cases}
+G_i(x_k) + \nabla G_i(x_k)^{\mathsf T}p = 0, &amp; i\in\mathcal{E} \\
+G_i(x_k) + \nabla G_i(x_k)^{\mathsf T}p \geq 0, &amp; i\in\mathcal{I}
+\end{cases}
+\]</span></p>
+<p>which is solved with an inequality QP.</p>
+</section>
+<section id="remarks-on-convergence" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="remarks-on-convergence"><span class="header-section-number">6.3</span> Remarks on Convergence</h2>
+<p>It can be shown that if <span class="math inline">\((x^\ast,\lambda^\ast)\)</span> is a KKT point and <span class="math inline">\(x^\ast\)</span> is a local solution of the NLP, and LICQ and strict complementary holds. Then there exists <span class="math inline">\((x_k^\ast,\lambda_k^\ast)\)</span>, a local solution of <span class="math inline">\(\mathrm{QP}_k\)</span> s.t. <span class="math inline">\(A_k = A(x^\ast)\)</span>, when <span class="math inline">\((x_k^\ast,\lambda_k^\ast)\)</span> is sufficiently close to <span class="math inline">\((x^\ast,\lambda^\ast)\)</span>. Then, the IQP reduced to an EQP on the optimal <span class="math inline">\(A(x^\ast)\)</span> (and not change <span class="math inline">\(A_k\)</span> in subsequence). SQP can be applied, and will converge quadratically.</p>
+</section>
+<section id="quasi-newton-approximation" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="quasi-newton-approximation"><span class="header-section-number">6.4</span> Quasi-Newton Approximation</h2>
+<p>Similarly like the unconstrained case, we can use a PD matrix <span class="math inline">\(B_k\)</span> to approximate <span class="math inline">\(\nabla^2\mathcal{L}\)</span>, and update like BFGS.</p>
+</section>
+<section id="line-search" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="line-search"><span class="header-section-number">6.5</span> Line-Search</h2>
+<!-- [note: the handwritten note ends with a "Line-Search" heading only; no content follows in this PDF.] -->
 
 
 </section>
@@ -799,17 +869,17 @@ ul.task-list li input[type="checkbox"] {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../numerical-optimization/quadProg.html" class="pagination-link" aria-label="Quadratic Programming">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Quadratic Programming</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Quadratic Programming</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../numerical-optimization/penalty.html" class="pagination-link" aria-label="Penalty Methods">
-        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Penalty Methods</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Penalty Methods</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-    <script type="text/javascript">
+    <footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/blob/main/numerical-optimization/seqQuadprog.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script type="text/javascript">
     (function(d) {
       d.querySelectorAll(".pseudocode-container").forEach(function(el) {
         let pseudocodeOptions = {

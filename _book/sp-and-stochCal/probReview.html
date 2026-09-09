@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Open study notes on the mathematics, stochastic calculus, numerical optimization, and machine learning behind quantitative finance.">
+
+<title>16&nbsp; Probability in Measure Theory Language – Phy2Q Roadmap</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../sp-and-stochCal/martingales.html" rel="next">
+<link href="../ml-ds/markovChain.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-af78437ed5bf07251aacc1da5128115f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
+<link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+    <style type="text/css">
+    .ps-root .ps-algorithm {
+      border-top: 2px solid;
+      border-bottom: 2px solid;
+    }
+    .pseudocode-container {
+      text-align: left;
+    }
+    </style>
+  
+      <style type="text/css">
+      .ps-algorithm > .ps-line {
+        text-align: left;
+      }
+      </style>
+    
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sp-and-stochCal/probReview.html">Stochastic Process and Stochastic Integral</a></li><li class="breadcrumb-item"><a href="../sp-and-stochCal/probReview.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Probability in Measure Theory Language</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Phy2Q Roadmap</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/zhang-xiaoru/roadmap2Q" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A Physicist’s Roadmap into Quantitative Finance</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Numerical Optimization</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/lineSearch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Line Search Methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/quasiNewton.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Quasi Newton Methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/conjGrad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conjugate Gradient Methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/constrained.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Theory of Constrained Optimization</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/quadProg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Quadratic Programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/seqQuadprog.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Sequential Quadratic Programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/penalty.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Penalty Methods</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Machine Learning and Data Science Basics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/probRecap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Recap on Probability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/highDimData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Properties of High Dimensional Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/randomProj.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Randomized Projection</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/SVD.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Clustering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/markovChain.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Markov Chains</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Stochastic Process and Stochastic Integral</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sp-and-stochCal/probReview.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Probability in Measure Theory Language</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sp-and-stochCal/martingales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Martingales</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sp-and-stochCal/stoppingTime.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Stopping Time</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sp-and-stochCal/brownianMotion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Brownian Motion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sp-and-stochCal/stochasticIntegral.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Stochastic Integral</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sp-and-stochCal/jumpProcess.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Stochastic Analysis and Lévy Process</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Stochastic Process in Finance</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sp-in-finance/riskNeutralPricing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Risk-Neutral Pricing</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sigma-algebra-sigma-field-to-set-of-events." id="toc-sigma-algebra-sigma-field-to-set-of-events." class="nav-link active" data-scroll-target="#sigma-algebra-sigma-field-to-set-of-events."><span class="header-section-number">16.1</span> <span class="math inline">\(\sigma\)</span>-algebra / <span class="math inline">\(\sigma\)</span>-field <span class="math inline">\(\to\)</span> set of Events.</a></li>
+  <li><a href="#probability-measure" id="toc-probability-measure" class="nav-link" data-scroll-target="#probability-measure"><span class="header-section-number">16.2</span> Probability measure</a></li>
+  <li><a href="#generated-sigma-field-to-for-uncountable-omega." id="toc-generated-sigma-field-to-for-uncountable-omega." class="nav-link" data-scroll-target="#generated-sigma-field-to-for-uncountable-omega."><span class="header-section-number">16.3</span> Generated <span class="math inline">\(\sigma\)</span>-field <span class="math inline">\(\to\)</span> for uncountable <span class="math inline">\(\Omega\)</span>.</a></li>
+  <li><a href="#borel-sigma-field-on-mathbbr." id="toc-borel-sigma-field-on-mathbbr." class="nav-link" data-scroll-target="#borel-sigma-field-on-mathbbr."><span class="header-section-number">16.4</span> Borel <span class="math inline">\(\sigma\)</span>-field on <span class="math inline">\(\mathbb{R}\)</span>.</a></li>
+  <li><a href="#random-variable-r.v." id="toc-random-variable-r.v." class="nav-link" data-scroll-target="#random-variable-r.v."><span class="header-section-number">16.5</span> Random Variable (R.V.)</a></li>
+  <li><a href="#sigma-field-generated-by-random-variable." id="toc-sigma-field-generated-by-random-variable." class="nav-link" data-scroll-target="#sigma-field-generated-by-random-variable."><span class="header-section-number">16.6</span> <span class="math inline">\(\sigma\)</span>-field generated by random variable.</a></li>
+  <li><a href="#simple-function" id="toc-simple-function" class="nav-link" data-scroll-target="#simple-function"><span class="header-section-number">16.7</span> Simple function :</a></li>
+  <li><a href="#two-r.v.-same-almost-surely" id="toc-two-r.v.-same-almost-surely" class="nav-link" data-scroll-target="#two-r.v.-same-almost-surely"><span class="header-section-number">16.8</span> Two R.V. same (almost surely)</a></li>
+  <li><a href="#borel-measurable-function" id="toc-borel-measurable-function" class="nav-link" data-scroll-target="#borel-measurable-function"><span class="header-section-number">16.9</span> Borel (measurable) function</a></li>
+  <li><a href="#extend-borel-sigma-algebra-to-mathbbrn." id="toc-extend-borel-sigma-algebra-to-mathbbrn." class="nav-link" data-scroll-target="#extend-borel-sigma-algebra-to-mathbbrn."><span class="header-section-number">16.10</span> Extend Borel-<span class="math inline">\(\sigma\)</span>-algebra to <span class="math inline">\(\mathbb{R}^n\)</span>.</a></li>
+  <li><a href="#expected-value." id="toc-expected-value." class="nav-link" data-scroll-target="#expected-value."><span class="header-section-number">16.11</span> Expected Value.</a></li>
+  <li><a href="#conditional-probability" id="toc-conditional-probability" class="nav-link" data-scroll-target="#conditional-probability"><span class="header-section-number">16.12</span> Conditional probability</a></li>
+  <li><a href="#independence" id="toc-independence" class="nav-link" data-scroll-target="#independence"><span class="header-section-number">16.13</span> Independence</a></li>
+  <li><a href="#independent-random-variable" id="toc-independent-random-variable" class="nav-link" data-scroll-target="#independent-random-variable"><span class="header-section-number">16.14</span> independent Random Variable</a></li>
+  <li><a href="#conditional-expectation" id="toc-conditional-expectation" class="nav-link" data-scroll-target="#conditional-expectation"><span class="header-section-number">16.15</span> Conditional Expectation</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/blob/main/sp-and-stochCal/probReview.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sp-and-stochCal/probReview.html">Stochastic Process and Stochastic Integral</a></li><li class="breadcrumb-item"><a href="../sp-and-stochCal/probReview.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Probability in Measure Theory Language</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Probability in Measure Theory Language</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Sample space <span class="math inline">\(\Omega\)</span>:</strong> the set of all possible outcome of an experiment.</p>
+<p><strong>Event:</strong> a subsets of the sample space <span class="math inline">\(\Omega\)</span>.</p>
+<ul>
+<li><span class="math inline">\(\varnothing\)</span> is impossible event</li>
+<li><span class="math inline">\(\Omega\)</span> is certain event.</li>
+</ul>
+<!-- [color: the following block is drawn boxed in blue in the source] -->
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Bertrand’s Paradox:</strong> probability of chord intersect with inner circle.</p>
+<p>An example of different</p>
+<!-- [figure: a hand-drawn sketch of two concentric circles with a chord crossing the annulus. Not reproduced (would require reconstruction).] -->
+<!-- [incomplete: the note ends at "An example of different" — the sentence is cut off in the source.] -->
+</div>
+</div>
+</div>
+<!-- [color: red in source] -->
+<p><strong>Remark:</strong> Events are subsets of <span class="math inline">\(\Omega\)</span>, but subsets of <span class="math inline">\(\Omega\)</span> may not be an Event</p>
+<p>we can therefor select subsets of <span class="math inline">\(\Omega\)</span>, which are events and form a collection <span class="math inline">\(\mathcal{F}\)</span> (i.e., <span class="math inline">\(\mathcal{F} \subseteq 2^\Omega \leftarrow\)</span> set of all subset of <span class="math inline">\(\Omega\)</span>) and should have following property</p>
+<ul>
+<li><ol type="a">
+<li>if <span class="math inline">\(A, B \in \mathcal{F}\)</span> then <span class="math inline">\(A \cup B \in \mathcal{F}\)</span> and <span class="math inline">\(A \cap B \in \mathcal{F}\)</span></li>
+</ol></li>
+<li><ol start="2" type="a">
+<li>if <span class="math inline">\(A \in \mathcal{F}\)</span> then <span class="math inline">\(A^c \in \mathcal{F}\)</span>.</li>
+</ol></li>
+<li><ol start="3" type="a">
+<li><span class="math inline">\(\varnothing \in \mathcal{F}\)</span></li>
+</ol></li>
+</ul>
+<p><span class="math inline">\(\mathcal{F} \subseteq 2^\Omega\)</span> satisfied above is called a field.</p>
+<!-- [color: red in source] -->
+<p><strong>Remark:</strong></p>
+<ul>
+<li><ol type="a">
+<li><span class="math inline">\(\to \bigcup_i A_i \in \mathcal{F}\)</span>, <span class="math inline">\(\bigcap_i A_i \in \mathcal{F} \to\)</span> close under finite union or intersect.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li>This properties can be shown via easy coin toss or dice experiment</li>
+</ol></li>
+</ul>
+<p><strong>Infinite union and <span class="math inline">\(\cap\)</span>’s:</strong> Consider an experiment. A coin is repeatedly tossed until the first head show up, try to find number of toss before this happen</p>
+<p><span class="math display">\[
+\Omega = \{\omega_1, \omega_2, \dots\}, \qquad \omega_i := \text{first } i{-}1 \text{ are tail}, \ i \text{ are head}
+\]</span></p>
+<!-- [unclear: "$i$ are head" reads as "the $i$-th toss is head" (first head on toss $i$); transcribed as written.] -->
+<p>Event <span class="math inline">\(A :=\)</span> the first head arrive after even number of tosses.</p>
+<!-- [unclear: the glyph after "the first" reads like "4"; in context it is "head", and the following word ("arrive") is also uncertain. Kept close to the source; not reconstructed.] -->
+<p><span class="math display">\[
+A := \{\omega_2, \omega_4, \omega_6 \dots\} = \bigcup_{i=2} \omega_i
+\]</span></p>
+<!-- [note: the union is written with lower index "i=2" only (no explicit even-index restriction or upper limit shown); transcribed as written.] -->
+<p><span class="math inline">\(A\)</span> should also in the event space <span class="math inline">\(\mathcal{F}\)</span> <span class="math inline">\(\to\)</span> <span class="math inline">\(\mathcal{F}\)</span> should closed under infinite <span class="math inline">\(\bigcup_i \ \bigcap_i\)</span></p>
+<section id="sigma-algebra-sigma-field-to-set-of-events." class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="sigma-algebra-sigma-field-to-set-of-events."><span class="header-section-number">16.1</span> <span class="math inline">\(\sigma\)</span>-algebra / <span class="math inline">\(\sigma\)</span>-field <span class="math inline">\(\to\)</span> set of Events.</h2>
+<p>collection of subset of sample space <span class="math inline">\(\mathcal{F} \subseteq 2^\Omega\)</span>, is called a <span class="math inline">\(\sigma\)</span>-algebra / <span class="math inline">\(\sigma\)</span>-field if it satisfied following</p>
+<ol type="1">
+<li><span class="math inline">\(\varnothing \in \mathcal{F}\)</span></li>
+<li>if <span class="math inline">\(A \in \mathcal{F}\)</span>, <span class="math inline">\(A^c \in \mathcal{F}\)</span> <span class="math inline">\(\ (A^c := \Omega - A) \to \Omega \in \mathcal{F}\)</span></li>
+<li>if <span class="math inline">\(A_1, A_2 \cdots \in \mathcal{F}\)</span>, then <span class="math inline">\(\bigcup_i^\infty A_i \in \mathcal{F}\)</span>, <span class="math inline">\(\bigcap_i^\infty A_i \in \mathcal{F}\)</span></li>
+</ol>
+</section>
+<section id="probability-measure" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="probability-measure"><span class="header-section-number">16.2</span> Probability measure</h2>
+<p>suppose we have sample space <span class="math inline">\(\Omega\)</span>, and <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\mathcal{F}\)</span>. A probability measure is a function <span class="math inline">\(P : \mathcal{F} \to [0, 1]\)</span> satisfying.</p>
+<ol type="1">
+<li><span class="math inline">\(P(\varnothing) = 0\)</span>, <span class="math inline">\(P(\Omega) = 1\)</span></li>
+<li>if <span class="math inline">\(A_1, A_2, \cdots \in \mathcal{F}\)</span> and are disjoint <span class="math inline">\((A_i \cap A_j = \varnothing, \text{ for } \forall\, i \neq j)\)</span> then</li>
+</ol>
+<p><span class="math display">\[
+P\!\left(\bigcup_i^\infty A_i\right) = \sum_{i=1}^{k} P(A_i)
+\]</span></p>
+<!-- [flag: the sum's upper limit reads "$k$" while the union runs to $\infty$; for countable additivity these should match ($\infty$). Transcribed as written.] -->
+<p>The <span class="math inline">\((\Omega, \mathcal{F}, P)\)</span> is called a probability space.</p>
+<!-- [color: blue in source] -->
+<p><strong>lemma:</strong></p>
+<ul>
+<li><ol type="a">
+<li><span class="math inline">\(P(A^c) = 1 - P(A)\)</span></li>
+</ol></li>
+<li><ol start="2" type="a">
+<li>if <span class="math inline">\(A \subseteq B\)</span>, <span class="math inline">\(P(A) \leq P(B)\)</span></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li><span class="math inline">\(P(A \cup B) = P(A) + P(B) - P(A \cap B)\)</span></li>
+</ol></li>
+<li><ol start="4" type="a">
+<li><span class="math inline">\(P\!\left(\bigcup_{i=1}^n A_i\right) = \sum P(A_i) - \sum_{i&lt;j} P(A_i \cap A_j) + \cdots (-1)^{n+1} P(A_1 \cap A_2 \cdots A_n)\)</span></li>
+</ol></li>
+</ul>
+</section>
+<section id="generated-sigma-field-to-for-uncountable-omega." class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="generated-sigma-field-to-for-uncountable-omega."><span class="header-section-number">16.3</span> Generated <span class="math inline">\(\sigma\)</span>-field <span class="math inline">\(\to\)</span> for uncountable <span class="math inline">\(\Omega\)</span>.</h2>
+<p>suppose a collection of subset <span class="math inline">\(A_\alpha \subseteq \Omega\)</span>, where <span class="math inline">\(\alpha \in T\)</span> not necessarily countable. The smallest <span class="math inline">\(\sigma\)</span>-field <span class="math inline">\(\mathcal{F}\)</span> s.t. <span class="math inline">\(A_\alpha \in \mathcal{F}\)</span>, for <span class="math inline">\(\forall\, \alpha \in T\)</span> is denoted as <span class="math inline">\(\sigma(\{A_\alpha\})\)</span>.</p>
+<p>Then <span class="math inline">\(A_\alpha\)</span> is called generator, and <span class="math inline">\(\sigma(\{A_\alpha\})\)</span> is called <span class="math inline">\(\sigma\)</span>-field generated by <span class="math inline">\(\{A_\alpha\}\)</span></p>
+<p><span class="math display">\[
+\sigma\{A_\alpha\} = \bigcap \left\{\, \mathcal{G} : \mathcal{G} \subseteq 2^\Omega \text{ is a } \sigma\text{-field}, \ A_\alpha \in \mathcal{G}, \ \forall\, \alpha \in T \,\right\}
+\]</span></p>
+<!-- [figure: sketch of $\Omega$ and $2^\Omega$ as blobs, with annotations "$\sigma\{A_\alpha\} \triangleq$ smallest $\sigma$-field cover $A_\alpha, \forall \alpha\in T$" and "$A_\alpha$ non-countable". Not reproduced.] -->
+<p><strong>Remark:</strong> if <span class="math inline">\(A_\alpha\)</span> is <span class="math inline">\(\sigma\)</span>-field for each <span class="math inline">\(\alpha \in T\)</span>. <span class="math inline">\(\bigcap_{\alpha \in T} A_\alpha\)</span> is a <span class="math inline">\(\sigma\)</span></p>
+<!-- [incomplete: the source trails off at "is a $\sigma$" ($\sigma$-field).] -->
+</section>
+<section id="borel-sigma-field-on-mathbbr." class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="borel-sigma-field-on-mathbbr."><span class="header-section-number">16.4</span> Borel <span class="math inline">\(\sigma\)</span>-field on <span class="math inline">\(\mathbb{R}\)</span>.</h2>
+<p>a Borel <span class="math inline">\(\sigma\)</span>-field on <span class="math inline">\(\mathbb{R}\)</span> is a <span class="math inline">\(\sigma\)</span>-field generated by <span class="math inline">\(\{(a,b), \ a&lt;b \in \mathbb{R}\}\)</span></p>
+<p><span class="math display">\[
+\mathcal{B} = \sigma\big(\{(a,b), \ a&lt;b \in \mathbb{R}\}\big) \iff \sigma\big(\{O \subseteq \mathbb{R} \text{ open}\}\big) \iff \sigma\big(\{(-\infty, b], \ b \in \mathbb{R}\}\big)
+\]</span></p>
+</section>
+<section id="random-variable-r.v." class="level2" data-number="16.5">
+<h2 data-number="16.5" class="anchored" data-anchor-id="random-variable-r.v."><span class="header-section-number">16.5</span> Random Variable (R.V.)</h2>
+<!-- [color: red annotation in source] -->
+<!-- ← observable of probability space. -->
+<p>A R.V. is a function <span class="math inline">\(X : \Omega \to \mathbb{R}\)</span> s.t. <span class="math inline">\(\forall\, \alpha \in \mathbb{R}\)</span> the set <span class="math inline">\(\{\omega : X(\omega) \leq \alpha\}\)</span> is in <span class="math inline">\(\mathcal{F}\)</span> ( such function is also called <span class="math inline">\(\mathcal{F}\)</span>-measurable ) (or just measurable)</p>
+<!-- [color: blue in source] -->
+<p>equivently, the measurable means <span class="math inline">\(X\)</span> is measurable. in <span class="math inline">\(\mathcal{F}\)</span> if for <span class="math inline">\(\forall\, B \in \mathcal{B}(\mathbb{R})\)</span>, <span class="math inline">\(X^{-1}(B) \in \mathcal{F}\)</span></p>
+<!-- [figure: sketch of the map $X : \Omega \to \mathbb{R}$ with a Borel set $B$ and its preimage; annotation "set of all $\{x \mid x \leq \alpha, x\in\mathbb{R}\}$". Not reproduced.] -->
+<!-- [color: blue in source] -->
+<p><strong>Remark:</strong> The R.V. create a mapping between outcomes and real numbers, in a way s.t. out comes that captures by any borel set (could be record as an event of random real space) is forming an events in event space of <span class="math inline">\(\Omega\)</span>.</p>
+</section>
+<section id="sigma-field-generated-by-random-variable." class="level2" data-number="16.6">
+<h2 data-number="16.6" class="anchored" data-anchor-id="sigma-field-generated-by-random-variable."><span class="header-section-number">16.6</span> <span class="math inline">\(\sigma\)</span>-field generated by random variable.</h2>
+<p>suppose <span class="math inline">\(X\)</span> is a R.V. on <span class="math inline">\((\Omega, \mathcal{F})\)</span> the <span class="math inline">\(\sigma\)</span>-field generated by <span class="math inline">\(X\)</span>, <span class="math inline">\(\sigma(X)\)</span> si the smallest <span class="math inline">\(\sigma\)</span>-field <span class="math inline">\(\mathcal{G} \subseteq \mathcal{F}\)</span>, s.t. <span class="math inline">\(X\)</span> is still measurable on <span class="math inline">\((\Omega, \mathcal{G})\)</span>.</p>
+<!-- [color: blue in source] -->
+<p><strong>Remark:</strong> <span class="math inline">\(\{X^{-1}(B) \mid B \in \mathcal{B}\}\)</span> is such smallest <span class="math inline">\(\sigma\)</span>-algebra. (by definition, <span class="math inline">\(X\)</span> is such function <span class="math inline">\(\Omega \to \mathbb{R}\)</span>, s.t. every <span class="math inline">\(B \in \mathcal{B}(\mathbb{R})\)</span> is inside <span class="math inline">\(\mathcal{F}\)</span>, the smallest set from <span class="math inline">\(X\)</span> is <span class="math inline">\(\{X^{-1}(B) \mid B \in \mathcal{B}\}\)</span>, only need to show <span class="math inline">\(\{X^{-1}(B) \mid B \in \mathcal{B}\}\)</span> is <span class="math inline">\(\sigma\)</span>-field)</p>
+<!-- [color: blue in source] -->
+<p><strong>Remark:</strong> The mapping of R.V. is chosen s.t. <span class="math inline">\(\omega \in \Omega\)</span> enclosed by any <span class="math inline">\(B \in \mathcal{B}\)</span> is belong to <span class="math inline">\(\sigma\)</span>-field <span class="math inline">\(\mathcal{F}\)</span>. Thus <span class="math inline">\(\mathcal{F}\)</span> contains all the information relavent to <span class="math inline">\(X\)</span>. the <span class="math inline">\(\sigma(X)\)</span> is thus the least amout of information relevant to <span class="math inline">\(X\)</span>.</p>
+</section>
+<section id="simple-function" class="level2" data-number="16.7">
+<h2 data-number="16.7" class="anchored" data-anchor-id="simple-function"><span class="header-section-number">16.7</span> Simple function :</h2>
+<p><span class="math display">\[
+X := \sum_{n=n}^{N} C_n \mathbf{1}_{A_n} \quad \text{is a R.V. for finite } N \text{ and } C_n \in \mathbb{R}
+\]</span></p>
+<!-- [flag: the sum's lower limit reads "$n=n$"; on the "Expected Value" page the analogous simple-R.V. sum is written $\sum_{i=1}^{k}$, so this is likely "$n=1$". Transcribed as written.] -->
+<p>here <span class="math inline">\(A_n \in \mathcal{F}\)</span> for any <span class="math inline">\(n\)</span> and <span class="math display">\[
+\mathbf{1}_{A_n} := \begin{cases} 1, &amp; \omega \in A_n \\ 0, &amp; \omega \notin A_n. \end{cases}
+\]</span></p>
+<!-- [color: blue in source] -->
+<p><strong>prop:</strong> for every R.V. <span class="math inline">\(X\)</span>, there exist a sequence of simple functions <span class="math inline">\(X_n\)</span> s.t. <span class="math inline">\(X_n(\omega) \to X(\omega)\)</span> as <span class="math inline">\(n \to \infty\)</span> for <span class="math inline">\(\forall\, \omega \in \Omega\)</span>.</p>
+<!-- [color: red in source] -->
+<p><strong>Remark:</strong> The R.V. <span class="math inline">\(X(\omega)\)</span> is usually denote simple as <span class="math inline">\(X\)</span> and sometime <span class="math inline">\(P(X^{-1}(B))\)</span> as <span class="math inline">\(P(X \in B)\)</span></p>
+</section>
+<section id="two-r.v.-same-almost-surely" class="level2" data-number="16.8">
+<h2 data-number="16.8" class="anchored" data-anchor-id="two-r.v.-same-almost-surely"><span class="header-section-number">16.8</span> Two R.V. same (almost surely)</h2>
+<p>suppose <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are R.V. defined on <span class="math inline">\((\Omega, \mathcal{F}, P)\)</span>, we says <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are almost surely (a.s.) the same if <span class="math inline">\(P(\omega : X(\omega) \neq Y(\omega)) = 0\)</span>.</p>
+<!-- [color: red in source] -->
+<p><strong>Remark:</strong> in many case, <span class="math inline">\(X \overset{a.s.}{=} Y\)</span> is simply denote as <span class="math inline">\(X = Y\)</span>.</p>
+<ul>
+<li>The a.s. notation applies to many other cases such as <span class="math inline">\(X \geq 0\)</span> a.s. means <span class="math inline">\(P(\{\omega : X(\omega) &lt; 0\}) = 0\)</span>.</li>
+</ul>
+</section>
+<section id="borel-measurable-function" class="level2" data-number="16.9">
+<h2 data-number="16.9" class="anchored" data-anchor-id="borel-measurable-function"><span class="header-section-number">16.9</span> Borel (measurable) function</h2>
+<p>A R.V. <span class="math inline">\(g\)</span> defined on <span class="math inline">\((\mathbb{R}, \mathcal{B})\)</span> is called a Borel function.</p>
+</section>
+<section id="extend-borel-sigma-algebra-to-mathbbrn." class="level2" data-number="16.10">
+<h2 data-number="16.10" class="anchored" data-anchor-id="extend-borel-sigma-algebra-to-mathbbrn."><span class="header-section-number">16.10</span> Extend Borel-<span class="math inline">\(\sigma\)</span>-algebra to <span class="math inline">\(\mathbb{R}^n\)</span>.</h2>
+<p>A Borel-<span class="math inline">\(\sigma\)</span>-field in <span class="math inline">\(\mathbb{R}^n\)</span> is simply <span class="math display">\[
+\mathcal{B}_n = \sigma\big( [a_1, b_1] \times [a_2, b_2] \times \cdots \times [a_n, b_n]; \ a_i, b_i \in \mathbb{R}, \ i = 1, \dots, n \big)
+\]</span></p>
+</section>
+<section id="expected-value." class="level2" data-number="16.11">
+<h2 data-number="16.11" class="anchored" data-anchor-id="expected-value."><span class="header-section-number">16.11</span> Expected Value.</h2>
+<p>Integration w.r.t. measure , lebesgue integral</p>
+<ol type="1">
+<li><p>Simple R.V. Def</p>
+<p>suppose <span class="math inline">\(X\)</span> on <span class="math inline">\((\Omega, \mathcal{F}, P)\)</span> is Simple value R.V. <span class="math inline">\(X = \sum_{i=1}^{k} C_i \mathbf{1}_{A_i}\)</span>, then define <span class="math display">\[
+\int_\Omega X \, dP := \sum_{i=1}^{k} C_i P(A_i)
+\]</span></p></li>
+<li><p>if <span class="math inline">\(X\)</span> is non negative R.V. <span class="math display">\[
+\int_\Omega X \, dP := \sup_{Y \leq X, \, Y \text{ simple}} \int_\Omega Y \, dP.
+\]</span></p></li>
+<li><p>if <span class="math inline">\(X : \Omega \to \mathbb{R}\)</span>, then <span class="math display">\[
+\int_\Omega X \, dP = \int_\Omega X^+ \, dP - \int_\Omega X^- \, dP. \qquad X^+ := \max(X, 0), \ X^- := \max(-X, 0)
+\]</span></p></li>
+</ol>
+<!-- [color: red in source] -->
+<p><strong>Remark:</strong></p>
+<ul>
+<li>The integration is based on spliting the range of <span class="math inline">\(X(\omega)\)</span> to small equal interval and approximating <span class="math inline">\(X(\omega)\)</span> by a constant on the correspondy set of <span class="math inline">\(\omega\)</span>. values s.t. <span class="math inline">\(X(\omega)\)</span> fall into the interval.</li>
+<li>Contrast to Rieman where the domain of integration is split into intervals, limited to <span class="math inline">\(\mathbb{R}^n\)</span>.</li>
+<li>lebesgue integral allows to deal with general domains.</li>
+<li>If the correspondy Riemann integral exist, then it coincide with lebesgue integral.</li>
+</ul>
+</section>
+<section id="conditional-probability" class="level2" data-number="16.12">
+<h2 data-number="16.12" class="anchored" data-anchor-id="conditional-probability"><span class="header-section-number">16.12</span> Conditional probability</h2>
+<p>let <span class="math inline">\((\Omega, \mathcal{F}, P)\)</span> be a prob space and. <span class="math inline">\(A, B \in \mathcal{F}\)</span> and <span class="math inline">\(P(B) &gt; 0\)</span>.</p>
+<p>The conditional probability of <span class="math inline">\(A\)</span>, given <span class="math inline">\(B\)</span> is <span class="math display">\[
+P(A \mid B) := \frac{P(A \cap B)}{P(B)}
+\]</span></p>
+<p><strong>motivation</strong></p>
+<!-- [figure: Venn sketch of $B$ and $A$ overlapping inside $\Omega$. Not reproduced.] -->
+<p>want to find probability of <span class="math inline">\(A\)</span>, given <span class="math inline">\(B\)</span>, so suppose <span class="math inline">\(\omega \in \Omega\)</span> and we know <span class="math inline">\(\omega \in B\)</span>, sure that, <span class="math inline">\(B\)</span> can be considered as a new probability space, <span class="math inline">\((\Omega', \mathcal{F}', \hat{P})\)</span>, where <span class="math inline">\(\Omega' = B\)</span>, <span class="math inline">\(\mathcal{F}' := \{C \cap B \mid C \in \mathcal{F}\}\)</span> and <span class="math inline">\(\hat{P} := \frac{P}{P(B)}\)</span> so that <span class="math inline">\(\hat{P}(B) = 1\)</span> then the probability <span class="math inline">\(\omega\)</span> lies in <span class="math inline">\(A\)</span> also is <span class="math inline">\(\hat{P}(A \cap B) = \frac{P(A \cap B)}{P(B)}\)</span></p>
+</section>
+<section id="independence" class="level2" data-number="16.13">
+<h2 data-number="16.13" class="anchored" data-anchor-id="independence"><span class="header-section-number">16.13</span> Independence</h2>
+<p>This means <span class="math inline">\(P(A \mid B) = P(A)\)</span> (know <span class="math inline">\(B\)</span> don’t give <span class="math inline">\(A\)</span>). <span class="math display">\[
+\Rightarrow P(A \cap B) = P(A) P(B)
+\]</span></p>
+</section>
+<section id="independent-random-variable" class="level2" data-number="16.14">
+<h2 data-number="16.14" class="anchored" data-anchor-id="independent-random-variable"><span class="header-section-number">16.14</span> independent Random Variable</h2>
+<p>let <span class="math inline">\(X_i : \Omega \to \mathbb{R}^n\)</span> be random variables <span class="math inline">\((i = 1, \dots)\)</span>. They are independent if for all <span class="math inline">\(k \geq 2\)</span>, <span class="math inline">\(k \in \mathbb{Z}\)</span> and all choice of Borel set <span class="math inline">\(B_1, \cdots B_k \subseteq \mathbb{R}^n\)</span>. <span class="math display">\[
+P(X_1 \in B_1, X_2 \in B_2, \cdots X_k \in B_k) = P(X_1 \in B_1) P(X_2 \in B_2) \cdots P(X_k \in B_k).
+\]</span> this essentrally means <span class="math inline">\(\sigma\)</span>-field generated by each <span class="math inline">\(X_i\)</span> <span class="math display">\[
+\sigma(X_i)
+\]</span></p>
+<!-- [incomplete: the source line ends at "$\sigma(X_i)$"; the sentence appears to trail off.] -->
+</section>
+<section id="conditional-expectation" class="level2" data-number="16.15">
+<h2 data-number="16.15" class="anchored" data-anchor-id="conditional-expectation"><span class="header-section-number">16.15</span> Conditional Expectation</h2>
+<p><span class="math inline">\(E(X \mid B)\)</span> the expected value of R.V. <span class="math inline">\(X\)</span>, given the event <span class="math inline">\(B\)</span> happens.</p>
+<p>From previous, we can think <span class="math inline">\(B\)</span> form a new probability space, with <span class="math inline">\(\hat{P} = \frac{P}{P(B)}\)</span> <span class="math inline">\(\Rightarrow E(X \mid B) = \frac{1}{P(B)} \int_B X \, dP\)</span>.</p>
+<p><span class="math inline">\(E(X \mid Y)\)</span>, the expected value of R.V., given another R.V. <span class="math inline">\(Y\)</span> known.</p>
+<p>consider the case with in <span class="math inline">\((\Omega, \mathcal{F}, P)\)</span> where <span class="math inline">\(Y, X\)</span> is defined <span class="math inline">\(Y = \sum_{i=1}^{m} c_i \mathbf{1}_{A_i}\)</span>, suppose <span class="math inline">\(c_i\)</span> are distinct and <span class="math inline">\(A_1, A_2 \cdots A_m\)</span> are disjoint.</p>
+<p><span class="math display">\[
+Y(\omega) = \begin{cases} c_1, &amp; \omega \in A_1 \\ c_2, &amp; \omega \in A_2 \\ \ \vdots \\ c_n, &amp; \omega \in A_n \end{cases}
+\qquad \text{now if we know } Y(\omega) \to \text{ which event } A_i
+\]</span></p>
+<p><span class="math display">\[
+\text{thus } E(X \mid Y) = \begin{cases} \dfrac{1}{P(A_1)} \displaystyle\int_{A_1} X \, dP, &amp; A_1 \\ \ \vdots \\ \dfrac{1}{P(A_n)} \displaystyle\int_{A_n} X \, dP, &amp; A_n \end{cases}
+\]</span></p>
+<!-- [note: the sum for $Y$ is indexed to $m$ while the cases run to $n$; the source mixes $m$ and $n$ for the number of pieces. Transcribed as written.] -->
+<ul>
+<li><span class="math inline">\(E(X \mid Y)\)</span> is R.V.</li>
+<li><span class="math inline">\(E(X \mid Y)\)</span> is <span class="math inline">\(\sigma(Y)\)</span> measurable</li>
+<li><span class="math inline">\(\int_A E(X \mid Y) \, dP = \int_A X \, dP \qquad \forall\, A \in \sigma(Y)\)</span></li>
+</ul>
+<!-- [unclear: in the third bullet the conditioning symbol is written ambiguously; read as $E(X\mid Y)$.] -->
+<p><strong>Def:</strong> let <span class="math inline">\(X, Y\)</span> be R.V. defined on <span class="math inline">\(\Omega\)</span>, the conditional expectation of <span class="math inline">\(X\)</span> given <span class="math inline">\(Y\)</span> (<span class="math inline">\(E(X \mid Y)\)</span>) is a <span class="math inline">\(\sigma(Y)\)</span> measurable random variable <span class="math inline">\(Z\)</span> s.t. <span class="math display">\[
+\int_A X \, dP = \int_A Z \, dP \qquad \text{for } \forall\, A \in \sigma(Y)
+\]</span></p>
+<p><strong>Remark:</strong> Such <span class="math inline">\(Z\)</span> is unique up to set of probability zero. thus <span class="math inline">\(Z\)</span> can just be denote as <span class="math inline">\(E(X \mid Y)\)</span></p>
+<p><strong>Def:</strong> <span class="math inline">\((\Omega, \mathcal{F}, P)\)</span> be a probability space and <span class="math inline">\(\mathcal{V}\)</span> is a <span class="math inline">\(\sigma\)</span>-field, <span class="math inline">\(\mathcal{V} \subseteq \mathcal{F}\)</span>, if <span class="math inline">\(X : \Omega \to \mathbb{R}^n\)</span> is an random variable, then <span class="math inline">\(E(X \mid \mathcal{V}) :=\)</span> any R.V. on <span class="math inline">\(\Omega\)</span> s.t.</p>
+<ol type="i">
+<li><p><span class="math inline">\(E(X \mid \mathcal{V})\)</span> is <span class="math inline">\(\mathcal{V}\)</span>-measurable.</p></li>
+<li><p><span class="math inline">\(\int_A X \, dP = \int_A E(X \mid \mathcal{V}) \, dP\)</span>, for <span class="math inline">\(\forall\, A \in \mathcal{V}\)</span></p></li>
+</ol>
+<p><strong>Remark:</strong> <span class="math inline">\(E(X \mid \mathcal{V})\)</span> can be understand as given the (information) available in a <span class="math inline">\(\sigma\)</span>-field <span class="math inline">\(\mathcal{V}\)</span>, from which we intend to build an estimate of R.V. <span class="math inline">\(X\)</span></p>
+<ol type="i">
+<li><p><span class="math inline">\(\to E(X \mid \mathcal{V})\)</span> has to be constructed from information in <span class="math inline">\(\mathcal{V}\)</span>.</p></li>
+<li><p><span class="math inline">\(\to\)</span> The estimation should be consist with <span class="math inline">\(X\)</span>, at least as regards in integration.</p></li>
+</ol>
+<p><strong>Th:</strong> let <span class="math inline">\(X\)</span> be an integrable R.V. Then for each <span class="math inline">\(\sigma\)</span>-field <span class="math inline">\(\mathcal{V} \subseteq \mathcal{F}\)</span>, the <span class="math inline">\(E(X \mid \mathcal{V})\)</span> exists and is unique up to <span class="math inline">\(\mathcal{V}\)</span>-measurable set of probability zero.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../ml-ds/markovChain.html" class="pagination-link" aria-label="Markov Chains">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Markov Chains</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../sp-and-stochCal/martingales.html" class="pagination-link" aria-label="Martingales">
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Martingales</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+    <footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/blob/main/sp-and-stochCal/probReview.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script type="text/javascript">
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let pseudocodeOptions = {
+          indentSize: el.dataset.indentSize,
+          commentDelimiter: el.dataset.commentDelimiter,
+          lineNumber: el.dataset.lineNumber.toLowerCase() === "true",
+          lineNumberPunc: el.dataset.lineNumberPunc,
+          noEnd: el.dataset.noEnd.toLowerCase() === "true",
+          titlePrefix: el.dataset.captionPrefix
+        };
+        pseudocode.renderElement(el.querySelector(".pseudocode"), pseudocodeOptions);
+      });
+    })(document);
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let captionSpan = el.querySelector(".ps-root > .ps-algorithm > .ps-line > .ps-keyword")
+        if (captionSpan !== null) {
+          let captionPrefix = el.dataset.captionPrefix + " ";
+          let captionNumber = "";
+          if (el.dataset.pseudocodeNumber) {
+            captionNumber = el.dataset.pseudocodeNumber + " ";
+            if (el.dataset.chapterLevel) {
+              captionNumber = el.dataset.chapterLevel + "." + captionNumber;
+            }
+          }
+          captionSpan.innerHTML = captionPrefix + captionNumber;
+        }
+      });
+    })(document);
+    </script>
+  
+
+
+
+
+</body></html>

@@ -1,0 +1,98 @@
+# Stopping Time
+
+<!-- [note: source title is "Stoping time". As with the other SP notes, the
+source spelling is preserved in the body ("martingle", "stoping", "statisfied",
+"perticular", "Conviniently", ...); only this chapter's top-level title is set in
+standard spelling.] -->
+
+One advantage of a martingle process is that it provide. properties in the
+stopping time of the sequence. First we need to know what is a stopping time and
+its definition
+
+## Stopping time
+
+Consider the stock model example again. Suppose we buy one share, at $t=0$ and.
+hold tile random time $T$. Then
+$$
+U_m \equiv \mathbf{1}_{\{m \leq T\}} = 1 - \mathbf{1}_{\{T \leq m-1\}} \qquad \text{and} \qquad Z_m = X_{\min(m,T)} - X_0
+$$
+
+<!-- [figure: two hand-drawn sketches. (1) a number line with points $0, 1, \dots, m-1, m$ and a bump labelled $U_m$ drawn over the interval $[m-1, m]$. (2) a stock-path plot of $(X_m)$ starting at $X_0$, zig-zagging up/down (vertices labelled $1,2,3,4,5$) and then going flat, with the stopping time $T$ marked on the horizontal axis where the path flattens. Not reproduced.] -->
+
+**obs:**
+$$
+U_m \text{ is } \mathcal{F}_{m-1} \text{ measurable} \iff \{T \leq m-1\} \text{ is } \mathcal{F}_{m-1} \text{ measurable}
+$$
+$$
+\iff \{T \leq m\} \text{ is } \mathcal{F}_m \text{ measurable}
+$$
+
+**Def** A R.V. $T : \Omega \to \{0, 1, \cdots 2, \cdots \infty\}$ is called a stopping
+time. for filtration $\{\mathcal{F}_m\}$ if $\{\omega \mid T(\omega) \leq n\}$ is
+$\mathcal{F}_n$ measurable for. each $n \geq 0$.
+
+**Remark:** Essentialy, a stopping time is to make a decision that a process stop
+at time $n$ or not, based on the information only avaible so far (not future). The
+Def above is exactly this in the formal probability language ($\{T \leq n\}$ is the
+to decide stop or not; $\mathcal{F}_n$ measuribility make sure the information).
+
+## Stopped process
+
+**Def** let $(X_m)_m$ be a stochastic process and $T$ be a stopping time, Then a
+stopped process at $T$ $X_{\min(n,T)}$ or $X_{n \wedge T}$ is
+$$
+X_{\min(n,T)(\omega)}(\omega) = \begin{cases} X_n(\omega), & n \leq T(\omega) \\ X_{T(\omega)}(\omega), & n > T(\omega) \end{cases} \qquad \omega \in \Omega.
+$$
+
+**prob:** let $T, S$ be stopping time. on $(\Omega, \mathcal{F}, P)$ with filtration
+$(\mathcal{F}_n)_{n=0,\cdots}$, then $T \wedge S = \min(T, S)$ and $T \vee S = \max(T, S)$
+are also stopping time
+
+## Stopped martingle
+
+For a martingle process, a nice result is that a stopped. martingle (or sub, sup)
+is still a martingle (sub, sub)
+
+<!-- [flag: the final "(sub, sub)" should read "(sub, sup)", to parallel the
+"(or sub, sup)" earlier in the sentence. Transcribed as written.] -->
+
+**Th** let $(X_n, \mathcal{F}_n)$ be a martingle (sub, sup) on $(\Omega, \mathcal{F}, P)$,
+and $T$ is a stopping time for $(\mathcal{F}_n)_n$, then $(X_{n \wedge T}, \mathcal{F}_n)$
+is also a martingle (Sub, sup).
+
+## Doob's optional stopping
+
+The martingle property allow ones to find the expectation of stoped value.
+Conviniently using the following th-
+
+**Th (Doob's optional stopping)** let $(X_n, \mathcal{F}_n)$ be a submartingle and
+$T < \infty$ a.s. is a stopping time (will stop) s.t. $(X_{n \wedge T})_n$ is
+uniformly integrable. then
+$$
+E(X_T) \geq E(X_0).
+$$
+In perticular for a martingle $E(X_T) = E(X_0)$
+
+The Doob's optional sampling th is useful for finding the "probability to ruin" in
+random walk problem.
+
+**Ex:** Consider a simple symmetric random walk $(\xi_n)_n$ on an interval $(-a, b)$,
+starting at $0$. $T_{ab}$ be the stopping time hit $-a$ or $b$. $S_n = \sum_k \xi_k$
+is a martingle, thus
+$$
+E(S_{T_{ab}}) = E(S_0) = 0 = -a \, P(T_{ab} = -a) + b \, P(T_{ab} = b) = 0
+$$
+$$
+P(T_{ab} = -a) + P(T_{ab} = b) = 1 \implies P(S_{T_{ab}} = -a) = \frac{b}{b+a}
+$$
+
+the probability of hits $-a$ before hit $b$.
+
+<!-- [flag: the notation mixes $P(T_{ab} = -a)$ and $P(S_{T_{ab}} = -a)$ for the
+same event (the walk $S$ is stopped at value $-a$). Transcribed as written.] -->
+<!-- [unclear: the denominator on the right is handwritten unclearly; read as
+$b+a$ (i.e. the gambler's-ruin denominator $a+b$).] -->
+
+**Remark:** should make sure the Th condition is statisfied. If in above example
+the walk is bound $(-\infty, b)$, then $(S_{n \wedge T_{ab}})$ is not integrable
+and. $E(S_{T_b}) \neq E(S_0)$

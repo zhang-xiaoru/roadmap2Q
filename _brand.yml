@@ -1,0 +1,10 @@
+# Minimal brand for Phy2Q Roadmap.
+# The html theme in _quarto.yml lists `brand`; this file backs that layer so the
+# accent color is intentional rather than the default. Kept deliberately light so it
+# complements `cosmo` instead of fighting it.
+color:
+  palette:
+    steel: "#2c6e9b"   # primary accent — links, active nav, buttons
+    navy: "#1b2a4a"    # deep heading/ink tone
+  primary: steel
+  secondary: navy

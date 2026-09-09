@@ -1,0 +1,12 @@
+/*-- scss:rules --*/
+
+/* Long display equations scroll horizontally inside their own box instead
+   of overflowing the page on narrow windows. Inline math is unaffected
+   (this targets display containers only). */
+mjx-container[display="true"] {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  /* small vertical padding so the scrollbar doesn't sit on the glyphs */
+  padding-block: 0.25rem;
+}

@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Open study notes on the mathematics, stochastic calculus, numerical optimization, and machine learning behind quantitative finance.">
 
-<title>19&nbsp; Classification – Phy2Q Roadmap</title>
+<title>13&nbsp; Classification – Phy2Q Roadmap</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -41,7 +42,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-af78437ed5bf07251aacc1da5128115f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
 <link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -129,7 +130,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ml-ds/probRecap.html">Machine Learning and Data Science Basics</a></li><li class="breadcrumb-item"><a href="../ml-ds/classification.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Classification</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ml-ds/probRecap.html">Machine Learning and Data Science Basics</a></li><li class="breadcrumb-item"><a href="../ml-ds/classification.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Classification</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -145,6 +146,9 @@ window.Quarto = {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Phy2Q Roadmap</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/zhang-xiaoru/roadmap2Q" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -157,7 +161,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preface</span></a>
+ <span class="menu-text">A Physicist’s Roadmap into Quantitative Finance</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -171,74 +175,44 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/unconstrained.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory of Unconstrained Optimization</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/lineSearch.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Line Search Methods</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/gradDescent.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Gradient Descent Methods</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/newTon.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Newton’s Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Line Search Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/quasiNewton.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quasi Newton Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Quasi Newton Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/conjGrad.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Conjugate Gradient Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conjugate Gradient Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/constrained.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Theory of Constrained Optimization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Theory of Constrained Optimization</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/quadProg.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Quadratic Programming</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Quadratic Programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/seqQuadprog.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Sequential Quadratic Programming</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Sequential Quadratic Programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/penalty.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Penalty Methods</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/interior.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interior Point Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Penalty Methods</span></span></a>
   </div>
 </li>
       </ul>
@@ -246,7 +220,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Monte-Carlo Methods</span></a>
+ <span class="menu-text">Machine Learning and Data Science Basics</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -254,8 +228,50 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../monte-carlo/monte-carlo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Monte-Carlo Method</span></span></a>
+  <a href="../ml-ds/probRecap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Recap on Probability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/highDimData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Properties of High Dimensional Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/randomProj.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Randomized Projection</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/SVD.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Clustering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/classification.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/markovChain.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Markov Chains</span></span></a>
   </div>
 </li>
       </ul>
@@ -263,7 +279,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Machine Learning and Data Science Basics</span></a>
+ <span class="menu-text">Stochastic Process and Stochastic Integral</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -271,133 +287,55 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ml-ds/probRecap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Recap on Probability</span></span></a>
+  <a href="../sp-and-stochCal/probReview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Probability in Measure Theory Language</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ml-ds/highDimData.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Properties of High Dimensional Data</span></span></a>
+  <a href="../sp-and-stochCal/martingales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Martingales</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ml-ds/randomProj.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Randomized Projection</span></span></a>
+  <a href="../sp-and-stochCal/stoppingTime.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Stopping Time</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ml-ds/SVD.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span></a>
+  <a href="../sp-and-stochCal/brownianMotion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Brownian Motion</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ml-ds/clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Clustering</span></span></a>
+  <a href="../sp-and-stochCal/stochasticIntegral.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Stochastic Integral</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ml-ds/classification.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ml-ds/regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ml-ds/markovChain.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Markov Chains</span></span></a>
+  <a href="../sp-and-stochCal/jumpProcess.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Stochastic Analysis and Lévy Process</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Machine Learning in Finance</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Practice Machine Learning with Kaggle</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Statistical Inference</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
- <span class="menu-text">Regression Analysis</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reg-anly/slrInference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Statistical Inference of Simple Linear Regression</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Bayesian Modeling</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
- <span class="menu-text">Stochastic Process and Stochastic Integral</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sp/prob.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Probability Review</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sp/bm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Brownian Motion</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sp/stocInt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Stochastic Integral</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Financial Basics</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Stochastic Process in Finance</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sp-in-finance/plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Things need to be done</span></span></a>
+  <a href="../sp-in-finance/riskNeutralPricing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Risk-Neutral Pricing</span></span></a>
   </div>
 </li>
       </ul>
@@ -418,40 +356,40 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#support-vector-machine-for-binary-classification" id="toc-support-vector-machine-for-binary-classification" class="nav-link active" data-scroll-target="#support-vector-machine-for-binary-classification"><span class="header-section-number">19.1</span> Support Vector Machine for Binary Classification</a>
+  <li><a href="#support-vector-machine-for-binary-classification" id="toc-support-vector-machine-for-binary-classification" class="nav-link active" data-scroll-target="#support-vector-machine-for-binary-classification"><span class="header-section-number">13.1</span> Support Vector Machine for Binary Classification</a>
   <ul class="collapse">
   <li><a href="#the-binary-classification-problem" id="toc-the-binary-classification-problem" class="nav-link" data-scroll-target="#the-binary-classification-problem">The binary classification problem</a></li>
   <li><a href="#linearly-separable-data" id="toc-linearly-separable-data" class="nav-link" data-scroll-target="#linearly-separable-data">Linearly separable data</a></li>
   <li><a href="#maximizing-the-margin" id="toc-maximizing-the-margin" class="nav-link" data-scroll-target="#maximizing-the-margin">Maximizing the margin</a></li>
   </ul></li>
-  <li><a href="#duality-of-constrained-optimization" id="toc-duality-of-constrained-optimization" class="nav-link" data-scroll-target="#duality-of-constrained-optimization"><span class="header-section-number">19.2</span> Duality of Constrained Optimization</a>
+  <li><a href="#duality-of-constrained-optimization" id="toc-duality-of-constrained-optimization" class="nav-link" data-scroll-target="#duality-of-constrained-optimization"><span class="header-section-number">13.2</span> Duality of Constrained Optimization</a>
   <ul class="collapse">
   <li><a href="#the-lagrangian-and-the-dual-function" id="toc-the-lagrangian-and-the-dual-function" class="nav-link" data-scroll-target="#the-lagrangian-and-the-dual-function">The Lagrangian and the dual function</a></li>
   <li><a href="#the-primal-value-as-a-minmax" id="toc-the-primal-value-as-a-minmax" class="nav-link" data-scroll-target="#the-primal-value-as-a-minmax">The primal value as a min–max</a></li>
   <li><a href="#the-minmax-inequality" id="toc-the-minmax-inequality" class="nav-link" data-scroll-target="#the-minmax-inequality">The min–max inequality</a></li>
   <li><a href="#the-lagrange-dual-problem" id="toc-the-lagrange-dual-problem" class="nav-link" data-scroll-target="#the-lagrange-dual-problem">The Lagrange dual problem</a></li>
   </ul></li>
-  <li><a href="#kernel-svm-the-dual-form" id="toc-kernel-svm-the-dual-form" class="nav-link" data-scroll-target="#kernel-svm-the-dual-form"><span class="header-section-number">19.3</span> Kernel SVM: The Dual Form</a></li>
-  <li><a href="#soft-margin-for-non-separable-data" id="toc-soft-margin-for-non-separable-data" class="nav-link" data-scroll-target="#soft-margin-for-non-separable-data"><span class="header-section-number">19.4</span> Soft Margin for Non-separable Data</a>
+  <li><a href="#kernel-svm-the-dual-form" id="toc-kernel-svm-the-dual-form" class="nav-link" data-scroll-target="#kernel-svm-the-dual-form"><span class="header-section-number">13.3</span> Kernel SVM: The Dual Form</a></li>
+  <li><a href="#soft-margin-for-non-separable-data" id="toc-soft-margin-for-non-separable-data" class="nav-link" data-scroll-target="#soft-margin-for-non-separable-data"><span class="header-section-number">13.4</span> Soft Margin for Non-separable Data</a>
   <ul class="collapse">
   <li><a href="#primal-problem-with-soft-margin" id="toc-primal-problem-with-soft-margin" class="nav-link" data-scroll-target="#primal-problem-with-soft-margin">Primal problem with soft margin</a></li>
   <li><a href="#dual-problem-with-soft-margin" id="toc-dual-problem-with-soft-margin" class="nav-link" data-scroll-target="#dual-problem-with-soft-margin">Dual problem with soft margin</a></li>
   </ul></li>
-  <li><a href="#multi-class-classification" id="toc-multi-class-classification" class="nav-link" data-scroll-target="#multi-class-classification"><span class="header-section-number">19.5</span> Multi-class Classification</a>
+  <li><a href="#multi-class-classification" id="toc-multi-class-classification" class="nav-link" data-scroll-target="#multi-class-classification"><span class="header-section-number">13.5</span> Multi-class Classification</a>
   <ul class="collapse">
   <li><a href="#one-vs-all-scheme" id="toc-one-vs-all-scheme" class="nav-link" data-scroll-target="#one-vs-all-scheme">One-vs-all scheme</a></li>
   <li><a href="#decision-regions" id="toc-decision-regions" class="nav-link" data-scroll-target="#decision-regions">Decision regions</a></li>
   <li><a href="#general-procedure" id="toc-general-procedure" class="nav-link" data-scroll-target="#general-procedure">General procedure</a></li>
   </ul></li>
   </ul>
-</nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/blob/main/ml-ds/classification.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ml-ds/probRecap.html">Machine Learning and Data Science Basics</a></li><li class="breadcrumb-item"><a href="../ml-ds/classification.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Classification</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ml-ds/probRecap.html">Machine Learning and Data Science Basics</a></li><li class="breadcrumb-item"><a href="../ml-ds/classification.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Classification</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Classification</span></h1>
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Classification</span></h1>
 </div>
 
 
@@ -469,8 +407,8 @@ window.Quarto = {
 
 
 <p>Given labelled training data, the goal of a <strong>classification</strong> problem is to predict a discrete label for each new (test) data point. This chapter develops the <strong>support vector machine (SVM)</strong> for binary classification, the Lagrangian <strong>duality</strong> theory behind its kernelized (dual) form, the <strong>soft-margin</strong> extension for non-separable data, and finally the reduction of <strong>multi-class</strong> classification to a collection of binary problems.</p>
-<section id="support-vector-machine-for-binary-classification" class="level2" data-number="19.1">
-<h2 data-number="19.1" class="anchored" data-anchor-id="support-vector-machine-for-binary-classification"><span class="header-section-number">19.1</span> Support Vector Machine for Binary Classification</h2>
+<section id="support-vector-machine-for-binary-classification" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="support-vector-machine-for-binary-classification"><span class="header-section-number">13.1</span> Support Vector Machine for Binary Classification</h2>
 <section id="the-binary-classification-problem" class="level3">
 <h3 class="anchored" data-anchor-id="the-binary-classification-problem">The binary classification problem</h3>
 <ul>
@@ -520,7 +458,7 @@ algebra in the source is partly illegible and is not reproduced here.] -->
 <img src="classification_files/figure-html/fig-svm-margin-output-1.png" width="566" height="566" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-svm-margin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;19.1: Maximum-margin separating hyperplane. The solid line is the decision boundary <span class="math inline">\(\langle w,x\rangle - b = 0\)</span>; the two dashed lines are the supporting hyperplanes <span class="math inline">\(\langle w,x\rangle - b = \pm 1\)</span>; the circled points are the support vectors that lie on them. The margin (green) has width <span class="math inline">\(2/\|w\|_2\)</span>.
+Figure&nbsp;13.1: Maximum-margin separating hyperplane. The solid line is the decision boundary <span class="math inline">\(\langle w,x\rangle - b = 0\)</span>; the two dashed lines are the supporting hyperplanes <span class="math inline">\(\langle w,x\rangle - b = \pm 1\)</span>; the circled points are the support vectors that lie on them. The margin (green) has width <span class="math inline">\(2/\|w\|_2\)</span>.
 </figcaption>
 </figure>
 </div>
@@ -536,7 +474,7 @@ w^{\mathsf T} x_i - b \le -1, &amp; \text{if } y_i = -1 .
 \]</span></p>
 <p>Maximizing <span class="math inline">\(2/\|w\|_2\)</span> is the same as minimizing <span class="math inline">\(\tfrac12\|w\|_2^2\)</span>, and the two constraints combine into the single condition <span class="math inline">\(y_i(\langle w, x_i\rangle - b)\ge 1\)</span>.</p>
 <div id="def-svm-primal" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 19.1 (Primal form of SVM)</strong></span> <span class="math display">\[
+<p><span class="theorem-title"><strong>Definition 13.1 (Primal form of SVM)</strong></span> <span class="math display">\[
 \min_{w,\,b} \ \tfrac12 \|w\|_2^2
 \qquad\text{s.t.}\qquad
 y_i\big(w^{\mathsf T} x_i - b\big) \ge 1,
@@ -555,8 +493,8 @@ convention and is transcribed here with $-b$ to match the rest of the notes.] --
 </div>
 </section>
 </section>
-<section id="duality-of-constrained-optimization" class="level2" data-number="19.2">
-<h2 data-number="19.2" class="anchored" data-anchor-id="duality-of-constrained-optimization"><span class="header-section-number">19.2</span> Duality of Constrained Optimization</h2>
+<section id="duality-of-constrained-optimization" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="duality-of-constrained-optimization"><span class="header-section-number">13.2</span> Duality of Constrained Optimization</h2>
 <p>To introduce non-linearity into the SVM one uses the <strong>kernel trick</strong>. This requires the <strong>dual</strong> form of the SVM, so we first review the duality of a general constrained optimization problem.</p>
 <section id="the-lagrangian-and-the-dual-function" class="level3">
 <h3 class="anchored" data-anchor-id="the-lagrangian-and-the-dual-function">The Lagrangian and the dual function</h3>
@@ -571,7 +509,7 @@ h_i(x) = 0, &amp; i = 1, \dots, p .
 L(x, \lambda, v) = f(x) + \sum_{i} \lambda_i f_i(x) + \sum_i v_i h_i(x) .
 \]</span></p>
 <div id="def-dual-function" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 19.2 (Lagrange dual function)</strong></span> The function <span class="math inline">\(g : \mathbb{R}^m \times \mathbb{R}^p \to \mathbb{R}\)</span> defined by <span class="math display">\[
+<p><span class="theorem-title"><strong>Definition 13.2 (Lagrange dual function)</strong></span> The function <span class="math inline">\(g : \mathbb{R}^m \times \mathbb{R}^p \to \mathbb{R}\)</span> defined by <span class="math display">\[
 g(\lambda, v) := \min_{x \in D} L(x, \lambda, v)
 \]</span> is called the <strong>Lagrange dual function</strong>. When <span class="math inline">\(L\)</span> is unbounded below, <span class="math inline">\(g \to -\infty\)</span>.</p>
 </div>
@@ -600,7 +538,7 @@ f_0(x), &amp; x \in D, \\
 <section id="the-minmax-inequality" class="level3">
 <h3 class="anchored" data-anchor-id="the-minmax-inequality">The min–max inequality</h3>
 <div id="thm-minmax" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 19.1 (Min–max inequality)</strong></span> Let <span class="math inline">\(f : W \times Z \to \mathbb{R}\)</span> with <span class="math inline">\(W \subseteq \mathbb{R}^n\)</span> and <span class="math inline">\(Z \subseteq \mathbb{R}^m\)</span>. Then <span class="math display">\[
+<p><span class="theorem-title"><strong>Theorem 13.1 (Min–max inequality)</strong></span> Let <span class="math inline">\(f : W \times Z \to \mathbb{R}\)</span> with <span class="math inline">\(W \subseteq \mathbb{R}^n\)</span> and <span class="math inline">\(Z \subseteq \mathbb{R}^m\)</span>. Then <span class="math display">\[
 \min_{w \in W} \ \max_{z \in Z} f(w, z) \ \ge\ \max_{z \in Z} \ \min_{w \in W} f(w, z) .
 \]</span></p>
 </div>
@@ -624,12 +562,12 @@ g(w) \ge h(z), \qquad \forall\, w \in W,\ z \in Z ,
 <section id="the-lagrange-dual-problem" class="level3">
 <h3 class="anchored" data-anchor-id="the-lagrange-dual-problem">The Lagrange dual problem</h3>
 <div id="def-dual-problem" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 19.3 (Dual problem)</strong></span> Let <span class="math inline">\(L\)</span> be the Lagrangian of the primal problem. The corresponding <strong>dual problem</strong> is <span class="math display">\[
+<p><span class="theorem-title"><strong>Definition 13.3 (Dual problem)</strong></span> Let <span class="math inline">\(L\)</span> be the Lagrangian of the primal problem. The corresponding <strong>dual problem</strong> is <span class="math display">\[
 \max_{\lambda \ge 0,\, v} \ g(\lambda, v) .
 \]</span></p>
 </div>
 <div class="proof remark">
-<p><span class="proof-title"><em>Remark</em>. </span>From <a href="#thm-minmax" class="quarto-xref">Theorem&nbsp;<span>19.1</span></a>, the primal and dual are related by <span class="math display">\[
+<p><span class="proof-title"><em>Remark</em>. </span>From <a href="#thm-minmax" class="quarto-xref">Theorem&nbsp;<span>13.1</span></a>, the primal and dual are related by <span class="math display">\[
 p^\ast = \min_x \ \max_{\lambda \ge 0,\, v} L(x, \lambda, v)
 \ \ge\
 \max_{\lambda \ge 0,\, v} \ \min_x L(x, \lambda, v) = d^\ast ,
@@ -643,7 +581,7 @@ wording appears reversed.] -->
 <p><strong>Weak duality and duality gap.</strong> When <span class="math inline">\(d^\ast &lt; p^\ast\)</span>, we have <strong>weak duality</strong>, and <span class="math inline">\(p^\ast - d^\ast\)</span> is called the <strong>duality gap</strong>.</p>
 <p><strong>Strong duality and Slater’s condition.</strong> When <span class="math inline">\(d^\ast = p^\ast\)</span> holds, we have <strong>strong duality</strong>. A specific condition that must hold for strong duality is called a <strong>constraint qualification</strong>; one simple example is Slater’s condition.</p>
 <div id="prp-slater" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 19.1 (Slater’s condition)</strong></span> For the primal problem <span class="math display">\[
+<p><span class="theorem-title"><strong>Proposition 13.1 (Slater’s condition)</strong></span> For the primal problem <span class="math display">\[
 \min_x \ f_0(x)
 \qquad\text{s.t.}\qquad
 \begin{cases}
@@ -658,8 +596,8 @@ A x = b,
 </div>
 </section>
 </section>
-<section id="kernel-svm-the-dual-form" class="level2" data-number="19.3">
-<h2 data-number="19.3" class="anchored" data-anchor-id="kernel-svm-the-dual-form"><span class="header-section-number">19.3</span> Kernel SVM: The Dual Form</h2>
+<section id="kernel-svm-the-dual-form" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="kernel-svm-the-dual-form"><span class="header-section-number">13.3</span> Kernel SVM: The Dual Form</h2>
 <p>Back to the SVM objective: it is not hard to see that the primal SVM satisfies Slater’s condition. Thus we can find the dual form of the SVM using the Lagrangian <span class="math display">\[
 L = \tfrac12 \|w\|_2^2 + \sum_i \lambda_i\Big(-\big(\langle w, x_i\rangle - b\big) y_i + 1\Big) .
 \]</span></p>
@@ -702,7 +640,7 @@ written in the source.] -->
 \end{cases}
 \]</span></p>
 <div id="def-svm-dual" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 19.4 (Dual form of SVM)</strong></span> <span class="math display">\[
+<p><span class="theorem-title"><strong>Definition 13.4 (Dual form of SVM)</strong></span> <span class="math display">\[
 \max_{\lambda \ge 0} \ -\tfrac14 \sum_{i,j} \lambda_i \lambda_j y_i y_j \langle x_i, x_j\rangle + \sum_i \lambda_i
 \qquad\text{s.t.}\qquad
 \sum_i y_i \lambda_i = 0 .
@@ -712,8 +650,8 @@ written in the source.] -->
 <p><span class="proof-title"><em>Remark</em>. </span>In the dual form, <span class="math inline">\(x_i\)</span> appears only as an <strong>inner product</strong> <span class="math inline">\(\langle x_i, x_j\rangle\)</span>, and can be replaced with a <strong>kernel function</strong> — this is the kernel trick.</p>
 </div>
 </section>
-<section id="soft-margin-for-non-separable-data" class="level2" data-number="19.4">
-<h2 data-number="19.4" class="anchored" data-anchor-id="soft-margin-for-non-separable-data"><span class="header-section-number">19.4</span> Soft Margin for Non-separable Data</h2>
+<section id="soft-margin-for-non-separable-data" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="soft-margin-for-non-separable-data"><span class="header-section-number">13.4</span> Soft Margin for Non-separable Data</h2>
 <p>In many cases the data are not (strictly) linearly separable. The solution is to introduce a <strong>“soft” margin</strong> that allows misclassification. The constraints are modified to <span class="math display">\[
 y_i\big(\langle w, x_i\rangle - b\big) \ge 1 - \xi_i .
 \]</span></p>
@@ -757,8 +695,8 @@ The box constraint is read as $\lambda_i \le \tfrac{1}{2n\lambda}$ — the stand
 soft-margin dual has $0 \le \lambda_i \le C$.] -->
 </section>
 </section>
-<section id="multi-class-classification" class="level2" data-number="19.5">
-<h2 data-number="19.5" class="anchored" data-anchor-id="multi-class-classification"><span class="header-section-number">19.5</span> Multi-class Classification</h2>
+<section id="multi-class-classification" class="level2" data-number="13.5">
+<h2 data-number="13.5" class="anchored" data-anchor-id="multi-class-classification"><span class="header-section-number">13.5</span> Multi-class Classification</h2>
 <p>The multi-class classification problem can be reduced to the binary case using the <strong>“one-vs-all”</strong> scheme.</p>
 <p>For a multi-class problem the data set is <span class="math inline">\((\vec{x}_1, y_1), \dots, (\vec{x}_n, y_n)\)</span> as before, but now <span class="math inline">\(y_i \in \{0, 1, \dots, C-1\}\)</span>, for a total of <span class="math inline">\(C\)</span> distinct classes.</p>
 <section id="one-vs-all-scheme" class="level3">
@@ -807,7 +745,7 @@ x_i^{\mathsf T} w_c - b &lt; 0 \ \Rightarrow\ x_i \notin C .
 <img src="classification_files/figure-html/fig-multiclass-output-1.png" width="516" height="566" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-multiclass-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;19.2: Multi-class one-vs-all decision regions for <span class="math inline">\(3\)</span> classes. Each pair of regions is separated by a linear boundary; a test point is assigned to the class with the largest normalized signed distance <span class="math inline">\(\dfrac{x^{\mathsf T} w_c - b_c}{\|w_c\|_2}\)</span>.
+Figure&nbsp;13.2: Multi-class one-vs-all decision regions for <span class="math inline">\(3\)</span> classes. Each pair of regions is separated by a linear boundary; a test point is assigned to the class with the largest normalized signed distance <span class="math inline">\(\dfrac{x^{\mathsf T} w_c - b_c}{\|w_c\|_2}\)</span>.
 </figcaption>
 </figure>
 </div>
@@ -1264,17 +1202,17 @@ samples, to avoid the collision in the original. Content otherwise unchanged.] -
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../ml-ds/clustering.html" class="pagination-link" aria-label="Clustering">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Clustering</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Clustering</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../ml-ds/regression.html" class="pagination-link" aria-label="Regression">
-        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regression</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Regression</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-    <script type="text/javascript">
+    <footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/blob/main/ml-ds/classification.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script type="text/javascript">
     (function(d) {
       d.querySelectorAll(".pseudocode-container").forEach(function(el) {
         let pseudocodeOptions = {

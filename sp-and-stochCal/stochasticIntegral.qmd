@@ -1,0 +1,406 @@
+# Stochastic Integral
+
+<!-- [note: exact transcription. Source spellings preserved in the body
+("descret", "calculous", "continous", "martingle", "isomety", "eventtutw",
+"reconize", ...); only headings are set in standard spelling.] -->
+
+<!-- [note: `sp/stocInt.qmd` is a pre-existing, looser transcription of this same
+stochastic-integral note. This file is the full, exact version.] -->
+
+<!-- [note: throughout, $\Delta B_i := B_{t_{i+1}} - B_{t_i}$ denotes the Brownian
+increment; the source writes it with a small circled-$B$ / $\sigma B$ symbol.] -->
+
+suppose we have a stock price $(X_t)_t$ and a trading strategy $(a_t)_t$, which
+essentially a Random variable that tells me how much share to hold. The How do I
+Calculate my total profit from $0, to\ T$
+
+one simple model turn descret time into interval $t_0 < t_1 < t_2 \cdots < t_n$,
+and we hold $\xi_i$ # of share between $[t_{i-1}, t_i]$, decide at $t_{i-1}$ (no
+future information) $\Rightarrow \xi_i$ is $\mathcal{F}_{t_{i-1}}$ measurable. and
+BM $(B_t)_t$ as price movement
+
+Then the profit is $I_t = \xi_1(B_{t_1} - B_{t_0}) + \cdots + \xi_n(B_t - B_{t_{n-1}})$
+
+when $\sigma t = t_i - t_{i-1}$ is very small, this looks like an integral in
+regular calculous sense. However due to the QV of BM, the exact stochastic
+Calculous is more Complicated the intuitive argument above. but the general idea
+is similar.
+
+we start with define the stochastic integral (Ito integral specificaly) for Simple
+step function
+$$
+0 = t_0 < t_1 < t_2 \cdots < t_n = T. \quad \text{a partition}
+$$
+
+## Step process
+
+**Def step process** $G_t$:
+$$
+(G_t)_{t \in [0,T]} := \sum_{k=1}^{n} \xi_{k-1} \mathbf{1}_{\{t_{k-1} < t \leq t_k\}}, \qquad \xi_{k-1} \text{ is } \mathcal{F}(t_{k-1}) \text{ measurable.}
+$$
+$$
+\mathbf{1}_{\{t_{k-1} < t \leq t_k\}} = \begin{cases} 1 & t_{k-1} < t < t_k \\ 0 & \text{other} \end{cases}
+$$
+
+<!-- [figure: a number line $0 \ \cdots\ t_{k-1}\ t_k\ \cdots\ T$ marking the
+partition. Not reproduced.] -->
+
+## Itô's stochastic integral (on step processes)
+
+**Def Itô's stochastic integral** (on step processes)
+$$
+I_t^n = \int_0^t G_u^n \, dB_u = \sum_{i=0}^{k-1} \xi_i(B_{t_{i+1}} - B_{t_i}) + \xi_k(B_t - B_{t_k}), \quad t \in [t_k, t_{k+1}], \quad (B_t)_{t \geq 0} \text{ is BM} \iff dI_t^n = G_t^n \, dB_t
+$$
+
+**Remark:** An intuitive under standy of this definition is to think $t_0, t_1 \cdots t_n$
+as the trading days, $B(t_i)$ be the price at these days and $\xi_i$ as number of
+shares acquired at date $t_i$, hold tile time $t_{i+1}$. Then the total gain of
+asset (which would stans for 'integral') would be $\sum(\text{share} \times \text{price})$ all trades.
+
+## Properties of the Itô integral
+
+**Th** $I_t^n$ is a continous martingle with $I_0^n = 0$
+
+**proof:** (1) let $0 \leq s < t$, to show $I_s^n = E(I_t^n \mid \mathcal{F}_s)$, we
+need to show $E(I_t^n - I_s^n \mid \mathcal{F}_s) = 0$. suppose $s \in [t_l, t_{l+1}]$,
+$t \in [t_k, t_{k+1}]$, $l \leq k$
+
+then
+$$
+\begin{aligned}
+I_t^n - I_s^n &= \xi_k(B_t - B_{t_k}) + \xi_{k-1}(B_{t_k} - B_{t_{k-1}}) \cdots + \xi_l(B_{t_{l+1}} - B_{t_l}) - \xi_l(B_s - B_{t_l}) \\
+&= \xi_k(B_t - B_{t_k}) + \cdots + \xi_l(B_{t_{l+1}} - B_s)
+\end{aligned}
+$$
+$$
+E\big(\xi_k(B_t - B_{t_k}) \mid \mathcal{F}_s\big) = E\big(E(\xi_k(B_t - B_{t_k}) \mid \mathcal{F}_{t_k}) \mid \mathcal{F}_s\big) = E\big(\xi_k E(B_t - B_{t_k} \mid \mathcal{F}_{t_k}) \mid \mathcal{F}_s\big) = 0
+$$
+$$
+E\big(\xi_l(B_{t_{l+1}} - B_s) \mid \mathcal{F}_s\big) = \xi_l E(B_{t_{l+1}} - B_s \mid \mathcal{F}_s) = 0.
+$$
+$\to I_t^n$ is continous martingle.
+
+**Th Ito isometry**
+$$
+E(I_t^{n2}) = E\Big[\int_0^t G_u^{n2} \, du\Big]
+$$
+
+**proof:** Ito isomety $E(I^2) = E\big((\sum_i \xi_i \Delta B_i)^2\big)$
+$$
+= E\Big(\sum_i \xi_i^2 \Delta B_i^2 + 2\sum_{i \neq j} \xi_i \Delta B_i \, \xi_j \Delta B_j\Big)
+$$
+when $i \neq j$, assume $i < j$, $\Delta B_j$ is independent of $\Delta B_i, \xi_i, \xi_j$
+thus $E(\xi_i \xi_j \Delta B_i \Delta B_j) = 0$
+$$
+\begin{aligned}
+E(I^2) &= E\Big(\sum_i \xi_i^2 \Delta B_i^2\Big) = \sum_i E(\xi_i^2 \Delta B_i^2) \\
+&= \sum_i E(\xi_i^2) E(\Delta B_i^2) \\
+&= E\big(\xi_i^2 (t_{i+1} - t_i)\big) = E\Big(\int_0^t G_s^{n2} \, ds\Big)
+\end{aligned}
+$$
+
+**Th The QV of $I_t^n$**
+$$
+[I_t^n, I_t^n] = \int_0^t G_u^{n2} \, du, \quad \text{and.} \qquad \langle I_t^n, I_t^n\rangle = \int_0^t G_u^{n2} \, du
+$$
+
+**proof:** Calculate the QV on each piece wise interval.
+$$
+\begin{aligned}
+[I_{t_i}^n, I_{t_i}^n] &= \lim_{|\sigma| \to 0} \sum_{j=1}^{m} (I_{h_j} - I_{h_{j-1}})^2, \quad \text{where } t_{i-1} = h_0 < h_1 \cdots < h_m = t_i. \\
+&= \lim_{|\sigma| \to 0} \sum_{j=1}^{m} \xi_{t_{i-1}}(B_{h_j} - B_{h_{j-1}})^2 = \xi_{t_{i-1}} \lim_{|\sigma| \to 0} \sum_{j=1}^{m} (B_{h_j} - B_{h_{j-1}})^2 \\
+&= \xi_{t_{i-1}}(t_i - t_{i-1})
+\end{aligned}
+$$
+notice that the QV on $0, t$ is then sum of all this
+$$
+\text{thus} \quad [I_t^n, I_t^n] = \sum_j \xi_{t_{j-1}}(t_j - t_{j-1}) = \int_0^t G_u^{n} \, du.
+$$
+$$
+\begin{aligned}
+\langle I_{t_i}^n, I_{t_i}^n\rangle &= \sum_{c=1}^{k} E\big[\xi_{i-1}^2(B_{t_i} - B_{t_{i-1}})^2 \mid \mathcal{F}_{t_{i-1}}\big] = \sum_{i=1}^{k} \xi_{i-1}^2 E\big[(B_{t_i} - B_{t_{i-1}})^2 \mid \mathcal{F}_{t_{i-1}}\big] \\
+&= \sum_{i=1}^{k} \xi_{i-1}^2 (t_i - t_{i-1})^2 = \int_0^t G_t^2 \, dt.
+\end{aligned}
+$$
+
+<!-- [flag: the QV computation on this page is internally inconsistent in the
+source. The realized-QV line drops the squares — it reads
+$[I_t^n,I_t^n] = \sum_j \xi_{t_{j-1}}(t_j-t_{j-1}) = \int_0^t G_u^{n}\,du$, where
+$\xi$ should be $\xi^2$ and $G_u^n$ should be $(G_u^n)^2$. The predictable-QV line
+writes $(t_i-t_{i-1})^2$, which should be linear $(t_i-t_{i-1})$ (since
+$E[(\Delta B)^2\mid\mathcal F]=\Delta t$). The correct value in both cases is
+$\int_0^t (G_u^n)^2\,du$, as stated in the theorem. Transcribed as written.] -->
+
+**Remark:** We can denote the integral form $I_t^n = \int_0^t G_u^n \, dB_u$ in
+"differential form" $dI_t^n = G_t^n \, dt$ and the QV
+$$
+(dI_t^n)^2 = (G_t^n \, dB_u)^2 = G_t^{n2}(dB_u)^2 = G_t^{n2} \, dt.
+$$
+or. $I_t^n$ accumulate $G_t^{n2}$ QV per unit time.
+
+**Th Martingle Property**
+$$
+I_t^{n} - \int_0^t G_u^{n2} \, du \quad \text{is a martingle.}
+$$
+
+<!-- [note: as written the leading term reads $I_t^n$; by the isometry/QV results
+this martingale is $(I_t^n)^2 - \int_0^t (G_u^n)^2\,du$. Transcribed as written.] -->
+
+**Remark:** the QV is computed path-by-path. chosing different $a_t$ would leads to
+different integral. QV can be regarded. as a measure of risk, and it depends on the
+size of position $(a_t)$ we take.
+
+## From simple step process to General process
+
+use $(G_t^n)_{t \in [0,T]}$, a step process to approximate any $G$ to defines
+$\int_0^T G_t \, dB_t$
+
+let $T$ be fixed,
+$$
+L^2(0,T) = \Big\{(G_t)_{0 \leq t \leq T}, \ G_t \text{ measurable w.r.t. } (\mathcal{F}_t), 0 \leq t \leq T, \text{ and } E\Big[\int_0^T |G_t|^2 dt\Big] < \infty\Big\}
+$$
+$$
+\exists (G^n)_t \in L^2(0,T), \text{ bounded step process (sequence of) s.t. } E\Big[\int_0^T |G_u - G_u^n|^2 du\Big] \to 0.
+$$
+
+**Def** let $G_t \in L^2(0,T)$ and $(G^n)_t$ as bound sequence of step process
+above then $L_t = \lim_{n \to \infty} \int_0^t G_u^n \, dB_u$ exist and defined as
+$\int_0^t G_u \, du$.
+
+**Properties:**
+
+- $L_t$ is continous martingle, $L_0 = 0$
+- $E(L_t^2) = E\big(\int_0^t G_u^2 \, du\big)$ — Ito isomety
+- $\langle L_t, L_t\rangle = \int_0^t G_u^2 \, du = [L_t, L_t] := \lim_{\sigma \to 0} \sum_{k=0} (L_{t_k} - L_{t_{k-1}})^2$ — QV
+- $(L_t)^2 - \int_0^t G_u^2 \, du$ is a martingle
+- $E(L_t) = 0$.
+
+**Justification on the QV.**
+$$
+E\Big[\big(\textstyle\sum_k (L_{t_k} - L_{t_{k-1}})^2 - \langle L, L\rangle_t\big)^2\Big] = E\Big[\big(\textstyle\sum_k \underbrace{((L_{t_k} - L_{t_{k-1}})^2 - (\langle L,L\rangle_{t_k} - \langle L,L\rangle_{t_{k-1}}))}_{A_k}\big)^2\Big]
+$$
+observation $E[(L_t - L_s)^2 \mid \mathcal{F}_s] = E[L_t^2 - L_s^2 \mid \mathcal{F}_s]$, let $s = t_{k-1}$, $t = t_k$
+$$
+E\big[(L_{t_k} - L_{t_{k-1}})^2 \mid \mathcal{F}_{t_{k-1}}\big] = E\big[L_{t_k}^2 - L_{t_{k-1}}^2 \mid \mathcal{F}_{t_{k-1}}\big] = E\big[\langle L,L\rangle_{t_k} - \langle L,L\rangle_{t_{k-1}} \mid \mathcal{F}_{t_{k-1}}\big]
+$$
+as $E[(L_{t_k} - L_{t_{k-1}})^2 \mid \mathcal{F}_{t_{k-1}}] = \langle L,L\rangle_{t_k} - \langle L,L\rangle_{t_{k-1}} = E[\langle L,L\rangle_{t_k} - \langle L,L\rangle_{t_{k-1}} \mid \mathcal{F}_{t_{k-1}}]$
+$$
+\Rightarrow E(A_k \mid \mathcal{F}_{t_{k-1}}) = 0
+$$
+$$
+E\big((\textstyle\sum_k A_k)^2\big) = E\big(\textstyle\sum_k A_k^2\big) + 2E\big(\textstyle\sum_{i \leq k} A_i A_k\big) \quad \text{since } E(A_i A_k \mid \mathcal{F}_{k-1}) = A_i E(A_k \mid \mathcal{F}_{k-1}) = 0 \text{ and } E(A_k^2) \text{ close to } 0.
+$$
+
+**Remark:** again we denote $dL_t = G_t \, dB_t$ and $(dL_t)^2 = G_t^2 \, dt$.
+
+## Itô processes and Itô's chain rule
+
+we then extend the integral process defined above to more generalise Ito processes.
+
+**Def - Itô processess** let $(B_t)_{t \geq 0}$ a BM on $(\Omega, \mathcal{F}, P)$
+with filtration $\mathcal{F}_t$ and some $(\mathcal{F}_t)_{t \geq 0}$, $(a_t)_{t \geq 0}$
+sp adapted to $\mathcal{F}_t$ and $F_t \in L^1(0,T)$, $G_t \in L^2(0,T)$ and
+$$
+X_t = X_0 + \int_0^t F_u \, du + \int_0^t G_u \, dB_u
+$$
+is called the Ito process, which often denote in differential form
+$$
+dX_t = F_t \, dt + G_t \, dB_t.
+$$
+
+**Remark:** 1. the differential form is a notation for the integral expression,
+$dX_t, dt, dB_t$ has no stand alone meaning
+
+2. Almost all sp, exlept the one with jumps (Levy-processes) are Ito process.
+
+3. Tthe $F_t \, dt$ are refered as drift term (over all motion. due to external
+field) and Brownian term is called diffusive term.
+
+**Lemma:** $[X, X]_t = \int_0^t G_u^2 \, dt$. $\to$ QV come from BM, drift has no QV.
+
+The natural Question next is to ask if there is a "chain" rule. in stochastic
+Integral that tell us $d(U(X_t))$ is. The such rule in stochastic Calculous is
+called Ito's chain rule. Similar to regular chain rule with extra term as result
+of none zero QV of BM.
+
+**Th - Itô's Chain Rule.** Suppose $dX_t = F_t \, dt + G_t \, dB_t$ is an Ito
+processes defined above, let $U: \mathbb{R} \times [0,T] \to \mathbb{R}$ and
+$U(x,t)$ is continous and $\frac{\partial U}{\partial t}, \frac{\partial U}{\partial x}, \frac{\partial^2 U}{\partial x^2}$
+exists and continous, then $Y_t = U(X_t, t)$ has diff eventtutw
+$$
+\begin{aligned}
+dY_t &= U_t \, dt + U_x \, dX_t + \tfrac12 U_{xx}(dX_t)^2 \\
+&= U_t \, dt + U_x(F_t \, dt + G_t \, dB_t) + \tfrac12 U_{xx} G_t^2 \, dt.
+\end{aligned}
+$$
+
+Similar question can be asked, if there is a product rules in stochastic sense, and
+the answer is Yes, with also additional term due to QV of BM
+
+**Example:** $d(B_u^2) = 2 B_u \, dB_u + dt.$
+$$
+\begin{aligned}
+\int_0^t d(B_u^2) &= \lim_{|\sigma| \to 0} \sum_i (B_{t_i}^2 - B_{t_{i-1}}^2) = \lim_{|\sigma| \to 0}\Big(\textstyle\sum_i (B_{t_i} - B_{t_{i-1}})^2 + 2B_{t_{i-1}}\sum_i (B_{t_i} - B_{t_{i-1}})\Big) \\
+&= \lim_{|\sigma| \to 0} \sum_i (B_{t_i} - B_{t_{i-1}})^2 + 2\lim_{|\sigma| \to 0} \sum_i (B_{t_i} - B_{t_{i-1}}) B_{t_{i-1}} \\
+&= [B, B]_t + 2\int_0^t B_u \, dB_u = \int_0^t dt + \int_0^t 2 B_u \, dB_u
+\end{aligned}
+$$
+$$
+\iff dB_u^2 = 2 B_u \, dB_u + dt
+$$
+
+**Example:** $d(t B_t)$
+$$
+\int_0^t d(u B_u) = \lim \sum_i (t_i B_{t_i} - t_{i-1} B_{t_{i-1}}) = \lim \sum_i t_i(B_{t_i} - B_{t_{i-1}}) + \lim \sum_i (t_i - t_{i-1}) B_{t_{i-1}} = \int_0^t u \, dB_u + \int_0^t B_u \, du
+$$
+$$
+\iff d(t B_t) = t \, dB_t + B_t \, dt
+$$
+
+<!-- [note: the source's first line of this example writes a struck-out attempt
+"$d(tB_t) = \cancel{B_t}dt + B_t dt$"; the derived result is $t\,dB_t + B_t\,dt$.] -->
+
+**Th - Itô's product rule.** let $dX_t^1 = F_t^1 \, dt + G_t^1 \, dB_t$ be two Ito
+process on $(\Omega, \mathcal{F}, P)$, $dX_t^2 = F_t^2 \, dt + G_t^2 \, dB_t$
+$$
+\begin{aligned}
+\text{then} \quad d(X_1 X_2) &= X_2 \, dX_1 + X_1 \, dX_2 + dX_1 \, dX_2 \\
+&= X_2 \, dX_1 + X_1 \, dX_2 + G_t^1 G_t^2 \, dt.
+\end{aligned}
+$$
+
+**lemma:** $dX_1 \, dX_2 = G_t^1 G_t^2 \, dt$
+
+**proof** let $G_t^1, G_t^2, F_t^1, F_t^2$ has its Converging step sequence
+$G^{1n}, G^{2n}, F^{1n}, F^{2n}$ and let $X_n^1, X_n^2$ defined as.
+$$
+X_n^1 = \sum_i F_{t_{i-1}}^1(t_i - t_{i-1}) + \sum_i G_{t_{i-1}}^1(B_i - B_{i-1})
+$$
+$$
+X_n^2 = \sum_i F_{t_{i-1}}^2(t_i - t_{i-1}) + \sum_i G_{t_{i-1}}^2(B_i - B_{i-1})
+$$
+$$
+\text{then} \quad \sum_i (X_{t_i}^1 - X_{t_{i-1}}^1)(X_{t_i}^2 - X_{t_{i-1}}^2) = \sum_i \big(F_{t_{i-1}}^1(t_i - t_{i-1}) + G_{t_{i-1}}^1(B_i - B_{i-1})\big)\big(F_{t_{i-1}}^2(t_i - t_{i-1}) + G_{t_{i-1}}^2(B_i - B_{i-1})\big)
+$$
+
+taking $|\sigma| \to 0$, the two drift-drift and drift-diffusion sums vanish
+(in $L^2$ sense):
+$$
+\lim_{|\sigma| \to 0} \sum_i F^1 F^2 (\Delta_i t)^2 = 0, \qquad \lim_{|\sigma| \to 0} \sum_i F^1 G^2 \, \Delta_i B \, \Delta_i t = 0
+$$
+$$
+\lim_{|\sigma| \to 0} \sum_i (X_i^1 - X_{i-1}^1)(X_i^2 - X_{i-1}^2) = \lim_{|\sigma| \to 0} \sum_i G^1 G^2 \, \Delta_i B^2 = \int_0^t G_u^1 G_u^2 \, du
+$$
+
+<!-- [flag: this product-rule proof is very dense in the source; some
+increment subscripts are approximate readings. $\Delta_i t := t_i - t_{i-1}$,
+$\Delta_i B := B_{t_i} - B_{t_{i-1}}$.] -->
+
+**proof:**
+$$
+\begin{aligned}
+\int_0^t d(X^1 X^2) &= \lim_{|\sigma| \to 0} \sum_i (X_{t_i}^1 X_{t_i}^2 - X_{t_{i-1}}^1 X_{t_{i-1}}^2) \\
+&= \lim_{|\sigma| \to 0} \sum_i \big[X_{t_{i-1}}^1(X_{t_i}^2 - X_{t_{i-1}}^2) + X_{t_{i-1}}^2(X_{t_i}^1 - X_{t_{i-1}}^1) + (X_{t_i}^1 - X_{t_{i-1}}^1)(X_{t_i}^2 - X_{t_{i-1}}^2)\big] \\
+&= \int_0^t X_u^1 \, dX_u^2 + \int_0^t X_u^2 \, dX_u^1 + \int_0^t G_u^1 G_u^2 \, du
+\end{aligned}
+$$
+
+**Def** $dX_t = F_t \, dt + G_t \, dB_t$, and $(a_t)_t$ be a adapted process
+$$
+\int_0^t a_u \, dX_u := \int_0^t a_u F_u \, du + \int_0^t a_u G_u \, dB_u.
+$$
+or. $a_t \, dX_t = a_t F_t \, dt + a_t G_t \, dB_t.$
+
+**proof - Itô's Chain Rule.** using Itô's product, an proof chainrule
+
+① using product rule can show for $U(x) = x^m$, we ①,$\cdots$
+$$
+dX_t^m = m X^{m-1} \, dX_t + \tfrac12 m(m-1) X^{m-2} G_t^2 \, dt.
+$$
+(using induction), which satisfy the chain rule. The linearity of integration give
+that all polynomial satisfied.
+
+② then we show for $f(x), g(t)$ that are both polynomial,
+$$
+\begin{aligned}
+d(U(X_t)) = d[f(x) g] &= f(x) \, dg + g(t) \, df(x) \\
+&= f(x) g' \, dt + g(t)\big(f'(x) \, dx + \tfrac12 f''(x) G_t^2 \, dt\big) \\
+&= \frac{\partial U}{\partial t} \, dt + \frac{\partial U}{\partial x}(x) \, dx + \tfrac12 \frac{\partial^2 U}{\partial x^2} G_t^2 \, dt.
+\end{aligned}
+$$
+due to linearity, $U(x,t) = \sum_i f_i(x) g_i(t)$ also Satisfies Ito formula. That
+is, all polynomial function $U$ of $x, t$ satis fy.
+
+③ For then $U$ in Ito's chain rule statement, $\exists (U^n)_{n=0,1,\cdots}$, 'a
+sequence of polynomial function s.t. $U^n \to U, U_t^n \to U_t, U_x^n \to U_x, U_{xx}^n \to U_{xx}$
+uniformly on compact subset of $\mathbb{R} \times [0,T]$.
+$$
+\text{sun} \quad \int_0^t dU^n = \int_0^t U_t^n \, du + \int_0^t U_x^n \, dX + \tfrac12 \int_0^t U_{xx}^n G_u^2 \, du \quad \text{a.s.}
+$$
+passing the limit yet chain rule in general.
+
+**Summary:** The way remember this is to reconize that $dB_t \, dB_t = dt.$ instead
+of $0$, as in regular calculus $\ dB_t \approx \sqrt{dt}$
+
+- then for product
+$$
+\begin{aligned}
+d X_1 X_2 &= X_1 \, dX_2 + X_2 \, dX_1 + dX_1 \, dX_2 \\
+&= X_1 \, dX_2 + X_2 \, dX_1 + (F^1 dt + G^1 dB)(F^2 dt + G^2 dB) \\
+&= \cdots + G^1 G^2 \, dt
+\end{aligned}
+$$
+the result we higher order term, ignored as usual.
+
+- Itô's chain rule then can be view as lowest order Tyler expansion.
+$$
+f(X_t) = f(0,0) + \frac{\partial f}{\partial x} \, dX_t + \frac{\partial f}{\partial t} \, dt + \tfrac12 \frac{\partial^2 f}{\partial x^2}(dX_t)^2.
+$$
+as $(dX_t)^2 = G_t^2 \, dt$, and should be keep.
+
+<!-- [note: the source's line for $(dX_t)^2$ is smudged and appears to read
+"$G_t^2 G_t^2\,dt$"; the correct value is $G_t^2\,dt$.] -->
+
+## General Itô's chain rule
+
+Itô's chain rule can be similarly extend to multip variable.
+
+let $dX_t^i = F_t^i \, dt + G_t^i \, dB_t$ on $(\Omega, \mathcal{F}, P)$ with
+$F^i \in L^1(0,T)$, $G^i \in L^2(0,T)$ adapted, $i = 1, \cdots n$, and
+$u: \mathbb{R}^n \times [0,T] \to \mathbb{R}$ is continous, with continous
+$u_t, u_{x_i}, u_{x_i x_j}$ $\forall t_i$, then
+$$
+d u(x^1, x^2, \cdots, t) = u_t \, dt + \sum_i \frac{\partial u}{\partial x_i} \, dX_t^i + \tfrac12 \sum_{ij} \frac{\partial^2 u}{\partial x_i \partial x_j} G_t^i G_t^j \, dt
+$$
+
+## Examples
+
+**1. Geometric Brownian Motion.**
+$$
+dX_t = G_t \, dB_t + (\alpha_t - \tfrac12 \sigma^2) \, dt, \qquad B_t \text{ is BM w.r.t. } \mathcal{F}_t \text{ filtration and } G_t, \alpha_t \text{ be adapted process.}
+$$
+
+and consider an asset price given by
+$$
+S_t = S_0 \exp(X_t)
+$$
+$$
+\begin{aligned}
+\text{then} \quad dS_t &= d(S_0 \exp(X_t)) = S_0\big(\exp(X_t) \, dX_t + \tfrac12 \exp(X_t) \, dX_t \, dX_t\big) \\
+\text{and} \quad dX_t \, dX_t &= G_t^2 (dB_t)^2 = G_t^2 \, dt. \\
+\Rightarrow \quad dS_t &= S_0 \exp(X_t)\big(G_t \, dW_t + (\alpha_t - \tfrac12 \sigma^2) \, dt\big) + \tfrac12 S_0 \exp(X_t) G_t^2 \, dt \\
+&= \alpha_t S_t \, dt + G_t S_t \, dB_t.
+\end{aligned}
+$$
+
+the asset price would have instantaneous mean rate of return. $\alpha_t$ and
+volatility $G(t)$.
+
+<!-- [flag: in this example the volatility is written both as $\sigma$ (in the
+drift $-\tfrac12\sigma^2$) and as $G_t$ (in the diffusion and QV); they denote the
+same quantity, which is why the two $\tfrac12$-terms combine to give drift
+$\alpha_t$. Also, "$G_t\,dW_t$" is written with $W$ where $B$ (the same BM) is
+meant.] -->
+
+This example includes all possible asset price model that is always positive, has
+no jumps and driven by a single BM.

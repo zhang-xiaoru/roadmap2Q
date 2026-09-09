@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Open study notes on the mathematics, stochastic calculus, numerical optimization, and machine learning behind quantitative finance.">
 
-<title>20&nbsp; Regression – Phy2Q Roadmap</title>
+<title>14&nbsp; Regression – Phy2Q Roadmap</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +31,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../reg-anly/slrInference.html" rel="next">
+<link href="../ml-ds/markovChain.html" rel="next">
 <link href="../ml-ds/classification.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -41,7 +42,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-af78437ed5bf07251aacc1da5128115f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
 <link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -129,7 +130,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ml-ds/probRecap.html">Machine Learning and Data Science Basics</a></li><li class="breadcrumb-item"><a href="../ml-ds/regression.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regression</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ml-ds/probRecap.html">Machine Learning and Data Science Basics</a></li><li class="breadcrumb-item"><a href="../ml-ds/regression.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Regression</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -145,6 +146,9 @@ window.Quarto = {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Phy2Q Roadmap</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/zhang-xiaoru/roadmap2Q" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -157,7 +161,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preface</span></a>
+ <span class="menu-text">A Physicist’s Roadmap into Quantitative Finance</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -171,74 +175,44 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/unconstrained.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory of Unconstrained Optimization</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/lineSearch.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Line Search Methods</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/gradDescent.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Gradient Descent Methods</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/newTon.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Newton’s Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Line Search Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/quasiNewton.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quasi Newton Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Quasi Newton Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/conjGrad.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Conjugate Gradient Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conjugate Gradient Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/constrained.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Theory of Constrained Optimization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Theory of Constrained Optimization</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/quadProg.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Quadratic Programming</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Quadratic Programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/seqQuadprog.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Sequential Quadratic Programming</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Sequential Quadratic Programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/penalty.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Penalty Methods</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/interior.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interior Point Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Penalty Methods</span></span></a>
   </div>
 </li>
       </ul>
@@ -246,7 +220,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Monte-Carlo Methods</span></a>
+ <span class="menu-text">Machine Learning and Data Science Basics</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -254,8 +228,50 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../monte-carlo/monte-carlo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Monte-Carlo Method</span></span></a>
+  <a href="../ml-ds/probRecap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Recap on Probability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/highDimData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Properties of High Dimensional Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/randomProj.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Randomized Projection</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/SVD.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Clustering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/regression.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/markovChain.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Markov Chains</span></span></a>
   </div>
 </li>
       </ul>
@@ -263,7 +279,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Machine Learning and Data Science Basics</span></a>
+ <span class="menu-text">Stochastic Process and Stochastic Integral</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -271,127 +287,55 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ml-ds/probRecap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Recap on Probability</span></span></a>
+  <a href="../sp-and-stochCal/probReview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Probability in Measure Theory Language</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ml-ds/highDimData.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Properties of High Dimensional Data</span></span></a>
+  <a href="../sp-and-stochCal/martingales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Martingales</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ml-ds/randomProj.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Randomized Projection</span></span></a>
+  <a href="../sp-and-stochCal/stoppingTime.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Stopping Time</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ml-ds/SVD.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span></a>
+  <a href="../sp-and-stochCal/brownianMotion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Brownian Motion</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ml-ds/clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Clustering</span></span></a>
+  <a href="../sp-and-stochCal/stochasticIntegral.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Stochastic Integral</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ml-ds/classification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../ml-ds/regression.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  <a href="../sp-and-stochCal/jumpProcess.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Stochastic Analysis and Lévy Process</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Machine Learning in Finance</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Practice Machine Learning with Kaggle</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Statistical Inference</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
- <span class="menu-text">Regression Analysis</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reg-anly/slrInference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Statistical Inference of Simple Linear Regression</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Bayesian Modeling</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
- <span class="menu-text">Stochastic Process and Stochastic Integral</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sp/prob.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Probability Review</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sp/bm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Brownian Motion</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sp/stocInt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Stochastic Integral</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Financial Basics</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Stochastic Process in Finance</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sp-in-finance/plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Things need to be done</span></span></a>
+  <a href="../sp-in-finance/riskNeutralPricing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Risk-Neutral Pricing</span></span></a>
   </div>
 </li>
       </ul>
@@ -412,28 +356,28 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#linear-ridge-regression" id="toc-linear-ridge-regression" class="nav-link active" data-scroll-target="#linear-ridge-regression"><span class="header-section-number">20.1</span> Linear (Ridge) Regression</a>
+  <li><a href="#linear-ridge-regression" id="toc-linear-ridge-regression" class="nav-link active" data-scroll-target="#linear-ridge-regression"><span class="header-section-number">14.1</span> Linear (Ridge) Regression</a>
   <ul class="collapse">
   <li><a href="#the-general-regression-task" id="toc-the-general-regression-task" class="nav-link" data-scroll-target="#the-general-regression-task">The general regression task</a></li>
   <li><a href="#least-squares-linear-regression" id="toc-least-squares-linear-regression" class="nav-link" data-scroll-target="#least-squares-linear-regression">Least squares (linear regression)</a></li>
   <li><a href="#ridge-regression-regularization" id="toc-ridge-regression-regularization" class="nav-link" data-scroll-target="#ridge-regression-regularization">Ridge regression (regularization)</a></li>
   </ul></li>
-  <li><a href="#polynomial-regression" id="toc-polynomial-regression" class="nav-link" data-scroll-target="#polynomial-regression"><span class="header-section-number">20.2</span> Polynomial Regression</a></li>
-  <li><a href="#kernel-regression" id="toc-kernel-regression" class="nav-link" data-scroll-target="#kernel-regression"><span class="header-section-number">20.3</span> Kernel Regression</a>
+  <li><a href="#polynomial-regression" id="toc-polynomial-regression" class="nav-link" data-scroll-target="#polynomial-regression"><span class="header-section-number">14.2</span> Polynomial Regression</a></li>
+  <li><a href="#kernel-regression" id="toc-kernel-regression" class="nav-link" data-scroll-target="#kernel-regression"><span class="header-section-number">14.3</span> Kernel Regression</a>
   <ul class="collapse">
   <li><a href="#the-woodbury-identity" id="toc-the-woodbury-identity" class="nav-link" data-scroll-target="#the-woodbury-identity">The Woodbury identity</a></li>
   <li><a href="#kernel-ridge-regression-prediction" id="toc-kernel-ridge-regression-prediction" class="nav-link" data-scroll-target="#kernel-ridge-regression-prediction">Kernel ridge regression prediction</a></li>
   <li><a href="#computational-cost" id="toc-computational-cost" class="nav-link" data-scroll-target="#computational-cost">Computational cost</a></li>
   </ul></li>
   </ul>
-</nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/blob/main/ml-ds/regression.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ml-ds/probRecap.html">Machine Learning and Data Science Basics</a></li><li class="breadcrumb-item"><a href="../ml-ds/regression.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regression</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ml-ds/probRecap.html">Machine Learning and Data Science Basics</a></li><li class="breadcrumb-item"><a href="../ml-ds/regression.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Regression</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regression</span></h1>
+<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Regression</span></h1>
 </div>
 
 
@@ -451,8 +395,8 @@ window.Quarto = {
 
 
 <p>Given a training set of predictor–response pairs, the goal of a <strong>regression</strong> problem is to learn a function <span class="math inline">\(f\)</span> that predicts a (continuous) response from the predictors. This chapter develops <strong>linear</strong> and <strong>ridge</strong> regression, their solution via the normal equations, the extension to <strong>polynomial</strong> (linear-in-parameters) regression, and finally <strong>kernel</strong> regression together with the Woodbury identity that makes it computationally tractable.</p>
-<section id="linear-ridge-regression" class="level2" data-number="20.1">
-<h2 data-number="20.1" class="anchored" data-anchor-id="linear-ridge-regression"><span class="header-section-number">20.1</span> Linear (Ridge) Regression</h2>
+<section id="linear-ridge-regression" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="linear-ridge-regression"><span class="header-section-number">14.1</span> Linear (Ridge) Regression</h2>
 <section id="the-general-regression-task" class="level3">
 <h3 class="anchored" data-anchor-id="the-general-regression-task">The general regression task</h3>
 <ul>
@@ -492,7 +436,7 @@ and $X \in \mathbb{R}^{N \times (d+1)}$.] --></p>
 \]</span></p>
 <p>From optimization theory, the resulting minimization problem is a <strong>strictly convex</strong> function (for <span class="math inline">\(\lambda &gt; 0\)</span>), so every local minimum is the global minimum.</p>
 <div id="prp-ridge-solution" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 20.1 (Ridge regression solution (normal equations))</strong></span> For <span class="math inline">\(\lambda &gt; 0\)</span>, the ridge objective has the unique minimizer <span class="math display">\[
+<p><span class="theorem-title"><strong>Proposition 14.1 (Ridge regression solution (normal equations))</strong></span> For <span class="math inline">\(\lambda &gt; 0\)</span>, the ridge objective has the unique minimizer <span class="math display">\[
 w^\ast = \arg\min_w \ \|Xw - Y\|_2^2 + \lambda \|w\|_2^2
 = \big(X^{\mathsf T} X + \lambda I\big)^{-1} X^{\mathsf T} y .
 \]</span></p>
@@ -529,8 +473,8 @@ L = \|X W^{\mathsf T} - Y\|_F^2 + \lambda \|W\|_F^2 .
 </div>
 </section>
 </section>
-<section id="polynomial-regression" class="level2" data-number="20.2">
-<h2 data-number="20.2" class="anchored" data-anchor-id="polynomial-regression"><span class="header-section-number">20.2</span> Polynomial Regression</h2>
+<section id="polynomial-regression" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="polynomial-regression"><span class="header-section-number">14.2</span> Polynomial Regression</h2>
 <p><span class="math inline">\(f\)</span> need <strong>not</strong> be linear, as long as it is <strong>linear in its parameters</strong>.</p>
 <p><strong>Example (3rd-order polynomial fit).</strong> <span class="math display">\[
 y = w_3^{\mathsf T} x^3 + w_2^{\mathsf T} x^2 + w_1^{\mathsf T} x
@@ -538,14 +482,14 @@ y = w_3^{\mathsf T} x^3 + w_2^{\mathsf T} x^2 + w_1^{\mathsf T} x
 \begin{pmatrix} x^3 \\ x^2 \\ x \end{pmatrix} ,
 \]</span> where <span class="math inline">\(x^k\)</span> denotes the monomial (elementwise-power) feature expansion. This <strong>shares the same form</strong> as linear regression, so the same solution applies.</p>
 </section>
-<section id="kernel-regression" class="level2" data-number="20.3">
-<h2 data-number="20.3" class="anchored" data-anchor-id="kernel-regression"><span class="header-section-number">20.3</span> Kernel Regression</h2>
+<section id="kernel-regression" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="kernel-regression"><span class="header-section-number">14.3</span> Kernel Regression</h2>
 <p>The kernel trick can be applied to the features <span class="math inline">\(x\)</span>. Suppose <span class="math inline">\(\phi : \mathbb{R}^d \to \mathbb{R}^p\)</span> is a <strong>feature map</strong> that transforms the original data to <span class="math display">\[
 \big(\phi(x_1), y_1\big), \big(\phi(x_2), y_2\big), \dots, \big(\phi(x_n), y_n\big)
 \in \mathbb{R}^p \times \mathbb{R} .
 \]</span> Then perform linear ridge regression in the transformed feature space: <span class="math display">\[
 \min_{w \in \mathbb{R}^p} \ \sum_i \big(w^{\mathsf T} \phi(x_i) - y_i\big)^2 + \lambda \|w\|_2^2 .
-\]</span> From <a href="#prp-ridge-solution" class="quarto-xref">Proposition&nbsp;<span>20.1</span></a>, the optimal solution is <span class="math display">\[
+\]</span> From <a href="#prp-ridge-solution" class="quarto-xref">Proposition&nbsp;<span>14.1</span></a>, the optimal solution is <span class="math display">\[
 w^\ast = \big(\Phi^{\mathsf T}\Phi + \lambda I_p\big)^{-1} \Phi^{\mathsf T} y,
 \qquad
 \Phi = \begin{pmatrix} \phi(x_1)^{\mathsf T} \\ \phi(x_2)^{\mathsf T} \\ \vdots \\ \phi(x_N)^{\mathsf T} \end{pmatrix}
@@ -554,7 +498,7 @@ w^\ast = \big(\Phi^{\mathsf T}\Phi + \lambda I_p\big)^{-1} \Phi^{\mathsf T} y,
 <section id="the-woodbury-identity" class="level3">
 <h3 class="anchored" data-anchor-id="the-woodbury-identity">The Woodbury identity</h3>
 <div id="lem-woodbury" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 20.1 (Woodbury matrix identity)</strong></span> <span class="math display">\[
+<p><span class="theorem-title"><strong>Lemma 14.1 (Woodbury matrix identity)</strong></span> <span class="math display">\[
 \big(\Phi^{\mathsf T}\Phi + \lambda I_p\big)^{-1} \Phi^{\mathsf T}
 = \Phi^{\mathsf T} \big(\Phi\Phi^{\mathsf T} + \lambda I_n\big)^{-1} .
 \]</span></p>
@@ -596,7 +540,7 @@ $U\Sigma U^{\mathsf T}$).] -->
 <section id="kernel-ridge-regression-prediction" class="level3">
 <h3 class="anchored" data-anchor-id="kernel-ridge-regression-prediction">Kernel ridge regression prediction</h3>
 <div id="thm-kernel-prediction" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 20.1 (Kernel ridge regression predictor)</strong></span> Using <a href="#lem-woodbury" class="quarto-xref">Lemma&nbsp;<span>20.1</span></a>, the prediction at a new point <span class="math inline">\(x\)</span> is <span class="math display">\[
+<p><span class="theorem-title"><strong>Theorem 14.1 (Kernel ridge regression predictor)</strong></span> Using <a href="#lem-woodbury" class="quarto-xref">Lemma&nbsp;<span>14.1</span></a>, the prediction at a new point <span class="math inline">\(x\)</span> is <span class="math display">\[
 y = w^{\ast\mathsf T}\phi(x)
 = \phi(x)^{\mathsf T} \Phi^{\mathsf T}\big(\Phi\Phi^{\mathsf T} + \lambda I_n\big)^{-1} y
 = k_x^{\mathsf T}\big(K + \lambda I_n\big)^{-1} y ,
@@ -1050,17 +994,17 @@ Cost of kernel ridge regression
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../ml-ds/classification.html" class="pagination-link" aria-label="Classification">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Classification</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Classification</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../reg-anly/slrInference.html" class="pagination-link" aria-label="Statistical Inference of Simple Linear Regression">
-        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Statistical Inference of Simple Linear Regression</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../ml-ds/markovChain.html" class="pagination-link" aria-label="Markov Chains">
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Markov Chains</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-    <script type="text/javascript">
+    <footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/blob/main/ml-ds/regression.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script type="text/javascript">
     (function(d) {
       d.querySelectorAll(".pseudocode-container").forEach(function(el) {
         let pseudocodeOptions = {

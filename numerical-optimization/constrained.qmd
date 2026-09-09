@@ -1,12 +1,346 @@
 # Theory of Constrained Optimization
-## COnstrained Optimization Problem
-The constrained optimization problem can be formulated as follow
 
+## Constrained optimization problem
 
-## Some Terminology
+$$
+\min_{x\in\mathbb{R}^n} f(x), \quad \text{s.t.}\quad
+\begin{cases}
+G_i(x) = 0, & i\in\mathcal{E} \quad\to\ \text{equality constrained} \\
+G_i(x) \geq 0, & i\in\mathcal{I} \quad\to\ \text{inequality constrained}
+\end{cases}
+$$
 
-## Optimmality COndition
+## Some terminology
 
-### First Order COnsideration
+**Feasibility set** — $x$ that satisfies the constraints.
+$$
+\Omega := \{\, x \mid G_i(x)=0,\ i\in\mathcal{E},\ \ G_i(x)\geq 0,\ i\in\mathcal{I} \,\}
+$$
 
-### Second Order Consideration
+* Non-smooth $\Omega$ can be represented by smooth constraints.
+
+::: {#def-global-min}
+## Global minimizer
+$x^\ast\in\Omega$ is called a global minimizer on $\Omega$ if $f(x^\ast)\leq f(x)$, $\forall x\in\Omega$.
+:::
+
+::: {#def-local-min}
+## Local minimizer
+$x^\ast\in\Omega$ is called a local minimizer on $\Omega$ if there exists a neighbourhood $N$ of $x^\ast$ s.t. $f(x^\ast)\leq f(x)$, $\forall x\in N\cap\Omega$; or
+$$
+\exists\,\varepsilon>0,\ \text{s.t.}\ f(x^\ast)\leq f(x),\ \forall x\in\Omega\cap B_\varepsilon(x^\ast) := \{x\in\mathbb{R}^n \mid \lVert x-x^\ast\rVert<\varepsilon\}.
+$$
+:::
+
+::: {#def-strict-min}
+## Strict / strong local minimizer
+Strict inequality:
+$$
+\exists\,\varepsilon>0,\ \text{s.t.}\ f(x^\ast) < f(x),\ \forall x\neq x^\ast \text{ and } x\in\Omega\cap B_\varepsilon(x^\ast).
+$$
+:::
+
+::: {#def-isolated-min}
+## Isolated local minimizer
+$$
+\exists\,\varepsilon>0,\ \text{s.t.}\ x^\ast \text{ is the only local minimizer in } \Omega\cap B_\varepsilon(x^\ast).
+$$
+
+* isolated local minimizer $\Rightarrow$ local minimizer.
+:::
+
+::: {#def-convex-set}
+## Convex set
+A set $\Omega\subseteq\mathbb{R}^n$ is called a convex set if $\forall x,y\in\Omega$ and $\forall\lambda\in[0,1]$,
+$$
+\lambda x + (1-\lambda)y \in \Omega.
+$$
+:::
+
+```{python}
+#| label: fig-convex-set
+#| fig-cap: 'A convex set $\Omega$: for any two points $x,y\in\Omega$ the whole segment between them stays inside $\Omega$.'
+#| out-width: 45%
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.patches import Ellipse
+
+fig, ax = plt.subplots(figsize=(4.2, 3))
+ax.add_patch(Ellipse((0, 0), 3.4, 2.3, angle=18, facecolor="#eaf2fb", edgecolor="#1f77b4", lw=1.6))
+x, y = np.array([-0.95, -0.35]), np.array([0.95, 0.5])
+ax.plot([x[0], y[0]], [x[1], y[1]], "o-", color="#d62728", ms=6, lw=1.6)
+ax.text(x[0]-0.05, x[1]-0.33, r"$x$", fontsize=13)
+ax.text(y[0]+0.08, y[1]+0.02, r"$y$", fontsize=13)
+ax.text(1.15, -0.75, r"$\Omega$", color="#1f77b4", fontsize=15)
+ax.set_xlim(-2.2, 2.2); ax.set_ylim(-1.5, 1.5); ax.set_aspect("equal"); ax.axis("off")
+fig.tight_layout()
+plt.show()
+```
+
+**Remark:** if $f(x)$ is a convex function and $\Omega$ is a convex set, then any local minimal is a global minimal.
+
+## Optimality condition
+
+Similarly to the unconstrained case, conditions for judging a local minimum for $C^1$ & $C^2$ $f, G_i$ can be given.
+
+### Terminology / Def
+
+::: {#def-active-set}
+## Active set
+The equality constraint & the boundary of an inequality:
+$$
+A(x) := \{\, i\in\mathcal{E}\cup\mathcal{I} : G_i(x)=0 \,\}
+$$
+is called the active set at any feasible point.
+:::
+
+**Remark:** Noticed that this is useful as the constraint that is not strictly at the boundary at $x$ can be disregarded, as a small neighbourhood of $x$ can always be found s.t. the constraint is disregarded.
+
+::: {#def-cone}
+## Cone
+$C$ is called a cone if $\forall x\in C$ and $\alpha\in\mathbb{R}^{+}$, $\alpha x\in C$.
+
+* A cone might not be a convex set.
+:::
+
+### First-order consideration
+
+Consider a move $x\to x+\alpha p$:
+$$
+\begin{cases}
+f(x+\alpha p) \approx f(x) + \alpha\nabla f^{\mathsf T}p \\
+G_i(x+\alpha p) \approx G_i(x) + \alpha\nabla G_i^{\mathsf T}p
+\end{cases}
+\qquad (\text{linearize the boundaries})
+$$
+
+If we wish $x+\alpha p$ is still a feasible point, we wish
+$$
+\begin{cases}
+G_i(x) + \alpha\nabla G_i^{\mathsf T}p = 0, & i\in\mathcal{E} \\
+G_i(x) + \alpha\nabla G_i^{\mathsf T}p \geq 0, & i\in\mathcal{I}
+\end{cases}
+\;\Rightarrow\;
+\begin{cases}
+\nabla G_i^{\mathsf T}p = 0, & i\in\mathcal{E} \\
+G_i(x) + \alpha\nabla G_i^{\mathsf T}p \geq 0, & \text{if } G_i(x)>0 \\
+\nabla G_i^{\mathsf T}p \geq 0, & \text{if } G_i(x)=0
+\end{cases}
+$$
+
+<!-- [flag: in the source the last case reads "$\nabla G_i^{\mathsf T}p \geq 0$, if $G_i(x)>0$"; from the context (an active inequality, on the boundary) this should be "if $G_i(x)=0$". Rendered as $G_i(x)=0$.] -->
+
+1. $i\in\mathcal{I}$, and $G_i(x)>0$ $\to$ $x$ is strictly inside the feasible region. We can always find $\alpha$ s.t. $G_i(x)+\alpha\nabla G_i^{\mathsf T}p\geq 0$.
+2. $i\in\mathcal{I}$, and $G_i(x)=0$ $\to$ $x$ is at the boundary of the inequality constraint, and we need $\nabla G_i^{\mathsf T}p\geq 0$, $i\in A(x)\cap\mathcal{I}$ (the intersecting region between hyperplanes).
+
+In another word, if $x^\ast$ is a local minimal, then any feasible direction would cause $f$ to increase.
+
+$\nabla^{\mathsf T}f$ has to be the linear combination of the normal vector of the hyperplanes:
+$$
+\nabla f = \sum_i \lambda_i \nabla G_i(x), \quad i\in\mathcal{E}\cup(A(x)\cap\mathcal{I}), \qquad \text{Lagrangian multiplier } \lambda_i\geq 0
+$$
+
+```{python}
+#| label: fig-kkt-cone
+#| fig-cap: 'At a solution, $\nabla f$ lies in the cone (shaded) of the active constraint gradients $\nabla G_i$ — i.e. it is a non-negative linear combination of them, with Lagrangian multipliers $\lambda_i\ge0$.'
+#| out-width: 55%
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(figsize=(4.6, 3.8))
+g1 = np.array([0.35, 1.0]); g2 = np.array([1.0, 0.25])
+L = 3.0
+r1, r2 = g1/np.linalg.norm(g1)*L, g2/np.linalg.norm(g2)*L
+ax.fill([0, r1[0], r2[0]], [0, r1[1], r2[1]], color="#2ca02c", alpha=0.13)
+
+def arrow(vec, label, color, lp=1.16):
+    ax.annotate("", xy=vec, xytext=(0, 0), arrowprops=dict(arrowstyle="-|>", color=color, lw=2))
+    ax.text(vec[0]*lp, vec[1]*lp, label, color=color, fontsize=13, ha="center", va="center")
+
+arrow(g1*1.7, r"$\nabla G_1$", "#1f77b4")
+arrow(g2*1.7, r"$\nabla G_2$", "#1f77b4")
+arrow((0.75*g1 + 0.7*g2)*1.25, r"$\nabla f$", "#d62728")
+ax.set_xlim(-0.4, 3.0); ax.set_ylim(-0.4, 2.4); ax.set_aspect("equal"); ax.axis("off")
+fig.tight_layout()
+plt.show()
+```
+
+We can combine this with the non-active constraint and require
+$$
+\nabla f^{\mathsf T}p = \sum_{i\in\mathcal{E}\cup\mathcal{I}} \lambda_i \nabla G_i^{\mathsf T}p, \qquad \& \quad \lambda_i G_i(x)=0,\ i\in\mathcal{E}\cup\mathcal{I}
+$$
+
+This condition implies that if $G_i(x)>0$ (not active), $\lambda_i=0$ for sure. This is the familiar Lagrangian multiplier:
+$$
+\mathcal{L} := f - \sum_{i\in\mathcal{E}\cup\mathcal{I}} \lambda_i G_i(x).
+$$
+
+### First-order optimality condition (KKT)
+
+::: {#thm-kkt}
+## First-order optimality condition (KKT)
+Suppose $x^\ast$ is a local solution, and $f$ and $G_i$ are all $C^1$, and LICQ holds at $x^\ast$. Then there is a Lagrange multiplier $\lambda^\ast$, s.t. the following holds:
+$$
+\nabla_x\mathcal{L}(x^\ast,\lambda^\ast)=0 \;\Rightarrow\; \nabla f(x^\ast) = \sum_{i\in\mathcal{E}\cup\mathcal{I}} \lambda_i^\ast\,\nabla G_i(x^\ast)
+$$
+$$
+\left.
+\begin{aligned}
+G_i(x^\ast) &= 0, && \forall i\in\mathcal{E} \\
+G_i(x^\ast) &\geq 0, && \forall i\in\mathcal{I}
+\end{aligned}
+\right\} \text{feasible condition}
+$$
+$$
+\lambda_i^\ast\,G_i(x^\ast) = 0,\ i\in\mathcal{E}\cup\mathcal{I} \quad\to\ \text{complementary condition}
+$$
+$$
+\lambda_i^\ast \geq 0,\ \forall i\in\mathcal{I}
+$$
+
+* $\lambda_i^\ast$ can only be non-zero for an active constraint.
+:::
+
+## Constraint Qualification
+
+Previous discussion are based on the fact that at the region of constrained, we can use linear approximation (bunch of hyperplanes). However, linear approx might not be a "good" approx to the feasible set $\Omega$ in some case ($\Omega$ is a point, for example). The condition that the linearized problem is "similar" to the geometry of $\Omega$ is needed.
+
+### Terminology / Def
+
+::: {#def-linearized-feasible}
+## Linearized feasible set
+The set of linearized feasible directions $F(x)$ at a point $x\in\Omega$ (choose the linear approx geometry):
+$$
+F(x) := \Big\{\, d\in\mathbb{R}^n : \nabla G_i(x)^{\mathsf T}d=0,\ i\in\mathcal{E};\ \ \nabla G_i(x)^{\mathsf T}d\geq 0,\ i\in\mathcal{I}\cap A(x) \,\Big\}
+$$
+
+* $F(x)$ is a cone.
+:::
+
+::: {#def-feasible-seq}
+## Feasible sequence
+A feasible sequence $\{z_k\}$ approaching a feasible point $x\in\Omega$ is a sequence $\lim_{k\to\infty} z_k = x$, and $z_k\in\Omega$ for $\forall k\geq N$, $\exists N\in\mathbb{N}^{+}$.
+
+* a local minimum then is $x\in\Omega$ s.t. $\forall\{z_k\}$ feasible sequence satisfy $f(z_k)\geq f(x)$, for $k$ sufficiently large.
+:::
+
+<!-- [figure: a sketch of a feasible sequence $\{z_k\}$ of points inside the feasible set converging to the point $x$. Not reproduced.] -->
+
+::: {#def-tangent}
+## Tangent
+A vector $d\in\mathbb{R}^n$ is called a tangent to $\Omega$ at $x\in\Omega$, if there exists a feasible sequence $\{z_k\}$ at $x$, and positive scalars $\{t_k\}\to 0$ s.t.
+$$
+\lim_{k\to\infty} \frac{z_k-x}{t_k} = d, \qquad \text{or equiv}\quad \Big\{\, d=0 \Big\}\cup\Big\{\, \frac{d}{\lVert d\rVert} = \lim_{k\to\infty}\frac{z_k-x}{\lVert z_k-x\rVert} \,\Big\}.
+$$
+:::
+
+::: {#def-tangent-cone}
+## Tangent cone
+The geometric representation of feasible directions:
+$$
+T_\Omega(x^\ast) := \{\, \text{all tangent } d \text{ to } \Omega \text{ at } x^\ast \,\}
+$$
+
+* $T_\Omega(x^\ast)$ is a cone.
+* $T_\Omega(x^\ast)$ is only rely on the local geometry, not its algebraic specification.
+* $F(x)\subseteq T_\Omega(x)$.
+:::
+
+<!-- [flag: the source writes $F(x)\subseteq T_\Omega(x)$. The standard general inclusion is the reverse, $T_\Omega(x)\subseteq F(x)$, with equality $T_\Omega(x)=F(x)$ under a constraint qualification (see the LICQ remark below). Transcribed as written.] -->
+
+**Remark:** from our previous discussion, we see that if $x^\ast$ is optimal, then any feasible direction should cause $f(x)$ increase. Using $T_\Omega(x)$ this can be stated as: if $x^\ast$ is a local minimum,
+$$
+\nabla f(x^\ast)^{\mathsf T}d\geq 0,\ \forall d\in T_\Omega(x^\ast) \qquad \text{if } f \text{ is } C^1.
+$$
+
+A condition on $G_i$ should be imposed so that $F(x)$ is "similar" to $T_\Omega(x)$. For example
+$$
+G_1(x) = 1 - x_1^2 - (x_2-1)^2 \geq 0, \quad G_2(x) = x_2 \geq 0 \;\to\; \Omega=\{(0,0)\},\ T_\Omega=\{(a,0)\}.
+$$
+
+```{python}
+#| label: fig-cq-example
+#| fig-cap: 'A case where the linear approximation is not similar to $\Omega$: with $G_1=1-x_1^2-(x_2-1)^2\ge0$ (disk) and $G_2=x_2\ge0$ (upper half-plane), the feasible set $\Omega$ is the single point $(0,0)$ where the disk touches the axis.'
+#| out-width: 48%
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.patches import Circle
+
+fig, ax = plt.subplots(figsize=(4, 3.6))
+ax.add_patch(Circle((0, 1), 1, facecolor="#eaf2fb", edgecolor="#1f77b4", lw=1.6))
+ax.fill_between([-1.8, 1.8], [0, 0], [-0.9, -0.9], color="gray", alpha=0.13)
+ax.axhline(0, color="black", lw=1.1)
+ax.plot(0, 0, "o", color="#d62728", ms=9)
+ax.text(0.14, -0.33, r"$\Omega=\{(0,0)\}$", color="#d62728", fontsize=11)
+ax.text(0.55, 1.5, r"$G_1\geq 0$", color="#1f77b4", fontsize=11)
+ax.text(-1.75, 0.16, r"$G_2=x_2\geq 0$", fontsize=10)
+ax.set_xlim(-1.6, 1.6); ax.set_ylim(-0.8, 2.3); ax.set_aspect("equal"); ax.axis("off")
+fig.tight_layout()
+plt.show()
+```
+
+Many constraint qualifications can be applied to impose similarity; the following is often used.
+
+::: {#def-licq}
+## Linear Independence Constraint Qualification (LICQ)
+For $x\in\Omega$ and $A(x)$, LICQ holds if $\{\nabla G_i(x),\ i\in A(x)\}$ is linearly independent.
+:::
+
+<!-- [note: the source abbreviates this "LLCQ"/"LICQ" inconsistently; it is the standard Linear Independence Constraint Qualification (LICQ).] -->
+
+**Remarks:**
+
+* if LICQ holds at $x$, then $T_\Omega(x) = F(x)$.
+* if all $G_i$, $i\in\mathcal{E}\cup\mathcal{I}$, are linear, then $T_\Omega(x) = F(x)$.
+
+## Second-order consideration
+
+The first-order condition gives the necessary condition that the first-order derivative should satisfied. However, it is not sufficient, just like the case in the unconstrained settings.
+
+Noticed that when the KKT condition is satisfied, any feasible direction $w\in F(x)$ will not decrease $f$ to the first order, $w^{\mathsf T}\nabla f(x^\ast)\geq 0$. However, the ambiguous direction where $w^{\mathsf T}\nabla f(x^\ast)=0$, the first-order approx show no insight on whether $f$ increase or decrease. The second-order condition impose further condition on such ambiguous direction.
+
+### Critical cone
+
+The critical cone picks out the ambiguous directions. $(x^\ast,\lambda^\ast)$ satisfies the KKT condition; the critical cone $C(x^\ast,\lambda^\ast)$ is defined as
+$$
+w\in C(x^\ast,\lambda^\ast) \iff
+\begin{cases}
+w\in F(x^\ast), \\
+\nabla G_i^{\mathsf T}(x^\ast)w = 0, & \forall i\in\mathcal{E} \\
+\nabla G_i^{\mathsf T}(x^\ast)w = 0, & \forall i\in A(x^\ast)\cap\mathcal{I} \text{ with } \lambda_i^\ast>0 \\
+\nabla G_i^{\mathsf T}(x^\ast)w \geq 0, & \forall i\in A(x^\ast)\cap\mathcal{I} \text{ with } \lambda_i^\ast=0
+\end{cases}
+$$
+
+**Remark:** if $w\in C(x^\ast,\lambda^\ast)\Rightarrow w^{\mathsf T}\nabla f(x^\ast)=0$. $C(x^\ast,\lambda^\ast)$ contains directions from $F(x^\ast)$ s.t. it is ambiguous direction in first-order.
+
+**Special case for strict complementary.** $(x^\ast,\lambda^\ast)$ satisfy KKT, and exactly one of $\lambda_i^\ast$ and $G_i(x)=0$ for each $i\in\mathcal{I}$ $\iff \lambda_i^\ast>0$ for $\forall i\in A(x^\ast)\cap\mathcal{I}$. In this case
+$$
+C(x^\ast,\lambda^\ast) = \{\, \nabla G_i^{\mathsf T}(x^\ast)w=0,\ \forall i\in A(x^\ast) \,\}.
+$$
+
+### Second-order necessary condition
+
+::: {#thm-so-necessary}
+## Second-order necessary condition
+Suppose $x^\ast$ is a local minimum with LICQ satisfied, and $\lambda^\ast$ be the Lagrange multiplier that satisfies KKT. Then
+$$
+w^{\mathsf T}\nabla_{xx}^2\mathcal{L}(x^\ast,\lambda^\ast)\,w \geq 0, \qquad \forall w\in C(x^\ast,\lambda^\ast).
+$$
+:::
+
+### Second-order sufficient condition
+
+::: {#thm-so-sufficient}
+## Second-order sufficient condition
+Suppose for some $x^\ast\in\Omega$, $\exists\lambda^\ast$ s.t. $(x^\ast,\lambda^\ast)$ satisfies KKT, and
+$$
+w^{\mathsf T}\nabla_{xx}^2\mathcal{L}\,w > 0, \qquad \forall w\in C(x^\ast,\lambda^\ast),\ w\neq 0.
+$$
+Then $x^\ast$ is a strict local minimum.
+
+* constraint qualification not required.
+:::

@@ -1,5 +1,55 @@
-# Preface {.unnumbered}
+## Intro {.unnumbered}
+Welcome to **Phy2Q Roadmap**. This is a living, open notebook tracing the path of myself learning the mathematics and computation methods that is used in quantitative finance. Beside, I found them also useful to extend my own research fields and have a deeper understanding.
 
-This is a Quarto book.
+It began as my handwritten study notes across the courses I've been taking and the books I've reade. I convert them in to this quarto notebook for better formatting, and something I can extend, revisit and share.
 
-To learn more about Quarto books visit <https://quarto.org/docs/books>.
+## Explore the notebook {.unnumbered}
+
+::: {.callout-note}
+This show the current content. Some of them are not complete. More subject will be added in the future
+:::
+
+::: {.grid}
+
+::: {.g-col-12 .g-col-md-6 .card .card-body}
+#### [Numerical Optimization](numerical-optimization/lineSearch.qmd)
+
+Line search and the Wolfe conditions, quasi-Newton (BFGS / DFP), conjugate gradient,
+constrained optimization and the KKT conditions, quadratic and sequential quadratic
+programming, and penalty / augmented-Lagrangian methods — with figures generated live
+in Python.
+
+[7 chapters →](numerical-optimization/lineSearch.qmd)
+:::
+
+::: {.g-col-12 .g-col-md-6 .card .card-body}
+#### [Machine Learning & Data Science](ml-ds/SVD.qmd)
+
+Singular value decomposition and low-rank structure, support vector machines and
+classification, clustering, random projection and high-dimensional geometry, and
+Markov chains.
+
+[8 chapters →](ml-ds/SVD.qmd)
+:::
+
+::: {.g-col-12 .g-col-md-6 .card .card-body}
+#### [Stochastic Process & Integral](sp-and-stochCal/stochasticIntegral.qmd)
+
+A measure-theoretic build-up: probability review, martingales, stopping times, Brownian
+motion, the Itô integral and Itô's formula, and jump processes.
+
+[6 chapters →](sp-and-stochCal/stochasticIntegral.qmd)
+:::
+
+::: {.g-col-12 .g-col-md-6 .card .card-body}
+#### [Stochastic Process in Finance](sp-in-finance/riskNeutralPricing.qmd)
+
+Where the mathematics meets markets: change of measure, Girsanov's theorem, and the
+risk-neutral pricing of contingent claims.
+
+[Risk-neutral pricing →](sp-in-finance/riskNeutralPricing.qmd)
+:::
+
+:::
+
+

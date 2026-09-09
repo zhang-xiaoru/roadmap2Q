@@ -1,1 +1,5 @@
 /.quarto/
+/pdf/
+/.claude/
+/.vscode/
+/.DS_store

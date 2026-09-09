@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Open study notes on the mathematics, stochastic calculus, numerical optimization, and machine learning behind quantitative finance.">
 
-<title>17&nbsp; Singular Value Decomposition – Phy2Q Roadmap</title>
+<title>11&nbsp; Singular Value Decomposition – Phy2Q Roadmap</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -41,7 +42,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-af78437ed5bf07251aacc1da5128115f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
 <link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -129,7 +130,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ml-ds/probRecap.html">Machine Learning and Data Science Basics</a></li><li class="breadcrumb-item"><a href="../ml-ds/SVD.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ml-ds/probRecap.html">Machine Learning and Data Science Basics</a></li><li class="breadcrumb-item"><a href="../ml-ds/SVD.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -145,6 +146,9 @@ window.Quarto = {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Phy2Q Roadmap</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/zhang-xiaoru/roadmap2Q" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -157,7 +161,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preface</span></a>
+ <span class="menu-text">A Physicist’s Roadmap into Quantitative Finance</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -171,74 +175,44 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/unconstrained.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Theory of Unconstrained Optimization</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/lineSearch.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Line Search Methods</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/gradDescent.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Gradient Descent Methods</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/newTon.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Newton’s Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Line Search Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/quasiNewton.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quasi Newton Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Quasi Newton Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/conjGrad.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Conjugate Gradient Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conjugate Gradient Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/constrained.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Theory of Constrained Optimization</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Theory of Constrained Optimization</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/quadProg.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Quadratic Programming</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Quadratic Programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/seqQuadprog.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Sequential Quadratic Programming</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Sequential Quadratic Programming</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../numerical-optimization/penalty.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Penalty Methods</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../numerical-optimization/interior.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interior Point Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Penalty Methods</span></span></a>
   </div>
 </li>
       </ul>
@@ -246,7 +220,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Monte-Carlo Methods</span></a>
+ <span class="menu-text">Machine Learning and Data Science Basics</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -254,8 +228,50 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../monte-carlo/monte-carlo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Monte-Carlo Method</span></span></a>
+  <a href="../ml-ds/probRecap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Recap on Probability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/highDimData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Properties of High Dimensional Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/randomProj.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Randomized Projection</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/SVD.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Clustering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/markovChain.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Markov Chains</span></span></a>
   </div>
 </li>
       </ul>
@@ -263,7 +279,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Machine Learning and Data Science Basics</span></a>
+ <span class="menu-text">Stochastic Process and Stochastic Integral</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -271,115 +287,55 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ml-ds/probRecap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Recap on Probability</span></span></a>
+  <a href="../sp-and-stochCal/probReview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Probability in Measure Theory Language</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ml-ds/highDimData.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Properties of High Dimensional Data</span></span></a>
+  <a href="../sp-and-stochCal/martingales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Martingales</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ml-ds/randomProj.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Randomized Projection</span></span></a>
+  <a href="../sp-and-stochCal/stoppingTime.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Stopping Time</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ml-ds/SVD.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span></a>
+  <a href="../sp-and-stochCal/brownianMotion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Brownian Motion</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../ml-ds/clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Clustering</span></span></a>
+  <a href="../sp-and-stochCal/stochasticIntegral.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Stochastic Integral</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sp-and-stochCal/jumpProcess.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Stochastic Analysis and Lévy Process</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Machine Learning in Finance</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Practice Machine Learning with Kaggle</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Statistical Inference</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
- <span class="menu-text">Regression Analysis</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reg-anly/slrInference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Statistical Inference of Simple Linear Regression</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Bayesian Modeling</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
- <span class="menu-text">Stochastic Process and Stochastic Integral</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sp/prob.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Probability Review</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sp/bm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Brownian Motion</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../sp/stocInt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Stochastic Integral</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Financial Basics</span></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Stochastic Process in Finance</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sp-in-finance/plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Things need to be done</span></span></a>
+  <a href="../sp-in-finance/riskNeutralPricing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Risk-Neutral Pricing</span></span></a>
   </div>
 </li>
       </ul>
@@ -400,29 +356,29 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#singular-vectors" id="toc-singular-vectors" class="nav-link active" data-scroll-target="#singular-vectors"><span class="header-section-number">17.1</span> Singular Vectors</a></li>
-  <li><a href="#singular-value-decomposition" id="toc-singular-value-decomposition" class="nav-link" data-scroll-target="#singular-value-decomposition"><span class="header-section-number">17.2</span> Singular Value Decomposition</a></li>
-  <li><a href="#greedy-construction-and-svd" id="toc-greedy-construction-and-svd" class="nav-link" data-scroll-target="#greedy-construction-and-svd"><span class="header-section-number">17.3</span> Greedy Construction and SVD</a></li>
-  <li><a href="#skinny-svd-and-full-svd" id="toc-skinny-svd-and-full-svd" class="nav-link" data-scroll-target="#skinny-svd-and-full-svd"><span class="header-section-number">17.4</span> Skinny SVD and Full SVD</a></li>
-  <li><a href="#computing-svd" id="toc-computing-svd" class="nav-link" data-scroll-target="#computing-svd"><span class="header-section-number">17.5</span> Computing SVD</a>
+  <li><a href="#singular-vectors" id="toc-singular-vectors" class="nav-link active" data-scroll-target="#singular-vectors"><span class="header-section-number">11.1</span> Singular Vectors</a></li>
+  <li><a href="#singular-value-decomposition" id="toc-singular-value-decomposition" class="nav-link" data-scroll-target="#singular-value-decomposition"><span class="header-section-number">11.2</span> Singular Value Decomposition</a></li>
+  <li><a href="#greedy-construction-and-svd" id="toc-greedy-construction-and-svd" class="nav-link" data-scroll-target="#greedy-construction-and-svd"><span class="header-section-number">11.3</span> Greedy Construction and SVD</a></li>
+  <li><a href="#skinny-svd-and-full-svd" id="toc-skinny-svd-and-full-svd" class="nav-link" data-scroll-target="#skinny-svd-and-full-svd"><span class="header-section-number">11.4</span> Skinny SVD and Full SVD</a></li>
+  <li><a href="#computing-svd" id="toc-computing-svd" class="nav-link" data-scroll-target="#computing-svd"><span class="header-section-number">11.5</span> Computing SVD</a>
   <ul class="collapse">
   <li><a href="#power-method" id="toc-power-method" class="nav-link" data-scroll-target="#power-method">Power Method</a></li>
   <li><a href="#subspace-orthogonal-iteration-power-method" id="toc-subspace-orthogonal-iteration-power-method" class="nav-link" data-scroll-target="#subspace-orthogonal-iteration-power-method">Subspace (Orthogonal Iteration) Power Method</a></li>
   </ul></li>
-  <li><a href="#best-rank-k-approximation" id="toc-best-rank-k-approximation" class="nav-link" data-scroll-target="#best-rank-k-approximation"><span class="header-section-number">17.6</span> Best rank-<span class="math inline">\(k\)</span> Approximation</a>
+  <li><a href="#best-rank-k-approximation" id="toc-best-rank-k-approximation" class="nav-link" data-scroll-target="#best-rank-k-approximation"><span class="header-section-number">11.6</span> Best rank-<span class="math inline">\(k\)</span> Approximation</a>
   <ul class="collapse">
   <li><a href="#recap-on-matrix-norms" id="toc-recap-on-matrix-norms" class="nav-link" data-scroll-target="#recap-on-matrix-norms">Recap on matrix norms</a></li>
   <li><a href="#best-rank-k-approximation-1" id="toc-best-rank-k-approximation-1" class="nav-link" data-scroll-target="#best-rank-k-approximation-1">Best rank-<span class="math inline">\(k\)</span> approximation</a></li>
   </ul></li>
   </ul>
-</nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/blob/main/ml-ds/SVD.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ml-ds/probRecap.html">Machine Learning and Data Science Basics</a></li><li class="breadcrumb-item"><a href="../ml-ds/SVD.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ml-ds/probRecap.html">Machine Learning and Data Science Basics</a></li><li class="breadcrumb-item"><a href="../ml-ds/SVD.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></h1>
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></h1>
 </div>
 
 
@@ -439,13 +395,13 @@ window.Quarto = {
 </header>
 
 
-<section id="singular-vectors" class="level2" data-number="17.1">
-<h2 data-number="17.1" class="anchored" data-anchor-id="singular-vectors"><span class="header-section-number">17.1</span> Singular Vectors</h2>
+<section id="singular-vectors" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="singular-vectors"><span class="header-section-number">11.1</span> Singular Vectors</h2>
 <div id="def-1stSingularVec" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 17.1 (First right singular vector)</strong></span> The first right singular vector <span class="math inline">\(v_1\)</span> of <span class="math inline">\(X \in \mathbb{R}^{n \times d}\)</span> is defined as: <span class="math inline">\(v_1 \in \mathbb{R}^d\)</span>, and <span class="math inline">\(v_1 = \text{argmax}_{\|v\|_2=1} \|Xv\|_2\)</span> and the first singular value is <span class="math inline">\(\sigma_1 = \|Xv_1\|_2\)</span></p>
+<p><span class="theorem-title"><strong>Definition 11.1 (First right singular vector)</strong></span> The first right singular vector <span class="math inline">\(v_1\)</span> of <span class="math inline">\(X \in \mathbb{R}^{n \times d}\)</span> is defined as: <span class="math inline">\(v_1 \in \mathbb{R}^d\)</span>, and <span class="math inline">\(v_1 = \text{argmax}_{\|v\|_2=1} \|Xv\|_2\)</span> and the first singular value is <span class="math inline">\(\sigma_1 = \|Xv_1\|_2\)</span></p>
 </div>
 <div id="prp-equivSingular" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 17.1</strong></span> <a href="#def-1stSingularVec" class="quarto-xref">Definition&nbsp;<span>17.1</span></a> is equivalent as <span class="math display">\[
+<p><span class="theorem-title"><strong>Proposition 11.1</strong></span> <a href="#def-1stSingularVec" class="quarto-xref">Definition&nbsp;<span>11.1</span></a> is equivalent as <span class="math display">\[
 v_1 = \underset{\|v\|_2=1}{\mathrm{argmin}} \sum_{j=1}^{n} \|x_j - P_{v_1}(x_j)\|_2^2,
 \]</span> where <span class="math inline">\(P_{v_1}(x_j)\)</span> is the projected vector of <span class="math inline">\(x_j\)</span> in the subspace spanned by <span class="math inline">\(v_1\)</span>. Here, we have <span class="math display">\[
 X \in \mathbb{R}^{n \times d} =
@@ -474,12 +430,12 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><a href="#prp-equivSingular" class="quarto-xref">Proposition&nbsp;<span>17.1</span></a> shows that the first singular vector can be understood as a line that minimizes least square error of projected data, i.e., a best fitting line.</p>
+<p><a href="#prp-equivSingular" class="quarto-xref">Proposition&nbsp;<span>11.1</span></a> shows that the first singular vector can be understood as a line that minimizes least square error of projected data, i.e., a best fitting line.</p>
 </div>
 </div>
 <p>Next, we continue to define the second singular vector.</p>
 <div id="def-2ndSingularVec" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 17.2 (Second Singular Vector)</strong></span> The second right singular vector <span class="math inline">\(v_2 \in \mathbb{R}^d\)</span> is defined as <span class="math display">\[
+<p><span class="theorem-title"><strong>Definition 11.2 (Second Singular Vector)</strong></span> The second right singular vector <span class="math inline">\(v_2 \in \mathbb{R}^d\)</span> is defined as <span class="math display">\[
 v_2 = \underset{{v \perp v_1, \|v\|_2=1}}{\mathrm{argmin}} \|Xv\|_2,
 \]</span> and second singular value defined correspondingly as <span class="math display">\[
 \sigma_2 = \|Xv_2\|_2
@@ -489,7 +445,7 @@ v_2 = \underset{{v \perp v_1, \|v\|_2=1}}{\mathrm{argmin}} \|Xv\|_2,
 Remark: $v_1$ and $v_2$ form the best fitting subspace (2-dimensional) that minimizes projected least square error.
 -->
 <div id="prp-best2dSubspace" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 17.2 (Best-Fitting 2D Subspace)</strong></span> Let <span class="math inline">\(v_1, v_2\)</span> be the first and second right singular vectors of <span class="math inline">\(X \in \mathbb{R}^{n \times d}\)</span>. Let <span class="math inline">\(V = \text{span}(v_1, v_2) \subseteq \mathbb{R}^d\)</span> be the two-dimensional subspace they span.</p>
+<p><span class="theorem-title"><strong>Proposition 11.2 (Best-Fitting 2D Subspace)</strong></span> Let <span class="math inline">\(v_1, v_2\)</span> be the first and second right singular vectors of <span class="math inline">\(X \in \mathbb{R}^{n \times d}\)</span>. Let <span class="math inline">\(V = \text{span}(v_1, v_2) \subseteq \mathbb{R}^d\)</span> be the two-dimensional subspace they span.</p>
 <p>Then <span class="math inline">\(V\)</span> is the solution to the following minimization: <span class="math display">\[
 V = \underset{W:\,\dim(W)=2}{\mathrm{argmin}} \sum_{j=1}^{n} \|x_j - P_W(x_j)\|_2^2
 \]</span> where <span class="math inline">\(P_W:\mathbb{R}^d\rightarrow\mathbb{R}^2\)</span> is the orthogonal projection onto the subspace <span class="math inline">\(W\)</span>.</p>
@@ -524,12 +480,12 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><a href="#prp-best2dSubspace" class="quarto-xref">Proposition&nbsp;<span>17.2</span></a> meaning that the <span class="math inline">\(v_1\)</span> and <span class="math inline">\(v_2\)</span> we constructed form the best fitting subspace (2-dimensional) that minimizes projected least square error.</p>
+<p><a href="#prp-best2dSubspace" class="quarto-xref">Proposition&nbsp;<span>11.2</span></a> meaning that the <span class="math inline">\(v_1\)</span> and <span class="math inline">\(v_2\)</span> we constructed form the best fitting subspace (2-dimensional) that minimizes projected least square error.</p>
 </div>
 </div>
 <p><strong>Posible code example for demonstrating the best fitting sub space</strong></p>
 <div id="def-rSingularVec" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 17.3 (r-right Singular Vector)</strong></span> The leading <span class="math inline">\(r\)</span> right singular vectors <span class="math inline">\(v_1, \dots, v_r \in \mathbb{R}^d\)</span> are defined as:</p>
+<p><span class="theorem-title"><strong>Definition 11.3 (r-right Singular Vector)</strong></span> The leading <span class="math inline">\(r\)</span> right singular vectors <span class="math inline">\(v_1, \dots, v_r \in \mathbb{R}^d\)</span> are defined as:</p>
 <p><span class="math display">\[
 v_k := \underset{
   \substack{
@@ -540,41 +496,41 @@ v_k := \underset{
 <p>with the corresponding singular values as <span class="math inline">\(\sigma_k = \|Xv_k\|_2\)</span>.</p>
 </div>
 <div id="prp-bestRSubspace" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 17.3 (Greedy construction for best-fit subspace)</strong></span> Let <span class="math inline">\(v_1, \dots, v_r\)</span> be the leading right singular vectors constructed by <a href="#def-rSingularVec" class="quarto-xref">Definition&nbsp;<span>17.3</span></a>, and <span class="math inline">\(V = \mathrm{span}(v_1, \dots, v_r) \subset \mathbb{R}^d\)</span> be the subspace spanned by them. Then <span class="math display">\[
+<p><span class="theorem-title"><strong>Proposition 11.3 (Greedy construction for best-fit subspace)</strong></span> Let <span class="math inline">\(v_1, \dots, v_r\)</span> be the leading right singular vectors constructed by <a href="#def-rSingularVec" class="quarto-xref">Definition&nbsp;<span>11.3</span></a>, and <span class="math inline">\(V = \mathrm{span}(v_1, \dots, v_r) \subset \mathbb{R}^d\)</span> be the subspace spanned by them. Then <span class="math display">\[
 V \in \underset{
   \substack{W\subseteq \mathbb{R}^d \\ \mathrm{dim}(W) = r \\ \text{linear subspace}}
 }{\mathrm{argmin}}\sum_j \|x_j - P_W(x_j)\|_2^2
 \]</span> i.e., <span class="math inline">\(V\)</span> is the best-fit linear subspace in terms of least square error.</p>
 </div>
 <div id="rem-bestRsubspace" class="proof remark">
-<p><span class="proof-title"><em>Remark 17.1</em>. </span></p>
+<p><span class="proof-title"><em>Remark 11.1</em>. </span></p>
 <ul>
-<li><a href="#prp-bestRSubspace" class="quarto-xref">Proposition&nbsp;<span>17.3</span></a> can be proved similarly as in the 2 dimensional case (<a href="#prp-best2dSubspace" class="quarto-xref">Proposition&nbsp;<span>17.2</span></a>).</li>
-<li><a href="#prp-bestRSubspace" class="quarto-xref">Proposition&nbsp;<span>17.3</span></a> shows that the greedy construction of r-right singularvectors formed a best-fit subspace in terms of least square error.</li>
+<li><a href="#prp-bestRSubspace" class="quarto-xref">Proposition&nbsp;<span>11.3</span></a> can be proved similarly as in the 2 dimensional case (<a href="#prp-best2dSubspace" class="quarto-xref">Proposition&nbsp;<span>11.2</span></a>).</li>
+<li><a href="#prp-bestRSubspace" class="quarto-xref">Proposition&nbsp;<span>11.3</span></a> shows that the greedy construction of r-right singularvectors formed a best-fit subspace in terms of least square error.</li>
 </ul>
 </div>
 </section>
-<section id="singular-value-decomposition" class="level2" data-number="17.2">
-<h2 data-number="17.2" class="anchored" data-anchor-id="singular-value-decomposition"><span class="header-section-number">17.2</span> Singular Value Decomposition</h2>
+<section id="singular-value-decomposition" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="singular-value-decomposition"><span class="header-section-number">11.2</span> Singular Value Decomposition</h2>
 <div id="thm-SVD" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 17.1 (Singular Value Decomposition (SVD))</strong></span> For any matrix <span class="math inline">\(X \in \mathbb{R}^{n \times d}\)</span>, there exist orthogonal matrices <span class="math inline">\(U \in \mathbb{R}^{n \times n}\)</span> and <span class="math inline">\(V \in \mathbb{R}^{d \times d}\)</span> and a non-negative diagonal matrix <span class="math inline">\(\Sigma \in \mathbb{R}^{n \times d}\)</span> such that</p>
+<p><span class="theorem-title"><strong>Theorem 11.1 (Singular Value Decomposition (SVD))</strong></span> For any matrix <span class="math inline">\(X \in \mathbb{R}^{n \times d}\)</span>, there exist orthogonal matrices <span class="math inline">\(U \in \mathbb{R}^{n \times n}\)</span> and <span class="math inline">\(V \in \mathbb{R}^{d \times d}\)</span> and a non-negative diagonal matrix <span class="math inline">\(\Sigma \in \mathbb{R}^{n \times d}\)</span> such that</p>
 <p><span class="math display">\[
 X_{n \times d} = U_{n \times n}\, \Sigma_{n \times d}\, V_{d \times d}^T
 \]</span></p>
 </div>
 <div id="rem-SVD" class="proof remark">
-<p><span class="proof-title"><em>Remark 17.2</em>. </span></p>
+<p><span class="proof-title"><em>Remark 11.2</em>. </span></p>
 <ul>
-<li>The diagonals of <span class="math inline">\(\Sigma\)</span>, arranged in non-increasing order, are the singular values defined in <a href="#prp-bestRSubspace" class="quarto-xref">Proposition&nbsp;<span>17.3</span></a>.</li>
+<li>The diagonals of <span class="math inline">\(\Sigma\)</span>, arranged in non-increasing order, are the singular values defined in <a href="#prp-bestRSubspace" class="quarto-xref">Proposition&nbsp;<span>11.3</span></a>.</li>
 <li>Columns of <span class="math inline">\(U\)</span> are the left singular vectors of <span class="math inline">\(X\)</span>.</li>
 <li>The left singular vectors <span class="math inline">\(u_i := \frac{1}{\sigma_i} X v_i\)</span>, where <span class="math inline">\(\sigma_i\)</span> is the <span class="math inline">\(i\)</span>-th diagonal element of <span class="math inline">\(\Sigma\)</span>.</li>
-<li>Columns of <span class="math inline">\(V\)</span> are the right singular vectors of <span class="math inline">\(X\)</span> defined in <a href="#prp-bestRSubspace" class="quarto-xref">Proposition&nbsp;<span>17.3</span></a>.</li>
+<li>Columns of <span class="math inline">\(V\)</span> are the right singular vectors of <span class="math inline">\(X\)</span> defined in <a href="#prp-bestRSubspace" class="quarto-xref">Proposition&nbsp;<span>11.3</span></a>.</li>
 <li>SVD can be viewed as ‘generalized diagonolization’ of an arbitrary matrix.</li>
 </ul>
 </div>
 <p>The existence of SVD can be shown as follow</p>
 <div id="prf-SVD" class="proof">
-<p><span class="proof-title"><em>Proof 17.1</em>. </span>Let <span class="math inline">\(X \in \mathbb{R}^{n \times d}\)</span> and <span class="math inline">\(C = X^T X \in \mathbb{R}^{d \times d}\)</span>, then <span class="math inline">\(C\)</span> is symmetric and positive semidefinite. Let the orthogonal decomposition of <span class="math inline">\(C\)</span> be: <span class="math display">\[
+<p><span class="proof-title"><em>Proof 11.1</em>. </span>Let <span class="math inline">\(X \in \mathbb{R}^{n \times d}\)</span> and <span class="math inline">\(C = X^T X \in \mathbb{R}^{d \times d}\)</span>, then <span class="math inline">\(C\)</span> is symmetric and positive semidefinite. Let the orthogonal decomposition of <span class="math inline">\(C\)</span> be: <span class="math display">\[
 C = V \Lambda V^T,
 \]</span> where <span class="math inline">\(V^T V = I\)</span> and <span class="math inline">\(\Lambda = \mathrm{diag}(\lambda_1, \lambda_2, \dots, \lambda_d), \lambda_i \geq 0 ,\forall i\in\{1, 2, \cdots, d\}\)</span>.</p>
 <p>Consider <span class="math inline">\(\Sigma \in \mathbb{R}^{n \times d}\)</span> such that <span class="math inline">\(\Sigma^T \Sigma = \Lambda\)</span>. If <span class="math inline">\(\mathrm{rank}(X) = r \leq d\)</span>, we can arrange the diagonal element of <span class="math inline">\(\Lambda\)</span> s.t. <span class="math inline">\(\lambda_1\geq\lambda_2\cdots\lambda_r\geq0,\lambda_{r+1} = \cdots=\lambda_d=0\)</span>. Then <span class="math display">\[
@@ -591,16 +547,16 @@ u_i^T u_j = \frac{1}{\sigma_i \sigma_j} v_i^T X^T X v_j = \frac{1}{\sigma_i \sig
 Thus, we have <span class="math inline">\(\sigma_i u_i = X v_i\)</span> for <span class="math inline">\(i=1,\ldots, r\)</span> and <span class="math inline">\(X v_i = 0\)</span> for <span class="math inline">\(i &gt; r\)</span>, which gives <span class="math inline">\(X = U \Sigma V^T\)</span>.</p>
 </div>
 <div id="rem-svd-complex" class="proof remark">
-<p><span class="proof-title"><em>Remark 17.3</em>. </span>This proof can be extended to <span class="math inline">\(X \in \mathbb{C}^{n \times d}\)</span> with unitary matrices <span class="math inline">\(U\)</span> and <span class="math inline">\(V\)</span>.</p>
+<p><span class="proof-title"><em>Remark 11.3</em>. </span>This proof can be extended to <span class="math inline">\(X \in \mathbb{C}^{n \times d}\)</span> with unitary matrices <span class="math inline">\(U\)</span> and <span class="math inline">\(V\)</span>.</p>
 </div>
 </section>
-<section id="greedy-construction-and-svd" class="level2" data-number="17.3">
-<h2 data-number="17.3" class="anchored" data-anchor-id="greedy-construction-and-svd"><span class="header-section-number">17.3</span> Greedy Construction and SVD</h2>
+<section id="greedy-construction-and-svd" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="greedy-construction-and-svd"><span class="header-section-number">11.3</span> Greedy Construction and SVD</h2>
 <div id="prp-svd-greedy" class="proposition theorem">
-<p><span class="theorem-title"><strong>Proposition 17.4</strong></span> The SVD of <span class="math inline">\(X = U \Sigma V^T\)</span> is the same as the greedy construction; i.e., <span class="math inline">\(V\)</span> and <span class="math inline">\(\Sigma\)</span> are right singular vectors and singular values constructed by the greedy definitions.</p>
+<p><span class="theorem-title"><strong>Proposition 11.4</strong></span> The SVD of <span class="math inline">\(X = U \Sigma V^T\)</span> is the same as the greedy construction; i.e., <span class="math inline">\(V\)</span> and <span class="math inline">\(\Sigma\)</span> are right singular vectors and singular values constructed by the greedy definitions.</p>
 </div>
 <div id="prf-svd-greedy" class="proof">
-<p><span class="proof-title"><em>Proof 17.2</em>. </span>Let <span class="math inline">\(v_1' := \mathrm{argmax}_{\|v\|_2=1} \|Xv\|_2\)</span> be the first right singular vector.<br>
+<p><span class="proof-title"><em>Proof 11.2</em>. </span>Let <span class="math inline">\(v_1' := \mathrm{argmax}_{\|v\|_2=1} \|Xv\|_2\)</span> be the first right singular vector.<br>
 Write <span class="math inline">\(X = U \Sigma V^T\)</span> where <span class="math inline">\(V = [v_1, \dots, v_d] \in \mathbb{R}^{d \times d}\)</span> and <span class="math inline">\(v_i^T v_j = \delta_{ij}\)</span>.<br>
 Then: <span class="math display">\[
 \|Xv\|_2 = \|U \Sigma V^T v\|_2 = \|\Sigma V^T v\|_2
@@ -617,8 +573,8 @@ Then <span class="math display">\[
 Similarly, we find all <span class="math inline">\(v_i\)</span> by the greedy construction.</p>
 </div>
 </section>
-<section id="skinny-svd-and-full-svd" class="level2" data-number="17.4">
-<h2 data-number="17.4" class="anchored" data-anchor-id="skinny-svd-and-full-svd"><span class="header-section-number">17.4</span> Skinny SVD and Full SVD</h2>
+<section id="skinny-svd-and-full-svd" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="skinny-svd-and-full-svd"><span class="header-section-number">11.4</span> Skinny SVD and Full SVD</h2>
 <p><strong>Full SVD:</strong><br>
 <span class="math display">\[
 X_{n \times d} = U_{n \times n} \Sigma_{n \times d} V_{d \times d}^T
@@ -630,8 +586,8 @@ Let - <span class="math inline">\(U_r := [u_1, \dots, u_r] \in \mathbb{R}^{n \ti
 X_{n \times d} = U_r \Sigma_r V_r^T = \sum_{i=1}^{r} \sigma_i u_i v_i^T
 \]</span></p>
 </section>
-<section id="computing-svd" class="level2" data-number="17.5">
-<h2 data-number="17.5" class="anchored" data-anchor-id="computing-svd"><span class="header-section-number">17.5</span> Computing SVD</h2>
+<section id="computing-svd" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="computing-svd"><span class="header-section-number">11.5</span> Computing SVD</h2>
 <section id="power-method" class="level3">
 <h3 class="anchored" data-anchor-id="power-method">Power Method</h3>
 <p><strong>Idea:</strong> Let <span class="math inline">\(C = X^T X \in \mathbb{R}^{d \times d}\)</span> and <span class="math inline">\(X = U \Sigma V^T = \sum_{i=1}^{r} \sigma_i u_i v_i^T\)</span>. Then</p>
@@ -687,7 +643,7 @@ flagged.] -->
 </div>
 <p>The same analysis holds for an arbitrary starting vector <span class="math inline">\(q\)</span> (not just <span class="math inline">\(e_1\)</span>):</p>
 <div id="prp-power-general" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 17.5 (Convergence to the near-top singular subspace)</strong></span> Let <span class="math inline">\(q \in \mathbb{R}^d\)</span> with <span class="math inline">\(|\langle q, v_1\rangle| \ge \delta &gt; 0\)</span>, and let <span class="math inline">\(U\)</span> be the linear subspace spanned by the <span class="math inline">\(v_i\)</span> such that <span class="math inline">\(\sigma_i \ge (1-\varepsilon)\sigma_1\)</span>. Let <span class="math inline">\(v^{(k)} = \dfrac{C^k q}{\|C^k q\|_2}\)</span> be the <span class="math inline">\(k\)</span>-th power iteration. Then it can be shown that</p>
+<p><span class="theorem-title"><strong>Proposition 11.5 (Convergence to the near-top singular subspace)</strong></span> Let <span class="math inline">\(q \in \mathbb{R}^d\)</span> with <span class="math inline">\(|\langle q, v_1\rangle| \ge \delta &gt; 0\)</span>, and let <span class="math inline">\(U\)</span> be the linear subspace spanned by the <span class="math inline">\(v_i\)</span> such that <span class="math inline">\(\sigma_i \ge (1-\varepsilon)\sigma_1\)</span>. Let <span class="math inline">\(v^{(k)} = \dfrac{C^k q}{\|C^k q\|_2}\)</span> be the <span class="math inline">\(k\)</span>-th power iteration. Then it can be shown that</p>
 <p><span class="math display">\[
 \big\|\operatorname{Proj}_{U^{\perp}}\big(v^{(k)}\big)\big\|_2 \le \varepsilon,
 \qquad \forall\, \varepsilon &gt; 0, \quad \text{when } k \ge \frac{\log(1/\varepsilon\delta)}{2\varepsilon}.
@@ -758,8 +714,8 @@ strictly"; this appears to be a slip for $\sigma_1 > \sigma_2$.] --> In fact, th
 </div>
 </section>
 </section>
-<section id="best-rank-k-approximation" class="level2" data-number="17.6">
-<h2 data-number="17.6" class="anchored" data-anchor-id="best-rank-k-approximation"><span class="header-section-number">17.6</span> Best rank-<span class="math inline">\(k\)</span> Approximation</h2>
+<section id="best-rank-k-approximation" class="level2" data-number="11.6">
+<h2 data-number="11.6" class="anchored" data-anchor-id="best-rank-k-approximation"><span class="header-section-number">11.6</span> Best rank-<span class="math inline">\(k\)</span> Approximation</h2>
 <section id="recap-on-matrix-norms" class="level3">
 <h3 class="anchored" data-anchor-id="recap-on-matrix-norms">Recap on matrix norms</h3>
 <p><strong>Frobenius norm</strong> <span class="math inline">\(\|\cdot\|_F\)</span>: <span class="math display">\[
@@ -777,12 +733,12 @@ strictly"; this appears to be a slip for $\sigma_1 > \sigma_2$.] --> In fact, th
 <section id="best-rank-k-approximation-1" class="level3">
 <h3 class="anchored" data-anchor-id="best-rank-k-approximation-1">Best rank-<span class="math inline">\(k\)</span> approximation</h3>
 <div id="def-truncated-svd" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 17.4 (<span class="math inline">\(k\)</span>-truncated SVD)</strong></span> Let <span class="math inline">\(X \in \mathbb{R}^{n \times d}\)</span> with <span class="math inline">\(\mathrm{rank}(X) = r \le \min\{n, d\}\)</span>. The <strong><span class="math inline">\(k\)</span>-truncated SVD</strong> of <span class="math inline">\(X\)</span> is <span class="math display">\[
+<p><span class="theorem-title"><strong>Definition 11.4 (<span class="math inline">\(k\)</span>-truncated SVD)</strong></span> Let <span class="math inline">\(X \in \mathbb{R}^{n \times d}\)</span> with <span class="math inline">\(\mathrm{rank}(X) = r \le \min\{n, d\}\)</span>. The <strong><span class="math inline">\(k\)</span>-truncated SVD</strong> of <span class="math inline">\(X\)</span> is <span class="math display">\[
 X_k = \sum_{i=1}^{k} \sigma_i u_i v_i^T, \qquad k \in \{1, 2, \dots, r\},
 \]</span> where <span class="math inline">\(X = \sum_{i=1}^{r} \sigma_i u_i v_i^T\)</span> is the full SVD.</p>
 </div>
 <div id="thm-eckart-young" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 17.2 (Best rank-<span class="math inline">\(k\)</span> approximation (Eckart–Young–Mirsky))</strong></span> <span class="math inline">\(X_k\)</span> is the “best” rank-<span class="math inline">\(k\)</span> approximation of <span class="math inline">\(X\)</span> in terms of any orthogonally invariant norm <span class="math inline">\(\|\cdot\|\)</span>: <span class="math display">\[
+<p><span class="theorem-title"><strong>Theorem 11.2 (Best rank-<span class="math inline">\(k\)</span> approximation (Eckart–Young–Mirsky))</strong></span> <span class="math inline">\(X_k\)</span> is the “best” rank-<span class="math inline">\(k\)</span> approximation of <span class="math inline">\(X\)</span> in terms of any orthogonally invariant norm <span class="math inline">\(\|\cdot\|\)</span>: <span class="math display">\[
 X_k = \underset{B \in \mathbb{R}^{n \times d},\ \mathrm{rank}(B) \le k}{\arg\min} \|X - B\| ,
 \]</span> i.e.&nbsp;<span class="math inline">\(X_k\)</span> is the closest rank-<span class="math inline">\(k\)</span> matrix to <span class="math inline">\(X\)</span>.</p>
 </div>
@@ -1237,17 +1193,17 @@ X_k$ being the legible parts.] --> Therefore <span class="math display">\[
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../ml-ds/randomProj.html" class="pagination-link" aria-label="Randomized Projection">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Randomized Projection</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Randomized Projection</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../ml-ds/clustering.html" class="pagination-link" aria-label="Clustering">
-        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Clustering</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Clustering</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-    <script type="text/javascript">
+    <footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/blob/main/ml-ds/SVD.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script type="text/javascript">
     (function(d) {
       d.querySelectorAll(".pseudocode-container").forEach(function(el) {
         let pseudocodeOptions = {

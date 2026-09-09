@@ -3,28 +3,35 @@ project:
 
 book:
   title: "Phy2Q Roadmap"
+  subtitle: "A physicist's learning note into quantitative finance"
   author: "Albert Zhang"
   date: "8/9/2025"
+  search: true
+  page-navigation: true
+  description: >
+    Open study notes on statistics, stochastic calculus, numerical
+    optimization, and machine learning behind quantitative finance.
+  repo-url: https://github.com/zhang-xiaoru/roadmap2Q
+  repo-actions: [source, issue]
   chapters:
     - index.qmd
-
     - part: "Numerical Optimization"
       chapters:
-        - numerical-optimization/introduction.qmd
-        - numerical-optimization/unconstrained.qmd
+        # - numerical-optimization/introduction.qmd   # stub — hidden until written
+        # - numerical-optimization/unconstrained.qmd   # stub — hidden until written
         - numerical-optimization/lineSearch.qmd
-        - numerical-optimization/gradDescent.qmd
-        - numerical-optimization/newTon.qmd
+        # - numerical-optimization/gradDescent.qmd     # stub — hidden until written
+        # - numerical-optimization/newTon.qmd          # stub — hidden until written
         - numerical-optimization/quasiNewton.qmd
         - numerical-optimization/conjGrad.qmd
         - numerical-optimization/constrained.qmd
         - numerical-optimization/quadProg.qmd
         - numerical-optimization/seqQuadprog.qmd
         - numerical-optimization/penalty.qmd
-        - numerical-optimization/interior.qmd
-    - part: Monte-Carlo Methods
-      chapters: 
-        - monte-carlo/monte-carlo.qmd
+        # - numerical-optimization/interior.qmd        # empty — hidden until written
+    # - part: Monte-Carlo Methods            # stub — hidden until written
+    #   chapters:
+    #     - monte-carlo/monte-carlo.qmd
     - part: "Machine Learning and Data Science Basics"
       chapters:
         - ml-ds/probRecap.qmd
@@ -35,22 +42,27 @@ book:
         - ml-ds/classification.qmd
         - ml-ds/regression.qmd
         - ml-ds/markovChain.qmd
-    - part: "Machine Learning in Finance"
-    - part: "Practice Machine Learning with Kaggle"
-    - part: "Statistical Inference"
-    - part: "Regression Analysis"
-      chapters: 
-        - reg-anly/slrInference.qmd
-    - part: "Bayesian Modeling"
+    # Hidden until built out — declarations preserved, delisted from the sidebar:
+    # - part: "Machine Learning in Finance"
+    # - part: "Practice Machine Learning with Kaggle"
+    # - part: "Statistical Inference"
+    # - part: "Regression Analysis"
+    #   chapters:
+    #     - reg-anly/slrInference.qmd          # stub
+    # - part: "Bayesian Modeling"
     - part: "Stochastic Process and Stochastic Integral"
-      chapters: 
-        - sp/prob.qmd
-        - sp/bm.qmd
-        - sp/stocInt.qmd
-    - part: "Financial Basics"
+      chapters:
+        - sp-and-stochCal/probReview.qmd
+        - sp-and-stochCal/martingales.qmd
+        - sp-and-stochCal/stoppingTime.qmd
+        - sp-and-stochCal/brownianMotion.qmd
+        - sp-and-stochCal/stochasticIntegral.qmd
+        - sp-and-stochCal/jumpProcess.qmd
+    # - part: "Financial Basics"             # empty — hidden until written
     - part: "Stochastic Process in Finance"
-      chapters: 
-        - sp-in-finance/plan.qmd
+      chapters:
+        # - sp-in-finance/plan.qmd           # planning outline — hidden
+        - sp-in-finance/riskNeutralPricing.qmd
     - references.qmd
       
 
@@ -61,8 +73,12 @@ format:
     theme:
       - cosmo
       - brand
-  pdf:
-    documentclass: scrreprt
+      - custom.scss
+  # PDF output disabled (BasicTeX is missing packages like framed.sty and cannot
+  # auto-install them). To re-enable, install a writable TeX (e.g. `quarto install
+  # tinytex`) and uncomment:
+  # pdf:
+  #   documentclass: scrreprt
 
 number-depth: 2
 

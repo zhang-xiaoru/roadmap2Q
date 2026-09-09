@@ -1,5 +1,163 @@
 # Quadratic Programming
-The Quadratic Programming solves constrain optimization problem with quadratic objective and linear constrains
 
-## Equality Contsrained Quadratic Programming (EQP)
-The first order KKT condition of the 
+The Quadratic Programming solves a constrained optimization problem with quadratic objective and linear constraints:
+$$
+\min_{x\in\mathbb{R}^n} \tfrac{1}{2}x^{\mathsf T}Gx + x^{\mathsf T}c, \quad \text{s.t.}\quad a_i^{\mathsf T}x = b_i,\ i\in\mathcal{E};\quad a_i^{\mathsf T}x \geq b_i,\ i\in\mathcal{I}.
+$$
+
+<!-- [note: the source writes the Hessian as $Q$ in this opening problem statement but uses $G$ everywhere else (KKT matrix, $Z^{\mathsf T}GZ$, etc.); they are the same matrix. Rendered as $G$ throughout.] -->
+
+**Remark:** if $G$ is not PD (semi), then the objective is not convex and is more challenging. We will be discussing PD (semi) $G$, s.t. the problem is convex, in the general case.
+
+## Equality Constrained Quadratic Programming (EQP)
+
+The first-order KKT condition of the equality constrained problem is
+$$
+\begin{bmatrix} G & A^{\mathsf T} \\ A & 0 \end{bmatrix}
+\begin{bmatrix} x^\ast \\ -\lambda^\ast \end{bmatrix}
+= \begin{bmatrix} -c \\ b \end{bmatrix},
+\qquad
+\lambda^\ast = \begin{pmatrix} \lambda_{i_1}^\ast \\ \vdots \\ \lambda_{i_n}^\ast \end{pmatrix} \text{ is the Lagrangian multiplier.}
+$$
+
+**Q:** Will the KKT condition has solution?
+
+::: {#thm-eqp-solution}
+## Existence of EQP solution
+If $A$ has full row rank (independent) and $Z\in\mathbb{R}^{n\times(n-m)}$ is a null space basis of $A$ ($AZ=0$), if $Z^{\mathsf T}GZ$ is PD, then the KKT matrix is non-singular and there is a unique solution.
+:::
+
+Solve the KKT equation for the optimal solution.
+
+### Null space method
+
+Let $Y\in\mathbb{R}^{n\times m}$, $Z\in\mathbb{R}^{n\times(n-m)}$ together form a basis in $\mathbb{R}^n$, and $Z$ form the null basis of $A$.
+
+i) chose a base $Z$ from $AZ=0$, and find $Y$.
+
+ii) $x^\ast = YP_Y + ZP_Z$ (base of $\mathbb{R}^n$):
+$$
+P_Y \to (AY)P_Y = b, \qquad P_Z \to (Z^{\mathsf T}GZ)P_Z = -Z^{\mathsf T}c - Z^{\mathsf T}GYP_Y
+$$
+
+iii) find $\lambda^\ast$ using $(AY)^{\mathsf T}\lambda^\ast = Y^{\mathsf T}c + Y^{\mathsf T}Gx^\ast$.
+
+**Remarks:**
+
+1. $Z$ can be chosen, and could lead to ill-conditioned $Z^{\mathsf T}GZ$.
+2. useful for small $n-m$, and don't require PD condition on $G$.
+
+### Schur-complement method (dual method)
+
+If $G$ is PD.
+
+i) Apply $AG^{-1}$: $\quad [AG^{-1}A^{\mathsf T}]\lambda^\ast = b + AG^{-1}c$
+
+ii) Get $x^\ast$ $\leftarrow$ $Gx^\ast = A^{\mathsf T}\lambda^\ast - c$
+
+**Remarks:**
+
+* $G$ needs to be PD.
+* It is recommended if $G$ is PD, and easy to find inverse.
+
+### Direct factorization
+
+<!-- [note: the source lists "Direct factorization" as a third method but gives no further detail on this page.] -->
+
+## General Case (with $\mathcal{I}$)
+
+The KKT condition is
+$$
+Gx^\ast + c - \sum_{i\in A(x^\ast)} \lambda_i^\ast\, a_i = 0
+$$
+$$
+\begin{aligned}
+a_i^{\mathsf T}x &= b_i, && \forall i\in\mathcal{E} \\
+a_i^{\mathsf T}x &\geq b_i, && \forall i\in\mathcal{I}\setminus A(x^\ast) \\
+\lambda_i^\ast &\geq 0, && \forall i\in\mathcal{I}\cap A(x^\ast).
+\end{aligned}
+$$
+
+* Consider the case $G$ is PD (semi).
+
+## Active set methods
+
+**idea:** if we know the final optimal active set $A(x^\ast)$, then we can reduce the problem to
+$$
+\min_{x\in\mathbb{R}^n} \tfrac{1}{2}x^{\mathsf T}Gx + x^{\mathsf T}c, \quad \text{s.t.}\quad a_i^{\mathsf T}x = b_i,\ i\in A(x^\ast)
+$$
+and use EQP $\to$ Want to iteratively guess the optimal active set.
+
+### Approach
+
+**1.** Start with a feasible point $x_k$, and a guess of active set $W_k$, check if $x_k$ is optimal of the $W_k$:
+$$
+\min_{x\in\mathbb{R}^n} \tfrac{1}{2}x^{\mathsf T}Gx + x^{\mathsf T}c, \quad \text{s.t.}\quad a_i^{\mathsf T}x = b_i,\ i\in W_k.
+$$
+if not, we look for a new point $p_k+x_k$ s.t. it is the optimum:
+$$
+\min \tfrac{1}{2}(x_k+p_k)^{\mathsf T}G(x_k+p_k) + (x_k+p_k)^{\mathsf T}c \;\iff\; \min_{p\in\mathbb{R}^n} \tfrac{1}{2}p^{\mathsf T}Gp + p^{\mathsf T}(Gx_k+c)
+$$
+$$
+\text{s.t. } a_i^{\mathsf T}(x_k+p_k),\ i\in W_k \qquad\qquad \text{s.t. } a_i^{\mathsf T}p = 0,\ i\in W_k \quad (\text{sub problem})
+$$
+
+**2.** Solve the sub problem, and get $p_k^\ast$, meaning the vector required to shift $x_k \to x_k+p_k^\ast$, s.t. the new point now is the optimum of $W_k$.
+
+**i) if $p_k^\ast = 0$**, then means $x_k$ is the optimal set. The KKT of the sub problem:
+$$
+Gx_k + c - \sum_{i\in W_k}\lambda_i^\ast a_i = 0, \qquad a_i^{\mathsf T}x = b,\ \forall i\in W_k, \qquad a_i^{\mathsf T}x_k \geq b_i,\ \forall i\in\mathcal{I}\setminus W_k
+$$
+for $x_k, \lambda_i^\ast$ to satisfies the KKT of the original problem, need verify the sign of $\lambda_i^\ast$, for $i\in W_k\cap\mathcal{I}$.
+
+* if $\lambda_i^\ast<0$, then this means $i$ should not be active, as $\nabla f = \sum_i \lambda_i^\ast \nabla G_i$ could be negative leading to a descent direction. Thus, remove its from $W_k$, i.e. $W_k \leftarrow W_k\setminus\{i\}$.
+    * if multiple $\lambda_i^\ast<0$, we drop the most negative one $i = \arg\min_i \lambda_i^\ast$.
+* if $\lambda_i^\ast\geq 0$ for all $i\in W_k\cap\mathcal{I}$, then we have found the optimal with $\lambda^\ast = \begin{cases}\lambda_i^\ast, & i\in W_k \\ 0, & i\notin W_k\end{cases}$
+
+**Remark:** It can be shown that by removing $j\in W_k$ and $\lambda_j<0$, the optimal $p^\ast$ in the next iteration is feasible for $j$, and $p$ is also a descent direction.
+
+**ii) if $p_k\neq 0$**, this means $x_k$ is not optimal for the subproblem, and $x_k+p_k$ is. However, $x_k+p_k$ may not be feasible for the original problem. The idea will be shrink $p_k$ s.t. $x_k+\alpha p_k$ is feasible.
+
+* $i\in W_k$: $\quad a_i^{\mathsf T}(x_k+\alpha p_k) = a_i^{\mathsf T}x_k + \alpha\, a_i^{\mathsf T}p_k = 0$
+* $i\notin W_k$: $\quad a_i^{\mathsf T}(x_k+\alpha p_k) = \underbrace{a_i^{\mathsf T}x_k}_{\geq b_i} + \alpha\,\underbrace{a_i^{\mathsf T}p_k}_{\text{unknown}}$
+    * if $a_i^{\mathsf T}p_k\geq 0$, $x_k+p_k$ stays feasible;
+    * if $a_i^{\mathsf T}p_k< 0$, not necessary feasible.
+
+if $a_i^{\mathsf T}p_k<0$, we chose $\alpha$ s.t. $x_k+\alpha p_k\in\Omega$:
+$$
+a_i^{\mathsf T}x_k + \alpha\, a_i^{\mathsf T}p_k \geq b_i \;\Rightarrow\; \alpha \leq \frac{b_i - a_i^{\mathsf T}x_k}{a_i^{\mathsf T}p_k}, \text{ for specific } i \;\Rightarrow\; \alpha = \min_{a_i^{\mathsf T}p_k<0}\frac{b_i - a_i^{\mathsf T}x_k}{a_i^{\mathsf T}p_k}.
+$$
+
+In summary, choose
+$$
+\alpha = \min\left(1,\ \min_{i\notin W_k,\ a_i^{\mathsf T}p_k<0}\frac{b_i - a_i^{\mathsf T}x_k}{a_i^{\mathsf T}p_k}\right).
+$$
+
+**Note:** $\alpha_k=0$ is possible, as there could be a case that $i$ is not in the current $W_k$, but $a_i^{\mathsf T}x_k = b_i$ ($i$ is active).
+
+In the end we need to add $\{i\}$, the index that attains the minimum, as $\alpha$ is chosen s.t. $x_k$ is on the boundary.
+
+The overall iteration is summarized below.
+
+```{mermaid}
+%%| label: fig-active-set
+%%| fig-cap: "Active-set iteration for inequality-constrained QP."
+flowchart TD
+    A["Start: feasible x_k, guess active set W_k"] --> B["Solve QP subproblem for p_k"]
+    B --> C{"p_k = 0 ?"}
+    C -->|no| H["alpha = min(1, min ratio over blocking i)"]
+    H --> I["x_k+1 = x_k + alpha p_k"]
+    I --> J{"a blocking constraint was hit ?"}
+    J -->|yes| K["add that index to W_k"]
+    J -->|no| G["k = k + 1"]
+    K --> G
+    C -->|yes| D{"lambda_i >= 0 for all i in W_k and I ?"}
+    D -->|yes| E["Stop: optimal"]
+    D -->|no| F["remove the most-negative index from W_k"]
+    F --> G
+    G --> B
+```
+
+**Remark:** the worst-case complexity is $O(2^n)$, but the average is good.
+
+<!-- [note: the source ends with "To be continued: close/feasible point at start" — i.e. a feasible starting point (a Phase-I step) is needed to initialize the active-set method; this is not developed further in this PDF.] -->

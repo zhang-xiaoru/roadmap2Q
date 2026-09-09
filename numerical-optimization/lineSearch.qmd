@@ -63,7 +63,42 @@ $$
 We can denote the LHS of the inequality in @def-armijo as a function of $\alpha$ as $\phi(\alpha)$, and the RHS as a linear function $l(\alpha)$ with a negative slop $c_1\nabla^Tf(\mathbf{x}_k)\mathbf{p}_k$. Note that this slop is between the horizontal line and the tangent line at $\phi(0)$. The *Armijo condition* is thus requiring the selected step length drop the function value larger than a predifined linear function, which derease slower than the steepest local function drop. 
 :::
 
-Figure shows the acceptable region of the *Armijo line search*
+@fig-armijo shows the acceptable region of the *Armijo line search*.
+
+```{python}
+#| label: fig-armijo
+#| fig-cap: 'Sufficient-decrease (Armijo) condition: $\phi(\alpha)=f(\mathbf{x}_k+\alpha\mathbf{p}_k)$ (blue), the tangent at $\alpha=0$ with slope $\phi^\prime(0)=\nabla^{\mathsf T}f_k\,\mathbf{p}_k$ (dotted), and the sufficient-decrease line $l(\alpha)=f(\mathbf{x}_k)+c_1\alpha\,\nabla^{\mathsf T}f_k\,\mathbf{p}_k$ (dashed). Armijo accepts the step lengths where $\phi(\alpha)\le l(\alpha)$ (shaded).'
+#| out-width: 78%
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+
+a = np.linspace(0, 4.2, 800)
+phi = 1 - 0.9*a + 0.6*a**2 - 0.11*a**3
+phi0, g0, c1 = 1.0, -0.9, 0.2
+l = phi0 + c1*g0*a
+tangent = phi0 + g0*a
+
+def shade_runs(ax, x, mask, **kw):
+    idx = np.where(mask)[0]
+    if len(idx) == 0:
+        return
+    first = True
+    for s in np.split(idx, np.where(np.diff(idx) > 1)[0] + 1):
+        ax.axvspan(x[s[0]], x[s[-1]], **({**kw} if first else {k: v for k, v in kw.items() if k != "label"}))
+        first = False
+
+fig, ax = plt.subplots(figsize=(6.4, 4))
+shade_runs(ax, a, phi <= l, color="#2ca02c", alpha=0.15, label="acceptable")
+ax.plot(a, phi, color="#1f77b4", lw=2, label=r"$\phi(\alpha)$")
+ax.plot(a, l, color="#d62728", ls="--", lw=1.6, label=r"$l(\alpha)$ (sufficient decrease)")
+ax.plot(a[a < 1.5], tangent[a < 1.5], color="gray", ls=":", lw=1.5, label=r"tangent, slope $\phi^\prime(0)$")
+ax.set_xlabel(r"$\alpha$"); ax.set_ylabel(r"$\phi(\alpha)$")
+ax.set_xlim(0, 4.2); ax.set_ylim(0, 1.15)
+ax.legend(loc="upper right", fontsize=9)
+fig.tight_layout()
+plt.show()
+```
 
 In practice, the *Armijo condition* can be satisified using *Backtracing line search* algorithm 
 
@@ -130,7 +165,46 @@ $c_1$ is the constant from @def-armijo
 Again if we consider $\phi(\alpha) = f(\mathbf{x} + \alpha\mathbf{p})$ as a function if $\alpha$. Then the LHS of the inequality in @def-curvature is $\phi^\prime(\alpha_k)$, which is the slope of the tangent line at the accepted step length. Since the RHS is negative, the curvature condition requires the curvature of $\phi$ at the accepted step length should be "flat" comparing to that at the starting point, which is measured by the coefficient $c_2$. Thus, the accepted step length can not be too close to the staring point
 :::
 
-**Figure** show the accpetable region satified curvature condition
+@fig-curvature shows the acceptable region satisfying the curvature condition.
+
+```{python}
+#| label: fig-curvature
+#| fig-cap: 'Curvature condition: the accepted step lengths (shaded) are those where the slope $\phi^\prime(\alpha)\ge c_2\,\phi^\prime(0)$ is flat enough, i.e. not too steeply negative. Short segments show the slope of $\phi$ at the two ends of the accepted interval.'
+#| out-width: 78%
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+
+a = np.linspace(0, 4.2, 800)
+phi = 1 - 0.9*a + 0.6*a**2 - 0.11*a**3
+dphi = -0.9 + 1.2*a - 0.33*a**2
+g0, c2 = -0.9, 0.7
+thr = c2*g0  # curvature threshold slope
+
+def shade_runs(ax, x, mask, **kw):
+    idx = np.where(mask)[0]
+    if len(idx) == 0:
+        return
+    first = True
+    for s in np.split(idx, np.where(np.diff(idx) > 1)[0] + 1):
+        ax.axvspan(x[s[0]], x[s[-1]], **({**kw} if first else {k: v for k, v in kw.items() if k != "label"}))
+        first = False
+
+fig, ax = plt.subplots(figsize=(6.4, 4))
+shade_runs(ax, a, dphi >= thr, color="#2ca02c", alpha=0.15, label="acceptable")
+ax.plot(a, phi, color="#1f77b4", lw=2, label=r"$\phi(\alpha)$")
+ax.plot(a[a < 1.5], 1 + g0*a[a < 1.5], color="gray", ls=":", lw=1.5, label=r"tangent, slope $\phi^\prime(0)$")
+# slope markers at the boundaries of the accepted interval
+for a0 in (0.241, 3.40):
+    p0 = 1 - 0.9*a0 + 0.6*a0**2 - 0.11*a0**3
+    seg = np.array([a0-0.35, a0+0.35])
+    ax.plot(seg, p0 + thr*(seg-a0), color="#d62728", lw=1.8)
+ax.set_xlabel(r"$\alpha$"); ax.set_ylabel(r"$\phi(\alpha)$")
+ax.set_xlim(0, 4.2); ax.set_ylim(0, 1.15)
+ax.legend(loc="upper right", fontsize=9)
+fig.tight_layout()
+plt.show()
+```
 
 
 Combine the two condition together, we get the *Wolf conditions*
@@ -152,6 +226,56 @@ for some $0<c_1<c_2<1$
 * If $c_1\geq c_2$, the exsistance of Wolf condition might not be satisfied
 * The Wolf condition requires evaluations of both function and gradient values at each iteration
 :::
+
+@fig-wolf shows the acceptable region satisfying the *Wolf condition*, which is the intersection of the sufficient decrease and curvature conditions.
+
+```{python}
+#| label: fig-wolf
+#| fig-cap: 'Wolf condition: the accepted region (green) is the intersection of the Armijo/sufficient-decrease region ($\phi(\alpha)\le l(\alpha)$) and the curvature region ($\phi^\prime(\alpha)\ge c_2\phi^\prime(0)$).'
+#| out-width: 78%
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+
+a = np.linspace(0, 4.2, 800)
+phi = 1 - 0.9*a + 0.6*a**2 - 0.11*a**3
+dphi = -0.9 + 1.2*a - 0.33*a**2
+phi0, g0, c1, c2 = 1.0, -0.9, 0.2, 0.7
+l = phi0 + c1*g0*a
+armijo = phi <= l
+curv = dphi >= c2*g0
+
+def shade_runs(ax, x, mask, **kw):
+    idx = np.where(mask)[0]
+    if len(idx) == 0:
+        return
+    first = True
+    for s in np.split(idx, np.where(np.diff(idx) > 1)[0] + 1):
+        ax.axvspan(x[s[0]], x[s[-1]], **({**kw} if first else {k: v for k, v in kw.items() if k != "label"}))
+        first = False
+
+fig, ax = plt.subplots(figsize=(6.4, 4))
+shade_runs(ax, a, armijo & curv, color="#2ca02c", alpha=0.30, label="Wolf (accept)")
+ax.plot(a, phi, color="#1f77b4", lw=2, label=r"$\phi(\alpha)$")
+ax.plot(a, l, color="#d62728", ls="--", lw=1.6, label=r"$l(\alpha)$")
+ax.set_xlabel(r"$\alpha$"); ax.set_ylabel(r"$\phi(\alpha)$")
+ax.set_xlim(0, 4.2); ax.set_ylim(0, 1.15)
+ax.legend(loc="upper right", fontsize=9)
+fig.tight_layout()
+plt.show()
+```
+
+The *Wolf condition* can be strengthened to the *strong Wolf condition*.
+
+::: {#def-strong-wolf}
+## Strong Wolf Condition
+Change the curvature condition in @def-wolf to
+$$
+|\nabla^{\mathsf T}f(\mathbf{x}_k+\alpha_k\mathbf{p}_k)\mathbf{p}_k| \leq c_2\,|\nabla^{\mathsf T}f(\mathbf{x}_k)\mathbf{p}_k|
+$$
+:::
+
+This restrict too large positive slope, which is also away from minimum.
 
 ### Line Search Algorithm Satisfying Wolf Condition
 ```python
@@ -218,3 +342,37 @@ def wolf_search(
             alpha = 2 * alpha
         counter += 1
 ```
+
+## Existence and Convergence of Line Search
+
+We now discuss when the step-length conditions can actually be satisfied.
+
+<!-- [unclear: in @thm-armijo-existence the upper limit of the interval $[0,\alpha_{\max}]$ is written with a strike-through/correction in the source; read as $\alpha_{\max}$ — the smallest intersection defined in the remark, with $\alpha^\prime<\alpha_{\max}$.] -->
+
+::: {#thm-armijo-existence}
+## Existence of Armijo Condition
+If $f:\mathbb{R}^n\rightarrow\mathbb{R}$ is $C^1$ and bounded below, then for a descent direction $\mathbf{p}_k$ at $\mathbf{x}_k$, there exists $\alpha^\prime>0$ s.t. the Armijo condition is satisfied for $\forall\alpha\in[0, \alpha_{\max}]$.
+
+In addition, if $\nabla f$ is $L$-Lipschitz continuous, then
+$$
+\alpha^\prime = \frac{2(c_1-1)\,\nabla^{\mathsf T}f(\mathbf{x}_k)\mathbf{p}_k}{L\|\mathbf{p}_k\|^2}
+$$
+:::
+
+::: {#rem-armijo-existence}
+* Notice that $\phi(0)+c_1\alpha\phi^\prime(0)$ is a line go to unbounded below, thus $l(\alpha)$ must intersect with $\phi(\alpha)$, thus there exists $\alpha_{\max}$ which is the smallest intersection, s.t. $\alpha^\prime<\alpha_{\max}$ is the one we need.
+* To show the second part, can use inequality
+$$
+f(\mathbf{y}) \leq f(\mathbf{x}) + \nabla^{\mathsf T}f(\mathbf{x})(\mathbf{y}-\mathbf{x}) + \frac{L}{2}\|\mathbf{y}-\mathbf{x}\|^2
+$$
+:::
+
+::: {#thm-wolf-existence}
+## Existence of Wolf Condition
+If $f$ is $C^1$ and is bounded below, for a descent direction at $\mathbf{x}_k$, then there exists an interval for $\alpha_k$ s.t. the Wolf condition is satisfied.
+:::
+
+::: {#rem-wolf-existence}
+* The existence for Armijo condition show the exist interval bounded above by line $l(\alpha)$, use Taylor's theorem can show tangent line.
+* Continuity of $f$ can show the existence of interval satisfying Wolf condition.
+:::

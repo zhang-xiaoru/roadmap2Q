@@ -1,0 +1,162 @@
+# Risk-Neutral Pricing
+
+<!-- [note: exact transcription. Source spellings preserved in the body
+("martingle", "calculous", "netural", "stricly", "refered", "scenario", ...);
+only the chapter title is set in standard spelling. The two section headers below
+correspond to the blue headers in the source.] -->
+
+## Change of measure
+
+we wish to change how we measure probability from $P$ to $\hat{P}$ using Random
+Variable $Z$.
+
+**Th** let $(\Omega, \mathcal{F}, P)$ be a prob space and $Z$ be a a.s.
+non-negative. random variable with $E(Z) = 1$. for $A \in \mathcal{F}$, define
+$$
+\hat{P}(A) = \int_A Z(\omega) \, dP(\omega)
+$$
+then $\hat{P}$ is a probability measure
+
+**Coll** let $\hat{P}$ be the prob measure defined, and $X$ be a nonnegative
+random variable, then
+$$
+\hat{E}(X) = \int_\Omega X(\omega) \, d\hat{P}(\omega) = \int_\Omega X(\omega) Z(\omega) \, dP(\omega) = E(ZX).
+$$
+if $Z$ is a.s. stricly positive, then
+$$
+E(X) = \hat{E}\Big(\frac{X}{Z}\Big) \qquad \text{for all nonnegative R.V. } X.
+$$
+
+Next, defines the meaning of equivalent between $P$ and $\hat{P}$
+
+**Def.** let $P$ & $\hat{P}$ be two prob-meas on $(\Omega, \mathcal{F})$, $P$ & $\hat{P}$
+are said equivalent if they agree which set in $\mathcal{F}$ have probability zero.
+
+**Remark:**
+
+- Since the set of zero prob and set of prob $1$ are complementary, equivalent $P$ & $\hat{P}$ agrees on event with prob $1$ as well
+- $P$ & $\hat{P}$ defined in Th are equivalent
+- Equivalent means that two probability measure predict the same on the event that happens a.s. or a.s. not happens
+
+In finance, the model has a sample space, where all possible future scenario lies.
+The probability measure for the event can be estimated through empirical data in
+real world, or in the price of derivatives securities. a risk-neutral measure
+$\hat{P}$. The risk netural measure helps to solve the equation. though $\hat{P}$
+assign different prob to price paths, the equivalent property make sure that a
+hedging strategy works a.s. in $\hat{P}$ will also work in $P$
+
+Notice that from the fact
+$$
+\int_\Omega X(\omega) \, d\hat{P}(\omega) = \int_\Omega X(\omega) Z(\omega) \, dP(\omega) \qquad \text{and} \qquad \int_\Omega Y(\omega) \, dP(\omega) = \int_\Omega \frac{Y(\omega)}{Z(\omega)} \, d\hat{P}(\omega)
+$$
+we can "regard" $Z(\omega) = \dfrac{d\hat{P}(\omega)}{dP(\omega)}$ as in regular
+calculous, as a somehow "ratio of probability". $Z(\omega)$ is refered as
+Radon-Nikodym derivative.
+
+## Risk-Neutral Measure
+
+Next, we perform similar change of measure. for the process. on $(\Omega, \mathcal{F}, P)$
+and filtration $\mathcal{F}_t$, defined on $0 \leq t \leq T$. let $Z$ be the a.s.
+positive R.V. with $E(Z) = 1$ and $\hat{P}$ defined above. Then can define
+Radon-Nikodym derivative process as follow
+$$
+Z_t := E(Z \mid \mathcal{F}_t)
+$$
+
+**Coll** $Z_t$ is a martingle
+
+**proof:** let $t > s \in [0,T]$, and
+$$
+E(Z_t \mid \mathcal{F}_s) = E\big((E(Z \mid \mathcal{F}_t)) \mid \mathcal{F}_s\big) = E(Z \mid \mathcal{F}_s) = Z_s.
+$$
+
+**lemma:** let $t \in [0,T]$ and $Y$ is $\mathcal{F}_t$ measurable, then
+$\hat{E} Y = E(Y Z_t)$
+
+**proof:** $\hat{E} Y = E(YZ) = E[E(YZ \mid \mathcal{F}_t)] = E(Y E(Z \mid \mathcal{F}_t)) = E(Y Z_t)$
+
+**lemma:** let $s, t$ satisfy $0 \leq s \leq t \leq T$ and $Y$ be a $\mathcal{F}_t$
+measurable R.V. then
+$$
+\hat{E}(Y \mid \mathcal{F}_s) = \frac{1}{Z(s)} E(Y Z(t) \mid \mathcal{F}_s)
+$$
+
+**proof:** $\frac{1}{Z(s)} E(Y Z(t) \mid \mathcal{F}_s)$ is $\mathcal{F}_s$
+measurable, to show that it equal to conditional expectation, we need.
+$$
+\int_A \hat{E}(Y \mid \mathcal{F}_s) \, d\hat{P} = \int_A \frac{1}{Z(s)} E(Y Z(t) \mid \mathcal{F}_s) \, d\hat{P} = \int_A Y \, d\hat{P} \qquad \forall A \in \mathcal{F}_s
+$$
+$$
+\begin{aligned}
+\int_A \frac{1}{Z(s)} E(Y Z(t) \mid \mathcal{F}_s) \, d\hat{P} &= \hat{E}\Big(\mathbf{1}_A \frac{1}{Z(s)} E(Y Z(t) \mid \mathcal{F}_s)\Big) \\
+&= E\big(\mathbf{1}_A E(Y Z(t) \mid \mathcal{F}_s)\big) = E\big(E(\mathbf{1}_A Y Z(t) \mid \mathcal{F}_s)\big) \\
+&= E(\mathbf{1}_A Y Z(t)) = \hat{E}(\mathbf{1}_A Y) = \int_A Y \, d\hat{P}. \qquad \blacksquare
+\end{aligned}
+$$
+
+## Change of measure for 1D Brownian motion
+
+**Th (change of measure for 1D BM)** Let $(W_t)_{0 \leq t \leq T}$ be a BM on a
+probability space $(\Omega, \mathcal{F}, P)$ and $(\mathcal{F}_t)_{0 \leq t \leq T}$
+be its filtration, and $(\Theta_t)_{0 \leq t \leq T}$ be another adapted process to
+this filtration, then define
+$$
+Z_t = \exp\Big(-\int_0^t \Theta_u \, dW_u - \tfrac12 \int_0^t \Theta_u^2 \, du\Big)
+$$
+$$
+\widetilde{W}_t = W_t + \int_0^t \Theta_u \, du
+$$
+assuming
+$$
+E\Big(\int_0^T \Theta_u^2 Z_u^2 \, du\Big) < \infty
+$$
+Then, we have $E(Z_T) = 1$ and $\widetilde{W}_t$ is BM under $\hat{P}$ defined above.
+
+## Stock under risk-neutral measure
+
+consider a stock price $S_t$ described by
+$$
+dS_t = \alpha_t S_t \, dt + G_t S_t \, dW_t, \qquad 0 \leq t \leq T
+$$
+or in the integration form
+$$
+S_t = S_0 \exp\Big(\int_0^t G_u \, dW_u + \int_0^t (\alpha_u - \tfrac12 G_u^2) \, du\Big)
+$$
+now consider an interest rate process $R(t)$ and defines the discount process as
+$D_t = e^{-\int_0^t R_u \, du}$. $\implies dP_t = -P_t R_t \, dt$
+
+<!-- [flag: the source uses both $D_t$ and $P_t$ for the SAME discount process
+(it defines $D_t = e^{-\int R\,du}$ but then writes the differential and products
+with $P_t$). Both symbols are transcribed as they appear.] -->
+
+**Discounted stock price.**
+$$
+D_t S_t = S_0 \exp\Big(\int_0^t G_u \, dW_u + \int_0^t (\alpha_u - \tfrac12 G_u^2 - R_u) \, du\Big)
+$$
+$$
+\begin{aligned}
+d(P_t S_t) &= S_t \, dP_t + P_t \, dS_t + dS_t \, dP_t = -S_t P_t R_t \, dt + P_t(\alpha_t S_t \, dt + G_t S_t \, dW_t) \\
+&= P_t S_t(\alpha_t - R_t) \, dt + G_t S_t D_t \, dW_t = G_t S_t P_t(\Theta_t \, dt + dW_t)
+\end{aligned}
+$$
+where $\Theta_t = \dfrac{\alpha_t - R_t}{G_t}$ is the market price of risk.
+
+**Remark:** for discounted stock price. the mean rate of return of the stock reduce
+while the volatility remains the same.
+
+now we consider the discounted price in the prob measure $\hat{P}$ defined in
+theorem with $\Theta_t$ used the market price of risk. then
+$$
+d(D_t S_t) = G_t D_t S_t \, d\widetilde{W}_t \iff D_t S_t = S_0 + \int_0^t G_u P_u S_u \, d\widetilde{W}_u.
+$$
+and thus the discounted Stock price is martingle under this measure. The new
+probability measure is called Risk-Neutral measure.
+
+**Stock price under risk-neutral measure.**
+$$
+dW_t = -\Theta_t \, dt + d\widetilde{W}_t \implies dS_t = R_t S_t \, dt + G_t S_t \, d\widetilde{W}_t.
+$$
+
+**Remark:**
+
+<!-- [incomplete: the note ends here at "Remark:" with nothing following.] -->
