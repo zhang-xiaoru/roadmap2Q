@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Open study notes on statistics, stochastic calculus, numerical optimization, and machine learning behind quantitative finance.">
+
+<title>8&nbsp; Recap on Probability – Phy2Q Roadmap</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../ml-ds/highDimData.html" rel="next">
+<link href="../numerical-optimization/penalty.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-af78437ed5bf07251aacc1da5128115f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
+<link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+    <style type="text/css">
+    .ps-root .ps-algorithm {
+      border-top: 2px solid;
+      border-bottom: 2px solid;
+    }
+    .pseudocode-container {
+      text-align: left;
+    }
+    </style>
+  
+      <style type="text/css">
+      .ps-algorithm > .ps-line {
+        text-align: left;
+      }
+      </style>
+    
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ml-ds/probRecap.html">Machine Learning and Data Science Basics</a></li><li class="breadcrumb-item"><a href="../ml-ds/probRecap.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Recap on Probability</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Phy2Q Roadmap</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/zhang-xiaoru/roadmap2Q" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Numerical Optimization</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/lineSearch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Line Search Methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/quasiNewton.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Quasi Newton Methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/conjGrad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conjugate Gradient Methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/constrained.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Theory of Constrained Optimization</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/quadProg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Quadratic Programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/seqQuadprog.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Sequential Quadratic Programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-optimization/penalty.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Penalty Methods</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Machine Learning and Data Science Basics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/probRecap.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Recap on Probability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/highDimData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Properties of High Dimensional Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/randomProj.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Randomized Projection</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/SVD.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Singular Value Decomposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Clustering</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ml-ds/markovChain.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Markov Chains</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Stochastic Process and Stochastic Integral</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sp-and-stochCal/probReview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Probability in Measure Theory Language</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sp-and-stochCal/martingales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Martingales</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sp-and-stochCal/stoppingTime.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Stopping Time</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sp-and-stochCal/brownianMotion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Brownian Motion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sp-and-stochCal/stochasticIntegral.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Stochastic Integral</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sp-and-stochCal/jumpProcess.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Stochastic Analysis and Lévy Process</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Stochastic Process in Finance</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sp-in-finance/riskNeutralPricing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Risk-Neutral Pricing</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#concentration-inequalities" id="toc-concentration-inequalities" class="nav-link active" data-scroll-target="#concentration-inequalities"><span class="header-section-number">8.1</span> Concentration Inequalities</a></li>
+  <li><a href="#markovs-inequality" id="toc-markovs-inequality" class="nav-link" data-scroll-target="#markovs-inequality"><span class="header-section-number">8.2</span> Markov’s Inequality</a></li>
+  <li><a href="#chebyshevs-inequality" id="toc-chebyshevs-inequality" class="nav-link" data-scroll-target="#chebyshevs-inequality"><span class="header-section-number">8.3</span> Chebyshev’s Inequality</a></li>
+  <li><a href="#master-tail-bound" id="toc-master-tail-bound" class="nav-link" data-scroll-target="#master-tail-bound"><span class="header-section-number">8.4</span> Master Tail Bound</a></li>
+  <li><a href="#chernoff-bound" id="toc-chernoff-bound" class="nav-link" data-scroll-target="#chernoff-bound"><span class="header-section-number">8.5</span> Chernoff Bound</a></li>
+  <li><a href="#concentration-via-the-moment-generating-function" id="toc-concentration-via-the-moment-generating-function" class="nav-link" data-scroll-target="#concentration-via-the-moment-generating-function"><span class="header-section-number">8.6</span> Concentration via the Moment Generating Function</a></li>
+  <li><a href="#hoeffdings-inequality" id="toc-hoeffdings-inequality" class="nav-link" data-scroll-target="#hoeffdings-inequality"><span class="header-section-number">8.7</span> Hoeffding’s Inequality</a></li>
+  <li><a href="#chi2-tail-bound" id="toc-chi2-tail-bound" class="nav-link" data-scroll-target="#chi2-tail-bound"><span class="header-section-number">8.8</span> <span class="math inline">\(\chi^2\)</span> Tail Bound</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/blob/main/ml-ds/probRecap.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../ml-ds/probRecap.html">Machine Learning and Data Science Basics</a></li><li class="breadcrumb-item"><a href="../ml-ds/probRecap.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Recap on Probability</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Recap on Probability</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="concentration-inequalities" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="concentration-inequalities"><span class="header-section-number">8.1</span> Concentration Inequalities</h2>
+<p>The guiding theme: a sample average concentrates around its expectation, i.e.</p>
+<p><span class="math display">\[
+\Big|\,\tfrac{1}{n}\sum_{i} X_i - \mathbb{E}\big[\tfrac{1}{n}\sum_{i=1}^{n} X_i\big]\,\Big|
+\quad \text{is small, guaranteed with high probability.}
+\]</span></p>
+</section>
+<section id="markovs-inequality" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="markovs-inequality"><span class="header-section-number">8.2</span> Markov’s Inequality</h2>
+<div id="thm-markov" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 8.1 (Markov’s inequality)</strong></span> Let <span class="math inline">\(X\)</span> be a non-negative random variable. Then for all <span class="math inline">\(a &gt; 0\)</span>, <span class="math display">\[
+P(X \ge a) \le \frac{\mathbb{E}[X]}{a}.
+\]</span></p>
+</div>
+<div class="proof remark">
+<p><span class="proof-title"><em>Remark</em>. </span>The probability of <span class="math inline">\(X\)</span> being “too large”, <span class="math inline">\(P(X \ge a)\)</span>, is bounded. <!-- [the manuscript has a sketch here of a density with its mean $\mathbb{E}(X)$
+marked and the upper tail $P(X \ge a)$ shaded; figure not reproduced.] --></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>If <span class="math inline">\(X\)</span> is a continuous R.V. with pdf <span class="math inline">\(f_X(x)\)</span>, then <span class="math display">\[
+\mathbb{E}(X) = \int_0^{+\infty} x\, f_X(x)\,dx
+= \int_0^{a} x\, f_X(x)\,dx + \int_a^{\infty} x\, f_X(x)\,dx
+\ge \int_a^{\infty} x\, f_X(x)\,dx
+\ge a \int_a^{\infty} f_X(x)\,dx
+= a\, P(X \ge a).
+\]</span></p>
+</div>
+<div class="proof remark">
+<p><span class="proof-title"><em>Remark</em>. </span></p>
+<ul>
+<li><span class="math inline">\(+\)</span> : almost always works (<span class="math inline">\(X\)</span> non-negative).</li>
+<li><span class="math inline">\(-\)</span> : the bound is weak (not precise).</li>
+</ul>
+<p><strong>Power trick <span class="math inline">\(\to\)</span> sharper bound:</strong> <span class="math display">\[
+P(X^r \ge a^r) \le \frac{\mathbb{E}(X^r)}{a^r}
+\qquad (\text{assuming the } r\text{-th moment } \mathbb{E}(X^r) \text{ exists}).
+\]</span></p>
+</div>
+</section>
+<section id="chebyshevs-inequality" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="chebyshevs-inequality"><span class="header-section-number">8.3</span> Chebyshev’s Inequality</h2>
+<div id="thm-chebyshev" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 8.2 (Chebyshev’s inequality)</strong></span> Let <span class="math inline">\(X\)</span> be a random variable. Then for all <span class="math inline">\(c &gt; 0\)</span>, <span class="math display">\[
+P\big(|X - \mathbb{E}(X)| \ge c\big) \le \frac{\operatorname{Var}(X)}{c^2}.
+\]</span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Apply the power trick of Markov’s inequality: <span class="math display">\[
+P\big(|X - \mathbb{E}(X)| \ge c\big)
+= P\big(|X - \mathbb{E}(X)|^2 \ge c^2\big)
+\le \frac{\mathbb{E}\big[(X - \mathbb{E}(X))^2\big]}{c^2}
+= \frac{\operatorname{Var}(X)}{c^2}.
+\]</span></p>
+</div>
+</section>
+<section id="master-tail-bound" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="master-tail-bound"><span class="header-section-number">8.4</span> Master Tail Bound</h2>
+<div id="thm-master-tail" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 8.3 (Master tail bound)</strong></span> Let <span class="math inline">\(X = X_1 + X_2 + \cdots + X_n\)</span>, where <span class="math inline">\(X_1, \dots, X_n\)</span> are i.i.d. and</p>
+<ul>
+<li><span class="math inline">\(\mathbb{E}(X_i) = 0\)</span>,</li>
+<li><span class="math inline">\(\mathbb{E}(X_i^2) \le \sigma^2\)</span>,</li>
+<li><span class="math inline">\(\big|\mathbb{E}(X_i^s)\big| \le \sigma^2\, s!\)</span> for <span class="math inline">\(s = 3, 4, \dots, \big\lfloor \tfrac{a^2}{4n\sigma^2}\big\rfloor\)</span>.</li>
+</ul>
+<p>Then, for <span class="math inline">\(0 \le a \le \sqrt{2}\, n\sigma^2\)</span>, <span class="math display">\[
+P(|X| \ge a) \le 3\, e^{-\frac{a^2}{12 n \sigma^2}}.
+\]</span></p>
+</div>
+<!-- [unclear: on this page the moment bound was written with an ambiguous
+exponent on $\sigma$ (looked like $\sigma^s s!$); transcribed as $\sigma^2 s!$
+to match step (3) of the proof sketch below, where $\mathbb{E}(X_i^{r_i}) \le
+r_i!\,\sigma^2$, and the standard statement of this bound.] -->
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span><strong>(Sketch — the full proof is deferred to an appendix.)</strong></p>
+<p><strong>(1)</strong> Choose <span class="math inline">\(r\)</span> an even integer such that <span class="math inline">\(0 &lt; r \le s\)</span>. Then <span class="math display">\[
+P(|X| \ge a) = P(X^r \ge a^r) \le \frac{\mathbb{E}(X^r)}{a^r}.
+\]</span></p>
+<p><strong>(2)</strong> By the multinomial theorem and independence, <span class="math display">\[
+\mathbb{E}(X^r) = \mathbb{E}\Big[(X_1 + \cdots + X_n)^r\Big]
+= \sum_{\substack{r_1 + \cdots + r_n = r \\ r_i \ge 0}} \frac{r!}{r_1!\, r_2! \cdots r_n!}\, \mathbb{E}\big(X_1^{r_1} \cdots X_n^{r_n}\big)
+= \sum_{\substack{r_1 + \cdots + r_n = r \\ r_i \ge 0}} \frac{r!}{r_1! \cdots r_n!}\, \prod_i \mathbb{E}\big(X_i^{r_i}\big).
+\]</span></p>
+<p><strong>(3)</strong> Since <span class="math inline">\(\mathbb{E}(X_i) = 0\)</span>, <span class="math inline">\(\mathbb{E}(X_i^2) \le \sigma^2 \le 2\sigma^2\)</span>, and <span class="math inline">\(\mathbb{E}(X_i^{r_i}) \le r_i!\, \sigma^2\)</span>, any term with some <span class="math inline">\(r_i = 1\)</span> vanishes, so the sum is restricted to indices with <span class="math inline">\(r_i = 0\)</span> or <span class="math inline">\(r_i \ge 2\)</span>. Let <span class="math inline">\(t = \#\{i : r_i \neq 0\}\)</span>; then <span class="math display">\[
+1 \le t \le \tfrac{r}{2} \qquad (\text{each non-zero } r_i \text{ is at least } 2).
+\]</span></p>
+<p><strong>(4)</strong> Enumerate the multi-indices by <span class="math inline">\(t\)</span>: for a fixed <span class="math inline">\(t\)</span> there are <span class="math inline">\(\binom{n}{t}\)</span> ways to choose which <span class="math inline">\(r_i\)</span> are non-zero, and (after that choice) <span class="math inline">\(\binom{r-t-1}{t-1}\)</span> ways to distribute the remaining mass. <!-- [unclear: the second binomial coefficient's indices were hard to read;
+transcribed as $\binom{r-t-1}{t-1}$ from "$C^{t-1}_{r-2t+t-1}$". The
+accompanying "balls into bins" argument — give each of the $t$ non-zero
+$r_i$ two units first, then distribute the remaining $r-2t$ arbitrarily via an
+insertion/stars-and-bars count — is legible; the exact index bookkeeping is
+not fully.] --></p>
+<p><strong>(5)</strong> Hence, with <span class="math inline">\(\sigma^{2t}\)</span> from the moment bounds, <span class="math display">\[
+\mathbb{E}(X^r) \le r! \sum_{t=1}^{r/2} \binom{n}{t}\binom{r-t-1}{t-1} \sigma^{2t},
+\qquad \text{using } \binom{n}{t} \le \frac{n^t}{t!}, \quad \binom{r-t-1}{t-1} \le 2^{\,r-t-1}.
+\]</span></p>
+<p><strong>(6)</strong> This leads to <span class="math display">\[
+\mathbb{E}(X^r) \le \Big(\frac{2\, r\, n\, \sigma^2}{a^2}\Big)^{r/2} =: g(r),
+\]</span> <!-- [unclear: the intermediate bounding of $r!\sum_t h(t)$ (a term-ratio
+argument $h(t)/h(t+1) \ge 2$, and the range constraints $r \le s \le \lfloor
+a^2/(4n\sigma^2)\rfloor$, $a \le \sqrt{2}n\sigma^2$) was written densely and
+is only partially legible; the resulting bound $g(r)$ is legible.] --> and <span class="math inline">\(g(r)\)</span> decreases while <span class="math inline">\(r - 1 \le \tfrac{a^2}{4n\sigma^2}\)</span>. Choosing <span class="math inline">\(r\)</span> to be the largest even integer with <span class="math inline">\(r \le \tfrac{a^2}{6 n \sigma^2}\)</span> gives <span class="math display">\[
+P(|X| \ge a) \le \big(\tfrac{1}{3}\big)^{r/2} \le e^{-r/2} \le e \cdot e^{-\frac{a^2}{12 n \sigma^2}} \le 3\, e^{-\frac{a^2}{12 n \sigma^2}}.
+\]</span></p>
+</div>
+<div class="proof remark">
+<p><span class="proof-title"><em>Remark</em>. </span>The master tail bound is a general probability tail bound for a sum of i.i.d. random variables that gives tighter concentration than the CLT. Tail bounds for various distributions can be derived from it.</p>
+</div>
+</section>
+<section id="chernoff-bound" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="chernoff-bound"><span class="header-section-number">8.5</span> Chernoff Bound</h2>
+<div id="exm-chernoff" class="theorem example">
+<p><span class="theorem-title"><strong>Example 8.1 (Chernoff bound (i.i.d. Bernoulli))</strong></span> Let <span class="math inline">\(Y_1, \dots, Y_n \overset{\text{iid}}{\sim} \mathrm{Bernoulli}(p)\)</span>, i.e.&nbsp;<span class="math inline">\(Y_i = \begin{cases} 1, &amp; p \\ 0, &amp; 1-p \end{cases}\)</span>, and let <span class="math inline">\(Y = Y_1 + \cdots + Y_n\)</span>. Then for all <span class="math inline">\(c \in [0,1]\)</span>, <span class="math display">\[
+P\Big[\,\big|\tfrac{Y}{n} - p\big| \ge \sqrt{2}\, c\, p(1-p)\,\Big] \le 3\, e^{-\frac{n\, c^2\, p(1-p)}{6}}.
+\]</span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Apply the master tail bound to <span class="math inline">\(X_i = Y_i - p\)</span>, so <span class="math inline">\(\mathbb{E}(X_i) = 0\)</span> and <span class="math display">\[
+\mathbb{E}(X_i^2) = \mathbb{E}\big((Y_i - p)^2\big) = \mathbb{E}(Y_i^2) + p^2 - 2p\,\mathbb{E}(Y_i) = \mathbb{E}(Y_i^2) - \mathbb{E}(Y_i)^2 = \operatorname{Var}(Y_i),
+\]</span> <span class="math display">\[
+\big|\mathbb{E}(X_i^s)\big| = \big|\, p(1-p)^s + (1-p)(-p)^s \,\big| \le p(1-p) = \operatorname{Var}(Y_i).
+\]</span> <!-- [unclear: the manuscript writes the last line with "=" rather than
+"$\le$" ($|\mathbb{E}(X_i^s)| = p(1-p)$); as a bound on the $s$-th moment this
+should read $\le$. Left flagged.] --> The Chernoff bound is then obtained directly from the master tail bound with <span class="math inline">\(a = n\sqrt{2}\, c\, p(1-p)\)</span>. <!-- [the exponent numerator $n c^2 p(1-p)$ was hard to read, but is consistent
+with substituting $a = n\sqrt{2}\,c\,p(1-p)$ and $\sigma^2 = p(1-p)$ into
+$a^2/(12 n \sigma^2)$.] --></p>
+</div>
+</section>
+<section id="concentration-via-the-moment-generating-function" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="concentration-via-the-moment-generating-function"><span class="header-section-number">8.6</span> Concentration via the Moment Generating Function</h2>
+<p>Instead of applying Markov’s inequality to <span class="math inline">\(|X|^r\)</span>, apply it to <span class="math inline">\(e^{\lambda X}\)</span>: <span class="math display">\[
+P(X \ge t) = P\big(e^{\lambda X} \ge e^{\lambda t}\big) \le \frac{\mathbb{E}[e^{\lambda X}]}{e^{\lambda t}}, \qquad \forall\, \lambda &gt; 0
+\;\;\Longrightarrow\;\;
+P(X \ge t) \le \inf_{\lambda &gt; 0} e^{-\lambda t}\, \mathbb{E}[e^{\lambda X}],
+\]</span> noting that <span class="math inline">\(\mathbb{E}[e^{\lambda X}]\)</span> is the moment generating function (MGF).</p>
+<div id="thm-gaussian-tail" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 8.4 (Tail bound for a Gaussian)</strong></span> For <span class="math inline">\(X \sim N(0, \sigma^2)\)</span>, <span class="math inline">\(\mathbb{E}(e^{\lambda X}) = e^{\frac{1}{2}\sigma^2 \lambda^2}\)</span>, hence <span class="math display">\[
+P(X \ge t) \le \inf_{\lambda &gt; 0} e^{-\lambda t}\, e^{\frac{1}{2}\sigma^2 \lambda^2} = e^{-\frac{t^2}{2\sigma^2}}.
+\]</span></p>
+</div>
+</section>
+<section id="hoeffdings-inequality" class="level2" data-number="8.7">
+<h2 data-number="8.7" class="anchored" data-anchor-id="hoeffdings-inequality"><span class="header-section-number">8.7</span> Hoeffding’s Inequality</h2>
+<div id="thm-hoeffding" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 8.5 (Hoeffding’s theorem)</strong></span> Let <span class="math inline">\(X_i\)</span> be independent random variables with <span class="math inline">\(X_i \in [a_i, b_i]\)</span> almost surely, and let <span class="math inline">\(Y = \sum_i X_i\)</span>. Then for all <span class="math inline">\(t \ge 0\)</span>, <span class="math display">\[
+P\big(|Y - \mathbb{E}(Y)| \ge t\big) \le 2\, e^{-\frac{2 t^2}{\sum_i (b_i - a_i)^2}}.
+\]</span></p>
+</div>
+<div id="lem-hoeffding" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 8.1 (Hoeffding’s lemma)</strong></span> If <span class="math inline">\(X\)</span> is a bounded random variable with <span class="math inline">\(X \in [a, b]\)</span> almost surely, then <span class="math display">\[
+\mathbb{E}\big(e^{\lambda(X - \mathbb{E}(X))}\big) \le e^{\frac{1}{2}\left(\frac{b-a}{2}\right)^2 \lambda^2} = e^{\frac{\lambda^2 (b-a)^2}{8}}.
+\]</span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span><strong>Hoeffding’s theorem.</strong> Use the Markov tail bound for the exponential: <span class="math display">\[
+P\Big(\sum_i X_i - \mathbb{E}(X_i) \ge t\Big) \le e^{-\lambda t}\, \mathbb{E}\Big(e^{\lambda\left(\sum_i X_i - \mathbb{E}(X_i)\right)}\Big)
+= e^{-\lambda t} \prod_i \mathbb{E}\big(e^{\lambda(X_i - \mathbb{E}(X_i))}\big).
+\]</span> By Hoeffding’s lemma (<a href="#lem-hoeffding" class="quarto-xref">Lemma&nbsp;<span>8.1</span></a>), <span class="math inline">\(\mathbb{E}\big(e^{\lambda(X_i - \mathbb{E}(X_i))}\big) \le e^{\frac{1}{2}\frac{(b_i - a_i)^2}{4}\lambda^2}\)</span>, and minimizing the resulting exponent over <span class="math inline">\(\lambda\)</span> gives <span class="math display">\[
+P\Big(\sum_i X_i - \mathbb{E}(X_i) \ge t\Big) \le e^{-\frac{2 t^2}{\sum_i (b_i - a_i)^2}}.
+\]</span> The same argument applied to <span class="math inline">\(-X_i\)</span> shows <span class="math inline">\(P\big(\sum_i X_i - \mathbb{E}(X_i) \le -t\big)\)</span> obeys the same bound, so <span class="math display">\[
+P\Big(\big|\textstyle\sum_i X_i - \mathbb{E}(X_i)\big| \ge t\Big) \le 2\, e^{-\frac{2 t^2}{\sum_i (b_i - a_i)^2}}.
+\]</span></p>
+</div>
+</section>
+<section id="chi2-tail-bound" class="level2" data-number="8.8">
+<h2 data-number="8.8" class="anchored" data-anchor-id="chi2-tail-bound"><span class="header-section-number">8.8</span> <span class="math inline">\(\chi^2\)</span> Tail Bound</h2>
+<div id="thm-chi2-tail" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 8.6 (<span class="math inline">\(\chi^2\)</span> tail bound)</strong></span> Let <span class="math inline">\(Z_i \overset{\text{iid}}{\sim} N(0,1)\)</span> and <span class="math inline">\(X = \sum_i Z_i^2 \sim \chi^2(n)\)</span>, so <span class="math inline">\(\mathbb{E}(X) = n\)</span>. Then for all <span class="math inline">\(t \ge 0\)</span>, <span class="math display">\[
+P\big(|X - \mathbb{E}(X)| \ge t\big) \le 2\exp\!\Big[-c \min\big(t, \tfrac{t^2}{n}\big)\Big].
+\]</span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Upper tail: with <span class="math inline">\(\lambda \in (0, \tfrac12)\)</span>, <span class="math display">\[
+P\big(X - \mathbb{E}(X) \ge t\big) \le e^{-\lambda t}\, e^{-n\lambda}\, \mathbb{E}\big(e^{\lambda \sum_i Z_i^2}\big)
+= e^{-\lambda t}\, e^{-n\lambda} \prod_i \mathbb{E}\big(e^{\lambda Z_i^2}\big),
+\]</span> where <span class="math inline">\(\mathbb{E}(e^{\lambda Z_i^2})\)</span> is the MGF of <span class="math inline">\(\chi^2(1)\)</span>, equal to <span class="math inline">\((1 - 2\lambda)^{-1/2}\)</span>. Thus <span class="math display">\[
+P\big(X - \mathbb{E}(X) \ge t\big) \le e^{-\lambda t}\big(1 - 2\lambda\big)^{-n/2} e^{-n\lambda}
+= e^{-\lambda t}\Big(\underbrace{e^{-\lambda}(1 - 2\lambda)^{-1/2}}\Big)^{n}
+\le e^{-\lambda t + 2 n \lambda^2}, \qquad \forall\, \lambda \in (0, \tfrac14),
+\]</span> <!-- [unclear: the justification for $e^{-\lambda}(1-2\lambda)^{-1/2} \le
+e^{2\lambda^2}$ on $\lambda\in(0,1/4)$ was written in the margin and is only
+partially legible.] --> so that <span class="math display">\[
+\min_{\lambda \in (0, 1/4)} e^{-\lambda t + 2 n \lambda^2} = \exp\!\Big(-c \min\big(t, \tfrac{t^2}{n}\big)\Big)
+\;\Longrightarrow\;
+P\big(X - \mathbb{E}(X) \ge t\big) \le \exp\!\Big(-c \min\big(t, \tfrac{t^2}{n}\big)\Big).
+\]</span> Lower tail: similarly, <span class="math display">\[
+P\big(X - n \le -t\big) = P\big(-(X - n) \ge t\big) \le e^{-\lambda t}\, e^{n\lambda}\, \mathbb{E}\big(e^{-\lambda X}\big)
+= e^{-\lambda t}\, e^{n\lambda}(1 + 2\lambda)^{-n/2}
+\le e^{-\lambda t}\, e^{n \lambda^2}, \quad \forall\, \lambda &gt; 0,
+\]</span> which gives <span class="math inline">\(P(X - n \le -t) \le e^{-\frac{t^2}{4n}}\)</span>. <!-- [unclear: the lower-tail algebra (the step to $e^{-\lambda t + n\lambda^2}$
+and the final exponent $\tfrac{t^2}{4n}$) was compressed and partly illegible;
+transcribed as read.] --> Combining the two tails, <span class="math display">\[
+P\big(|X - \mathbb{E}(X)| \ge t\big) \le 2\exp\!\Big(-c \min\big(t, \tfrac{t^2}{n}\big)\Big).
+\]</span></p>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zhang-xiaoru\.github\.io\/roadmap2Q");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../numerical-optimization/penalty.html" class="pagination-link" aria-label="Penalty Methods">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Penalty Methods</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../ml-ds/highDimData.html" class="pagination-link" aria-label="Properties of High Dimensional Data">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Properties of High Dimensional Data</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+    <footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/blob/main/ml-ds/probRecap.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/zhang-xiaoru/roadmap2Q/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><script type="text/javascript">
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let pseudocodeOptions = {
+          indentSize: el.dataset.indentSize,
+          commentDelimiter: el.dataset.commentDelimiter,
+          lineNumber: el.dataset.lineNumber.toLowerCase() === "true",
+          lineNumberPunc: el.dataset.lineNumberPunc,
+          noEnd: el.dataset.noEnd.toLowerCase() === "true",
+          titlePrefix: el.dataset.captionPrefix
+        };
+        pseudocode.renderElement(el.querySelector(".pseudocode"), pseudocodeOptions);
+      });
+    })(document);
+    (function(d) {
+      d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+        let captionSpan = el.querySelector(".ps-root > .ps-algorithm > .ps-line > .ps-keyword")
+        if (captionSpan !== null) {
+          let captionPrefix = el.dataset.captionPrefix + " ";
+          let captionNumber = "";
+          if (el.dataset.pseudocodeNumber) {
+            captionNumber = el.dataset.pseudocodeNumber + " ";
+            if (el.dataset.chapterLevel) {
+              captionNumber = el.dataset.chapterLevel + "." + captionNumber;
+            }
+          }
+          captionSpan.innerHTML = captionPrefix + captionNumber;
+        }
+      });
+    })(document);
+    </script>
+  
+
+
+
+
+</body></html>
